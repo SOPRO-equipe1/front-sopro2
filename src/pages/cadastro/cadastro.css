@@ -1,0 +1,148 @@
+.cadastro-page {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 5%;
+  background-color: var(--cor-branco);
+}
+
+.cadastro-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+.cadastro-form-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 580px;
+}
+
+.cadastro-logo {
+  height: 60px;
+  object-fit: contain;
+  align-self: flex-start;
+}
+
+.cadastro-title {
+  font-family: var(--fonte-titulos);
+  font-weight: 800;
+  font-size: clamp(28px, 3vw, 36px);
+  color: var(--cor-preto);
+  line-height: 1.2;
+}
+
+.cadastro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cadastro-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  font-family: var(--fonte-corpo);
+  font-size: 16px;
+  color: var(--cor-preto);
+  background-color: var(--cor-branco);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.cadastro-input::placeholder {
+  color: #9ca3af;
+}
+
+.cadastro-input:focus {
+  border-color: var(--cor-azul);
+}
+
+.cadastro-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  border-radius: 10px;
+  background-color: var(--cor-laranja);
+  color: var(--cor-branco);
+  border: none;
+  cursor: pointer;
+  font-family: var(--fonte-corpo);
+  font-weight: 600;
+  transition: opacity 0.2s, transform 0.2s;
+  margin-top: 4px;
+}
+
+.cadastro-btn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+.cadastro-login {
+  font-size: 16px;
+  color: var(--cor-preto);
+  text-align: center;
+}
+
+.cadastro-login a {
+  color: var(--cor-azul);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cadastro-login a:hover {
+  text-decoration: underline;
+}
+
+.cadastro-image-col {
+  flex: 1;
+  max-width: 460px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 0; /* reseta margem padrão do <figure> */
+}
+
+.cadastro-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
+
+/* Acessibilidade: esconde labels visualmente mas mantém para leitores de tela */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  .cadastro-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cadastro-image-col {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .cadastro-form-col {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,77 @@
+.section5{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: 64px 0px;
+}
+
+.textosSection5{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.botoes{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+.contato{
+    position: relative;
+    border: none;
+    appearance: none;
+    padding: 8px 28px;
+    font-family: Poppins;
+    font-style: normal;
+    font-size: 20px;
+    color: #FFF;
+    background: #e96a16;
+    width: 200px;
+    border-radius: 16px;
+}
+
+.contato:hover{
+    transform: scale(1.05)
+}
+
+.contato:active{
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.produtos{
+    position: relative;
+    border: none;
+    appearance: none;
+    padding: 8px 28px;
+    font-family: Poppins;
+    font-style: normal;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1D252A;
+    background: #FFF;
+    width: 200px;
+    border-radius: 16px;
+    border: 2px solid #1D252A;
+}
+
+.produtos:hover{
+    transform: scale(1.05)
+}
+
+.produtos:active{
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);    
+}
+
+.imgSection5{
+    margin-top: 60px;
+    width: 100%;
+}

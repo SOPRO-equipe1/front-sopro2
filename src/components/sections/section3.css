@@ -1,0 +1,88 @@
+.section3{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 80px;
+    align-items: center;
+    gap: 64px;
+    width: 100%;
+}
+
+.textos_section3{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    font-weight: 500;
+    line-height: normal;
+    gap: 50px;
+}
+
+.produtoTitulo{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.produtoeicone{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.produtoeicone h3{
+    position: relative;
+    color: #394852;
+    font-family: Poppins;
+    font-size: 24px;
+}
+
+.sensiveleaprende{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sensivel{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+.aprende{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+.saibaMaisLaranja{
+    position: relative;
+    color: #FFF;
+    width: 230px;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    background: #E86B15;
+    padding: 8px 32px;
+    border: none;
+    appearance: none;
+    border-radius: 16px;
+}
+
+.saibaMaisLaranja:hover{
+    transform: scale(1.05);
+}
+
+.saibaMaisLaranja:active{
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}

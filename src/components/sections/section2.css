@@ -1,0 +1,84 @@
+.titulo_section2{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: #1d252a;
+    text-align: center;
+    margin-top: 64px;
+}
+
+.titulo_section2 h3{
+    position: relative;
+    color: #394852;
+    font-family: Poppins;
+    font-size: 24px;
+}
+
+.descricao_capacidades{
+    position: relative;
+    max-width: 600px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.section2{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    gap: 80px;
+    justify-content: space-between;
+    margin: 48px auto;
+    width: 100%;
+}
+
+.controle{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    text-align: center;
+    gap: 16px;
+    line-height: normal;
+    justify-content: center;
+}
+
+.imgMulher{
+    width: 450px;
+    height: 350px;
+}
+
+.integracao{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    text-align: center;
+    gap: 16px;
+    line-height: normal;
+}
+
+.imgIA{
+    width: 450px;
+    height: 350px;
+}
+
+.design{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    text-align: center;
+    gap: 16px;
+    line-height: normal;
+}
+
+.imgProduto{
+    width: 450px;
+    height: 350px;
+}

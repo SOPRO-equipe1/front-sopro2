@@ -1,0 +1,115 @@
+
+.container_chatbot_sessao2{
+    display: flex;
+    /*height: 550px;*/
+    max-width: calc(100vh - 150px);
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+    padding: 0 0px 0px 0px; /*Por algum motivo quando remove isso o soprinho quebra*/
+}
+
+.mensagens {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    gap: 12px;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 15px 15px 15px 15px;
+}
+
+.icone_sessao2 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 10px;
+}
+
+.icone_sessao2 img {
+    width: 35px;
+    height: 35px;
+}
+
+.icone_sessao2 p {
+    background-color: #f0f0f0;
+    border-radius: 0px 15px 15px 15px;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+.mensagem_do_usuario {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 0 10px;
+    align-items: flex-end;
+    flex-direction: row;
+}
+
+.mensagem_do_usuario p {
+    background-color: #1545D8;
+    color: white;
+    border-radius: 15px 15px 0px 15px;
+    padding: 10px 15px;
+    font-size: 14px;
+    width: 65%;
+}
+
+.mensagens_soprinho {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    padding-right: 40px;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.mensagens_soprinho img {
+    width: 35px;
+    height: 35px;
+}
+
+.mensagens_soprinho p {
+    background-color: #f0f0f0;
+    border-radius: 0px 15px 15px 15px;
+    padding: 10px 15px;
+    font-size: 14px;
+    max-width: 70%;
+}
+
+.input_soprinho{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    gap: 10px;
+    border-top: 1px solid #e0e0e0;
+    box-shadow: 0px 0px 2px rgba(0 , 15, 15, 0.15);
+    flex-shrink: 0;
+}
+
+.input_soprinho input{
+    flex:1;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 10px 40px;
+    font-size: 18px;
+    gap: 10px;
+    outline: none;
+    border-top: 1px solid #e0e0e0 ;
+     flex-shrink: 0;
+}
+
+.botao_enviar{
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color:#007bff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+}

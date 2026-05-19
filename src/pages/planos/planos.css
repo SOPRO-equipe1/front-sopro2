@@ -1,0 +1,238 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+
+.pagina-planos {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container-hero {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.conteudo-hero {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.imagem-hero {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.cartao-hero {
+  position: absolute;
+  right: 5%;
+  background: linear-gradient(135deg, #3b59ba 0%, #2544a5 100%);
+  color: white;
+  padding: 40px;
+  border-radius: 25px;
+  width: 40%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.titulo-hero {
+  font-family: 'Montserrat';
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.divisor-hero {
+  width: 60%;
+  border: none;
+  border-top: 3px solid white;
+  margin: 20px auto;
+}
+
+.subtitulo-hero {
+    font-family: 'Poppins';
+}
+
+/* ESTILOS DA SEÇÃO DE PREÇOS */
+.secao-precos {
+  padding: 80px 20px;
+  background-color: #fcfcfc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grade-precos {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}
+
+.cartao-preco {
+  background: #fff;
+  font-family: 'Montserrat';
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 360px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.cartao-preco.destaque {
+  border: 2px solid #f2741f;
+  transform: scale(1.03);
+}
+
+.etiqueta-recomendado {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #f2741f;
+  color: white;
+  padding: 10px;
+  border-radius: 18px 18px 0 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.nome-plano {
+  font-size: 1.3rem;
+  margin: 20px 0 10px;
+  color: #222;
+}
+
+.valor-preco {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+}
+
+.lista-beneficios {
+  list-style: none;
+  text-align: left;
+  flex-grow: 1;
+  margin-bottom: 30px;
+}
+
+.lista-beneficios li {
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  display: flex;
+}
+
+.marcador { 
+    margin-right: 10px;
+     font-weight: bold; 
+    }
+
+.marcador.azul { 
+    color: #1d4ed8;
+    font-family: 'Montserrat';
+    font-weight: 300;
+ }
+
+ .marcador.azul img {
+  width: 2rem;
+ }
+.marcador.laranja { 
+    color: #f2741f;
+ }
+
+ .marcador.laranja img {
+  width: 2rem;
+ }
+
+.botao-assinar {
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.botao-assinar.azul { background: #1d4ed8; }
+.botao-assinar.laranja { background: #f2741f; }
+
+.botao-comprar-dispositivo {
+  font-family: 'Montserrat';
+  background: #f2741f;
+  color: white;
+  border: none;
+  padding: 18px 50px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 50px;
+}
+
+/* Efeito base para todos os botões de assinar e comprar */
+.botao-assinar, .botao-comprar-dispositivo {
+  transition: all 0.3s ease; /* Faz a mudança de cor e tamanho ser suave */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.botao-assinar:hover, .botao-comprar-dispositivo:hover {
+  transform: translateY(-3px); /* Faz o botão subir levemente */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra mais forte */
+  filter: brightness(1.1); /* Deixa a cor levemente mais clara */
+}
+
+/* Efeito ao clicar (Active) */
+.botao-assinar:active, .botao-comprar-dispositivo:active {
+  transform: translateY(-1px); /* O botão "baixa" um pouco ao ser pressionado */
+  filter: brightness(0.9); /* Escurece levemente no clique */
+}
+
+@keyframes pulsar {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Pausa a animação quando o mouse está em cima para não atrapalhar o clique */
+.cartao-preco.destaque .botao-assinar:hover {
+  animation-play-state: paused;
+}
+
+.lista-beneficios li:hover .marcador {
+  transform: scale(1.2);
+  transition: transform 0.2s ease;
+  display: inline-block; /* Garante que o scale funcione no span */
+}
+
+@media (max-width: 1024px) {
+  .cartao-hero {
+    width: 20rem;
+    height: 21rem;
+    font-size: 1rem;
+   
+  }
+  
+  .titulo-hero {
+    font-size: 1.8rem; /* Diminui a fonte no celular */
+    
+    
+  }
+}

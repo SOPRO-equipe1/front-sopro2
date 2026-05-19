@@ -1,0 +1,99 @@
+.section4{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 80px;
+    align-items: center;
+    color: #1D252A;
+    gap: 100px;
+}
+
+.autonomiaTitulo{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.autonomia{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    gap: 8px;
+}
+
+.inclusaoTitulo{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.inclusao{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inovacao{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inovacaoTitulo{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.textos_section4{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 550px;
+}
+
+.linhaRoxaDIV{
+    display: flex;
+    justify-content: space-around;
+}
+
+.linhaAzulDIV{
+    display: flex;
+    justify-content: space-around;
+}
+
+.saibaMais2{
+    position: relative;
+    color: #FFF;
+    width: 230px;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    background: #e96a16;
+    padding: 8px 32px;
+    border: none;
+    appearance: none;
+    border-radius: 16px;
+}
+
+.saibaMais2:hover{
+    transform: scale(1.05);
+}
+
+.saibaMais2:active{
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}

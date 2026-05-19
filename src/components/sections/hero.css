@@ -1,0 +1,51 @@
+.hero{
+    position: relative;
+    width: 100%;
+    height: 940px;
+    background-image: url('../../../assets/images/home/imgSection1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 80px;
+    align-items: center;
+}
+
+.titulo_hero{
+    display: flex;
+    position: relative;
+    width: 550px;
+    height: 650px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(232, 107, 21, 0.70);
+    text-align: center;
+    color: #FAFCFF;
+    gap: 40px;
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    
+}
+
+.saibaMaisHero{
+    background-color: #FFF;
+    display: flex;
+    padding: 12px 40px;
+    border-radius: 16px;
+    font-family: inherit;
+    appearance: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1D252A;
+}
+
+.saibaMaisHero:hover{
+    transform: scale(1.05);
+}
+
+.saibaMaisHero:active{
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,94 @@
+.section6{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 950px;
+    gap: 16px;
+    text-align: center;
+    padding: 0 80px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fiquePorDentro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.inscricao{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+}
+
+.email{
+    position: relative;
+    padding: 10px 420px 10px 16px;
+    border-radius: 8px;
+    appearance: none;
+    border: 2px solid #1D252A;
+    box-sizing: border-box;
+    height: 40px;
+}
+
+.email::placeholder{
+    font-family: poppins;
+    color: #1D252A;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+}
+
+.inscreverBotao{
+    position: relative;
+    appearance: none;
+    border: none;
+    color: #FFF;
+    background: #9333EA;
+    padding: 10px 24px;
+    border-radius: 8px;
+    height: 40px;
+    font-family: poppins;
+    font-size: 16px;
+    align-items: center;
+}
+
+.inscreverBotao:hover{
+    transform: scale(1.05)
+}
+
+.inscreverBotao:active{
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.explorar{
+    position: relative;
+    color: #FFF;
+    font-family: poppins;
+    font-size: 18px;
+    font-style: normal;
+    line-height: normal;
+    padding: 8px 32px;
+    background: #F97316;
+    appearance: none;
+    border: none;
+    border-radius: 16px;
+    margin-top: 40px;
+    margin-bottom: 64px;
+}
+
+.explorar:hover{
+    transform: scale(1.05);
+}
+
+.explorar:active{
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
