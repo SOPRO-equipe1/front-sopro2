@@ -1,5 +1,6 @@
 import './Hero.css';
-import linhaBranca from '../../assets/icons/linhaBranca.svg'
+import linhaBranca from '../../assets/icons/linhaBranca.svg';
+import imgHero from '../../assets/images/home/imgSection1.png';
 
 const Hero = () =>{
     return(
