@@ -1,5 +1,14 @@
+// src/pages/cadastro/cadastro.jsx
+
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
+import { auth } from '../../context/auth/firebase';
 import './cadastro.css';
+import '../../context/auth/auth-extras.css';
 import imagemCadastro from '../../assets/images/cadastro/imgCadastre-se.png';
 import logo from '../../assets/icons/logo.png';
 
@@ -8,10 +17,54 @@ const Cadastro = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [erro, setErro] = useState('');
+  const [carregando, setCarregando] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const traduzirErro = (code) => {
+    const erros = {
+      'auth/email-already-in-use': 'Este e-mail já está cadastrado.',
+      'auth/invalid-email': 'E-mail inválido.',
+      'auth/weak-password': 'A senha deve ter pelo menos 6 caracteres.',
+      'auth/too-many-requests': 'Muitas tentativas. Tente novamente mais tarde.',
+    };
+    return erros[code] || 'Ocorreu um erro. Tente novamente.';
+  };
+
+  const validar = () => {
+    if (!nome.trim()) return 'Preencha seu nome.';
+    if (!email.trim()) return 'Preencha seu e-mail.';
+    if (senha.length < 6) return 'A senha deve ter pelo menos 6 caracteres.';
+    if (senha !== confirmarSenha) return 'As senhas não coincidem.';
+    return null;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Cadastro:', { nome, email, senha, confirmarSenha });
+    setErro('');
+
+    const erroValidacao = validar();
+    if (erroValidacao) {
+      setErro(erroValidacao);
+      return;
+    }
+
+    setCarregando(true);
+    try {
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email.trim(),
+        senha
+      );
+
+      await updateProfile(user, { displayName: nome.trim() });
+
+      navigate('/');
+    } catch (err) {
+      setErro(traduzirErro(err.code));
+    } finally {
+      setCarregando(false);
+    }
   };
 
   return (
@@ -24,7 +77,13 @@ const Cadastro = () => {
             <h1 className="cadastro-title">Crie sua conta</h1>
           </header>
 
-          <form className="cadastro-form" onSubmit={handleSubmit}>
+          <form className="cadastro-form" onSubmit={handleSubmit} noValidate>
+            {erro && (
+              <p className="cadastro-erro" role="alert">
+                {erro}
+              </p>
+            )}
+
             <label htmlFor="nome" className="visually-hidden">Nome</label>
             <input
               id="nome"
@@ -34,6 +93,7 @@ const Cadastro = () => {
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               autoComplete="name"
+              disabled={carregando}
             />
 
             <label htmlFor="email" className="visually-hidden">E-mail</label>
@@ -45,6 +105,7 @@ const Cadastro = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
+              disabled={carregando}
             />
 
             <label htmlFor="senha" className="visually-hidden">Senha</label>
@@ -56,6 +117,7 @@ const Cadastro = () => {
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               autoComplete="new-password"
+              disabled={carregando}
             />
 
             <label htmlFor="confirmarSenha" className="visually-hidden">Confirmar senha</label>
@@ -67,9 +129,16 @@ const Cadastro = () => {
               value={confirmarSenha}
               onChange={(e) => setConfirmarSenha(e.target.value)}
               autoComplete="new-password"
+              disabled={carregando}
             />
 
-            <button type="submit" className="cadastro-btn">Cadastrar</button>
+            <button
+              type="submit"
+              className="cadastro-btn"
+              disabled={carregando}
+            >
+              {carregando ? 'Cadastrando...' : 'Cadastrar'}
+            </button>
           </form>
 
           <p className="cadastro-login">

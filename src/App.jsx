@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/layout/header/header';
 import Footer from './components/layout/footer/footer';
 import Home from './pages/home/home.jsx';
+import SobreNos from './pages/sobrenos/sobre-nos.jsx';
+import Compra from './pages/compra/compra.jsx';
 import Suporte from './pages/suporte/suporte.jsx';
 import LoginPage from './pages/login/login.jsx';
 import Cadastro from './pages/cadastro/cadastro.jsx';

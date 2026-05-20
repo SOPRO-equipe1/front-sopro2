@@ -1,0 +1,293 @@
+body {
+  background-color: #FAFCFF;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  padding: 20px 15px; 
+  margin: 0;
+}
+
+.Voltar { 
+  font-size: 155%;
+  font-weight: bold;
+  padding-left: 0; 
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.Produto-Container {
+  display: flex;
+  flex-direction: column; 
+  gap: 3rem; 
+  max-width: 1200px;
+  margin: 0 auto;
+  height: auto;
+}
+
+.Coluna-Fotos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  width: 100%; 
+}
+
+.Foto-Principal {
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.Produto2 { 
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.Produto2 img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+ 
+
+/*Descrição*/
+
+.Coluna-Detalhes {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-top: 0;
+}
+
+.description {
+  width: 100%;
+}
+
+.Titulo {
+  font-size: 240%;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  text-align: center;
+}
+
+.Descrição {
+  font-size: 105%;
+  color: #000000;
+  line-height: 1.5;
+  max-width: 700px;
+  margin: 0 auto 25px auto;
+  text-align: center;
+}
+
+.Preço {
+  font-size: 260%;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.linha1 {
+  width: 70%;
+  background-color: #250fe2;
+  height: 3px;
+  border: none;
+  margin: 0 auto 25px auto !important;
+
+}
+
+/* Paleta de cores */
+.Name {
+  font-size: 180%;
+  font-weight: 700; 
+  margin: 0 0 15px 0;
+  align-self: flex-start;
+  font-size: 190%;
+}
+
+.Paletadecores {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 15px; 
+  margin-bottom: 35px;
+  align-self: center;
+  width: 100%;
+  max-width: 550px;
+}
+
+.card-cor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 40%;
+  font-weight: 500;
+  gap: 2px;
+  margin-left: -20px;
+}
+
+.Paletadecores .card-cor > div {
+ width: 100%; 
+  max-width: 120px; 
+  height: 38px;        
+  border-radius: 8px;   
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.card-cor:hover > div {
+  transform: translateY(-5px); 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.30);
+}
+
+.Branco   { background-color: #ffffff; border: 1px solid #484848; }
+.Preto    { background-color: #1e293b; border: 1px solid #484848; }
+.Vermelho { background-color: #FF0000; border: 1px solid #484848; }
+.Roxo     { background-color: #9333EA; border: 1px solid #484848; }
+.Laranja  { background-color: #F97316; border: 1px solid #484848; }
+.Azul     { background-color: #1545D8; border: 1px solid #484848; }
+.Rosa     { background-color: #FF0099; border: 1px solid #484848; }
+.Verde    { background-color: #00FF09; border: 1px solid #484848; }
+
+/* Quantidade */
+.card-quantidade {
+  display: flex;
+  flex-direction: row;           
+  align-items: center;           
+  justify-content: space-between; 
+  width: 100%;
+  max-width: 450px;              
+  align-self: center; 
+  margin: 0 0 35px 0;            
+}
+
+.container-quantidade {
+  margin: 0;
+}
+
+.NameQ {
+  font-weight: 700;
+  font-size: 180%;
+  margin: 0;
+  margin-left: -20px;
+}
+
+.seletorempílula {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 190px;        
+  height: 45px;        
+  border: 4px solid #cbd5e1; 
+  background-color: #ffffff;
+  border-radius: 100px; 
+  padding: 0 25px;
+  margin-right: -50px;
+}
+
+.botao-menos, .botao-mais {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.numero-whitespace, .numero-quantidade {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Pagamento */
+.FormasDePagamento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.Bandeiras {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  align-items: center;
+  gap: 20px; 
+}
+
+.FormasDePagamento img {
+  height: 60px;
+  width: auto;
+}
+
+.botao-comprar {
+  width: 100%;
+  max-width: 240px;
+  background: linear-gradient(135deg, #ff7a00 0%, #ff5500 100%);
+  color: white;
+  border: none;
+  padding: 16px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 18px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
+  transition: transform 0.2s;
+  margin-bottom: 70px;
+}
+
+.botao-comprar:hover {
+  transform: scale(1.02);
+}
+
+/* MEDIA QUERY (DESKTOP) */
+@media (min-width: 900px) {
+  body {
+    padding: 20px 55px;
+  }
+
+  .Voltar {
+    padding-left: 110px;
+  }
+
+  .Produto-Container {
+    flex-direction: row; 
+    align-items: flex-start;
+    gap: 10rem;
+  }
+
+  .Coluna-Detalhes {
+    margin-top: -50px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .Descrição {
+    margin: 0 0 25px 0;
+  }
+
+  .linha1 {
+    margin: 0 0 25px 0;
+  }
+
+  .Paletadecores {
+    align-self: flex-start;
+    gap: 49px; 
+  }
+
+  .card-quantidade {
+    align-self: flex-start;
+  }
+}

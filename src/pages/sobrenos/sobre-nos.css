@@ -1,0 +1,355 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden; 
+  width: 100%;
+}
+
+/*Parte de cima*/
+.sobre-container {
+  position: relative;
+  width: 100%;
+}
+
+.Img1 {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.QuadradoVerde1 {
+  position: absolute;
+  top: 50%; 
+  left: 9%;
+  width: 40%;
+  height: auto; 
+  max-height: 45%; 
+  background-color: rgba(48, 189, 48, 0.8); 
+  border-radius: 15px;
+  padding: 2vw; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  box-sizing: border-box;
+}
+
+.hV1 {
+  color: rgb(255, 255, 255);
+  font-size: clamp(1.2rem, 2.5vw, 2.2rem); 
+  text-align: center;
+  margin: 0;
+}
+
+hr {
+  width: 40%;
+  height: 1px;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  margin: 1vw auto; 
+}
+
+.pV1 {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-size: clamp(0.85rem, 1.6vw, 1.4rem); 
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+
+
+@media (max-width: 768px) {
+  .QuadradoVerde1 {
+    width: 85%; 
+    left: 7.5%;   
+    top: 15%; 
+    max-height: 70%; 
+    padding: 15px; 
+  }
+  
+  .hV1 {
+    font-size: clamp(1.1rem, 4.5vw, 1.6rem);
+  }
+  
+  .pV1 {
+    font-size: clamp(0.8rem, 3.5vw, 1.1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .QuadradoVerde1 {
+    top: 10%;
+    max-height: 80%;
+    padding: 10px;
+  }
+}
+
+/*Seção: Nossa visão*/
+.Seção2{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  margin-top: 5%;
+  padding: 0 20px; 
+}
+
+.Texto2 {
+  display: flex;
+  flex-wrap: wrap;       
+  align-items: center;    
+  flex: 1;
+  min-width: 280px;
+}
+
+.IconAzul {
+  width: 35px;
+  height: auto;
+  margin-right: 15px;     
+}
+
+.Texto2 h2 {
+  font-size: 1.8rem;
+  margin: 0;              
+}
+
+.Texto2 p {
+  width: 90%;            
+  margin-top: 15px;  
+  font-size: 150%;
+  font-weight: 550;   
+  margin-left: 4%; 
+}
+
+@media (max-width: 768px) {
+  .Texto2 p {
+    font-size: 120%; 
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.Img2 {
+  flex: 1;
+  width: 100%;
+  max-width: 600px;
+  order: 2; 
+  height: auto;
+}
+
+/*Seção 3*/
+.RetanguloAzul {
+    background-color: rgb(0, 0, 190);
+    width: 100%;
+    padding: 60px 20px; 
+    position: relative;
+    margin: 0 auto;   
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-top: 5%;
+}
+
+.RetanguloAzul h3 {
+    color: #ffffff; 
+    font-size: 32px;
+    margin-bottom: 40px; 
+    font-weight: bold;
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 30px; 
+}
+
+.CardsMVV {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 35px 25px;
+    width: 100%; 
+    max-width: 320px; 
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.CardsMVV img {
+    width: 45px; 
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.CardsMVV h4 {
+    font-size: 22px;
+    color: #000000;
+    margin: 10px 0;
+}
+
+.CardsMVV p {
+    font-size: 15px;
+    color: #333333;
+    line-height: 1.5;
+}
+
+/*Seção 4*/
+.ParteEquipe img {
+    text-align: center;
+    display: block;
+    margin: 2% auto 0 auto;
+}
+
+.ParteEquipe h4 {
+    font-size: 190%;
+    margin-bottom: 2px;
+    font-weight: bold;
+    text-align: center;
+    margin: 4%;
+}
+
+.secaocards {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.containercards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, auto);
+    gap: 24px; 
+    width: 100%;
+    max-width: 1100px; 
+}
+
+[class^="card-"], [class^="card-L"] {
+    position: relative; 
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: flex-start; 
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 16px; 
+    padding: 24px;
+    gap: 20px; 
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.fotoperfil {
+    width: 90px;  
+    height: 90px;
+    border-radius: 50%; 
+    border: 2px solid #000000; 
+    overflow: hidden;
+    flex-shrink: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fotoperfil img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.conteudoperfil {
+    display: flex;
+    flex-direction: column;    
+    align-items: flex-start;   
+    text-align: left;          
+    width: 100%;
+    padding-bottom: 20px; 
+}
+
+.conteudoperfil h3 {
+    font-size: 135%;
+    font-weight: bold;
+    color: #111111;
+    margin: 9px 0px 4px 0px ; 
+}
+
+.conteudoperfil p {
+    font-size: 90%;
+    color: #444444;
+    line-height: 1.5;
+    max-width: 100%; 
+    font-weight: 550;
+    margin: 0px 0px 16px 0px ; 
+}
+
+.card-redes-perfil {
+    display: flex;
+    gap: 12px;
+    position: absolute;
+    bottom: 12px;
+    right: 15px;
+}
+
+.card-redes-perfil a {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+.card-redes-perfil img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Cores dos Cards */
+.card-laranja, .card-Laranja { border-color: #E86B15; background-color: #FFF4EB; }
+.card-azul, .card-Azul { border-color: #1545D8; background-color: #EEF2FF; }
+.card-roxo { border-color: #9333EA; background-color: #F5F0FF; }
+.card-verde { border-color: #30BD30; background-color: #F0FDF4; }
+
+
+@media (max-width: 768px) {
+    .containercards {
+        grid-template-columns: 1fr; 
+        grid-template-rows: auto;
+    }
+
+    
+    [class^="card-"], [class^="card-L"] {
+        flex-direction: row; 
+        padding: 16px; 
+        gap: 15px;
+    }
+
+    .fotoperfil {
+        width: 70px; 
+        height: 70px;
+    }
+
+    .conteudoperfil h3 { font-size: 115%; }
+    .conteudoperfil p { font-size: 85%; }
+}
+
+@media (max-width: 380px) {
+    [class^="card-"], [class^="card-L"] {
+        padding: 10px;
+        gap: 10px;
+    }
+    .fotoperfil {
+        width: 55px;
+        height: 55px;
+    }
+}
