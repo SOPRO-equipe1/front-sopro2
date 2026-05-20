@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import icone2 from '../../../assets/images/Chatbot/icone_soprinho.svg';
-import './Soprinho2.css';
-import enviar from '../../../assets/images/Chatbot/icone_enviar.svg';
+import icone2 from '../../../assets/images/chatbot/icone_soprinho.svg';
+import './soprinho2.css';
+import enviar from '../../../assets/images/chatbot/icone_enviar.svg';
 
 function Soprinho2({ perguntaInicial }) {
     const [mensagens, setMensagens] = useState([

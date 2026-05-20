@@ -1,10 +1,10 @@
-import icone from '../../../assets/images/Chatbot/icone_soprinho.svg';
-import logo from '../../../assets/images/Chatbot/logo_sopro.svg';
-import fechar from '../../../assets/images/Chatbot/botao_fechar.svg';
-import './Soprinho.css';
-import enviar from '../../../assets/images/Chatbot/icone_enviar.svg';
+import icone from '../../../assets/images/chatbot/icone_soprinho.svg';
+import logo from '../../../assets/images/chatbot/logo_sopro.svg';
+import fechar from '../../../assets/images/chatbot/botao_fechar.svg';
+import './soprinho.css';
+import enviar from '../../../assets/images/chatbot/icone_enviar.svg';
 import { useState } from 'react';
-import Chat from './Soprinho2';
+import Chat from './soprinho2';
 
 function Soprinho() {
     const [tela, setTela] = useState('inicial');
