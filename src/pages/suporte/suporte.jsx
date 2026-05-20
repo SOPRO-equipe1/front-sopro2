@@ -1,5 +1,5 @@
 import React, { useState } from 'react'; // Adicionado useState para funcionalidade
-import './Suporte.css';
+import './suporte.css';
 
 import imgSuporteTecnico from '../../assets/images/suporte/imgSuporteTecnico.png';
 import iconSeta from '../../assets/icons/Vector.png'; 

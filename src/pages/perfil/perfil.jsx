@@ -1,4 +1,4 @@
-import '../Perfil/perfil.css';
+import '../perfil/perfil.css';
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
 import SoprinhoImg from '../../assets/images/perfil/soprinho_perfil.svg';

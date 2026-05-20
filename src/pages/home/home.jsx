@@ -1,4 +1,4 @@
-import './Home.css'
+import './home.css'
 import Hero from '../../components/sections/hero.jsx';
 import Section2 from '../../components/sections/section2.jsx'
 import Section3 from '../../components/sections/section3.jsx'
