@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/layout/Header/Header';
-import Footer from './components/layout/Footer/Footer';
+import Header from './components/layout/Header/header.jsx';
+import Footer from './components/layout/Footer/footer.jsx';
 import Home from './pages/Home/Home.jsx';
-import Suporte from './pages/Suporte/Suporte';
-import LoginPage from './pages/login/login';
-import Cadastro from './pages/cadastro/cadastro';
+import Suporte from './pages/Suporte/suporte.jsx';
+import LoginPage from './pages/login/login.jsx';
+import Cadastro from './pages/cadastro/cadastro.jsx';
 import Checkout from './pages/checkout/Checkout.jsx';
 import Planos from './pages/planos/planos.jsx';
 import Produto from './pages/Produto/produto.jsx';
