@@ -7,7 +7,7 @@ import LoginPage from './pages/login/login.jsx';
 import Cadastro from './pages/cadastro/cadastro.jsx';
 import Checkout from './pages/checkout/checkout.jsx';
 import Planos from './pages/planos/planos.jsx';
-import Produto from './pages/Produto/produto.jsx';
+import Produto from './pages/produto/produto.jsx';
 import Perfil from './pages/perfil/perfil.jsx';
 import Dicionario from './pages/dicionario/dicionario.jsx';
 // Verifique se está com as maiúsculas exatas das pastas e do arquivo:
