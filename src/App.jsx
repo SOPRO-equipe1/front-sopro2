@@ -1,24 +1,24 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/layout/Header/header.jsx';
-import Footer from './components/layout/Footer/footer.jsx';
-import Home from './pages/Home/Home.jsx';
-import Suporte from './pages/Suporte/suporte.jsx';
+import Header from './components/layout/header/header';
+import Footer from './components/layout/footer/footer';
+import Home from './pages/home/home.jsx';
+import Suporte from './pages/suporte/suporte.jsx';
 import LoginPage from './pages/login/login.jsx';
 import Cadastro from './pages/cadastro/cadastro.jsx';
-import Checkout from './pages/checkout/Checkout.jsx';
+import Checkout from './pages/checkout/checkout.jsx';
 import Planos from './pages/planos/planos.jsx';
-import Produto from './pages/Produto/produto.jsx';
+import Produto from './pages/produto/produto.jsx';
 import Perfil from './pages/perfil/perfil.jsx';
-import Dicionario from './pages/Dicionario/dicionario';
+import Dicionario from './pages/dicionario/dicionario.jsx';
 // Verifique se está com as maiúsculas exatas das pastas e do arquivo:
-import Soprinho2 from './components/layout/Chatbot/Soprinho2';
+import Soprinho2 from './components/layout/chatbot/soprinho2.jsx';
 
 // Contexto e Toolbar de Acessibilidade
-import { AccessibilityProvider } from './context/AccessibilityContext';
-import AccessibilityToolbar from './components/AccessibilityToolbar/AccessibilityToolbar';
+import { AccessibilityProvider } from './context/AccessibilityContext.jsx';
+import AccessibilityToolbar from './components/AccessibilityToolbar/AccessibilityToolbar.jsx';
 
 // IMPORTAR O SOPRINHO (Verifique se o caminho está certo conforme sua pasta)
-import Soprinho from './components/layout/Chatbot/Soprinho';
+import Soprinho from './components/layout/chatbot/soprinho.jsx';
 
 function App() {
   return (
