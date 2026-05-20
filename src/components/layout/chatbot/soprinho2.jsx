@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import icone2 from '../../../assets/images/Chatbot/icone_soprinho.svg';
-import '../../../components/layout/Chatbot/Soprinho2.css';
+import './Soprinho2.css';
 import enviar from '../../../assets/images/Chatbot/icone_enviar.svg';
 
 function Soprinho2({ perguntaInicial }) {

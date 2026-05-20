@@ -11,14 +11,14 @@ import Produto from './pages/produto/produto.jsx';
 import Perfil from './pages/perfil/perfil.jsx';
 import Dicionario from './pages/dicionario/dicionario.jsx';
 // Verifique se está com as maiúsculas exatas das pastas e do arquivo:
-import Soprinho2 from './components/layout/Chatbot/soprinho2.jsx';
+import Soprinho2 from './components/layout/chatbot/soprinho2.jsx';
 
 // Contexto e Toolbar de Acessibilidade
 import { AccessibilityProvider } from './context/AccessibilityContext.jsx';
 import AccessibilityToolbar from './components/AccessibilityToolbar/AccessibilityToolbar.jsx';
 
 // IMPORTAR O SOPRINHO (Verifique se o caminho está certo conforme sua pasta)
-import Soprinho from './components/layout/Chatbot/soprinho.jsx';
+import Soprinho from './components/layout/chatbot/soprinho.jsx';
 
 function App() {
   return (
