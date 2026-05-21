@@ -9,7 +9,7 @@ import caminhaoAzul from "../../assets/icons/caminhaoAzul.svg";
 import mais from "../../assets/icons/mais.svg";
 import menos from "../../assets/icons/menos.svg";
 import circuloSelecionado from "../../assets/icons/circuloSelecionadoLaranja.svg";
-
+import imgProduto from "../../assets/images/compra/imgCompra1.png";
 
 const Checkout = () => {
   const [planoSelecionado, setPlanoSelecionado] = useState("dispositivo");

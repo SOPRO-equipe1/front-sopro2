@@ -25,7 +25,7 @@ import Bruno from "../../assets/imagesReadme/Bruno.png"
 import Rubens from "../../assets/imagesReadme/Rubens.png"
 
 
-import './sobrenos.css';
+import './sobre-nos.css';
 import React from 'react'; 
 
 function SobreNos () {
@@ -86,7 +86,7 @@ return (
   <h4>Conheça Nossa Equipe</h4>
 
   <div className="FotoEquipe">
-    <img src={conheçaequipe} alt="Foto da equipe com fundo decorativo" />
+    <img src={conhecaequipe} alt="Foto da equipe com fundo decorativo" />
   </div>
 </div>
 
@@ -160,7 +160,7 @@ return (
 
 <div className="card-azul">
       <div className="fotoperfil">
-        <img src={João} alt="João Victor Brito" />
+        <img src={Joao} alt="João Victor Brito" />
       </div>
 
       <div className="conteudoperfil">

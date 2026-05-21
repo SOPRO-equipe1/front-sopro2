@@ -4,6 +4,7 @@ import Footer from './components/layout/footer/footer';
 import Home from './pages/home/home.jsx';
 import SobreNos from './pages/sobrenos/sobre-nos.jsx';
 import Compra from './pages/compra/compra.jsx';
+import PedidoConfirmado from './pages/pedidoconfirmado/pedido_confirmado.jsx';
 import Suporte from './pages/suporte/suporte.jsx';
 import LoginPage from './pages/login/login.jsx';
 import Cadastro from './pages/cadastro/cadastro.jsx';
@@ -40,6 +41,9 @@ function App() {
               <Route path='/checkout' element={<Checkout />} />
               <Route path='/perfil' element={<Perfil/>} />
               <Route path="/dicionario" element={<Dicionario />} />
+              <Route path="/sobrenos" element={<SobreNos />} />
+              <Route path="/compra" element={<Compra />} />
+              <Route path="/pedidoconfirmado" element={<PedidoConfirmado />} />
             </Routes>
           </main>
 

@@ -1,4 +1,4 @@
-import './pedidoConfirmado.css';
+import './pedido_confirmado.css';
 import verificadoLaranja from '../../assets/icons/verificadoLaranja.svg'; // O selo laranja lá no topo
 import dispositivoAzul from '../../assets/icons/dispositivoAzul.svg'; // O ícone azul do dispositivo
 import caminhaoAzul from '../../assets/icons/caminhaoAzul.svg'; 

@@ -37,6 +37,8 @@
 
 /* Card de Resumo */
 .card-resumo {
+    display: flex;
+    flex-direction: column;
     background: white;
     border: 1px solid #d1d5db;
     border-radius: 20px;
@@ -44,21 +46,28 @@
     max-width: 600px;
     overflow: hidden;
     margin-bottom: 20px;
+    padding: 0;
 }
 
 .resumo-header {
     display: flex;
     justify-content: space-between;
     padding: 15px 25px;
+     background-color: #fff3e0;
     border-bottom: 2px solid #f27420; /* Linha laranja */
+    align-items: center;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
 }
 
 .label-resumo { color: #f27420; font-weight: 600; }
 .numero-pedido { 
-    border: 1px solid #000; 
+    border: 1.5px solid #d1d5db; 
     border-radius: 20px; 
-    padding: 2px 15px; 
+    padding: 5px 15px; 
     font-size: 0.9rem;
+    background: white;
+    color: #1D252A;
 }
 
 .item-pedido {
@@ -66,20 +75,25 @@
     justify-content: space-between;
     align-items: center;
     padding: 25px;
+    width: 100%;
 }
 
 .item-info { display: flex; align-items: center; gap: 15px; }
 .icone-azul-bg {
+    display: flex; 
+    align-items: center;
     background: #e0f2fe;
     padding: 10px;
     border-radius: 8px;
 }
 
 .total-pedido {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 20px 25px;
     border-top: 1px solid #e5e7eb;
+    align-items: center;
 }
 
 /* Info Entrega */
