@@ -1,4 +1,4 @@
-import './Section4.css'
+import './section4.css'
 import imgSection4 from '../../assets/images/home/imgSection4.png'
 import alvoLaranja from '../../assets/icons/alvoLaranja.svg'
 import maoVerde from '../../assets/icons/mãoVerde.svg'

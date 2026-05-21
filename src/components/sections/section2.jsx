@@ -1,4 +1,4 @@
-import './Section2.css'
+import './section2.css'
 import lampadaAzul from '../../assets/icons/lampadaAzul.svg'
 import img1 from '../../assets/images/home/imgMoçaSection2.png'
 import img2 from '../../assets/images/home/imgProcessadorIaSection2.png'

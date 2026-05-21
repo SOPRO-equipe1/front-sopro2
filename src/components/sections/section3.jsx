@@ -1,4 +1,4 @@
-import './Section3.css'
+import './section3.css'
 import raioLaranja from '../../assets/icons/raioLaranja.svg'
 import arAzul from '../../assets/icons/arAzul.svg'
 import reloadVerde from '../../assets/icons/reloadVerde.svg'
