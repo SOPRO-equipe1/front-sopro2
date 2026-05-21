@@ -1,4 +1,4 @@
-import './Hero.css';
+import './hero.css';
 import linhaBranca from '../../assets/icons/linhaBranca.svg';
 import imgHero from '../../assets/images/home/imgSection1.png';
 

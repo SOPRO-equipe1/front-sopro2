@@ -1,4 +1,4 @@
-import './Section6.css'
+import './section6.css'
 import sinoVerde from '../../assets/icons/sinoVerde.svg'
 
 const Section6 = () =>{

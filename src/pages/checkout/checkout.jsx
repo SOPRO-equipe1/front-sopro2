@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Checkout.css";
+import "./checkout.css";
 import carrinhoDeCompra from "../../assets/icons/carrinhoDeCompra.svg";
 import cartaoCredito from "../../assets/icons/cartaoCredito.svg";
 import codigoBarras from "../../assets/icons/codigoBarras.svg";

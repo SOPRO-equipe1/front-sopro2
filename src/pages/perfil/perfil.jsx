@@ -1,6 +1,6 @@
 import '../perfil/perfil.css';
-import Header from '../../components/layout/Header/Header';
-import Footer from '../../components/layout/Footer/Footer';
+import Header from '../../components/layout/header/Header';
+import Footer from '../../components/layout/footer/Footer';
 import SoprinhoImg from '../../assets/images/perfil/soprinho_perfil.svg';
 import Iconecaminhao from '../../assets/images/perfil/icone_caminhao_perfil.svg';
 import Iconesclamacao from '../../assets/images/perfil/icone_esclamacao_perfil.svg';
