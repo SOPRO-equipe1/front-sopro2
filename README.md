@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="/imagesReadme/logo (1).png" alt="SOPRO Logo" width="180">
+<img src="https://github.com/SOPRO-equipe1/.github/blob/main/profile/logo.png" alt="SOPRO Logo" width="180">
 
 # Interface
 ### *Sua voz, seu sopro.*
