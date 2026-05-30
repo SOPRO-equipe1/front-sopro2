@@ -11,6 +11,8 @@ import coracaoRoxo from "../../assets/icons/coracaoRoxo.svg";
 import escudoVerde from "../../assets/icons/escudoVerde.svg";
 /*Icons Cards*/
 import redessociais from "../../assets/images/sobre-nos/redessociais.png";
+import github from "../../assets/icons/icon_github.svg";
+import linkedin from "../../assets/icons/icon_linkedin.svg";
 /*Verde e Azul Parte da equipe*/
 import conhecaequipe from "../../assets/images/sobre-nos/conhecaequipe.png"
 /*Integrantes coluna 1*/
@@ -103,7 +105,13 @@ return (
       <div className="conteudoperfil">
         <h3>Jaiane Soares</h3>
         <p>Product Owner, Desenvolvedora Full Stack & IA</p>
-
+        <div className="conteiner-icone">
+          <a href="https://github.com/jaiane-soares" target="_blank" rel="noreferrer">
+        <img src={github} alt="icone do github" />
+        </a>
+        <a href="https://www.linkedin.com/in/jaiane-d-5897802b5/" target="_blank" rel="noreferrer"></a>
+        <img src={linkedin} alt="icone do linkedlin" />
+        </div>
         <div className="card-redes-perfil">
           
         </div>
@@ -119,7 +127,13 @@ return (
       <div className="conteudoperfil">
         <h3>Gabriel Conceição</h3>
         <p>Scrum Master & Desenvolvedor Back End</p>
-
+        <div className="conteiner-icone">
+        <a href="https://github.com/Gabriel-Silva-Tech" target="_blank" rel="noreferrer">
+        <img src={github} alt="icone do github"  />
+        </a> 
+        <a href="https://linkedin.jaianecom/in/" target="_blank" rel="noreferrer"></a>
+        <img src={linkedin} alt="icone do linkedlin" />
+        </div>
         <div className="card-redes-perfil">
           
         </div>
@@ -135,7 +149,13 @@ return (
       <div className="conteudoperfil">
         <h3>Iasmin Lopes</h3>
         <p>Gestão financeira, Desenvolvedora Front End & Hardware</p>
-
+        <div className="conteiner-icone">
+        <a href="https://github.com/IasminMoreira" target="_blank" rel="noreferrer">
+        <img src={github} alt="icone do github" /> 
+        </a>
+        <a href="https://linkedin.com/in/jaiane" target="_blank" rel="noreferrer"></a>
+        <img src={linkedin} alt="icone do linkedlin" />
+        </div>
         <div className="card-redes-perfil">
           
         </div>
@@ -151,7 +171,13 @@ return (
       <div className="conteudoperfil">
         <h3>Filipe Apolinário</h3>
         <p>Marketing, Desenvolvedor Back End & IA</p>
-
+        <div className="conteiner-icone">
+        <a href="https://github.com/FilipeAp" target="_blank" rel="noreferrer">
+        <img src={github} alt="icone do github" /> 
+        </a>
+        <a href="https://linkedin.com/in/jaiane" target="_blank" rel="noreferrer"></a>
+        <img src={linkedin} alt="icone do linkedlin" />
+        </div>
         <div className="card-redes-perfil">
           
         </div>
@@ -166,6 +192,14 @@ return (
       <div className="conteudoperfil">
         <h3>João Victor Brito</h3>
         <p>Desenvolvedor Front End</p>
+        <div className="conteiner-icone">
+        <a href="https://github.com/araujobrito" target="_blank" rel="noreferrer">
+        <img src={github} alt="icone do github" /> 
+        </a>
+        <a href="https://www.linkedin.com/in/araujobrito/" target="_blank" rel="noopener noreferrer">
+        <img src={linkedin} alt="icone do linkedlin" />
+        </a>
+        </div>
 
         <div className="card-redes-perfil">
           
@@ -181,7 +215,13 @@ return (
       <div className="conteudoperfil">
         <h3>Bruno Souza</h3>
         <p>Hardware & Desenvolvedor Front End</p>
-
+        <div className="conteiner-icone">
+        <a href="https://github.com/brunoasouza15004-hash" target="_blank" rel="noreferrer">
+        <img src={github} alt="icone do github" /> 
+        </a>
+        <a href="https://linkedin.com/in/jaiane" target="_blank" rel="noreferrer"></a>
+        <img src={linkedin} alt="icone do linkedlin" />
+        </div>
         <div className="card-redes-perfil">
           
         </div>
@@ -196,7 +236,15 @@ return (
       <div className="conteudoperfil">
         <h3>Raquel Alves</h3>
         <p>Marketing, Designer & Desenvolvedora Front End  </p>
-
+        <div className="conteiner-icone">
+        <a href="https://github.com/raquelalve" target="_blank" rel="noreferrer">
+        <img src={github} alt="icone do github" /> 
+        </a>
+        <a href="https://www.linkedin.com/in/raquel-alves-044743385/" target="_blank" rel="noreferrer">
+        <img src={linkedin} alt="icone do linkedlin" />
+        </a>
+        </div>
+        
         <div className="card-redes-perfil">
           
         </div>
@@ -212,7 +260,13 @@ return (
       <div className="conteudoperfil">
         <h3>Rubens Silva</h3>
         <p>Designer UI/UX & Desenvolvedor Front End</p>
-
+        <div className="conteiner-icone">
+        <a href="https://github.com/rubsfrs" target="_blank" rel="noreferrer">
+        <img src={github} alt="icone do github" />
+        </a> 
+        <a href="" target="_blank" rel="noreferrer"></a>
+        <img src={linkedin} alt="icone do linkedlin" />
+        </div>
         <div className="card-redes-perfil">
           
         </div>

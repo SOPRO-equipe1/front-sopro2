@@ -313,6 +313,22 @@ hr {
     height: 100%;
     object-fit: contain;
 }
+.conteiner-icone{
+  display: flex;
+  justify-content:flex-end;
+  gap: 10px;
+  position: absolute;
+  bottom: 12px;
+  right: 15px;
+
+}
+.conteiner-icone a,
+.conteiner-icone a:hover,
+.conteiner-icone a:visited {
+  text-decoration: none !important;
+  line-height: 0;
+  display: inline-flex;
+}
 
 /* Cores dos Cards */
 .card-laranja, .card-Laranja { border-color: #E86B15; background-color: #FFF4EB; }
@@ -332,6 +348,7 @@ hr {
         flex-direction: row; 
         padding: 16px; 
         gap: 15px;
+       
     }
 
     .fotoperfil {
