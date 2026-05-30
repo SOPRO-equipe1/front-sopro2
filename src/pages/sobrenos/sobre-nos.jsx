@@ -240,7 +240,7 @@ return (
         <a href="https://github.com/raquelalve" target="_blank" rel="noreferrer">
         <img src={github} alt="icone do github" /> 
         </a>
-        <a href="https://www.linkedin.com/in/raquel-alves-044743385/" target="_blank" rel="noreferrer">
+        <a href="" target="_blank" rel="noreferrer">
         <img src={linkedin} alt="icone do linkedlin" />
         </a>
         </div>

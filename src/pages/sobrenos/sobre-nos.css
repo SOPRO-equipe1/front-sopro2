@@ -60,6 +60,13 @@ hr {
   line-height: 1.4;
 }
 
+.conteiner-icone a, 
+.conteiner-icone a img {
+    border: none !important;
+    outline: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
 
 
 @media (max-width: 768px) {

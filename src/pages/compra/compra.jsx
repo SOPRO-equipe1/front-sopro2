@@ -11,6 +11,8 @@ import iconMasterCard from "../../assets/images/compra/iconMasterCard.png"
 import iconPix from "../../assets/images/compra/iconPix.png"
 import iconPayPal from "../../assets/images/compra/iconPayPal.png"
 import iconVisa from "../../assets/images/compra/iconVisa.png"
+import { Link } from 'react-router-dom';
+
 
 function Compra() {
     return (
@@ -97,7 +99,9 @@ function Compra() {
         <img src={iconPayPal} alt="PayPal" />
         <img src={iconVisa} alt="Visa" />
       </div>
-      <button className="botao-comprar">COMPRAR</button>
+        <Link to="/cadastro">
+          <button className="botao-comprar">COMPRAR</button>
+      </Link>
     </div>
   </div>
 </section>

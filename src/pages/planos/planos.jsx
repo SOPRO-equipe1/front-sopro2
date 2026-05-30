@@ -3,7 +3,7 @@ import React from 'react';
 import heroImage from '../../assets/images/planos/imgPlanos.png';
 import verificadoAzul from './../../assets/icons/verificadoAzul.svg'
 import verificadoLaranja from './../../assets/icons/verificadoLaranja.svg'
-
+import { Link } from 'react-router-dom';
 
 function Planos() {
   return (
@@ -69,9 +69,11 @@ function Planos() {
 
         {/* Rodapé da seção de preços */}
         <div className="rodape-dispositivo">
+        <Link to="/compra">
           <button className="botao-comprar-dispositivo">
             COMPRAR APENAS O DISPOSITIVO
           </button>
+          </Link>
         </div>
       </section>
     </div>

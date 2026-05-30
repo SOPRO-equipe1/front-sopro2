@@ -10,6 +10,7 @@ import mais from "../../assets/icons/mais.svg";
 import menos from "../../assets/icons/menos.svg";
 import circuloSelecionado from "../../assets/icons/circuloSelecionadoLaranja.svg";
 import imgProduto from "../../assets/images/compra/imgCompra1.png";
+import { Link } from "react-router-dom";
 
 const Checkout = () => {
   const [planoSelecionado, setPlanoSelecionado] = useState("dispositivo");
@@ -246,11 +247,12 @@ const Checkout = () => {
                 <span>R$ {total}</span>
               </p>
             </section>
-
+            <Link to="/pedidoconfirmado">
             <button className="checkout-finalizar">
               <img src={carrinhoDeCompra} alt="" />
               FINALIZAR COMPRA
             </button>
+            </Link>
           </article>
         </aside>
       </section>

@@ -19,6 +19,7 @@ import escudoSauderoxo from '../../assets/icons/escudoSaudeRoxo.svg'
 import wifiLaranja from '../../assets/icons/wifiLaranja.svg'
 import bateriaAzul from '../../assets/icons/bateriaAzul.svg'
 
+import { Link } from 'react-router-dom';
 
 function Produto() { // 2. Cria a função (Componente)
   return (
@@ -77,7 +78,9 @@ function Produto() { // 2. Cria a função (Componente)
               <div className="compra-card">
                   <img src={fotoCompra} alt="Sopro na mão" className="foto-compra" />
                   <h2 className="preco">R$ 200,97 </h2>
-                  <button className="botao-comprar">COMPRAR</button>
+                  <Link to="/compra">
+                      <button className="botao-comprar">COMPRAR</button>
+                  </Link>
               </div>
           </section>
 
@@ -111,8 +114,9 @@ function Produto() { // 2. Cria a função (Componente)
                   <p>Material de grau médico, leve e ergonômico.</p>
                 </li>
               </ul>
-
-              <button className="botao-comprar-specs">COMPRAR</button>
+              <Link to="/compra">
+                    <button className="botao-comprar-specs">COMPRAR</button>
+              </Link>
             </div>
 
             <div className="specs-imagem">

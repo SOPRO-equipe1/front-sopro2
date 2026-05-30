@@ -1,7 +1,7 @@
 // src/pages/cadastro/cadastro.jsx
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Router, useNavigate } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword,
   updateProfile,
@@ -11,6 +11,8 @@ import './cadastro.css';
 import '../../context/auth/auth-extras.css';
 import imagemCadastro from '../../assets/images/cadastro/imgCadastre-se.png';
 import logo from '../../assets/icons/logo.png';
+import {Link} from 'react-router-dom';
+
 
 const Cadastro = () => {
   const [nome, setNome] = useState('');
@@ -131,14 +133,16 @@ const Cadastro = () => {
               autoComplete="new-password"
               disabled={carregando}
             />
-
+            <Link to="/checkout">
             <button
               type="submit"
               className="cadastro-btn"
               disabled={carregando}
             >
+          
               {carregando ? 'Cadastrando...' : 'Cadastrar'}
             </button>
+          </Link>
           </form>
 
           <p className="cadastro-login">

@@ -2,6 +2,7 @@ import './pedido_confirmado.css';
 import verificadoLaranja from '../../assets/icons/verificadoLaranja.svg'; // O selo laranja lá no topo
 import dispositivoAzul from '../../assets/icons/dispositivoAzul.svg'; // O ícone azul do dispositivo
 import caminhaoAzul from '../../assets/icons/caminhaoAzul.svg'; 
+import { Link } from 'react-router-dom';
 
 function PedidoConfirmado() {
   return (
@@ -49,12 +50,16 @@ function PedidoConfirmado() {
 
       {/* Botões de Ação */}
       <div className="botoes-acoes">
+        <Link to="/perfil">
         <button className="btn-acompanhar">
            🚚 Acompanhar Entrega
         </button>
+        </Link>
+        <Link to="/">
         <button className="btn-voltar">
            🏠 Voltar para a página inicial
         </button>
+        </Link>
       </div>
     </div>
   );

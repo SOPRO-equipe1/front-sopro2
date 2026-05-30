@@ -5,6 +5,8 @@ import logo from '../../assets/icons/logo.png';
 import logoGoogle from '../../assets/icons/logoGoogle.png';
 import logoApple from '../../assets/icons/logoApple.png';
 import logoFacebook from '../../assets/icons/logoFacebook.png';
+import { Link } from 'react-router-dom';
+
 
 const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -47,9 +49,9 @@ const Login = () => {
               onChange={(e) => setSenha(e.target.value)}
               autoComplete="current-password"
             />
-
-            <button type="submit" className="login-btn">Entrar</button>
-
+            <Link to="/">
+                <button type="submit" className="login-btn">Entrar</button>
+            </Link>
             <p className="login-cadastro">
               Não tem uma conta? <a href="/cadastro">Cadastre-se</a>
             </p>
