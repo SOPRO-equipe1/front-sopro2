@@ -1,88 +1,67 @@
-.section3{
+/* Estilos Base (Desktop) */
+.section3 {
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Lado a lado no desktop */
     justify-content: space-around;
     margin-top: 80px;
     align-items: center;
     gap: 64px;
-    width: 100%;
+    width: 90%; /* Adicionado para não encostar nas bordas */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.textos_section3{
-    position: relative;
+.textos_section3 {
     display: flex;
     flex-direction: column;
     max-width: 600px;
+    width: 100%;
     font-weight: 500;
-    line-height: normal;
     gap: 50px;
 }
 
-.produtoTitulo{
-    position: relative;
+.produtoTitulo, .produtoeicone, .sensiveleaprende, .sensivel, .aprende {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Padrão mobile-first para sub-elementos */
     gap: 16px;
 }
 
-.produtoeicone{
-    position: relative;
-    display: flex;
+/* Ajuste para garantir que ícones e textos fiquem lado a lado */
+.produtoeicone, .sensivel, .aprende {
     flex-direction: row;
-    gap: 10px;
-    align-items: center;
 }
 
-.produtoeicone h3{
-    position: relative;
-    color: #394852;
-    font-family: Poppins;
-    font-size: 24px;
-}
-
-.sensiveleaprende{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.sensivel{
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    align-items: center;
-}
-
-.aprende{
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    align-items: center;
-}
-
-.saibaMaisLaranja{
-    position: relative;
+.saibaMaisLaranja {
     color: #FFF;
-    width: 230px;
+    width: 100%; /* Em mobile ocupa mais espaço */
+    max-width: 230px; /* Limite de largura para desktop */
     text-align: center;
     font-family: Poppins;
     font-size: 20px;
-    font-style: normal;
     background: #E86B15;
-    padding: 8px 32px;
+    padding: 12px 32px;
     border: none;
-    appearance: none;
     border-radius: 16px;
+    transition: transform 0.2s ease;
 }
 
-.saibaMaisLaranja:hover{
-    transform: scale(1.05);
-}
+/* --- RESPONSIVIDADE PARA CELULARES --- */
+@media (max-width: 768px) {
+    .section3 {
+        flex-direction: column; /* Empilha os blocos */
+        gap: 40px;
+        margin-top: 40px;
+        text-align: center;
+    }
 
-.saibaMaisLaranja:active{
-    filter: brightness(0.9);
-    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+    .textos_section3 {
+        align-items: center; /* Centraliza o conteúdo no mobile */
+        gap: 30px;
+    }
+
+    /* Centraliza os itens com ícones no mobile */
+    .produtoeicone, .sensivel, .aprende {
+        justify-content: center;
+    }
 }

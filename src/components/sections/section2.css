@@ -1,4 +1,5 @@
-.titulo_section2{
+/* Estilos Base (Desktop/Default) */
+.titulo_section2 {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -9,76 +10,57 @@
     margin-top: 64px;
 }
 
-.titulo_section2 h3{
-    position: relative;
+.titulo_section2 h3 {
     color: #394852;
     font-family: Poppins;
     font-size: 24px;
 }
 
-.descricao_capacidades{
-    position: relative;
+.descricao_capacidades {
     max-width: 600px;
+    padding: 0 20px; /* Garante um respiro nas laterais em telas pequenas */
     text-align: center;
     font-weight: 500;
 }
 
-.section2{
-    position: relative;
+.section2 {
     display: flex;
-    flex-direction: row;
-    align-items: top;
+    flex-direction: row; /* Colunas lado a lado no desktop */
+    align-items: flex-start;
     gap: 80px;
-    justify-content: space-between;
+    justify-content: center; /* Centralizado */
     margin: 48px auto;
-    width: 100%;
+    width: 90%; /* Melhor usar 90% para não colar nas bordas */
+    flex-wrap: wrap; /* Permite que os itens quebrem linha se necessário */
 }
 
-.controle{
-    position: relative;
+/* Classes dos containers */
+.controle, .integracao, .design {
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 400px;
     text-align: center;
     gap: 16px;
-    line-height: normal;
-    justify-content: center;
 }
 
-.imgMulher{
-    width: 450px;
-    height: 350px;
+/* Imagens Responsivas */
+.imgMulher, .imgIA, .imgProduto {
+    width: 100%; /* A imagem ocupa no máximo o container pai */
+    max-width: 450px;
+    height: auto; /* Mantém a proporção original */
+    object-fit: cover;
 }
 
-.integracao{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 400px;
-    text-align: center;
-    gap: 16px;
-    line-height: normal;
-}
+/* --- RESPONSIVIDADE PARA CELULARES --- */
+@media (max-width: 768px) {
+    .section2 {
+        flex-direction: column; /* Muda para um abaixo do outro */
+        gap: 40px; /* Reduz o espaçamento entre os blocos */
+        margin: 32px auto;
+    }
 
-.imgIA{
-    width: 450px;
-    height: 350px;
-}
-
-.design{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 400px;
-    text-align: center;
-    gap: 16px;
-    line-height: normal;
-}
-
-.imgProduto{
-    width: 450px;
-    height: 350px;
+    .titulo_section2 {
+        margin-top: 32px;
+    }
 }
