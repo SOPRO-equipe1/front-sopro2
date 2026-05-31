@@ -52,12 +52,15 @@ const Login = () => {
             <Link to="/">
                 <button type="submit" className="login-btn">Entrar</button>
             </Link>
-            <p className="login-cadastro">
-              Não tem uma conta? <a href="/cadastro">Cadastre-se</a>
-            </p>
+
+            <Link to="/cadastro">
+              <p className="login-cadastro">
+                   Não tem uma conta? <a href="/cadastro">Cadastre-se</a>
+              </p>
+            </Link>
           </form>
 
-          <hr className="login-divider" aria-label="ou" />
+         
           <p className="login-divider-label">Entrar com outros</p>
 
           <nav className="login-social" aria-label="Login social">

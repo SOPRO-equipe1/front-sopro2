@@ -29,6 +29,8 @@
     height: 60px;
     object-fit: contain;
     align-self: flex-start;
+    margin-bottom: 50px;
+    margin-left: 21px;
 }
 
 .login-title {
@@ -43,6 +45,10 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.login-form a {
+  text-decoration: none !important;
 }
 
 .login-input {
@@ -195,8 +201,12 @@
 
 .login-cadastro a {
     color: var(--cor-azul);
-    text-decoration: none;
     font-weight: 700;
+}
+
+a.login-cadastro,
+a:has(.login-cadastro) {
+  text-decoration: none !important;
 }
 
 .login-cadastro a:hover {
