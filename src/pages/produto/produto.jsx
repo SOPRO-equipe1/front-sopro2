@@ -11,13 +11,13 @@ import escudoRoxo from '../../assets/icons/escudoRoxo.svg';
 import porquinhoLaranja from '../../assets/icons/porquinhoLaranja.svg';
 import verificadoAzul from '../../assets/icons/verificadoAzul.svg';
 import fotoCompra from '../../assets/images/produto/fotoCompra.png';
-import linhaAzul from '../../assets/icons/linhaAzul.svg'
-import fotoTecnica from '../../assets/images/produto/fotoTecnica.png'
-import chipRoxo from '../../assets/icons/chipRoxo.svg'
-import sensorVerde from '../../assets/icons/sensorVerde.svg'
-import escudoSauderoxo from '../../assets/icons/escudoSaudeRoxo.svg'
-import wifiLaranja from '../../assets/icons/wifiLaranja.svg'
-import bateriaAzul from '../../assets/icons/bateriaAzul.svg'
+import linhaAzul from '../../assets/icons/linhaAzul.svg';
+import fotoTecnica from '../../assets/images/produto/fotoTecnica.png';
+import chipRoxo from '../../assets/icons/chipRoxo.svg';
+import sensorVerde from '../../assets/icons/sensorVerde.svg';
+import escudoSauderoxo from '../../assets/icons/escudoSaudeRoxo.svg';
+import wifiLaranja from '../../assets/icons/wifiLaranja.svg';
+import bateriaAzul from '../../assets/icons/bateriaAzul.svg';
 
 import { Link } from 'react-router-dom';
 

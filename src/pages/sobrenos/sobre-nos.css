@@ -30,7 +30,7 @@ body {
   max-height: 45%; 
   background-color: rgba(48, 189, 48, 0.8); 
   border-radius: 15px;
-  padding: 2vw; 
+  padding: 4vw; 
   display: flex;
   flex-direction: column;
   justify-content: center; 
@@ -273,7 +273,9 @@ hr {
 .fotoperfil img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit:cover;
+    object-position: center top;
+    
 }
 
 .conteudoperfil {
@@ -301,12 +303,13 @@ hr {
     margin: 0px 0px 16px 0px ; 
 }
 
-.card-redes-perfil {
+ .card-redes-perfil {
     display: flex;
     gap: 12px;
-    position: absolute;
+   
     bottom: 12px;
-    right: 15px;
+    right: 15px; 
+    border: none;
 }
 
 .card-redes-perfil a {
@@ -345,6 +348,7 @@ hr {
 
 
 @media (max-width: 768px) {
+
     .containercards {
         grid-template-columns: 1fr; 
         grid-template-rows: auto;
@@ -362,7 +366,7 @@ hr {
         width: 70px; 
         height: 70px;
     }
-
+    
     .conteudoperfil h3 { font-size: 115%; }
     .conteudoperfil p { font-size: 85%; }
 }
@@ -376,4 +380,5 @@ hr {
         width: 55px;
         height: 55px;
     }
+    
 }
