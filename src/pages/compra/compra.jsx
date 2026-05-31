@@ -4,7 +4,6 @@ import imgCompra2 from "../../assets/images/compra/imgCompra2.png"
 import imgCompra3 from "../../assets/images/compra/imgCompra3.png"
 import imgCompra4 from "../../assets/images/compra/imgCompra4.png"
 /*Pag css*/
-import React from 'react'; 
 import './compra.css';
 /*Imagens de forma de pagamento*/
 import iconMasterCard from "../../assets/images/compra/iconMasterCard.png"
@@ -12,11 +11,17 @@ import iconPix from "../../assets/images/compra/iconPix.png"
 import iconPayPal from "../../assets/images/compra/iconPayPal.png"
 import iconVisa from "../../assets/images/compra/iconVisa.png"
 import { Link } from 'react-router-dom';
-
+import React , { useState } from 'react';
 
 function Compra() {
+  const [quantidade, setQuantidade] = useState(1);
+
+  const aumentar = () => setQuantidade(quantidade + 1);
+  const diminuir = () => setQuantidade(quantidade - 1);
+
     return (
 <>
+
 <p className="Voltar">Voltar</p>
 
 <section className="Produto-Container"> 
@@ -84,9 +89,9 @@ function Compra() {
   </div>
 
       <div className="seletorempílula">
-        <button className="botao-menos">-</button>
-        <span className="numero-quantidade">1</span>
-        <button className="botao-mais">+</button>
+        <button className="botao-menos" onClick={diminuir}>-</button>
+        <span className="numero-quantidade">{quantidade}</span>
+        <button className="botao-mais" onClick={aumentar}>+</button>
       </div>
     </div>
 
@@ -99,8 +104,8 @@ function Compra() {
         <img src={iconPayPal} alt="PayPal" />
         <img src={iconVisa} alt="Visa" />
       </div>
-        <Link to="/cadastro">
-          <button className="botao-comprar">COMPRAR</button>
+        <Link to="/cadastro" style={{ width: '100%', display: 'block'}}>
+          <button className="botao-comprar-compra">COMPRAR</button>
       </Link>
     </div>
   </div>

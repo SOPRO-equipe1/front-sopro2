@@ -1,5 +1,6 @@
 import './section6.css'
 import sinoVerde from '../../assets/icons/sinoVerde.svg'
+import { Link } from 'react-router-dom';
 
 const Section6 = () =>{
     return(
@@ -14,7 +15,9 @@ const Section6 = () =>{
                         <button className="inscreverBotao">Inscrever-se</button>
                     </div>                    
                 </div>
+                <Link to='/produto' style={{ textDecoration: 'none'}}>
                 <button className="explorar">EXPLORAR O DISPOSITIVO</button>
+                </Link>
             </section>
         </>
     )

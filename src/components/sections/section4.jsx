@@ -5,6 +5,7 @@ import maoVerde from '../../assets/icons/mãoVerde.svg'
 import estrelasRoxas from '../../assets/icons/estrelasRoxas.svg'
 import linhaRoxa2 from '../../assets/icons/linhaRoxa2.svg'
 import linhaAzul from '../../assets/icons/linhaAzul.svg'
+import { Link } from 'react-router-dom';
 
 const Section4 = () =>{
     return(
@@ -45,8 +46,9 @@ const Section4 = () =>{
                             </div>
                             <p>Tecnologia que respeita sua dignidade e amplifica suas possibilidades.</p>
                         </div>
-
-                        <button className="saibaMais2">SAIBA MAIS</button>
+                        <Link to="/produto" style={{ textDecoration: 'none'}}>
+                                <button className="saibaMais2">SAIBA MAIS</button>
+                        </Link>
                     </div>
             </section>
         </>

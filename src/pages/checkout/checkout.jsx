@@ -247,7 +247,7 @@ const Checkout = () => {
                 <span>R$ {total}</span>
               </p>
             </section>
-            <Link to="/pedidoconfirmado">
+            <Link to="/pedidoconfirmado" style={{ textDecoration: 'none'}}>
             <button className="checkout-finalizar">
               <img src={carrinhoDeCompra} alt="" />
               FINALIZAR COMPRA

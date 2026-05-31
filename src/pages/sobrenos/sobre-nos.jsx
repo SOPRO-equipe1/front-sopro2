@@ -55,8 +55,6 @@ return (
 </div>
 </section>
 
-
- 
 <section>
   <div className="RetanguloAzul">
     <h3>Nossos Valores</h3>
@@ -111,14 +109,11 @@ return (
             <img src={github} alt="icone do github" />
           </a>
             <a href="https://www.linkedin.com/in/jaiane-d-5897802b5/" target="_blank" rel="noreferrer">
-    <img src={linkedin} alt="icone do linkedin" />
-  </a>
-</div>
-        <div className="card-redes-perfil">
-          
+               <img src={linkedin} alt="icone do linkedin" />
+            </a>
         </div>
-        </div>
-        </div>
+      </div>
+    </div>
 
 
         <div className="card-azul">
@@ -136,15 +131,11 @@ return (
         </a> 
         
         <a href="https://www.linkedin.com/in/gabriel-concei%C3%A7%C3%A3o-ds/" target="_blank" rel="noreferrer">
-        <img src={linkedin} alt="icone do linkedlin" />
+            <img src={linkedin} alt="icone do linkedlin" />
         </a>
         </div>
-        
-        <div className="card-redes-perfil">
-          
-        </div>
-        </div>
-        </div>
+      </div>
+    </div>
 
 
     <div className="card-roxo">
@@ -157,44 +148,36 @@ return (
         <h3>Iasmin Lopes</h3>
         <p>Gestão financeira, Desenvolvedora Front End & Hardware</p>
         
-        <div className="conteiner-icone">
+      <div className="conteiner-icone">
         <a href="https://github.com/IasminMoreira" target="_blank" rel="noreferrer">
-        <img src={github} alt="icone do github" /> 
+            <img src={github} alt="icone do github" /> 
         </a>
         <a href="https://www.linkedin.com/in/iasmin-lopes-moreira/" target="_blank" rel="noreferrer">
-        <img src={linkedin} alt="icone do linkedlin" /></a>
+            <img src={linkedin} alt="icone do linkedlin" /></a>
         </div>
-        
-        <div className="card-redes-perfil">
-          
-        </div>
-        </div>
-        </div>
+      </div>
+      </div>
 
    
-        <div className="card-verde">
-        <div className="fotoperfil">
+    <div className="card-verde">
+      <div className="fotoperfil">
         <img src={Filipe} alt="Filipe Apolinário" />
-        </div>
+      </div>
 
-        <div className="conteudoperfil">
-        <h3>Filipe Apolinário</h3>
-        <p>Marketing, Desenvolvedor Back End & IA</p>
+      <div className="conteudoperfil">
+          <h3>Filipe Apolinário</h3>
+          <p>Marketing, Desenvolvedor Back End & IA</p>
         <div className="conteiner-icone">
         
         <a href="https://github.com/FilipeAp" target="_blank" rel="noreferrer">
-        <img src={github} alt="icone do github" /> 
+            <img src={github} alt="icone do github" /> 
         </a>
         <a href="https://www.linkedin.com/in/o-filipe-apolinario/" target="_blank" rel="noreferrer">
-        <img src={linkedin} alt="icone do linkedlin" />
+            <img src={linkedin} alt="icone do linkedlin" />
         </a>
-        </div>
-        
-        <div className="card-redes-perfil">
-          
-        </div>
-        </div>
-        </div>
+      </div>
+      </div>
+    </div>
 
         <div className="card-azul">
         <div className="fotoperfil">
@@ -214,9 +197,7 @@ return (
         </a>
         </div>
 
-        <div className="card-redes-perfil">
-          
-        </div>
+    
         </div>
         </div>
 
@@ -239,11 +220,6 @@ return (
         <img src={linkedin} alt="icone do linkedlin" />
         </a>
         </div>
-        
-        <div className="card-redes-perfil">
-          
-      </div>
-      
        </div>
       </div>
 
@@ -268,10 +244,6 @@ return (
         <a href="https://www.linkedin.com/in/raquel-alves-044743385/" target="_blank" rel="noreferrer">
         <img src={linkedin} alt="icone do linkedlin" />
         </a>
-        </div>
-        
-        <div className="card-redes-perfil">
-          
         </div>
         </div>
         </div>
@@ -302,10 +274,6 @@ return (
         <img src={linkedin} alt="icone do linkedlin" /> 
         </a>
         
-        </div>
-       
-        <div className="card-redes-perfil">
-          
         </div>
       </div>
     </div>

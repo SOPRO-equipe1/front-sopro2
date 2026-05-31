@@ -3,6 +3,7 @@ import raioLaranja from '../../assets/icons/raioLaranja.svg'
 import arAzul from '../../assets/icons/arAzul.svg'
 import reloadVerde from '../../assets/icons/reloadVerde.svg'
 import imgSection3 from '../../assets/images/home/imgSection3.png'
+import { Link } from 'react-router-dom';
 
 const Section3 = () =>{
     return(
@@ -29,8 +30,9 @@ const Section3 = () =>{
                             <p>Aprende e se adapta com o tempo</p>
                         </div>    
                     </div>
-
-                    <button className="saibaMaisLaranja">SAIBA MAIS</button>             
+                       <Link to="/produto" style={{ textDecoration: 'none'}}>
+                        <button className="saibaMaisLaranja">SAIBA MAIS</button>    
+                    </Link>         
                 </div>
 
                 <img src={imgSection3} className="imgSection3" />
