@@ -7,9 +7,9 @@ const Header = () => {
   return (
     <header className="main-header">
       <div className="header-container">
-        {/* Usando Link na Logo */}
+       
         <Link to="/" className="logo-link">
-          <img className={soproLogo} alt="SOPRO Logotipo" />
+          <img src={soproLogo} className="header-logo" alt="SOPRO Logotipo" />
         </Link>
         
         <nav className="nav-menu">
@@ -21,7 +21,7 @@ const Header = () => {
             <li><Link to="/planos" className="nav-item">PLANOS</Link></li>
             <li><Link to="/login" className="nav-item btn-login">LOGIN</Link></li>
             
-            {/* O link para a sua nova página */}
+            
          
           </ul>
         </nav>

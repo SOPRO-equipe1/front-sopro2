@@ -2,15 +2,18 @@
 .hero {
     position: relative;
     width: 100%;
-    min-height: 940px; /* Usar min-height em vez de height para permitir expansão */
-    background-image: url('../../../assets/images/home/imgSection1.png');
+    min-height: 940px; 
+    
+    
+    background-image: url('../../assets/images/home/imgSection1.png');
+    
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center; /* Garante que o centro da imagem seja exibido */
+    background-position: center; 
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 20px; /* Padding geral para telas pequenas */
+    padding: 20px; 
     padding-right: 80px;
 }
 
@@ -50,9 +53,9 @@
 /* --- RESPONSIVIDADE PARA CELULARES --- */
 @media (max-width: 768px) {
     .hero {
-        justify-content: center; /* Centraliza o card na tela */
+        justify-content: center; 
         padding-right: 20px;
-        min-height: 600px; /* Reduz altura total para mobile */
+        min-height: 600px; 
     }
 
     .titulo_hero {
