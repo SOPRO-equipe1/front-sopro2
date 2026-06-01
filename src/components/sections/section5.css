@@ -1,69 +1,74 @@
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
-    overflow-x: hidden
+    overflow-x: hidden;
 }
 
-.section5{
+.section5 {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
     margin: 64px 0px;
+    padding: 0 20px; /* Adicionado para não encostar nas bordas no celular */
 }
 
-.textosSection5{
+.textosSection5 {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
+    text-align: center; /* Garante que o texto fique centralizado */
 }
 
-.botoes{
+.botoes {
     position: relative;
     display: flex;
     flex-direction: row;
     gap: 40px;
+    width: 100%;
+    justify-content: center;
 }
 
-.contato{
+/* Ajuste para celulares */
+@media (max-width: 600px) {
+    .botoes {
+        flex-direction: column; /* Botões ficam um embaixo do outro */
+        gap: 20px; /* Reduz o espaço entre eles */
+        align-items: center;
+    }
+
+    .contato, .produtos {
+        width: 100%; /* Botões ocupam quase toda a largura da tela */
+        max-width: 300px; /* Limita o crescimento em telas médias */
+    }
+}
+
+.contato {
     position: relative;
     border: none;
     appearance: none;
     padding: 8px 28px;
-    font-family: Poppins;
-    font-style: normal;
+    font-family: Poppins, sans-serif;
     font-size: 20px;
     color: #FFF;
     background: #e96a16;
     width: 200px;
     border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
 }
 
-.contato:hover{
-    transform: scale(1.05)
-}
+.contato:hover { transform: scale(1.05); }
+.contato:active { filter: brightness(0.9); }
 
-.contato:active{
-    filter: brightness(0.9);
-    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-.produtos{
+.produtos {
     position: relative;
-    border: none;
-    appearance: none;
     padding: 8px 28px;
-    font-family: Poppins;
-    font-style: normal;
+    font-family: Poppins, sans-serif;
     font-size: 20px;
     font-weight: 600;
     color: #1D252A;
@@ -72,18 +77,16 @@
     border-radius: 16px;
     border: 2px solid #1D252A;
     height: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
 }
 
-.produtos:hover{
-    transform: scale(1.05)
-}
+.produtos:hover { transform: scale(1.05); }
+.produtos:active { filter: brightness(0.9); }
 
-.produtos:active{
-    filter: brightness(0.9);
-    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);    
-}
-
-.imgSection5{
+.imgSection5 {
     margin-top: 60px;
     width: 100%;
+    max-width: 600px; /* Evita que a imagem fique gigante em telas grandes */
+    height: auto;
 }
