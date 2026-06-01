@@ -1,4 +1,5 @@
-.section4{
+/* --- Estilos Base (Desktop) --- */
+.section4 {
     position: relative;
     width: 100%;
     display: flex;
@@ -8,55 +9,13 @@
     align-items: center;
     color: #1D252A;
     gap: 100px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 5%;
 }
 
-.autonomiaTitulo{
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    align-items: center;
-}
-
-.autonomia{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    gap: 8px;
-}
-
-.inclusaoTitulo{
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    align-items: center;
-}
-
-.inclusao{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.inovacao{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.inovacaoTitulo{
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    align-items: center;
-}
-
-.textos_section4{
+.textos_section4 {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -64,36 +23,78 @@
     max-width: 550px;
 }
 
-.linhaRoxaDIV{
+/* Ajuste específico para a imagem principal da seção 4 */
+.imgSection4 {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* Restante dos seus estilos */
+.autonomiaTitulo, .inclusaoTitulo, .inovacaoTitulo {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.autonomia, .inclusao, .inovacao {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    gap: 8px;
+}
+
+.linhaRoxaDIV, .linhaAzulDIV {
     display: flex;
     justify-content: space-around;
 }
 
-.linhaAzulDIV{
-    display: flex;
-    justify-content: space-around;
-}
-
-.saibaMais2{
+.saibaMais2 {
     position: relative;
     color: #FFF;
     width: 230px;
     text-align: center;
-    font-family: Poppins;
+    font-family: Poppins, sans-serif;
     font-size: 20px;
-    font-style: normal;
     background: #e96a16;
     padding: 8px 32px;
     border: none;
-    appearance: none;
     border-radius: 16px;
+    transition: transform 0.2s ease;
 }
 
-.saibaMais2:hover{
+.saibaMais2:hover {
     transform: scale(1.05);
 }
 
-.saibaMais2:active{
+.saibaMais2:active {
     filter: brightness(0.9);
     box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- RESPONSIVIDADE PARA CELULARES --- */
+@media (max-width: 768px) {
+    .section4 {
+        flex-direction: column-reverse; /* Imagem fica em cima ou baixo dependendo da ordem no HTML */
+        gap: 40px;
+        text-align: center;
+    }
+
+    .textos_section4 {
+        align-items: center;
+    }
+
+    .imgSection4 {
+        max-width: 350px; /* Reduz o tamanho no mobile */
+        margin: 0 auto;
+    }
+
+    .autonomiaTitulo, .inclusaoTitulo, .inovacaoTitulo {
+        justify-content: center;
+    }
 }

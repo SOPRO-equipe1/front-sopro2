@@ -1,12 +1,12 @@
 /* Estilos Base (Desktop) */
 .section3 {
     display: flex;
-    flex-direction: row; /* Lado a lado no desktop */
+    flex-direction: row;
     justify-content: space-around;
     margin-top: 80px;
     align-items: center;
     gap: 64px;
-    width: 90%; /* Adicionado para não encostar nas bordas */
+    width: 90%;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -23,21 +23,41 @@
 
 .produtoTitulo, .produtoeicone, .sensiveleaprende, .sensivel, .aprende {
     display: flex;
-    flex-direction: column; /* Padrão mobile-first para sub-elementos */
+    flex-direction: column;
     gap: 16px;
 }
 
-/* Ajuste para garantir que ícones e textos fiquem lado a lado */
+/* Ajuste para ícones e textos lado a lado */
 .produtoeicone, .sensivel, .aprende {
     flex-direction: row;
+    align-items: center;
+}
+
+/* Ajuste dos ícones dentro dos blocos */
+.produtoeicone img, 
+.sensivel img, 
+.aprende img {
+    width: 48px;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Ajuste específico para a imagem principal da seção */
+.imgSection3 {
+    width: 100%;
+    max-width: 500px; /* Tamanho máximo no desktop */
+    height: auto;
+    object-fit: contain;
+    display: block;
 }
 
 .saibaMaisLaranja {
     color: #FFF;
-    width: 100%; /* Em mobile ocupa mais espaço */
-    max-width: 230px; /* Limite de largura para desktop */
+    width: 100%;
+    max-width: 230px;
     text-align: center;
-    font-family: Poppins;
+    font-family: Poppins, sans-serif;
     font-size: 20px;
     background: #E86B15;
     padding: 12px 32px;
@@ -49,19 +69,30 @@
 /* --- RESPONSIVIDADE PARA CELULARES --- */
 @media (max-width: 768px) {
     .section3 {
-        flex-direction: column; /* Empilha os blocos */
+        flex-direction: column;
         gap: 40px;
         margin-top: 40px;
         text-align: center;
     }
 
     .textos_section3 {
-        align-items: center; /* Centraliza o conteúdo no mobile */
+        align-items: center;
         gap: 30px;
     }
 
-    /* Centraliza os itens com ícones no mobile */
     .produtoeicone, .sensivel, .aprende {
         justify-content: center;
+    }
+
+    /* Ajuste de tamanhos para telas menores */
+    .produtoeicone img, 
+    .sensivel img, 
+    .aprende img {
+        width: 36px;
+    }
+
+    .imgSection3 {
+        max-width: 350px; /* Tamanho reduzido para mobile */
+        margin: 0 auto;
     }
 }

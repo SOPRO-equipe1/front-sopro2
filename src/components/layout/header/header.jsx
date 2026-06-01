@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; //
 import './header.css'
+import soproLogo from "../../../assets/icons/logo.png";
 
 const Header = () => {
   return (
@@ -8,7 +9,7 @@ const Header = () => {
       <div className="header-container">
         {/* Usando Link na Logo */}
         <Link to="/" className="logo-link">
-          <img className="sopro-logo" src="/src/assets/icons/logo.png" alt="SOPRO Logotipo" />
+          <img className={soproLogo} alt="SOPRO Logotipo" />
         </Link>
         
         <nav className="nav-menu">
