@@ -1,4 +1,16 @@
 /* Estilos Base (Desktop/Default) */
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    overflow-x: hidden
+}
+
+
 .titulo_section2 {
     position: relative;
     display: flex;

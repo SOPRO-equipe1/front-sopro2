@@ -357,3 +357,33 @@
     height: 100%;
     object-fit: cover;
 }
+
+/* AJUSTE ESPECÍFICO PARA CELULARES */
+@media (max-width: 480px) {
+    .checkout-page {
+        padding: 20px 4%;
+    }
+    
+    .checkout-card {
+        padding: 20px 16px;
+    }
+    
+    .checkout-row {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .checkout-field.small, 
+    .checkout-field.medium {
+        width: 100%;
+    }
+    
+    .checkout-pagamento-options {
+        grid-template-columns: 1fr; /* Um botão abaixo do outro */
+    }
+    
+    .checkout-finalizar {
+        font-size: 15px;
+        padding: 14px;
+    }
+}

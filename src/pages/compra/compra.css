@@ -172,13 +172,13 @@
 /* Quantidade */
 .card-quantidade {
   display: flex;
+  flex-direction: column; /* Empilha o título e o seletor no mobile */
+  align-items: center;    /* Centraliza tudo no mobile */
   width: 100%;
-  max-width: 100%;              
-  align-self: center; 
   margin: 0 0 35px 0;   
   border: none;  
   background: transparent !important;
-  box-shadow: none !important;       
+  box-shadow: none !important;        
 }
 
 .container-quantidade {
@@ -188,8 +188,8 @@
 .NameQ {
   font-weight: 700;
   font-size: 180%;
-  margin: 0;
-  margin-left: -20px;
+  margin: 0 0 15px 0; /* Remove a margem negativa e adiciona espaçamento abaixo */
+  text-align: center;
 }
 
 .seletorempílula {
@@ -202,7 +202,7 @@
   background-color: #ffffff;
   border-radius: 100px; 
   padding: 0 25px;
-  margin-right: -50px;
+  margin-right: 0; /* Remove a margem negativa */
 }
 
 .botao-menos, .botao-mais {
@@ -316,4 +316,28 @@
   }
 
 /*Adicionei a responsividade do botão comprar no JSX. Porque por força ele a ficar no tamanho ideal da responsividade.*/
+}
+
+
+@media (max-width: 480px) {
+  .card-quantidade {
+    flex-direction: column; 
+    align-items: center;    
+    gap: 15px;              
+    width: 100%;            
+    margin: 0 0 25px 0 !important; /* Força a remoção de margens externas */
+  }
+
+  .NameQ {
+    margin-left: 0 !important;     /* Remove o deslocamento lateral */
+    font-size: 1.5rem;             /* Reduz levemente para não quebrar linha */
+    text-align: center;
+  }
+
+  .seletorempílula {
+    margin-right: 0 !important;    /* Remove o deslocamento lateral */
+    width: 170px;                  /* Ajuste fino para caber em telas pequenas */
+    height: 40px;                  /* Leve redução na altura para ganhar espaço */
+    padding: 0 15px;
+  }
 }

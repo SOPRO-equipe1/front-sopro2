@@ -1,4 +1,4 @@
-import icone from '../../../assets/images/chatbot/icone_soprinho.svg';
+import icone from '../../../assets/images/chatbot/soprinho2.svg';
 import logo from '../../../assets/images/chatbot/logo_sopro.svg';
 import fechar from '../../../assets/images/chatbot/botao_fechar.svg';
 import './soprinho.css';
@@ -46,7 +46,7 @@ function Soprinho() {
                     <section>
                         <header className={'header_chatbot'}>
                             <div className={"soprinho_e_logo"}>
-                                <img src={icone} alt="Icone do soprinho ao lado da logo da sopro" />
+                                {/*<img src={icone} alt="Icone do soprinho ao lado da logo da sopro" /> */}
                                 <img src={logo} alt="Logotipo da empresa sopro" />
                             </div>
 

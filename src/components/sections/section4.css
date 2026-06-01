@@ -1,4 +1,15 @@
 /* --- Estilos Base (Desktop) --- */
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    overflow-x: hidden
+}
+
 .section4 {
     position: relative;
     width: 100%;
