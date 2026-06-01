@@ -65,7 +65,7 @@ p {
     }
     .fotoHero {
         /* No celular, para não cortar, centralizamos de volta */
-        align-self: center;
+        align-self: flex-end;
         width: 40rem;
         height: 20rem;
     }
@@ -297,12 +297,17 @@ p {
     font-weight: 800;
     font-size: 1.5rem;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
 .botao-comprar:hover {
-    background-color: #e66310;
+    background: #e66310;
     transform: scale(1.05);
+}
+
+.botao-comprar:active {
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Ajuste Responsivo */
@@ -312,7 +317,7 @@ p {
     }
     .botao-comprar {
         width: 100%; 
-        padding: 15px 0;
+        padding: 15px 20px;
     }
     .foto-compra {
     width: 30rem;
@@ -396,6 +401,17 @@ p {
     font-weight: 800;
     font-size: 1.2rem;
     cursor: pointer;
+    transition: transform 0.2s ease;
+
+}
+
+.botao-comprar-specs {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.botao-comprar-specs:hover {
+    background-color: #e66310;
+    transform: scale(1.05);
 }
 
 .specs-imagem {
@@ -428,4 +444,5 @@ p {
         order: -1; /* Imagem aparece antes do texto no celular */
         margin-bottom: 30px;
     }
+
 }

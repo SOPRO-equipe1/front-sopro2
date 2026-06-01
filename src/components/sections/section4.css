@@ -21,6 +21,7 @@
     flex-direction: column;
     gap: 40px;
     max-width: 550px;
+    align-items: flex-start;
 }
 
 /* Ajuste específico para a imagem principal da seção 4 */
@@ -40,6 +41,8 @@
     gap: 12px;
     align-items: center;
 }
+
+
 
 .autonomia, .inclusao, .inovacao {
     position: relative;

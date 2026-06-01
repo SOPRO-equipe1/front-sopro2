@@ -17,7 +17,7 @@
 }
 
 .descricao_capacidades {
-    max-width: 600px;
+    max-width: 800px;
     padding: 0 20px; /* Garante um respiro nas laterais em telas pequenas */
     text-align: center;
     font-weight: 500;
@@ -27,11 +27,15 @@
     display: flex;
     flex-direction: row; /* Colunas lado a lado no desktop */
     align-items: flex-start;
-    gap: 80px;
+    gap: 32px;
     justify-content: center; /* Centralizado */
     margin: 48px auto;
     width: 90%; /* Melhor usar 90% para não colar nas bordas */
     flex-wrap: wrap; /* Permite que os itens quebrem linha se necessário */
+}
+
+.controle p, .integracao p, .design p{
+    font-size: 20px;
 }
 
 /* Classes dos containers */
@@ -39,7 +43,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 400px;
+    max-width: 300px;
     text-align: center;
     gap: 16px;
 }
@@ -63,4 +67,11 @@
     .titulo_section2 {
         margin-top: 32px;
     }
+
+    .controle, .integracao, .design {
+    max-width: 100%;
+    width: 100%;
+    
+    }
+
 }

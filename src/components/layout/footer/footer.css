@@ -41,7 +41,9 @@
 .footer-logo-brand img {
     width: 42px;
     height: auto;
+     margin-left: 20px;
 }
+
 
 .footer-desc {
     font-size: 14px;
@@ -89,6 +91,27 @@
     display: flex;
     gap: 15px;
     margin-top: 20px;
+}
+
+.social-icon-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
+}
+
+.social-icon-box:hover {
+    background-color: var(--cor-azul);
+    transform: translateY(-3px);
+}
+
+.social-icon-box img {
+    width: auto;
+    height: auto;
 }
 
 /* Bottom Bar */

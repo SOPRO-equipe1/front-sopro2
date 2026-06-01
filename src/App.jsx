@@ -23,10 +23,15 @@ import AccessibilityToolbar from './components/AccessibilityToolbar/Accessibilit
 // IMPORTAR O SOPRINHO (Verifique se o caminho está certo conforme sua pasta)
 import Soprinho from './components/layout/chatbot/soprinho.jsx';
 
+// QUANDO UM BOTÃO É CLICADO LEVA DIRETAMENTE PARA O TOPO DA PÁGINA 
+import { useLocation } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop.jsx';
+
 function App() {
   return (
     <AccessibilityProvider>
       <Router>
+      <ScrollToTop />
         <div className="app-container">
           <Header />
           

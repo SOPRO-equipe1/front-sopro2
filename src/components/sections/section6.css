@@ -41,6 +41,43 @@
     border: none;
     cursor: pointer;
     white-space: nowrap; /* Impede que o texto do botão quebre linha */
+    transition: transform 0.2s ease;
+}
+
+.inscreverBotao:hover {
+    transform: scale(1.05);
+}
+
+.inscreverBotao:active {
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.explorar{
+    color: #FFF;
+    padding: 10px 32px;
+    background: #F97316;
+    border: none;
+    border-radius: 16px;
+    margin-top: 40px;
+    margin-bottom: 64px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+
+}
+
+.explorar:hover {
+    transform: scale(1.05);
+}
+
+.explorar:active {
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fiquePorDentro p {
+    margin-bottom: 30px;
 }
 
 /* --- RESPONSIVIDADE PARA CELULARES --- */
@@ -60,7 +97,7 @@
 
     .inscreverBotao {
         width: 100%; /* Botão ocupa a largura total */
-    }
+   
 }
 
 .explorar {
@@ -73,3 +110,4 @@
     margin-bottom: 64px;
     cursor: pointer;
 }
+ }

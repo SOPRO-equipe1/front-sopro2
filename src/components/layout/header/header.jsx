@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; //
+import { Link } from 'react-router-dom'; 
 import './header.css'
 import soproLogo from "../../../assets/icons/logo.png";
 
@@ -9,7 +9,7 @@ const Header = () => {
       <div className="header-container">
        
         <Link to="/" className="logo-link">
-          <img src={soproLogo} className="header-logo" alt="SOPRO Logotipo" />
+          <img src={soproLogo} alt="SOPRO Logotipo" className="sopro-logo" />
         </Link>
         
         <nav className="nav-menu">

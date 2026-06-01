@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useA11y } from '../../context/AccessibilityContext';
 import { speakText, stopSpeaking } from '../../service/SpeechService.js';
 import './AccessibilityToolbar.css';
+import iconeacessibilidade from '../../../src/assets/icons/denteLeao.png'
 
 const AccessibilityToolbar = () => {
   const { 
@@ -101,7 +102,7 @@ const AccessibilityToolbar = () => {
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Abrir menu de acessibilidade"
         >
-          <img src="src/assets/icons/denteLeao.png" alt="Acessibilidade SOPRO" />
+          <img src={iconeacessibilidade} alt="Acessibilidade SOPRO" />
         </button>
 
         {isOpen && (

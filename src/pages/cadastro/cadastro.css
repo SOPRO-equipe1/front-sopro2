@@ -29,6 +29,8 @@
   height: 60px;
   object-fit: contain;
   align-self: flex-start;
+  margin-bottom: 40px;
+  margin-left: 20px;
 }
 
 .cadastro-title {
