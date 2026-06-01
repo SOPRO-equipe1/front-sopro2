@@ -1,4 +1,4 @@
-import icone from '../../../assets/images/chatbot/icone_soprinho.svg';
+import icone from '../../../assets/images/chatbot/soprinho2.svg';
 import logo from '../../../assets/images/chatbot/logo_sopro.svg';
 import fechar from '../../../assets/images/chatbot/botao_fechar.svg';
 import './soprinho.css';
