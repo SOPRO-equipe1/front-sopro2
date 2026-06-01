@@ -1,40 +1,35 @@
-/* Estilos Base (Desktop) */
+/* Reset Global */
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
-    overflow-x: hidden
 }
 
+body {
+    overflow-x: hidden;
+}
 
+/* --- ESTILOS DO HERO --- */
 .hero {
     position: relative;
     width: 100%;
-    min-height: 940px; 
-    
-    
+    min-height: 940px;
     background-image: url('../../assets/images/home/imgSection1.png');
-    
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center; 
+    background-position: center;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 20px; 
-    padding-right: 80px;
+    padding: 20px 80px 20px 20px;
 }
 
 .titulo_hero {
     display: flex;
     position: relative;
     width: 100%;
-    max-width: 550px; /* Limita a largura mas permite que encolha */
-    min-height: 500px; /* Altura mínima mais flexível */
+    max-width: 550px;
+    min-height: 500px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -44,47 +39,45 @@
     gap: 40px;
     border-radius: 24px;
     backdrop-filter: blur(20px);
-    padding: 40px; /* Padding interno em vez de altura fixa */
+    padding: 40px;
 }
 
+/* BOTÃO BLINDADO CONTRA ZÍPERES */
 .saibaMaisHero {
-    background-color: #FFF;
-    display: flex;
-    padding: 12px 40px;
-    border-radius: 16px;
-    font-family: inherit;
-    appearance: none;
-    border: none;
+    background-color: #FFF !important;
+    color: #1D252A !important;
+    text-decoration: none !important;
     font-size: 18px;
     font-weight: 600;
-    color: #1D252A;
+    padding: 12px 40px;
+    border-radius: 16px;
     cursor: pointer;
     transition: transform 0.2s ease;
+    
+    /* FORÇA BRUTA: Impede qualquer rolagem */
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    
+    /* Desativa qualquer estilo de scroll padrão */
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
 }
 
+.saibaMaisHero::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
 
 .saibaMaisHero:hover {
     transform: scale(1.05);
 }
 
-.saibaMaisHero:active {
-    filter: brightness(0.9);
-    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-/* --- RESPONSIVIDADE PARA CELULARES --- */
+/* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
-    .hero {
-        justify-content: center; 
-        padding-right: 20px;
-        min-height: 600px; 
-    }
-
-    .titulo_hero {
-        width: 100%;
-        min-height: auto; /* Remove altura fixa para ajustar ao conteúdo */
-        padding: 30px 20px;
-        gap: 20px;
-    }
+    .hero { justify-content: center; padding-right: 20px; min-height: 600px; }
+    .titulo_hero { width: 100%; padding: 30px 20px; }
 }
