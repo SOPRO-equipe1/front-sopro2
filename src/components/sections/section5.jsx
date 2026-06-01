@@ -15,8 +15,8 @@ const Section5 = () =>{
                     <Link to="/suporte" style={{ textDecoration: 'none'}}>
                         <button className="contato">CONTATO</button>
                     </Link>
-                    <Link to="/produto" style={{ textDecoration: 'none'}}>
-                        <button className="produtos">PRODUTOS</button>
+                    <Link to="/produto">
+                        <button className="produtos">PRODUTOS </button>
                     </Link>
                     </div>
                 </div>

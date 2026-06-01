@@ -1,15 +1,13 @@
-/* Estilos Base (Desktop) */
+/* Reset Global - Mantido conforme sua estrutura */
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
-    overflow-x: hidden
 }
 
+body {
+    overflow-x: hidden;
+}
 
 .section3 {
     display: flex;
@@ -30,99 +28,66 @@
     max-width: 600px;
     width: 100%;
     font-weight: 500;
+    overflow: hidden;
     gap: 50px;
 }
 
+/* --- BOTÃO BLINDADO CONTRA ZÍPERES --- */
+.saibaMaisLaranja {
+    background-color: #E86B15 !important;
+    color: #FFF !important;
+    text-decoration: none !important;
+    width: 100%;
+    max-width: 230px;
+    text-align: center;
+    margin-left: 2rem;
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    padding: 12px 32px;
+    border-radius: 16px;
+    transition: transform 0.2s ease;
+    
+    /* FORÇA BRUTA: Impede rolagem */
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    
+    /* Remove scrollbars forçadas */
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.saibaMaisLaranja::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.saibaMaisLaranja:hover { transform: scale(1.05); }
+
+/* Restante dos estilos mantidos */
 .produtoTitulo, .produtoeicone, .sensiveleaprende, .sensivel, .aprende {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* Ajuste para ícones e textos lado a lado */
-.produtoeicone, .sensivel, .aprende {
-    flex-direction: row;
-    align-items: center;
+.produtoeicone, .sensivel, .aprende { flex-direction: row; align-items: center; }
+
+.produtoeicone img, .sensivel img, .aprende img {
+    width: 48px; height: auto; object-fit: contain; flex-shrink: 0;
 }
 
-/* Ajuste dos ícones dentro dos blocos */
-.produtoeicone img, 
-.sensivel img, 
-.aprende img {
-    width: 48px;
-    height: auto;
-    object-fit: contain;
-    flex-shrink: 0;
-}
+.sensivel p, .aprende p { font-size: 25px; }
 
-.arAzul{
-    margin-top: 10px !important;
-}
+.imgSection3 { width: 100%; max-width: 500px; height: auto; object-fit: contain; display: block; }
 
-.sensivel p, .aprende p{
-    font-size: 25px;
-}
-
-/* Ajuste específico para a imagem principal da seção */
-.imgSection3 {
-    width: 100%;
-    max-width: 500px; /* Tamanho máximo no desktop */
-    height: auto;
-    object-fit: contain;
-    display: block;
-}
-
-.saibaMaisLaranja {
-    color: #FFF;
-    width: 100%;
-    max-width: 230px;
-    text-align: center;
-    font-family: Poppins, sans-serif;
-    font-size: 20px;
-    background: #E86B15;
-    padding: 12px 32px;
-    border: none;
-    border-radius: 16px;
-    transition: transform 0.2s ease;
-}
-
-.saibaMaisLaranja:hover {
-    transform: scale(1.05);
-}
-
-.saibaMaisLaranja:active {
-    filter: brightness(0.9);
-    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-/* --- RESPONSIVIDADE PARA CELULARES --- */
 @media (max-width: 768px) {
-    .section3 {
-        flex-direction: column;
-        gap: 40px;
-        margin-top: 40px;
-        text-align: center;
-    }
-
-    .textos_section3 {
-        align-items: center;
-        gap: 30px;
-    }
-
-    .produtoeicone, .sensivel, .aprende {
-        justify-content: center;
-    }
-
-    /* Ajuste de tamanhos para telas menores */
-    .produtoeicone img, 
-    .sensivel img, 
-    .aprende img {
-        width: 36px;
-    }
-
-    .imgSection3 {
-        max-width: 350px; /* Tamanho reduzido para mobile */
-        margin: 0 auto;
-    }
+    .section3 { flex-direction: column; gap: 40px; margin-top: 40px; text-align: center; }
+    .textos_section3 { align-items: center; gap: 30px; }
+    .produtoeicone, .sensivel, .aprende { justify-content: center; }
+    .produtoeicone img, .sensivel img, .aprende img { width: 36px; }
+    .imgSection3 { max-width: 350px; margin: 0 auto; }
 }

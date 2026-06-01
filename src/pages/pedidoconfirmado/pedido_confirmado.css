@@ -128,7 +128,8 @@
     padding: 18px;
     width: 100%;
     border-radius: 15px;
-    font-weight: 800;
+    font-weight: 700;
+    font-size: 1.8rem;
     font-family: 'Montserrat';
     cursor: pointer;
 }
@@ -140,6 +141,7 @@
     padding: 15px;
     border-radius: 15px;
     font-weight: 800;
+    font-size: 1.5rem;
     font-family: 'Montserrat';
     cursor: pointer;
     width: 100%;

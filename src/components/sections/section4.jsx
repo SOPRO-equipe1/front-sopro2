@@ -46,9 +46,10 @@ const Section4 = () =>{
                             </div>
                             <p>Tecnologia que respeita sua dignidade e amplifica suas possibilidades.</p>
                         </div>
-                        <Link to="/produto" style={{ textDecoration: 'none' , alignSelf: 'center' }}>
-                                <button className="saibaMais2" >SAIBA MAIS</button>
-                        </Link>
+                        {/* O Link agora possui a classe do botão, eliminando conflitos */}
+                           <Link to="/produto" className="saibaMaisLaranja">
+                                 SAIBA MAIS
+                           </Link>
                     </div>
             </section>
         </>
