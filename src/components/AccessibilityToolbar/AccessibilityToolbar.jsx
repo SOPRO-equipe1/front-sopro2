@@ -102,7 +102,7 @@ const AccessibilityToolbar = () => {
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Abrir menu de acessibilidade"
         >
-          <img src="src/assets/icons/denteLeao.png" alt="Acessibilidade SOPRO" />
+          <img src={iconeacessibilidade} alt="Acessibilidade SOPRO" />
         </button>
 
         {isOpen && (
