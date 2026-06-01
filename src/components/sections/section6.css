@@ -1,4 +1,15 @@
 /* Estilos Base (Desktop) */
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
 .section6 {
     position: relative;
     display: flex;

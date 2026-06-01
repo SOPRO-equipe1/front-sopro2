@@ -1,4 +1,14 @@
 /* Estilos Base (Desktop) */
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
 .hero {
     position: relative;
     width: 100%;
