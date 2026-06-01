@@ -98,7 +98,6 @@
     justify-content: center;
     width: 100%;
     height: 170px;   
-
 }
 
 .area_de_perguntas h2{
@@ -204,8 +203,8 @@
     cursor: pointer;
     padding: 0; 
     z-index: 1000;
-    bottom: 20px;
-    right: 20px; 
+    bottom: 30px;
+    right: 28px; 
 
     animation: flutuar 2s infinite;
  }
@@ -218,8 +217,8 @@
 .icone_chatbot{
     transform: scale(1.15);
     filter:drop-shadow(0px 12px 20px rgba(0, 123, 255, 0.2));
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
 }
 
 /*--Área de Responsividade--*/

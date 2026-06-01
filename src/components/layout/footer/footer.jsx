@@ -20,9 +20,9 @@ const Footer = () => {
           <div className="footer-col">
             <h4>Produto</h4>
             <ul className="footer-list">
-              <li><a href="#">Recursos</a></li>
-              <li><a href="#">Especificações</a></li>
-              <li><a href="#">Preços</a></li>
+              <li><a href="/produto">Recursos</a></li>
+              <li><a href="/home">Especificações</a></li>
+              <li><a href="/planos">Preços</a></li>
               <li><a href="/suporte">Suporte</a></li>
             </ul>
           </div>
@@ -33,7 +33,7 @@ const Footer = () => {
               <li><a href="/sobre">Sobre Nós</a></li>
               <li><a href="#">Blog</a></li>
               <li><a href="#">Carreiras</a></li>
-              <li><a href="#">Contato</a></li>
+              <li><a href="/suporte">Contato</a></li>
             </ul>
           </div>
 

@@ -46,8 +46,8 @@ const Section4 = () =>{
                             </div>
                             <p>Tecnologia que respeita sua dignidade e amplifica suas possibilidades.</p>
                         </div>
-                        <Link to="/produto" style={{ textDecoration: 'none'}}>
-                                <button className="saibaMais2">SAIBA MAIS</button>
+                        <Link to="/produto" style={{ textDecoration: 'none' , alignSelf: 'center' }}>
+                                <button className="saibaMais2" >SAIBA MAIS</button>
                         </Link>
                     </div>
             </section>

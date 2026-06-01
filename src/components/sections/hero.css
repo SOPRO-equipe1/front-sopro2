@@ -50,6 +50,17 @@
     transition: transform 0.2s ease;
 }
 
+
+.saibaMaisHero:hover {
+    transform: scale(1.05);
+}
+
+.saibaMaisHero:active {
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 /* --- RESPONSIVIDADE PARA CELULARES --- */
 @media (max-width: 768px) {
     .hero {
