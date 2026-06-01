@@ -7,7 +7,9 @@
 
     box-sizing: border-box;
 
+    overflow-x: hidden
 }
+
 
 .hero {
     position: relative;
