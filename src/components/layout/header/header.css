@@ -85,6 +85,14 @@
    margin-bottom: 30px;
 }
 
+.btn-fechar {
+    display: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
 
 /* --- MEDIA QUERIES (Responsividade) --- */
 
