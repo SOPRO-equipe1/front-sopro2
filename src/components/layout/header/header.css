@@ -1,4 +1,9 @@
 /* --- Header Principal --- */
+body{
+    overflow-x: hidden
+
+}
+
 .main-header {
     width: 100%;
     background-color: var(--cor-branco);
@@ -86,7 +91,7 @@
 }
 
 .btn-fechar {
-    display: block;
+    display: none;
     width: 24px;
     height: 24px;
     cursor: pointer;
@@ -168,6 +173,7 @@
 }
 
 .btn-fechar {
+    display: block;
     width: 30px;
     height: 30px;
     cursor: pointer;
