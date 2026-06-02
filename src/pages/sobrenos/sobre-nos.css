@@ -233,6 +233,12 @@ hr {
     margin: 4%;
 }
 
+.FotoEquipe {
+    width: 100%;
+    overflow: hidden;
+}
+
+
 .FotoEquipe img{
   width: 100%;
   max-height: none;
@@ -240,6 +246,7 @@ hr {
   object-position: center top;
   height: auto;
   display: block;
+  
 }
 
 @media (max-width: 768px) {
