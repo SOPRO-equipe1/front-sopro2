@@ -131,7 +131,7 @@
     position: fixed;
     top: 0;
     right: -100%;
-    width: 30%;
+    width: 50%;
     height: 100vh;
     background-color: white;
     padding: 80px 30px 30px;
@@ -152,6 +152,20 @@
     display: block;
 }
 
+.menu_topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-fechar {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
 }
 
 /* Celulares */
@@ -169,7 +183,7 @@
     position: fixed;
     top: 0;
     right: -100%;
-    width: 30%;
+    width: 40%;
     height: 100vh;
     background-color: white;
     padding: 80px 30px 30px;
@@ -189,6 +203,20 @@
     margin-bottom: 20px;
     display: block;
     padding: 20px 30px 30px;
+}
+
+.menu_topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-fechar {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-bottom: 15px;
 }
 
 }

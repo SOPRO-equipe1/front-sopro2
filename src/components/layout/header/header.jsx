@@ -4,6 +4,7 @@ import './header.css'
 import soproLogo from "../../../assets/icons/logo.png";
 import { useState } from 'react';
 import menuSanduiche from '../../../assets/icons/menu_sanduiche.svg'
+import botaofechar from '../../../assets/images/chatbot/botao_fechar.svg'
 
 const Header = () => {
 
@@ -23,7 +24,10 @@ const Header = () => {
       
   
         <nav className={`nav-menu ${menuAberto ? "aberto" : ""}`}>
-        <img src={soproLogo} alt="SOPRO Logotipo" className="sopro-logo-menu" />
+        <div className="menu_topo">
+            <img src={soproLogo} alt="SOPRO Logotipo" className="sopro-logo-menu" />
+            <img src={botaofechar} alt="SOPRO Logotipo" className="btn-fechar" onClick={() => setMenuAberto(false)} />
+        </div>
           <ul className="nav-list">
             <li><Link to="/" className="nav-item">INÍCIO</Link></li>
             <li><Link to="/sobrenos" className="nav-item">SOBRE NÓS</Link></li>
