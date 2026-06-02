@@ -1,8 +1,4 @@
 /* --- Header Principal --- */
-body{
-    overflow-x: hidden
-
-}
 
 .main-header {
     width: 100%;
@@ -55,6 +51,28 @@ body{
     color: var(--cor-azul);
 }
 
+
+.btn-login-wrapper {
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+}
+
+.btn-login-wrapper:hover {
+    transform: scale(1.05);
+}
+
+.btn-login {
+    background-color: var(--cor-azul);
+    color: var(--cor-branco) !important;
+    padding: 8px 20px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+/*
 .btn-login {
     background-color: var(--cor-azul);
     color: var(--cor-branco) !important;
@@ -64,6 +82,15 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+.btn-login {
+    transition: transform 0.2s ease;
+}
+
+.btn-login:hover {
+    transform: scale(1.05);
+}*/
+
 
 .menu_lateral {
     display: none;
@@ -126,11 +153,21 @@ body{
         
         gap: 15px;
     }
-
+/*
     .btn-login {
         padding: 6px 15px;
         font-size: 14px;
     }
+
+    .btn-login {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-login:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+    */
 
     .menu_lateral  {
     display: block;

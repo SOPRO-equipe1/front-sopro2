@@ -30,6 +30,19 @@ body {
     transition: font-size 0.2s ease;
 }
 
+* {
+    scrollbar-width: none;
+}
+
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
 /* Padronização de títulos usando rem */
 h1 {
     font-family: var(--fonte-titulos);
