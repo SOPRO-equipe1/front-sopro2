@@ -86,7 +86,7 @@
 }
 
 .btn-fechar {
-    display: none;
+    display: block;
     width: 24px;
     height: 24px;
     cursor: pointer;
@@ -176,7 +176,7 @@
 
 }
 
-/* Celulares */
+/* Celulares
 @media (max-width: 480px) {
     
     .nav-list .nav-item:not(.btn-login) {
@@ -227,4 +227,4 @@
     margin-bottom: 15px;
 }
 
-}
+}*/
