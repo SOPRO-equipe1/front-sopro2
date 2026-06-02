@@ -36,10 +36,9 @@ body {
     overflow-y: auto; /* Permite rolar o conteúdo interno */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
-}
+    scrollbar-width: thin;
 
-.container_chatbot::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    
 }
 
 .header_chatbot {

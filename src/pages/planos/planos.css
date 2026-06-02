@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+
 * {
 
     margin: 0;
@@ -8,18 +12,6 @@
 
 }
 
-
-
-
-
-
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
-
-
-
 .pagina-planos {
 
   display: flex;
@@ -29,7 +21,6 @@
   width: 100%;
 
 }
-
 
 
 .container-hero {
@@ -145,6 +136,8 @@
   flex-direction: column;
 
   align-items: center;
+  overflow: visible;
+  padding: 80px 40px;
 
 }
 
@@ -161,6 +154,8 @@
   flex-wrap: wrap;
 
   max-width: 1200px;
+
+  overflow: visible;  
 
 }
 
@@ -185,6 +180,8 @@
   flex-direction: column;
 
   position: relative;
+
+   overflow: visible;
 
 }
 
@@ -262,6 +259,12 @@
 
   margin-bottom: 30px;
 
+  overflow: visible;
+
+  padding-left: 2px;
+  padding-bottom: 2px;
+  padding-right: 2px;
+
 }
 
 
@@ -278,6 +281,12 @@
 
 }
 
+.lista-beneficios li a {
+  padding-left: 3px;
+
+  overflow: visible;
+}
+
 
 
 .marcador {
@@ -285,6 +294,10 @@
     margin-right: 10px;
 
      font-weight: bold;
+
+     flex-shrink: 0;
+
+      overflow: visible;
 
     }
 
@@ -305,12 +318,14 @@
  .marcador.azul img {
 
   width: 2rem;
+  display: block;
 
  }
 
 .marcador.laranja {
 
     color: #f2741f;
+    
 
  }
 
@@ -319,6 +334,8 @@
  .marcador.laranja img {
 
   width: 2rem;
+  overflow: visible;
+  display: block;
 
  }
 
