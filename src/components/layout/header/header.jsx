@@ -2,8 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 import './header.css'
 import soproLogo from "../../../assets/icons/logo.png";
+import { useState } from 'react';
+import menuSanduiche from '../../../assets/icons/menu_sanduiche.svg'
 
 const Header = () => {
+
+  const [menuAberto, setMenuAberto] = useState(false);
+
   return (
     <header className="main-header">
       <div className="header-container">
@@ -11,8 +16,14 @@ const Header = () => {
         <Link to="/" className="logo-link">
           <img src={soproLogo} alt="SOPRO Logotipo" className="sopro-logo" />
         </Link>
-        
-        <nav className="nav-menu">
+
+        <button className="menu_lateral" onClick={() => setMenuAberto(!menuAberto)}>
+           <img src={menuSanduiche} alt="Menu Lateral" />
+        </button>
+      
+  
+        <nav className={`nav-menu ${menuAberto ? "aberto" : ""}`}>
+        <img src={soproLogo} alt="SOPRO Logotipo" className="sopro-logo-menu" />
           <ul className="nav-list">
             <li><Link to="/" className="nav-item">INÍCIO</Link></li>
             <li><Link to="/sobrenos" className="nav-item">SOBRE NÓS</Link></li>
@@ -22,7 +33,7 @@ const Header = () => {
             <li><Link to="/login" className="nav-item btn-login">LOGIN</Link></li>
             
             
-         
+    
           </ul>
         </nav>
       </div>

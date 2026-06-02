@@ -60,6 +60,32 @@
     justify-content: center;
 }
 
+.menu_lateral {
+    display: none;
+}
+
+.menu_lateral {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: none;
+}
+
+.menu_lateral img {
+    width: 32px;
+    height: auto;
+}
+
+
+.sopro-logo-menu {
+   display: none;
+   width: 100px;
+   height: auto;
+   margin-bottom: 30px;
+}
+
+
 /* --- MEDIA QUERIES (Responsividade) --- */
 
 /* Telas de Laptop Médio */
@@ -92,6 +118,40 @@
         padding: 6px 15px;
         font-size: 14px;
     }
+
+    .menu_lateral  {
+    display: block;
+}
+
+.nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+}
+.nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 30%;
+    height: 100vh;
+    background-color: white;
+    padding: 80px 30px 30px;
+    transition: right 0.3s ease;
+    z-index: 999;
+    box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+    padding: 20px 30px 30px;
+}
+
+.nav-menu.aberto {
+    right: 0;
+}
+
+.sopro-logo-menu {
+    width: 80px;
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+}
+
 }
 
 /* Celulares */
@@ -100,4 +160,35 @@
     .nav-list .nav-item:not(.btn-login) {
         display: none; 
     }
+
+.nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+}
+.nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 30%;
+    height: 100vh;
+    background-color: white;
+    padding: 80px 30px 30px;
+    transition: right 0.3s ease;
+    z-index: 999;
+    box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+    padding: 20px 30px 30px;
+}
+
+.nav-menu.aberto {
+    right: 0;
+}
+
+.sopro-logo-menu {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+    padding: 20px 30px 30px;
+}
+
 }

@@ -88,7 +88,7 @@ return (
   <div className="FotoEquipe">
     <img src={conhecaequipe} alt="Foto da equipe com fundo decorativo" />
   </div>
-</div>
+  </div>
 
 
 

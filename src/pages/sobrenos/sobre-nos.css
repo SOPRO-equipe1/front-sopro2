@@ -286,13 +286,29 @@ hr {
     width: 90px;  
     height: 90px;
     border-radius: 50%; 
-    border: 2px solid #000000; 
     overflow: hidden;
     flex-shrink: 0; 
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.card-laranja .fotoperfil {
+    border: 2px solid #E86B15;
+}
+
+.card-azul .fotoperfil {
+    border: 2px solid  #1545D8;
+}
+
+.card-roxo .fotoperfil {
+    border: 2px solid #9333EA;
+}
+
+.card-verde .fotoperfil {
+    border: 2px solid #30BD30;
+}
+
 
 .fotoperfil img {
     width: 100%;
@@ -370,7 +386,7 @@ hr {
 .card-azul, .card-Azul { border-color: #1545D8; background-color: #EEF2FF; }
 .card-roxo { border-color: #9333EA; background-color: #F5F0FF; }
 .card-verde { border-color: #30BD30; background-color: #F0FDF4; }
-
+ 
 
 @media (max-width: 768px) {
 
