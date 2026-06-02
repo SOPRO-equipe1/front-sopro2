@@ -242,8 +242,6 @@ hr {
 .FotoEquipe img{
   width: 100%;
   max-height: none;
-  object-fit: cover;
-  object-position: center top;
   height: auto;
   display: block;
   
