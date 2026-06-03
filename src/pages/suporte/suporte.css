@@ -34,14 +34,17 @@
 }
 .suporte-inner {
     backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px); 
+    -webkit-backdrop-filter: blur(50px);
     border-radius: 24px;
-    background-color: rgba(20, 153, 20, 0.7);
+    background-color: rgba(20, 153, 20, 0.85);
     display: flex;
     flex-direction: column;
     padding: 32px 40px;
     color: #fff;
-    max-width: 600px; 
+    max-width: 600px;
+    /* Garante que o card apareça em todos os dispositivos */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .suporte-sopro {
