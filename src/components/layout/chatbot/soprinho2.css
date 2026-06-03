@@ -17,6 +17,7 @@
     flex-direction: column;
     padding: 0;
     overflow: hidden;
+    isolation: isolate;
 }
 
 .mensagens {

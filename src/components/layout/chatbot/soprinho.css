@@ -12,7 +12,7 @@ body {
 
 .componente_principal {
     position: fixed;
-    z-index: 2147483647;
+      z-index: 2147483644;
     width: min(380px, 90vw);
     height: min(520px, 85dvh);
     width: 380px; 
