@@ -64,6 +64,8 @@
     padding: 10px 15px;
     font-size: 14px;
     width: 65%;
+     overflow: visible;
+    overflow-y: visible;
 }
 
 .mensagens_soprinho {
@@ -74,18 +76,6 @@
     align-items: flex-start;
     flex-direction: row;
 }
-
-.mensagens_soprinho p {
-    overflow: visible;
-    overflow-y: visible;
-}
-
-.mensagens_do_soprinho p {
-    overflow: visible;
-    overflow-y: visible;
-}
-
-
 
 .mensagens_soprinho img {
     width: 35px;
@@ -98,6 +88,8 @@
     padding: 10px 15px;
     font-size: 14px;
     max-width: 70%;
+    overflow: visible;
+    overflow-y: visible;
 }
 
 .input_soprinho{
