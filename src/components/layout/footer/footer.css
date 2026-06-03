@@ -94,7 +94,7 @@
 .footer-list a:hover, 
 .footer-legal a:hover {
     color: var(--cor-azul) !important;
-    transform: translateX(5px); 
+    
 }
 
 .footer-social-icons {
@@ -119,8 +119,7 @@
 
 .social-icon-box:hover {
     background-color: var(--cor-azul);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
-    filter: brightness(1.04);
+   
 }
 
 .social-icon-box img {
