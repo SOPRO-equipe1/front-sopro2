@@ -492,47 +492,55 @@
 
 @media (max-width: 768px) {
 
-    /* 1. Hero: Muda de sobreposto para empilhado */
-
- .cartao-hero {
+  /* Mantém o card sobreposto na imagem igual ao desktop */
+  .conteudo-hero {
     position: relative;
-    width: 90%;
-    right: auto;
+    display: flex;
+    align-items: center;
+  }
+
+  .imagem-hero {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    object-position: left center; /* foca no rosto, não corta */
+  }
+
+  .cartao-hero {
+    position: absolute;
+    right: 4%;
     left: auto;
-    margin: -50px auto 20px; /* auto nas laterais = centralizado */
-    padding: 30px 20px;
-    border-radius: 20px;
+    width: 52%;
+    max-width: none;
+    padding: 20px 16px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #3b59ba 0%, #2544a5 100%);
+    color: white;
     text-align: center;
-}
+  }
 
+  .titulo-hero {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
 
+  .divisor-hero {
+    margin: 12px auto;
+  }
 
-    .titulo-hero {
+  .subtitulo-hero {
+    font-size: 0.85rem;
+  }
 
-        font-size: 1.8rem;
+  /* Grade de preços */
+  .cartao-preco {
+    width: 100%;
+    max-width: 360px;
+  }
 
-    }
-
-
-
-    /* 2. Grade de Preços: Ajusta o cartão de destaque */
-
-    .cartao-preco {
-
-        width: 100%; /* Cartões ocupam a tela toda no mobile */
-
-        max-width: 360px;
-
-    }
-
-
-
-    .cartao-preco.destaque {
-
-        transform: scale(1); /* Remove o zoom para não estourar a tela */
-
-    }
-
+  .cartao-preco.destaque {
+    transform: scale(1);
+  }
 }
 
 
