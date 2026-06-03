@@ -1,21 +1,18 @@
-import React, { useState } from 'react'; // Adicionado useState para funcionalidade
+import React, { useState } from 'react';
 import './suporte.css';
-
 import imgSuporteTecnico from '../../assets/images/suporte/imgSuporteTecnico.png';
 import iconSeta from '../../assets/icons/Vector.png'; 
 
 const Suporte = () => {
-  
   const [aberto, setAberto] = useState(null);
 
-  
   const faqs = [
     {
       pergunta: "Como faço para ligar o dispositivo?",
       resposta: "Certifique-se de que o dispositivo está carregado via cabo USB-C. Pressione o botão lateral por 3 segundos. O LED de status piscará em azul, indicando que o firmware está ativo e pronto para a conexão Bluetooth/Wi-Fi com o site SOPRO."
     },
     {
-      pergunta: "Posso testar funcionalides premium do dispositivo?",
+      pergunta: "Posso testar funcionalidades premium do dispositivo?",
       resposta: "Sim. O acesso pode ser liberado via endpoint administrativo (Mock de Pagamento) durante este ciclo."
     },
     {
@@ -23,7 +20,7 @@ const Suporte = () => {
       resposta: "Isso pode acontecer por alguns motivos: O sopro pode estar muito fraco ou muito forte. O posicionamento do dispositivo pode não estar correto; Pode haver ruído no ambiente. Tente ajustar a intensidade do sopro e segurar o dispositivo de forma confortável, como uma gaita."
     },
     {
-      pergunta: "O som da frase não saiu no meu dispositivo, o que pode ser?.",
+      pergunta: "O som da frase não saiu no meu dispositivo, o que pode ser?",
       resposta: "Certifique-se de que o Bluetooth está conectado e o volume do sistema de saída está ativo."
     },
     {
@@ -36,8 +33,8 @@ const Suporte = () => {
     <main className="suporte-page">
       {/* Hero */}
       <section className="suporte-hero">
-        <div className="hero-content">
-          <h1>Suporte SOPRO</h1>
+        <div className="suporte-inner">
+          <h1 className="suporte-sopro">Suporte SOPRO</h1>
           <p>Encontre auxílio e esclareça suas dúvidas</p>
         </div>
       </section>
@@ -46,17 +43,12 @@ const Suporte = () => {
       <section className="guia-uso">
         <div className="guia-uso-container">
           <h2>Guia de uso</h2>
-          
           <div className="video-wrapper">
-            <button className="play-btn">
-              Passo a passo
-            </button>
-            <div className="video-placeholder">
-            
-            </div>
+            <button className="play-btn">Passo a passo</button>
+            <div className="video-placeholder"></div>
           </div>
         </div>
-    </section>
+      </section>
 
       {/* Central de Ajuda */}
       <section className="faq-section">
@@ -64,7 +56,6 @@ const Suporte = () => {
         <div className="faq-grid">
           {faqs.map((item, index) => (
             <article className="faq-item" key={index}>
-              {/* abrir efechar a resposta ao clicar */}
               <button onClick={() => setAberto(aberto === index ? null : index)}>
                 <span>{item.pergunta}</span>
                 <img 
@@ -73,9 +64,8 @@ const Suporte = () => {
                   style={{ transform: aberto === index ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.3s' }} 
                 />
               </button>
-              {/* Resposta aparece apenas se o botão for clicado */}
               {aberto === index && (
-                <div style={{ padding: '20px', textAlign: 'left', width: '946px', margin: '0 auto', color: '#333' }}>
+                <div style={{ padding: '20px', textAlign: 'left', maxWidth: '946px', width: '100%', margin: '0 auto', color: '#333' }}>
                   <p>{item.resposta}</p>
                 </div>
               )}
