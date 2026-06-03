@@ -32,6 +32,7 @@ body {
     gap: 50px;
 }
 
+
 /* --- BOTÃO BLINDADO CONTRA ZÍPERES --- */
 .saibaMaisLaranja {
     background-color: #E86B15 !important;
@@ -88,9 +89,51 @@ body {
 .imgSection3 { width: 100%; max-width: 500px; height: auto; object-fit: contain; display: block; }
 
 @media (max-width: 768px) {
-    .section3 { flex-direction: column; gap: 40px; margin-top: 40px; text-align: center; }
-    .textos_section3 { align-items: center; gap: 30px; }
-    .produtoeicone, .sensivel, .aprende { justify-content: center; }
-    .produtoeicone img, .sensivel img, .aprende img { width: 36px; }
-    .imgSection3 { max-width: 350px; margin: 0 auto; }
+    .section3 { 
+
+        flex-direction: column; 
+        gap: 40px; 
+        margin-top: 40px; 
+        text-align: center; 
+    }
+
+    .textos_section3 { 
+        align-items: 
+        center; 
+        gap: 30px;
+     }
+
+    .produtoeicone, 
+    .sensivel, 
+    .aprende { 
+        justify-content: center; 
+    }
+
+    .produtoeicone img,
+     .sensivel img, 
+     .aprende img { 
+        width: 36px; 
+    }
+
+    .imgSection3 {
+         max-width: 350px; 
+         margin: 0 auto; 
+        }
+
+     .sensivel p{
+
+        font-size: 15px;
+        margin-top: 20px;
+        text-align: left;
+        }
+
+        .aprende p{
+
+        font-size: 14px;
+        text-align: left;
+        }
+
+    .saibaMaisLaranja{
+        margin-right: 45px;
+    }
 }

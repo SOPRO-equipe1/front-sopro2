@@ -62,11 +62,15 @@
         height: auto;    /* ← garante que expande com os filhos */
     }
 
-    .contato,
-    .produtos {
-        width: 100% !important;
-        max-width: 300px !important;
-        height: 52px !important;
+     .botoes {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .contato, .produtos {
+        width: 280px;
+        height: 52px;
     }
 }
 
