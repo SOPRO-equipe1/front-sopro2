@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider, appleProvider } from '../../context/auth/firebase';
+import { auth, googleProvider } from '../../context/auth/firebase';
 import './cadastro.css';
 import '../../context/auth/auth-extras.css';
 import imagemCadastro from '../../assets/images/cadastro/imgCadastre-se.png';
 import logo from '../../assets/icons/logo.png';
 import logoGoogle from '../../assets/icons/logoGoogle.png';
-import logoApple from '../../assets/icons/logoApple.png';
 
 const Cadastro = () => {
   const [nome, setNome] = useState('');
@@ -45,7 +44,7 @@ const Cadastro = () => {
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email.trim(), senha);
       await updateProfile(user, { displayName: nome.trim() });
-      navigate('/checkout');
+      navigate('/perfil');
     } catch (err) {
       setErro(traduzirErro(err.code));
     } finally {
@@ -54,23 +53,16 @@ const Cadastro = () => {
   };
 
   const handleGoogle = async () => {
-    setErro(''); setCarregando(true);
+    setErro('');
+    setCarregando(true);
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate('/checkout');
+      navigate('/perfil');
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') setErro(traduzirErro(err.code));
-    } finally { setCarregando(false); }
-  };
-
-  const handleApple = async () => {
-    setErro(''); setCarregando(true);
-    try {
-      await signInWithPopup(auth, appleProvider);
-      navigate('/checkout');
-    } catch (err) {
-      if (err.code !== 'auth/popup-closed-by-user') setErro(traduzirErro(err.code));
-    } finally { setCarregando(false); }
+    } finally {
+      setCarregando(false);
+    }
   };
 
   return (
@@ -120,10 +112,6 @@ const Cadastro = () => {
             <button type="button" className="social-btn social-btn--google" onClick={handleGoogle} disabled={carregando}>
               <img src={logoGoogle} alt="" aria-hidden="true" />
               Continuar com Google
-            </button>
-            <button type="button" className="social-btn social-btn--apple" onClick={handleApple} disabled={carregando}>
-              <img src={logoApple} alt="" aria-hidden="true" />
-              Continuar com Apple
             </button>
           </nav>
 

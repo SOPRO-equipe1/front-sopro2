@@ -3,10 +3,9 @@ import './login.css';
 import imagemLogin from '../../assets/images/login/imagemLogin.png';
 import logo from '../../assets/icons/logo.png';
 import logoGoogle from '../../assets/icons/logoGoogle.png';
-import logoApple from '../../assets/icons/logoApple.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider, appleProvider } from '../../context/auth/firebase';
+import { auth, googleProvider } from '../../context/auth/firebase';
 
 const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -33,7 +32,7 @@ const Login = () => {
     setCarregando(true);
     try {
       await signInWithEmailAndPassword(auth, usuario.trim(), senha);
-      navigate('/');
+      navigate('/perfil');
     } catch (err) {
       setErro(traduzirErro(err.code));
     } finally {
@@ -42,23 +41,16 @@ const Login = () => {
   };
 
   const handleGoogle = async () => {
-    setErro(''); setCarregando(true);
+    setErro('');
+    setCarregando(true);
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate('/');
+      navigate('/perfil');
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') setErro(traduzirErro(err.code));
-    } finally { setCarregando(false); }
-  };
-
-  const handleApple = async () => {
-    setErro(''); setCarregando(true);
-    try {
-      await signInWithPopup(auth, appleProvider);
-      navigate('/');
-    } catch (err) {
-      if (err.code !== 'auth/popup-closed-by-user') setErro(traduzirErro(err.code));
-    } finally { setCarregando(false); }
+    } finally {
+      setCarregando(false);
+    }
   };
 
   return (
@@ -104,10 +96,6 @@ const Login = () => {
             <button type="button" className="social-btn social-btn--google" onClick={handleGoogle} disabled={carregando}>
               <img src={logoGoogle} alt="" aria-hidden="true" />
               Entrar com Google
-            </button>
-            <button type="button" className="social-btn social-btn--apple" onClick={handleApple} disabled={carregando}>
-              <img src={logoApple} alt="" aria-hidden="true" />
-              Entrar com Apple
             </button>
           </nav>
         </article>
