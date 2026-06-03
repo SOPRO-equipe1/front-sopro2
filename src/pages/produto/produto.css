@@ -52,7 +52,7 @@ p {
     max-width: 80%;         
     height: auto;
     margin-top: 20px;
-    border
+    border-radius: 20px;
 }
 
 /* Responsividade */
@@ -65,7 +65,7 @@ p {
     }
     .fotoHero {
         /* No celular, para não cortar, centralizamos de volta */
-        
+        border-radius: 20px;
         width: 40rem;
         height: 20rem;
     }
