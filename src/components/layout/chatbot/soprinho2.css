@@ -75,6 +75,18 @@
     flex-direction: row;
 }
 
+.mensagens_soprinho p {
+    overflow: visible;
+    overflow-y: visible;
+}
+
+.mensagens_do_soprinho p {
+    overflow: visible;
+    overflow-y: visible;
+}
+
+
+
 .mensagens_soprinho img {
     width: 35px;
     height: 35px;
@@ -107,7 +119,8 @@
     font-size: 18px;
     outline: none;
     border-top: 1px solid #e0e0e0 ;
-     flex-shrink: 0;
+    flex-shrink: 0;
+    font-size: 14px;
 }
 
 .botao_enviar{
