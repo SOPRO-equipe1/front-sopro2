@@ -65,7 +65,7 @@ p {
     }
     .fotoHero {
         /* No celular, para não cortar, centralizamos de volta */
-        align-self: flex-end;
+        
         width: 40rem;
         height: 20rem;
     }
