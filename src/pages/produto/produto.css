@@ -72,7 +72,7 @@ p {
 
     .fotoHero img {
         /* No celular, para não cortar, centralizamos de volta */
-        width: 90rem;
+        width: 100%;
     }
 }
 
