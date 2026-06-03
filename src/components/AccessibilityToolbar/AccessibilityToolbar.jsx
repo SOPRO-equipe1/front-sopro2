@@ -10,9 +10,13 @@ const AccessibilityToolbar = () => {
     setHighContrast, highContrast,
     cognitiveFocus, setCognitiveFocus,
     screenReaderActive, setScreenReaderActive
-  } = useA11y();
+  }  = useA11y();
 
   const [isOpen, setIsOpen] = useState(false);
+
+  //Adicionando isso para testar funcionalidade
+  console.log('isOpen atual:', isOpen);
+
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const menuRef = useRef(null);
   const lastSpokenText = useRef(""); 
@@ -99,7 +103,12 @@ const AccessibilityToolbar = () => {
       <div className="a11y-container" ref={menuRef}>
         <button 
           className="dandelion-trigger" 
-          onClick={() => setIsOpen(!isOpen)}
+          // onClick={() => setIsOpen(!isOpen)} 
+          // Linha original é a de cima, adicionado o console para testa funcionalidade
+              onClick={() => {
+              console.log('clicou!');
+              setIsOpen(!isOpen);
+            }}
           aria-label="Abrir menu de acessibilidade"
         >
           <img src={iconeacessibilidade} alt="Acessibilidade SOPRO" />

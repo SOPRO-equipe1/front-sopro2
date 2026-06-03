@@ -10,7 +10,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Container único para evitar conflito de posições */
 .componente_principal {
     position: fixed;
     z-index: 1000;
@@ -22,7 +21,7 @@ body {
     right: 20px;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Bloqueia barras de rolagem no container principal */
+    overflow: hidden;
     box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
 }
 
@@ -55,10 +54,9 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 10px;
-    flex-shrink: 0; /* Garante que o header não encolha */
+    flex-shrink: 0;
 }
 
-/* Estilização básica dos elementos internos */
 .sugestao {
     width: 100%;
     padding-left: 10px;
@@ -93,27 +91,26 @@ body {
     outline: none;
 }
 
-/* ADICIONADO: Estilo para o botão flutuante e o ícone */
+
 .botao_flutuante {
-    position: fixed; /* Fixa o botão na tela */
+    position: fixed;
     bottom: 30px;
     right: 30px;
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 1001; /* Fica acima do container de chat (1000) */
+    z-index: 999; 
     padding: 0;
 }
 
 .icone_chatbot {
-    width: 60px; /* Tamanho do ícone */
+    width: 60px; 
     height: 60px;
-    object-fit: contain; /* Garante que o ícone redondo não seja cortado */
+    object-fit: contain;
     border-radius: 50%;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.2); /* Sombra para o ícone flutuante */
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2); 
 }
 
-/* Responsividade simplificada */
 @media (max-width: 425px) {
     .componente_principal {
         width: 95vw;

@@ -143,6 +143,6 @@ body.high-contrast .a11y-menu h3 {
   width: 100vw !important;
   height: 100vh !important;
   pointer-events: none !important;
-  z-index: 9999 !important;
+  z-index: 1000 !important;
   transition: background 0.02s linear;
 }

@@ -247,6 +247,10 @@ hr {
   
 }
 
+.Img1 {
+    pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .FotoEquipe img {
     width: 100%;
