@@ -512,6 +512,7 @@
     left: auto;
     width: 52%;
     max-width: none;
+    height: 15rem;
     padding: 20px 16px;
     border-radius: 18px;
     background: linear-gradient(135deg, #3b59ba 0%, #2544a5 100%);
