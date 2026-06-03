@@ -48,11 +48,11 @@ p {
 
 .fotoHero {
    
-    align-self: flex-end;  
     width: auto;
     max-width: 80%;         
     height: auto;
     margin-top: 20px;
+    border
 }
 
 /* Responsividade */
