@@ -512,7 +512,6 @@
     left: auto;
     width: 52%;
     max-width: none;
-    height: auto;
     padding: 20px 16px;
     border-radius: 18px;
     background: linear-gradient(135deg, #3b59ba 0%, #2544a5 100%);
@@ -543,36 +542,4 @@
     transform: scale(1);
   }
 }
-
-
-
-/* Ajustes gerais de layout */
-
-.container-hero {
-
-    width: 100%;
-
-    overflow: hidden; /* Evita barras de rolagem horizontais */
-
-}
-
-
-
-.imagem-hero {
-
-    width: 100%;
-
-    height: auto;
-
-    object-fit: cover;
-
-}
-
-
-
-.grade-precos {
-
-    padding: 0 20px;
-
-} 
 
