@@ -64,14 +64,25 @@
 
 
 .cartao-hero {
-    position: relative;
-    width: 90%;
-    right: auto;
-    left: auto;
-    margin: -50px auto 20px; /* auto nas laterais = centralizado */
-    padding: 30px 20px;
-    border-radius: 20px;
-    text-align: center;
+
+  position: absolute;
+
+  right: 5%;
+
+  background: linear-gradient(135deg, #3b59ba 0%, #2544a5 100%);
+
+  color: white;
+
+  padding: 40px;
+
+  border-radius: 25px;
+
+  width: 40%;
+
+  max-width: 450px;
+
+  text-align: center;
+
 }
 
 
@@ -483,11 +494,16 @@
 
     /* 1. Hero: Muda de sobreposto para empilhado */
 
-    .conteudo-hero {
-
-        flex-direction: column;
-
-    }
+    .cartao-hero {
+    position: relative;
+    width: 90%;
+    right: auto;
+    left: auto;
+    margin: -50px auto 20px; /* auto nas laterais = centralizado */
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+}
 
 
 
