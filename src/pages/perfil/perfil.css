@@ -56,7 +56,6 @@ body {
   padding: 1.25rem 1.25rem 1.5rem 1.25rem; 
   margin-bottom: 3rem;
   text-align: left !important;
-
 }
 
 .section-heading {
@@ -122,7 +121,6 @@ body {
   border-radius: 20px;
   margin-bottom: 6px;
   text-align: left !important;
-
 }
 
 .profile-location {
@@ -171,7 +169,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: #E6F1FB;   /* ← fundo azul */
+  background: #E6F1FB;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,7 +188,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: #E6F1FB;   /* ← fundo azul */
+  background: #E6F1FB;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,11 +221,11 @@ body {
   font-size: 13px;
   color: #777;
   margin-bottom: 2px;
-  font-weight: 400 !important;   /* ← remove negrito */
+  font-weight: 400 !important;
 }
 
 .order-valor-data {
-  font-weight: 500 !important;  /* ← peso normal */
+  font-weight: 500 !important;
 }
 
 .order-code strong,
@@ -244,19 +242,18 @@ body {
 .progress-track {
   position: relative;
   height: 4px;
-  background: #5a3000;   /* ← trilha escura no fundo */
+  background: #5a3000;
   border-radius: 99px;
   margin-top: 8px;
   width: 100%;
-  
 }
 
 .progress-fill {
- position: absolute;
+  position: absolute;
   left: 0;
   height: 4px;
   border-radius: 99px;
-  background: #E97B3A;   /* ← trilha laranja sobre o fill */
+  background: #E97B3A;
   transition: width 0.4s ease;
 }
 
@@ -296,14 +293,13 @@ body {
   border-radius: 50%;
   background: #5a3000;   
   border: 2px solid #fff;
-   margin-top: -2.5px;
+  margin-top: -2.5px;
 }
 
 .dot.active {
   background: #E97B3A;
   border: 3px solid #E97B3A;
   border: 3px solid #fff;
-  
 }
 
 .progress-labels {
@@ -326,11 +322,11 @@ body {
 }
 
 .progress-labels li:first-child {
-  text-align: left;   /* ← primeiro alinha à esquerda */
+  text-align: left;
 }
 
 .progress-labels li:last-child {
-  text-align: right;  /* ← último alinha à direita */
+  text-align: right;
 }
 
 /* ── Botão ── */
@@ -339,11 +335,11 @@ body {
   color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 10px 24px;   /* ← maior */
+  padding: 10px 24px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 5rem;     /* ← espaço acima do botão */
+  margin-top: 5rem;
   align-self: flex-end;
 }
 
@@ -396,7 +392,9 @@ body {
   margin-bottom: 3px;
 }
 
-/* ── Responsivo ── */
+/* ══════════════════════════════════════
+   ── Responsivo 560px (já existia) ──
+   ══════════════════════════════════════ */
 @media (max-width: 560px) {
   .order-two-cols {
     flex-direction: column;
@@ -412,6 +410,156 @@ body {
   }
 }
 
+/* ══════════════════════════════════════
+   ── Responsivo 480px (novo) ──
+   ══════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  /* Page */
+  .page {
+    padding: 1rem 0.75rem;
+  }
+
+  .page-title {
+    font-size: 20px;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+
+  /* Card */
+  .card {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+  }
+
+  .section-heading {
+    font-size: 16px !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Perfil */
+  .profile-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .Soprinho {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+  }
+
+  .profile-name {
+    font-size: 20px !important;
+    margin-bottom: 4px;
+  }
+
+  .badge-pro {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+
+  .profile-location {
+    font-size: 12px !important;
+  }
+
+  /* Pedido */
+  .order-two-cols {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+  }
+
+  .order-right {
+    width: 100%;
+    min-width: unset;
+    align-items: flex-start;
+  }
+
+  .order-row {
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .icone_caminhao,
+  .icone_esclamacao {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 6px;
+  }
+
+  .order-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .order-code {
+    font-size: 12px;
+  }
+
+  .order-valor {
+    font-size: 12px;
+  }
+
+  /* Progress */
+  .progress-wrap {
+    margin-bottom: 1.5rem;
+  }
+
+  .step-label {
+    font-size: 10px;
+    white-space: normal;
+    text-align: center;
+    max-width: 56px;
+  }
+
+  .progress-labels li {
+    font-size: 11px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Botão */
+  .track-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 12px 16px;
+    font-size: 14px;
+    align-self: stretch;
+    text-align: center;
+  }
+
+  /* Tracking box */
+  .tracking-box {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  /* Informações pessoais */
+  .info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.875rem 0.5rem;
+  }
+
+  .info-field dt {
+    font-size: 15px;
+  }
+
+  .info-field span {
+    font-size: 16px;
+  }
+}
+
+/* ══════════════════════════════════════
+   ── Responsivo 380px (já existia) ──
+   ══════════════════════════════════════ */
 @media (max-width: 380px) {
   .info-grid {
     grid-template-columns: 1fr;
