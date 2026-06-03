@@ -46,7 +46,7 @@ function Soprinho() {
                     <section>
                         <header className={'header_chatbot'}>
                             <div className={"soprinho_e_logo"}>
-                                {/*<img src={icone} alt="Icone do soprinho ao lado da logo da sopro" /> */}
+                                <img src={icone} alt="Icone do soprinho ao lado da logo da sopro" className="icone_header" /> 
                                 <img src={logo} alt="Logotipo da empresa sopro" />
                             </div>
 

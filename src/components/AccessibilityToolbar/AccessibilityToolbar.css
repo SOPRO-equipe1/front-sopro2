@@ -170,3 +170,12 @@ body.high-contrast .a11y-menu h3 {
   z-index: 2147483646 !important; 
   transition: background 0.02s linear;
 }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.a11y-container {
+    animation: float 4s ease-in-out infinite !important;
+}

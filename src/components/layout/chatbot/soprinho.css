@@ -13,8 +13,10 @@ body {
 .componente_principal {
     position: fixed;
     z-index: 2147483647;
-    width: min(400px, 90vw);
-    height: min(600px, 80dvh);
+   /* width: min(300px, 90vw); */
+    /*height: min(520px, 80dvh); */
+    width: 380px; 
+    height: 520px;
     border-radius: 15px;
     background-color: white;
     bottom: 20px;
@@ -71,13 +73,20 @@ body {
     flex-shrink: 0;
 }
 
+.icone_header{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .soprinho_e_logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 10px; 
 }
 
-.soprinho_e_logo img {
+.soprinho_e_logo .logo_header {
     width: 120px;
     height: auto;
     display: block;
@@ -109,19 +118,22 @@ body {
 }
 
 .icone_area_de_perguntas {
-    width: 130px;
-    height: 130px;
+    width: 90px;
+    height: 90px;
     object-fit: cover;
     border-radius: 50%;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 0 3px white, 0 8px 18px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    flex-shrink: 0
 }
 
 .area_de_perguntas h2 {
     font-family: "Poppins", sans-serif;
-    font-size: 1.7rem;
-    line-height: 1.25;
+    font-size: 1.2rem;
+    line-height: 1.2;
     color: #111;
-    max-width: 18ch;
+    max-width: 22ch;
+    margin-bottom: 10px; 
 }
 
 .sugestoes {
@@ -192,14 +204,24 @@ body {
 
 
 .botao_flutuante {
-    position: fixed;
+   position: fixed;
     bottom: 30px;
     right: 30px;
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 999; 
+    z-index: 999;
     padding: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 60px;
+    height: 60px;
+}
+
+.botao_flutuante img {
+    transform: scale(1.1);
+    border-radius: 50%;
+    animation: none;
 }
 
 .botao_flutuante:hover {
@@ -215,17 +237,38 @@ body {
 }
 
 .icone_chatbot {
-    width: 60px; 
+    width: 60px;
     height: 60px;
-    object-fit: contain;
+    object-fit: cover;
+    display: block;
+
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.botao_flutuante {
+    animation: float 3s ease-in-out infinite;
+}
+
+.botao_flutuante img, .icone_chatbot {
+    animation: none;
+}
+
+.botao_flutuante:hover img {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 12px rgba(0, 120, 255, 0.6));
+    animation: none;
     border-radius: 50%;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.2); 
 }
 
 @media (max-width: 425px) {
-    .componente_principal {
-        width: 95vw;
-        right: 2.5vw;
+     .componente_principal {
+        width: 92vw;
+        height: 85dvh;
+        right: 4vw;
         bottom: 10px;
     }
 }
