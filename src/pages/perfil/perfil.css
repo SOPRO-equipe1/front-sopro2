@@ -569,9 +569,7 @@ body {
   }
 }
 
-/* ══════════════════════════════════════
-   ── Responsivo 380px (já existia) ──
-   ══════════════════════════════════════ */
+
 @media (max-width: 380px) {
   .info-grid {
     grid-template-columns: 1fr;
