@@ -107,26 +107,17 @@
     font-size: 14px;
     font-weight: 600;
     margin: 0;
-    position: relative;
-    padding: 0 12px; /* espaço para as linhas não sobreporem o texto */
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .login-divider-label::before,
 .login-divider-label::after {
     content: '';
-    position: absolute;
-    top: 50%;
-    width: 30%;
+    flex: 1;
     height: 1px;
     background-color: #D1D5DB;
-}
-
-.login-divider-label::before {
-    left: 0;
-}
-
-.login-divider-label::after {
-    right: 0;
 }
 
 .login-social {
