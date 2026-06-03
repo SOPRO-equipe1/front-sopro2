@@ -267,7 +267,7 @@ body {
 @media (max-width: 425px) {
      .componente_principal {
         width: 92vw;
-        height: 85dvh;
+        height: 60dvh;
         right: 4vw;
         bottom: 10px;
     }
