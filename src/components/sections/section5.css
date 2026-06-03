@@ -84,7 +84,10 @@
     transition: transform 0.2s;
 }
 
-.contato:hover { transform: scale(1.05); }
+.contato:hover { 
+    filter: brightness(1.06);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
 .contato:active { filter: brightness(0.9); }
 
 .produtos {
@@ -103,7 +106,10 @@
     transition: transform 0.2s;
 }
 
-.produtos:hover { transform: scale(1.05); }
+.produtos:hover { 
+    filter: brightness(1.06);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
 .produtos:active { filter: brightness(0.9); }
 
 .imgSection5 {

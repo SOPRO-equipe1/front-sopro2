@@ -12,7 +12,7 @@ body {
 
 .componente_principal {
     position: fixed;
-    z-index: 1000;
+    z-index: 2147483647;
     width: min(400px, 90vw);
     height: min(600px, 80dvh);
     border-radius: 15px;
@@ -23,6 +23,20 @@ body {
     flex-direction: column;
     overflow: hidden;
     box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+}
+
+.componente_principal > section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.componente_principal > section > section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
 }
 
 .container_chatbot {
@@ -57,22 +71,87 @@ body {
     flex-shrink: 0;
 }
 
+.soprinho_e_logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.soprinho_e_logo img {
+    width: 120px;
+    height: auto;
+    display: block;
+}
+
+.fechar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.fechar img {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.area_de_perguntas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.icone_area_de_perguntas {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.area_de_perguntas h2 {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.7rem;
+    line-height: 1.25;
+    color: #111;
+    max-width: 18ch;
+}
+
+.sugestoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .sugestao {
     width: 100%;
-    padding-left: 10px;
-    font-size: 15px;
+    padding: 0 14px;
+    font-size: 14px;
     font-family: "Poppins", sans-serif;
     border-radius: 10px;
-    height: 40px;
+    min-height: 42px;
     background-color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
+    text-align: left;
 }
 
 .sugestao_verde { border: 1.5px solid #00c853; }
 .sugestao_azul { border: 1.5px solid #007bff; }
 .sugestao_laranja { border: 1.5px solid #E86B15; }
+
+.sugestao:hover {
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    filter: brightness(1.02);
+}
 
 .input_soprinho {
     display: flex;
@@ -91,6 +170,26 @@ body {
     outline: none;
 }
 
+.botao_enviar {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #007bff, #1a53ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.botao_enviar img {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
 
 .botao_flutuante {
     position: fixed;
@@ -101,6 +200,18 @@ body {
     cursor: pointer;
     z-index: 999; 
     padding: 0;
+}
+
+.botao_flutuante:hover {
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25)) brightness(1.05);
+}
+
+.botao_flutuante img {
+    transition: filter 0.25s ease;
+}
+
+.botao_flutuante:hover img {
+    filter: brightness(1.02);
 }
 
 .icone_chatbot {

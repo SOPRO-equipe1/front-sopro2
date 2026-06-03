@@ -406,12 +406,8 @@
 /* Efeito ao passar o mouse (Hover) */
 
 .botao-assinar:hover, .botao-comprar-dispositivo:hover {
-
-  transform: translateY(-3px); /* Faz o botão subir levemente */
-
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra mais forte */
-
-  filter: brightness(1.1); /* Deixa a cor levemente mais clara */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.1);
 
 }
 
@@ -420,10 +416,7 @@
 /* Efeito ao clicar (Active) */
 
 .botao-assinar:active, .botao-comprar-dispositivo:active {
-
-  transform: translateY(-1px); /* O botão "baixa" um pouco ao ser pressionado */
-
-  filter: brightness(0.9); /* Escurece levemente no clique */
+  filter: brightness(0.92);
 
 }
 

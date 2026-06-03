@@ -334,7 +334,8 @@
 
 .checkout-finalizar:hover {
     opacity: 0.9;
-    transform: scale(1.02);
+    filter: brightness(1.06);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
 }
 
 @media (max-width: 900px) {

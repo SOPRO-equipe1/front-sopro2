@@ -214,11 +214,12 @@ p {
     border-radius: 20px;
     border: none; 
     background-color: #fff;
-    transition: transform 0.3s ease;
+    transition: box-shadow 0.3s ease, filter 0.3s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px); /* Efeito de flutuar ao passar o mouse */
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
+    filter: brightness(1.01);
 }
 
 .card .icon {
@@ -297,12 +298,13 @@ p {
     font-weight: 800;
     font-size: 1.5rem;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: box-shadow 0.2s ease, filter 0.2s ease, background-color 0.2s ease;
 }
 
 .botao-comprar:hover {
     background: #e66310;
-    transform: scale(1.05);
+    filter: brightness(1.05);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
 }
 
 .botao-comprar:active {
@@ -401,7 +403,7 @@ p {
     font-weight: 800;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: box-shadow 0.2s ease, filter 0.2s ease, background-color 0.3s ease;
 
 }
 
@@ -411,7 +413,8 @@ p {
 
 .botao-comprar-specs:hover {
     background-color: #e66310;
-    transform: scale(1.05);
+    filter: brightness(1.05);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
 }
 
 .specs-imagem {

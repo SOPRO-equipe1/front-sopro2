@@ -3,7 +3,8 @@
   position: fixed !important;
   bottom: 130px !important; 
   right: 25px !important;
-  z-index: 10000 !important;
+  /* 🔥 Máxima prioridade para não ser coberto por nenhum outro elemento do site */
+  z-index: 2147483647 !important; 
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-end !important;
@@ -15,8 +16,14 @@
   width: 65px !important;
   height: 65px !important;
   border-radius: 50% !important;
+  clip-path: circle(50% at 50% 50%) !important;
   background-color: #ffffff !important;
   border: 3px solid #1A53FF !important; 
+  padding: 0 !important;
+  overflow: hidden !important;
+  appearance: none !important;
+  line-height: 0 !important;
+  outline: none !important;
   cursor: pointer !important;
   display: flex !important;
   align-items: center !important;
@@ -25,16 +32,30 @@
   transition: all 0.3s ease !important;
 }
 
+.dandelion-trigger:hover {
+  box-shadow: 0 0 22px rgba(26, 83, 255, 0.55) !important;
+  border-color: #0f3fd8 !important;
+  filter: brightness(1.04) !important;
+}
+
+.dandelion-trigger:focus-visible {
+  box-shadow: 0 0 0 4px rgba(26, 83, 255, 0.2), 0 0 15px rgba(26, 83, 255, 0.45) !important;
+}
+
 .dandelion-trigger img {
-  width: 45px !important;
-  height: 45px !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  /* 🔥 Faz o clique do mouse passar através da imagem diretamente para o botão */
+  pointer-events: none !important; 
 }
 
 /* Menu Card */
 .a11y-menu {
-  position: absolute !important;
-  bottom: 85px !important;
-  right: 0 !important;
+  position: fixed !important;
+  right: 25px !important;
+  bottom: 210px !important;
   background: white !important;
   border-radius: 24px !important;
   padding: 20px !important; 
@@ -44,6 +65,7 @@
   flex-direction: column !important;
   gap: 12px !important;
   border: 1px solid #f0f0f0 !important;
+  z-index: 2147483647 !important;
 }
 
 .a11y-menu h3 {
@@ -69,50 +91,50 @@
 }
 
 .btn-font {
-   border: 2.5px solid #1A53FF !important;
-   color: #1A53FF !important; 
-  }
+  border: 2.5px solid #1A53FF !important;
+  color: #1A53FF !important; 
+}
 .btn-font:hover {
-   background: #1A53FF !important; 
-   color: white !important;
-   }
+  background: #1A53FF !important; 
+  color: white !important;
+}
 
-.btn-reset { border: 2.5px solid #F97316 !important;
-   color: #F97316 !important; 
-  }
-
+.btn-reset { 
+  border: 2.5px solid #F97316 !important;
+  color: #F97316 !important; 
+}
 .btn-reset:hover {
-   background: #F97316 !important;
-   color: white !important;
-  }
+  background: #F97316 !important;
+  color: white !important;
+}
 
-.btn-contrast { border: 2.5px solid #9333EA !important;
-   color: #9333EA !important; 
-  }
-
+.btn-contrast { 
+  border: 2.5px solid #9333EA !important;
+  color: #9333EA !important; 
+}
 .btn-contrast:hover, .btn-contrast.active {
-   background: #9333EA !important; 
-   color: white !important;
-   }
+  background: #9333EA !important; 
+  color: white !important;
+}
 
 .btn-focus {
-   border: 2.5px solid #30BD30!important;
-    color:#30BD30 !important; 
-  }
-
+  border: 2.5px solid #30BD30 !important;
+  color: #30BD30 !important; 
+}
 .btn-focus:hover, .btn-focus.active {
-   background: #30BD30 !important;
-    color: #ffffff !important;
-     box-shadow: 0 0 10px #30BD30 !important;
-     }
+  background: #30BD30 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 10px #30BD30 !important;
+}
 
-.btn-reader{ border: 2.5px solid #1A53FF !important;
-   color: #1A53FF !important;
-   }
+.btn-reader { 
+  border: 2.5px solid #1A53FF !important;
+  color: #1A53FF !important;
+}
 .btn-reader:hover, .btn-reader.active {
-   background: #1A53FF !important;
-    color: white !important;
-   }
+  background: #1A53FF !important;
+  color: white !important;
+}
 
 /* 3. ALTO CONTRASTE */
 body.high-contrast {
@@ -142,7 +164,9 @@ body.high-contrast .a11y-menu h3 {
   left: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
+  /* 🔥 Faz os cliques passarem direto por ela, permitindo interagir com o site */
   pointer-events: none !important;
-  z-index: 1000 !important;
+  /* Logo abaixo do menu de acessibilidade */
+  z-index: 2147483646 !important; 
   transition: background 0.02s linear;
 }

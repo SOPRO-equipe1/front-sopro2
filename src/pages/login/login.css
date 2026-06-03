@@ -89,7 +89,8 @@
 
 .login-btn:hover {
     opacity: 0.9;
-    transform: scale(1.02);
+    filter: brightness(1.06);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
 }
 
 /* Divider atualizado para <p> com pseudo-elementos */
@@ -150,7 +151,8 @@
 
 .social-btn:hover {
     opacity: 0.85;
-    transform: scale(1.01);
+    filter: brightness(1.04);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
 
 .social-btn img {
