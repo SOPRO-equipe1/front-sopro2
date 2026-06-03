@@ -56,6 +56,7 @@ body {
   padding: 1.25rem 1.25rem 1.5rem 1.25rem; 
   margin-bottom: 3rem;
   text-align: left !important;
+  overflow: visible;
 }
 
 .section-heading {
@@ -70,20 +71,23 @@ body {
   width: 100%;
 }
 
-.Soprinho {
+.Soprinho,
+.avatar-perfil {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
-  background: transparent;  
-  border: none;              
+  background: transparent;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  overflow: visible; /* ← era hidden, cortava a imagem */
+  overflow: visible;
+  margin: 0;
+  padding: 0;
 }
 
-.Soprinho img {
+.Soprinho img,
+.avatar-perfil img {
   width: 120px;
   height: 120px;
   object-fit: contain;
@@ -97,9 +101,8 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-}
-
-.profile-name {
+  overflow: visible;
+}.profile-name {
   font-size: 30px !important;
   font-weight: 500;
   color: #1D252A !important;
@@ -110,7 +113,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 1.5rem;
 }
 
 .badge-pro {
@@ -448,14 +450,16 @@ body {
     gap: 12px;
   }
 
-  .Soprinho {
+  .Soprinho,
+  .avatar-perfil {
     width: 72px;
     height: 72px;
     flex-shrink: 0;
     overflow: visible;
   }
 
-  .Soprinho img {
+  .Soprinho img,
+  .avatar-perfil img {
     width: 72px;
     height: 72px;
   }
