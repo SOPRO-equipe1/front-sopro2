@@ -226,8 +226,7 @@ hr {
 }
 
 .ParteEquipe h4 {
-    font-size: 190%;
-    margin-bottom: 2px;
+    font-size: 250%;
     font-weight: bold;
     text-align: center;
     margin: 4%;
@@ -399,6 +398,13 @@ hr {
 
 @media (max-width: 768px) {
 
+    .Seção1 {
+        position: relative !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 10px !important;
+    }
+
     .containercards {
         grid-template-columns: 1fr; 
         grid-template-rows: auto;
@@ -419,6 +425,40 @@ hr {
     
     .conteudoperfil h3 { font-size: 115%; }
     .conteudoperfil p { font-size: 85%; }
+
+    .Seção2 {
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: center !important;
+    gap: 20px !important;
+    padding: 0 20px !important;
+  }
+
+  .Texto2 {
+    width: 100% !important;
+    order: 1 !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding-top: 60px !important; 
+    margin-top: 40px !important;
+  }
+
+   .Img2 {
+    width: 100% !important;
+    max-width: 500px !important; 
+    height: auto !important;
+    order: 2 !important; 
+    margin-top: 20px !important;
+  }
+
+  .ParteEquipe h4{
+    display: flex;
+    font-size: 25px;
+    align-items: center;
+    flex-direction:column;
+  }
+
 }
 
 @media (max-width: 380px) {

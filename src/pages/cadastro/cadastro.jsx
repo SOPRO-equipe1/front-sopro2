@@ -101,9 +101,12 @@ const Cadastro = () => {
               onChange={(e) => setConfirmarSenha(e.target.value)}
               autoComplete="new-password" disabled={carregando} />
 
+            <Link to="/checkout">
             <button type="submit" className="cadastro-btn" disabled={carregando}>
               {carregando ? 'Cadastrando...' : 'Cadastrar'}
             </button>
+            </Link>
+
           </form>
 
           <p className="login-divider-label">Cadastrar com</p>

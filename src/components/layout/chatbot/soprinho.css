@@ -205,8 +205,8 @@ body {
 
 .botao_flutuante {
    position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 20px;
+    right: 10px;
     background: none;
     border: none;
     cursor: pointer;
@@ -225,9 +225,8 @@ body {
 }
 
 .botao_flutuante:hover {
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25)) brightness(1.05);
+    filter: drop-shadow(0 0 12px rgba(0, 120, 255, 0.6));
 }
-
 .botao_flutuante img {
     transition: filter 0.25s ease;
 }

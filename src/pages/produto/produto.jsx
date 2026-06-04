@@ -48,6 +48,9 @@ function Produto() { // 2. Cria a função (Componente)
 
 
        <section className="beneficios-container">
+            <img src={arAzul} alt="icone de sopro" className="ar-azul"></img>
+            <h2 className="titulo-beneficios">Sua voz de volta em cada respiração</h2>
+            <p className="subtitulo-beneficios">Criamos uma tecnologia que transforma o seu fôlego em palavras, devolvendo a autonomia para você se comunicar com o mundo de forma simples e humana.</p>
             <div className="card verde">
               <span className="icon"><img src={bateriaVerde} alt="" /></span> {/* Você pode trocar por SVGs depois */}
               <h3>Autonomia</h3>

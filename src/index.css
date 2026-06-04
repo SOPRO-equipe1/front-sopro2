@@ -30,6 +30,8 @@ body {
     transition: font-size 0.2s ease;
 }
 
+/*tira o scroll da página*/
+
 * {
     scrollbar-width: none;
 }
@@ -42,6 +44,7 @@ body {
 *::-webkit-scrollbar {
     display: none;
 }
+
 
 /* Padronização de títulos usando rem */
 h1 {
@@ -69,4 +72,21 @@ p {
 
 .lead {
     font-size: 1.25rem; 
+}
+
+/*ver libras*/
+
+[vw] {
+    pointer-events: none !important;
+}
+
+[vw-access-button],
+[vw-plugin-wrapper],
+[vw-plugin-wrapper] * {
+    pointer-events: all !important;
+}
+
+
+[vw-access-button] {
+    transform: translateY(0px) !important;
 }

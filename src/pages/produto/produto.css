@@ -101,9 +101,10 @@ p {
 }
 .texto2{
     font-family: "Poppins";
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding: 0 20px;  
     font-weight: 200; 
+    margin-bottom: 15px;
 }
 
 
@@ -209,6 +210,39 @@ p {
     margin: 0 auto; 
 }
 
+.titulo-beneficios{
+    grid-column: 1 / -1; 
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    font-size: 2.2rem;   
+    text-align: center;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+
+}
+
+.ar-azul{
+    grid-column: 1 / -1; 
+    justify-self: center; 
+    width: 4rem;        
+    height: auto;
+    margin-bottom: 10px; 
+    display: block;
+
+}
+
+.subtitulo-beneficios{
+    grid-column: 1 / -1; 
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    text-align: center;
+    color: #666;       
+    max-width: 800px;   
+    margin: 0 auto 40px;
+    line-height: 1.6;
+}
+
 .card {
     display: flex;
     flex-direction: column;
@@ -247,12 +281,21 @@ p {
     line-height: 1.5;
     padding: 0; /* Reseta o padding global que você tinha para o P */
 }
+.card.verde { 
+    border: 3px solid #34c759; 
+}
 
-/* Cores das Bordas */
-.verde { border-color: #34c759; }
-.laranja { border-color: #ff9500; }
-.azul { border-color: #007aff; }
-.roxo { border-color: #af52de; }
+.card.laranja { 
+    border: 3px solid #ff9500; 
+}
+
+.card.azul { 
+    border: 3px solid #007aff; 
+}
+
+.card.roxo { 
+    border: 3px solid #af52de; 
+}
 
 /* Responsividade: 1 coluna no celular */
 @media (max-width: 768px) {
@@ -457,5 +500,20 @@ p {
         order: -1; /* Imagem aparece antes do texto no celular */
         margin-bottom: 30px;
     }
+    .titulo2{
 
+        margin-bottom:15px;
+    }
+
+    .texto2{
+    font-family: "Poppins", sans-serif;
+    font-weight: 400; 
+    }
+
+   .lista-specs p {
+        text-align: left;      
+        font-size: 0.90rem;         
+        line-height: 1.4;
+    }
+    
 }

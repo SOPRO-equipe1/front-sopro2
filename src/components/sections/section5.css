@@ -12,9 +12,7 @@
     align-items: center;
     gap: 16px;
     margin: 64px 0px;
-    padding: 0 20px; /* Adicionado para não encostar nas bordas no celular */
-    
-    
+    padding: 0 20px; /* Adicionado para não encostar nas bordas no celular */   
 }
 
 .textosSection5 {
@@ -23,8 +21,29 @@
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    text-align: center; /* Garante que o texto fique centralizado */
-    
+    text-align: center; 
+    padding: 60px 20px; /* Dá um respiro confortável para a seção inteira */
+    width: 100%;
+}
+
+.textosSection5 h2{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;       /* Força o peso extra-bold idêntico ao protótipo */
+    font-size: 2.5rem;     /* Tamanho ideal de destaque */
+    color: #1A252A;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.textosSection5 p{
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;       
+    font-size: 1.70rem;   
+    color: #1A252A;
+    max-width: 850px;     
+    line-height: 1.5;
+    margin: 0 auto 30px;    
+    padding: 0;
 }
 
 .botoes {
@@ -33,25 +52,10 @@
     flex-direction: row;
     gap: 40px;
     width: 100%;
-    height: auto;        /* ← era 4rem fixo */
+    height: auto;        
     justify-content: center;
-    /* remova o overflow: hidden !important */
+    margin-bottom: 10px;
 }
-
-.produtos {
-    text-decoration: none !important;
-    width: 13.5rem;      /* ← remova o !important */
-    height: 4rem;        /* ← remova o !important */
-    /* remova o overflow: hidden !important */
-}
-
-.contato {
-    width: 13.5rem;      /* ← remova o !important */
-    height: 4rem;        /* ← remova o !important */
-    /* remova o overflow: hidden */
-}
-
-
 
 /* Ajuste para celulares */
 @media (max-width: 600px) {
@@ -72,13 +76,22 @@
         width: 280px;
         height: 52px;
     }
+
+    .textosSection5 h2 {
+        font-size: 2rem;
+    }
+
+    .textosSection5 p {
+        font-size: 1.05rem;
+        max-width: 100%;
+    }
 }
 
 .contato {
     position: relative;
     border: none;
     appearance: none;
-    padding: 8px 28px;
+    padding: 10px 28px;
     font-family: Poppins, sans-serif;
     font-size: 20px;
     color: #FFF;
@@ -97,7 +110,7 @@
 
 .produtos {
     position: relative;
-    padding: 8px 28px;
+    padding: 10px 28px;
     font-family: Poppins, sans-serif;
     font-size: 20px;
     font-weight: 600;

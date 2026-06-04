@@ -2,7 +2,7 @@
 .a11y-container {
   position: fixed !important;
   bottom: 130px !important; 
-  right: 25px !important;
+  right: 10px !important;
   /* 🔥 Máxima prioridade para não ser coberto por nenhum outro elemento do site */
   z-index: 2147483647 !important; 
   display: flex !important;

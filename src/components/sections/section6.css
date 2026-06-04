@@ -10,6 +10,17 @@
     overflow-x: hidden
 }
 
+.fiquePorDentro h2{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700; 
+}
+
+.fiquePorDentro p{
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;  
+    font-size: 1.70rem;     
+    color: #1A252A;
+}
 
 .section6 {
     position: relative;
@@ -23,6 +34,7 @@
     width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
+    
 }
 
 .inscricao {
@@ -124,4 +136,9 @@
     margin-bottom: 64px;
     cursor: pointer;
 }
+
+.fiquePorDentro p{
+    font-size: 16px;
+}
+
  }

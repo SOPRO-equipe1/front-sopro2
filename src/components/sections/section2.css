@@ -30,10 +30,14 @@
 }
 
 .descricao_capacidades {
-    max-width: 800px;
-    padding: 0 20px; /* Garante um respiro nas laterais em telas pequenas */
+    max-width: 1000px;
+    padding: 0 20px;
     text-align: center;
     font-weight: 500;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.8;    
+    letter-spacing: 0.3px;
+
 }
 
 .section2 {
