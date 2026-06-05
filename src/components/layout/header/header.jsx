@@ -35,11 +35,7 @@ const Header = () => {
             <li><Link to="/suporte" className="nav-item">SUPORTE</Link></li>
             <li><Link to="/produto" className="nav-item">PRODUTO</Link></li>
             <li><Link to="/planos" className="nav-item">PLANOS</Link></li>
-            <li><Link to="/perfil" className="nav-item">CONTA</Link></li>
             <li><div className="btn-login-wrapper"><Link to="/login" className="nav-item btn-login">LOGIN</Link></div></li>
-            
-            
-    
           </ul>
         </nav>
       </div>

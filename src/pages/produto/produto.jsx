@@ -27,7 +27,7 @@ function Produto() { // 2. Cria a função (Componente)
       <main className="produto-content">
         <h1 className="titulo1">SOPRO</h1>
         <p className="texto1">Transformando seu fôlego em voz</p>
-        <img className="fotoHero"src ={fotoHero} alt=""/>
+        <img className="fotoHero" src={fotoHero} alt="Sopro"/>
       </main>
 
       <section className="conheca-produto">

@@ -80,6 +80,7 @@ p {
 
 [vw] {
     position: fixed !important;
+    top: 430px !important;
     left: 40px !important;
     z-index: 9999 !important;   
 }

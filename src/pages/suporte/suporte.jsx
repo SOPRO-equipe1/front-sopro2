@@ -3,6 +3,7 @@ import './suporte.css';
 import imgSuporteTecnico from '../../assets/images/suporte/imgSuporteTecnico.png';
 import iconSeta from '../../assets/icons/Vector.png'; 
 import video from '../../assets/videos/suportevideo.mp4'
+import { Link } from 'react-router-dom';
 
 const Suporte = () => {
   const [aberto, setAberto] = useState(null);
@@ -45,15 +46,24 @@ const Suporte = () => {
         <div className="guia-uso-container">
           <h2>Guia de uso</h2>
           <div className="video-wrapper">
-            <button className="play-btn">Passo a passo</button>
+            <div className="botoes-guia">
+                <button className="play-btn">Passo a passo</button>
+                <Link to="/dicionario">
+                   <button className="play-btn"> Dicionario de frases</button>
+                </Link>
+            </div>
             <div className="video-placeholder">
               <video
                 muted
                 controls
 
+                autoPlay
+                muted
+                loop
+                playsInline
                 width="100%"
                 style={{ borderRadius: '10px'}}
-                >
+                            >
                 <source src={video} type="video/mp4" />
               </video>
             </div>

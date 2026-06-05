@@ -77,6 +77,10 @@
         height: 52px;
     }
 
+    .textosSection5{
+        
+    }
+
     .textosSection5 h2 {
         font-size: 2rem;
     }
@@ -131,8 +135,13 @@
 .produtos:active { filter: brightness(0.9); }
 
 .imgSection5 {
-    margin-top: 60px;
-    width: 100%;
-    max-width: 600px; /* Evita que a imagem fique gigante em telas grandes */
-    height: auto;
+    width: 100vw !important;     
+        margin-top: 40px !important; 
+        margin-left: 0 !important;   
+        margin-right: 0 !important;
+        margin-bottom: 0 !important;
+        height: auto !important;    
+        display: block !important;
+        object-fit: cover !important; 
+        border-radius: 0px !important;
 }

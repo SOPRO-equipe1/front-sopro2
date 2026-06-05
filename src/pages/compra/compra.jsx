@@ -1,8 +1,8 @@
 /*Imagens do produto*/
 import imgCompra1 from "../../assets/images/compra/imgCompra1.png"
-import imgCompra2 from "../../assets/images/compra/imgCompra2.png"
-import imgCompra3 from "../../assets/images/compra/imgCompra3.png"
-import imgCompra4 from "../../assets/images/compra/imgCompra4.png"
+import imgCompra2 from "../../assets/images/compra/imgCompra2atualizado.svg"
+import imgCompra3 from "../../assets/images/compra/imgCompra3atualizado.svg"
+import imgCompra4 from "../../assets/images/compra/imgCompra4atualizado.svg"
 /*Pag css*/
 import './compra.css';
 /*Imagens de forma de pagamento*/
@@ -23,11 +23,11 @@ function Compra() {
     return (
 <>
 
-<p className="Voltar">Voltar</p>
-
-<section className="Produto-Container"> 
+<section className="Produto-Container">
   <div className="Coluna-Fotos">
-
+  <Link to="/produto" style={{ width: '100%', maxWidth: '550px', textDecoration: 'none' }}>
+      <p className="Voltar">Voltar</p>
+  </Link>
     <img src={imagemPrincipal} alt="Imagem principal produto" className="Foto-Principal"/>
     
     <div className="Produto2">

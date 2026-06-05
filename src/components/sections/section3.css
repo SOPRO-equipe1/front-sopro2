@@ -34,6 +34,12 @@ body {
     font-family: "Poppins", sans-serif;
 }
 
+.textos_section3 p{
+    text-align: left;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+}
 
 
 /* --- BOTÃO BLINDADO CONTRA ZÍPERES --- */
@@ -92,6 +98,8 @@ body {
 .imgSection3 { width: 100%; max-width: 500px; height: auto; object-fit: contain; display: block; }
 
 @media (max-width: 768px) {
+
+    
     .section3 { 
 
         flex-direction: column; 
@@ -101,15 +109,44 @@ body {
     }
 
     .textos_section3 { 
-        align-items: 
-        center; 
-        gap: 30px;
+         align-items: center;
+        text-align: center;
+        width: 100%;
+        
+     }
+
+     .produtoeicone{
+        text-align: center;
+     }
+
+         .produtoTitulo {
+        align-items: center;
+    }
+
+
+     .textos_section3 h2{
+            font-size: 1.8rem;
+            
+     }
+
+      .sensiveleaprende {
+        align-items: center;
+        width: 100%;
+    }
+
+      .textos_section3 p{
+            font-size: 1.2rem;
+            text-align: center;
+            justify-content: center !important; 
+            align-items: center !important;
      }
 
     .produtoeicone, 
     .sensivel, 
     .aprende { 
         justify-content: center; 
+        justify-content: center !important; 
+        align-items: center !important;
     }
 
     .produtoeicone img,
@@ -122,17 +159,14 @@ body {
          max-width: 350px; 
          margin: 0 auto; 
         }
-
      .sensivel p{
-
-        font-size: 15px;
+        font-size: 18px;
         margin-top: 20px;
         text-align: left;
         }
 
         .aprende p{
-
-        font-size: 14px;
+        font-size: 18px;
         text-align: left;
         }
 

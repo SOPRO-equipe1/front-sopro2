@@ -17,7 +17,7 @@ const Section3 = () => {
                     </div>
                     <h2>Sopro transforma seu fôlego em poder</h2>
                 </div>
-                <p>Cada sopro é um comando. Tecnologia no seu ritmo, sem esforço</p>
+                <p className="text">Cada sopro é um comando. Tecnologia no seu ritmo, sem esforço</p>
 
                 <div className="sensiveleaprende">
                     <div className="sensivel">

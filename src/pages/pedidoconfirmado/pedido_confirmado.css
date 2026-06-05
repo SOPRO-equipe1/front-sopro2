@@ -125,13 +125,17 @@
     background: #f27420;
     color: white;
     border: none;
-    padding: 18px;
+    padding: 15px;
     width: 100%;
     border-radius: 15px;
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 1.1rem;      
     font-family: 'Montserrat';
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .btn-voltar {
@@ -141,8 +145,18 @@
     padding: 15px;
     border-radius: 15px;
     font-weight: 800;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-family: 'Montserrat';
     cursor: pointer;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.botoes-acoes a {
+    text-decoration: none;
+    width: 100%;
+    display: flex;
 }

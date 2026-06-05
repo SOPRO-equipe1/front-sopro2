@@ -1,6 +1,6 @@
 /*Parte de cima: fotos produtos*/
 import imgSection1SobreNos from "../../assets/images/sobre-nos/imgSection1SobreNos.png";
-import imgSection2SobreNos from "../../assets/images/sobre-nos/imgSection2SobreNos.png";
+import imgSection2SobreNos from "../../assets/images/sobre-nos/imgSection2SobreNos2.svg";
 /*Imagem do grupo*/
 import imgSection3SobreNos from "../../assets/images/sobre-nos/imgSection3SobreNos.png";
 /*Icon section1*/
@@ -46,13 +46,15 @@ return (
 </section>
 
 <section className="Seção2">
-<img className="Img2" src={imgSection2SobreNos} alt="Imagem da Seção 2" />
 
 <div className="Texto2">
     <img className="IconAzul" src={olhoAzul} alt="Icone de um olho azul"/>
 <h2>Nossa Visão</h2>
 <p>Nossa visão é ser a ponte tecnológica que rompe barreiras e minimiza o isolamento social. Queremos garantir que cada indivíduo, independente de suas limitações físicas, encontre no Sopro o caminho para a plena conexão com o mundo e com as pessoas ao seu redor.</p>
 </div>
+
+<img className="Img2" src={imgSection2SobreNos} alt="Imagem da Seção 2" />
+
 </section>
 
 <section>
