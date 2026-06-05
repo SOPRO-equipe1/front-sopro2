@@ -80,7 +80,17 @@ p {
 
 [vw] {
     position: fixed !important;
-    top: 430px !important;
+    top: 300px !important;
     left: 40px !important;
     z-index: 9999 !important;   
+    pointer-events: none !important;
+
+}
+
+div[vw-access-button] {
+  pointer-events: auto !important;
+}
+
+div[vw-plugin-wrapper] {
+  pointer-events: auto !important;
 }
