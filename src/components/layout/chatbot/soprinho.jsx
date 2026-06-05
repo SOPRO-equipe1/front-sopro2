@@ -60,7 +60,7 @@ function Soprinho() {
                                 <main className={"container_chatbot"}>
                                     <div className="area_de_perguntas">
                                         <img src={icone} alt='Icone do soprinho na area do chatbot' className='icone_area_de_perguntas'/>
-                                        <h2> Oi, eu sou o soprinho!🧡 <br /> Como posso te ajudar?</h2>
+                                        <h2> Oi, eu sou o soprinho!💙 <br /> Como posso te ajudar?</h2>
                                     </div>
                                     <div className='sugestoes'>
                                         <button 

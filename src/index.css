@@ -32,7 +32,7 @@ body {
 
 /*tira o scroll da página*/
 
-/** {
+* {
     scrollbar-width: none;
 }
 
@@ -43,7 +43,7 @@ body {
 
 *::-webkit-scrollbar {
     display: none;
-}*/
+}
 
 
 /* Padronização de títulos usando rem */
