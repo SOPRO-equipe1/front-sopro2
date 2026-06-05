@@ -32,7 +32,7 @@ body {
 
 /*tira o scroll da página*/
 
-* {
+/** {
     scrollbar-width: none;
 }
 
@@ -43,7 +43,7 @@ body {
 
 *::-webkit-scrollbar {
     display: none;
-}
+}*/
 
 
 /* Padronização de títulos usando rem */
@@ -77,8 +77,9 @@ p {
 /*ver libras*/
 
 /* VLibras - isolado do fluxo da página */
+
 [vw] {
     position: fixed !important;
-    left: 0 !important;
+    left: 40px !important;
     z-index: 9999 !important;   
 }

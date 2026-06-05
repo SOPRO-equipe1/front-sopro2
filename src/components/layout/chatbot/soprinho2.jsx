@@ -91,7 +91,7 @@ function Soprinho2({ perguntaInicial }) {
         <main className='container_chatbot_sessao2'>
             <section className='mensagens'>
                 {mensagens.map((msg) => (
-                    <article 
+                    <div 
                         key={msg.id} 
                         className={msg.remetente === 'usuario' ? 'mensagem_do_usuario' : 'mensagens_soprinho'}
                     >
@@ -99,7 +99,7 @@ function Soprinho2({ perguntaInicial }) {
                             <img src={icone2} alt='Icone do soprinho' />
                         )}
                         <p>{msg.texto}</p>
-                    </article>
+                    </div>
                 ))}
                 
                 {carregando && (
