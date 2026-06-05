@@ -78,6 +78,8 @@ p {
 
 
 .conheca-produto {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -98,12 +100,13 @@ p {
 
 .titulo2 {
     font-family: "Montserrat";
+    margin-bottom: 25px;
 }
 .texto2{
     font-family: "Poppins";
     font-size: 1.5rem;
     padding: 0 20px;  
-    font-weight: 200; 
+    font-weight: 500; 
     margin-bottom: 15px;
 }
 
@@ -234,10 +237,10 @@ p {
 .subtitulo-beneficios{
     grid-column: 1 / -1; 
     font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-size: 1.1rem;
+    font-weight: 500;
+    font-size: 1.5rem;
     text-align: center;
-    color: #666;       
+    color: black;       
     max-width: 800px;   
     margin: 0 auto 40px;
     line-height: 1.6;
