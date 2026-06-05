@@ -5,6 +5,7 @@ import soproLogo from "../../../assets/icons/logo.png";
 import { useState } from 'react';
 import menuSanduiche from '../../../assets/icons/menu_sanduiche.svg'
 import botaofechar from '../../../assets/images/chatbot/botao_fechar.svg'
+import { createPortal } from 'react-dom';
 
 const Header = () => {
 

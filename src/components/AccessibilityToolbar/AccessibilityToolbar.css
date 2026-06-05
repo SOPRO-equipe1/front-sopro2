@@ -1,9 +1,11 @@
 /* 1. ESTRUTURA FIXA */
 .a11y-container {
   position: fixed !important;
-  bottom: 130px !important; 
+  bottom: 20px !important; 
   right: 10px !important;
+  left: 20px !important; 
   /* 🔥 Máxima prioridade para não ser coberto por nenhum outro elemento do site */
+   right: unset !important; 
   z-index: 2147483647 !important; 
   display: flex !important;
   flex-direction: column !important;
@@ -55,7 +57,8 @@
 .a11y-menu {
   position: fixed !important;
   right: 25px !important;
-  bottom: 210px !important;
+  left: 10px !important;
+  bottom: 100px !important;
   background: white !important;
   border-radius: 24px !important;
   padding: 20px !important; 

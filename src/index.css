@@ -78,10 +78,7 @@ p {
 
 /* VLibras - isolado do fluxo da página */
 [vw] {
-
     position: fixed !important;
-    
     left: 0 !important;
-    z-index: 9999 !important;
-    
+    z-index: 9999 !important;   
 }

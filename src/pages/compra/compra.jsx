@@ -15,6 +15,7 @@ import React , { useState } from 'react';
 
 function Compra() {
   const [quantidade, setQuantidade] = useState(1);
+  const [imagemPrincipal, setImagemPrincipal] = useState(imgCompra1);
 
   const aumentar = () => setQuantidade(quantidade + 1);
   const diminuir = () => setQuantidade(quantidade - 1);
@@ -25,15 +26,14 @@ function Compra() {
 <p className="Voltar">Voltar</p>
 
 <section className="Produto-Container"> 
-
-
   <div className="Coluna-Fotos">
-    <img src={imgCompra1} alt="Imagem principal produto" className="Foto-Principal"/>
+
+    <img src={imagemPrincipal} alt="Imagem principal produto" className="Foto-Principal"/>
     
     <div className="Produto2">
-      <img src={imgCompra2} alt="Imagem2 produto" />
-      <img src={imgCompra3} alt="Imagem3 produto" />
-      <img src={imgCompra4} alt="Imagem4 produto" />
+      <img src={imgCompra2} alt="Imagem2 produto" onClick={() => setImagemPrincipal(imgCompra2)} style={{ cursor: 'pointer' }}/>
+      <img src={imgCompra3} alt="Imagem3 produto" onClick={() => setImagemPrincipal(imgCompra3)} style={{ cursor: 'pointer' }}/>
+      <img src={imgCompra4} alt="Imagem4 produto" onClick={() => setImagemPrincipal(imgCompra4)} style={{ cursor: 'pointer' }}/>
     </div>
   </div>
 
