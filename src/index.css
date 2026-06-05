@@ -76,17 +76,12 @@ p {
 
 /*ver libras*/
 
+/* VLibras - isolado do fluxo da página */
 [vw] {
-    pointer-events: none !important;
-}
 
-[vw-access-button],
-[vw-plugin-wrapper],
-[vw-plugin-wrapper] * {
-    pointer-events: all !important;
-}
-
-
-[vw-access-button] {
-    transform: translateY(0px) !important;
+    position: fixed !important;
+    
+    left: 0 !important;
+    z-index: 9999 !important;
+    
 }
