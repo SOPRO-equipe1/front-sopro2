@@ -45,7 +45,7 @@ const Cadastro = () => {
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email.trim(), senha);
       await updateProfile(user, { displayName: nome.trim() });
-      navigate('/perfil');
+      navigate('/checkout');
     } catch (err) {
       setErro(traduzirErro(err.code));
     } finally {

@@ -83,16 +83,10 @@ p {
 [vw] {
 
     position: fixed !important;
-
-    top: 300px !important;
-
-    left: 40px !important;
-
+    top: 50% !important;
+    left: 60% !important;
     z-index: 9999 !important;  
-
     pointer-events: none !important;
-
-   
 
 }
 
