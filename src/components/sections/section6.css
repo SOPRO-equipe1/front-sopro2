@@ -92,11 +92,7 @@
     cursor: pointer;
     font-weight: 500;
     transition: transform 0.2s ease;
-<<<<<<< Updated upstream
     font-family: "Poppins", sans-serif;
-
-=======
->>>>>>> Stashed changes
 }
 
 .explorar:hover {
