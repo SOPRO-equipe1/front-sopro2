@@ -111,6 +111,6 @@ Nossa interface foi construída para ser leve. O frontend consome os dados do **
 
 ---
 
-<div align= "center"> Criado com 💙 pela equipe do Front-end. </div>
+<div align= "center"> Desenvolvido com 💙 e muito café pela equipe do Front-end. </div>
 
 </div>
