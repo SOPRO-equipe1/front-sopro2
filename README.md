@@ -111,8 +111,6 @@ Nossa interface foi construída para ser leve. O frontend consome os dados do **
 
 ---
 
-<p align="center">
-<b>SOPRO Equipe 1</b> • Licença MIT • 2026
-</p>
+<div align= "center"> Criado com 💙 pela equipe do Front-end. </div>
 
 </div>
