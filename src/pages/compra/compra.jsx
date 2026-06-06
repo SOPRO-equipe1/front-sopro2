@@ -12,6 +12,7 @@ import iconPayPal from "../../assets/images/compra/iconPayPal.svg"
 import iconVisa from "../../assets/images/compra/iconVisa.svg"
 import { Link } from 'react-router-dom';
 import React , { useState } from 'react';
+import { motion } from 'framer-motion';
 
 function Compra() {
   const [quantidade, setQuantidade] = useState(1);
@@ -25,7 +26,12 @@ function Compra() {
 <>
 
 <section className="Produto-Container">
-  <div className="Coluna-Fotos">
+   <motion.div
+          className="Coluna-Fotos"
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
 <Link to="/produto" style={{ width: '100%', maxWidth: '490px', textDecoration: 'none' }}>      <p className="Voltar">Voltar</p>
   </Link>
     <img src={imagemPrincipal} alt="Imagem principal produto" className="Foto-Principal"/>
@@ -35,9 +41,14 @@ function Compra() {
       <img src={imgCompra3} alt="Imagem3 produto" onClick={() => setImagemPrincipal(imgCompra3)} style={{ cursor: 'pointer' }}/>
       <img src={imgCompra4} alt="Imagem4 produto" onClick={() => setImagemPrincipal(imgCompra4)} style={{ cursor: 'pointer' }}/>
     </div>
-  </div>
+  </motion.div>
 
-  <div className="Coluna-Detalhes">
+   <motion.div
+          className="Coluna-Detalhes"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
     <div className="description">
       <h2 className="Titulo">Sopro</h2>
       <p className="Descrição">Dispositivo inteligente com processamento ESP32 que capta a pressão do ar e converte diferentes intensidades de sopro em comandos e frases audíveis.</p>
@@ -105,10 +116,10 @@ function Compra() {
         <img src={iconVisa} alt="Visa" />
       </div>
         <Link to="/cadastro" style={{ width: '100%', display: 'block'}}>
-          <button className="botao-comprar-compra">COMPRAR</button>
+          <button className="botao-comprar-compra btn-suave-global">COMPRAR</button>
       </Link>
     </div>
-  </div>
+  </motion.div>
 </section>
 </>
     )

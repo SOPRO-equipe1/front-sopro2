@@ -7,6 +7,7 @@ import '../../context/auth/auth-extras.css';
 import imagemCadastro from '../../assets/images/cadastro/imgCadastre-se.png';
 import logo from '../../assets/icons/logo.png';
 import logoGoogle from '../../assets/icons/logoGoogle.png';
+import { motion } from 'framer-motion';
 
 const Cadastro = () => {
   const [nome, setNome] = useState('');
@@ -68,7 +69,12 @@ const Cadastro = () => {
   return (
     <main className="cadastro-page">
       <section className="cadastro-container">
-        <article className="cadastro-form-col">
+         <motion.article
+          className="cadastro-form-col"
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <header className="cadastro-header">
             <img src={logo} alt="Sopro Logo" className="cadastro-logo" />
             <h1 className="cadastro-title">Crie sua conta</h1>
@@ -123,11 +129,16 @@ const Cadastro = () => {
           <p className="cadastro-login">
             Já possui uma conta? <Link to="/login">Faça login</Link>
           </p>
-        </article>
+        </motion.article>
 
-        <figure className="cadastro-image-col">
+          <motion.figure
+          className="cadastro-image-col"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <img src={imagemCadastro} alt="Usuário do Sopro" className="cadastro-image" />
-        </figure>
+        </motion.figure>
       </section>
     </main>
   );

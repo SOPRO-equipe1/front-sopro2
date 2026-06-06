@@ -6,6 +6,7 @@ import logoGoogle from '../../assets/icons/logoGoogle.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../../context/auth/firebase';
+import { motion } from 'framer-motion';
 
 const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -56,7 +57,12 @@ const Login = () => {
   return (
     <main className="login-page">
       <section className="login-container">
-        <article className="login-form-col">
+        <motion.article
+          className="login-form-col"
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <header className="login-header">
             <img src={logo} alt="Sopro Logo" className="login-logo" />
             <h1 className="login-title">Seja bem-vindo(a) de volta</h1>
@@ -98,11 +104,16 @@ const Login = () => {
               Entrar com Google
             </button>
           </nav>
-        </article>
+        </motion.article>
 
-        <figure className="login-image-col">
+        <motion.figure
+          className="login-image-col"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <img src={imagemLogin} alt="Usuária do Sopro" className="login-image" />
-        </figure>
+        </motion.figure>
       </section>
     </main>
   );

@@ -6,13 +6,27 @@ import estrelasRoxas from '../../assets/icons/estrelasRoxas.svg'
 import linhaRoxa2 from '../../assets/icons/linhaRoxa2.svg'
 import linhaAzul from '../../assets/icons/linhaAzul.svg'
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Section4 = () =>{
     return(
         <>
             <section className="section4">
-                <img src={imgSection4} className="imgSection4" />
-                    <div className="textos_section4">
+                <motion.img
+                    src={imgSection4}
+                    className="imgSection4"
+                    initial={{ opacity: 0, x: -40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true }}
+                />
+                <motion.div
+                    className="textos_section4"
+                    initial={{ opacity: 0, x: 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true }}
+                >
                         <div className="autonomia">
                             <div className="autonomiaTitulo">
                                 <img src={alvoLaranja} className="alvoLaranja"/>
@@ -47,10 +61,10 @@ const Section4 = () =>{
                             <p>Tecnologia que respeita sua dignidade e amplifica suas possibilidades.</p>
                         </div>
                         {/* O Link agora possui a classe do botão, eliminando conflitos */}
-                           <Link to="/produto" className="saibaMaisLaranja">
+                           <Link to="/produto" className="saibaMaisLaranja btn-suave-global">
                                  SAIBA MAIS
                            </Link>
-                    </div>
+                    </motion.div>
             </section>
         </>
     )

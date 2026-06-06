@@ -4,6 +4,7 @@ import imgSuporteTecnico from '../../assets/images/suporte/imgSuporteTecnico.png
 import iconSeta from '../../assets/icons/Vector.png'; 
 import video from '../../assets/videos/suportevideo.mp4'
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Suporte = () => {
   const [aberto, setAberto] = useState(null);
@@ -47,11 +48,12 @@ const Suporte = () => {
           <h2>Guia de uso</h2>
           <div className="video-wrapper">
             <div className="botoes-guia">
-                <button className="play-btn">Passo a passo</button>
+                <button className="play-btn btn-suave-global">Passo a passo</button>
                 <Link to="/dicionario">
-                   <button className="play-btn"> Dicionario de frases</button>
+                   <button className="play-btn btn-suave-global" > Dicionario de frases</button>
                 </Link>
             </div>
+
             <div className="video-placeholder">
               <video
                 muted
@@ -110,7 +112,7 @@ const Suporte = () => {
                 <label htmlFor="duvida">Dúvida</label>
                 <textarea id="duvida" placeholder="Insira sua dúvida" rows="5" required></textarea>
               </div>
-              <button type="submit" className="btn-enviar">Enviar mensagem</button>
+              <button type="submit" className="btn-enviar btn-suave-global">Enviar mensagem</button>
             </form>
           </div>
         </div>

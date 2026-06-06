@@ -1,13 +1,27 @@
 /* --- Estilos Base (Desktop) --- */
-* {
+html, body {
+    overflow-x: hidden;
+}
 
-    margin: 0;
+.btn-animado {
+    overflow: visible !important; /* Libera o espaço para a sombra expandir */
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.25s cubic-bezier(0.33, 1, 0.68, 1), 
+                box-shadow 0.25s cubic-bezier(0.33, 1, 0.68, 1) !important;
+}
 
-    padding: 0;
+.btn-animado:hover {
+    z-index: 5;
+    transform: translateY(-5px) !important; 
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important; /* Sombra ultra suave */
+}
 
-    box-sizing: border-box;
-
-    overflow-x: hidden
+/* Use essa classe na DIV que embrulha o botão se a sombra ainda tentar cortar */
+.container-com-sombra {
+    overflow: visible !important;
+    padding-bottom: 15px !important; /* Dá uma folga embaixo para o botão flutuar */
 }
 
 .section4 {
@@ -72,6 +86,11 @@
 .linhaRoxaDIV, .linhaAzulDIV {
     display: flex;
     justify-content: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;          
+    align-self: center;     
+    margin: 1rem 0;
 }
 
 .saibaMaisLaranja {
@@ -88,6 +107,10 @@
     padding: 12px 32px;
     border-radius: 16px;
     transition: transform 0.2s ease;
+    overflow: visible !important; 
+    margin: 15px auto !important; 
+    
+    transition: transform 0.3s cubic-bezier(0.215, 0.610, 0.355, 1), box-shadow 0.3s cubic-bezier(0.215, 0.610, 0.355, 1) !important;
     
     /* FORÇA BRUTA: Impede rolagem */
     display: inline-flex !important;
@@ -101,15 +124,15 @@
     -ms-overflow-style: none !important;
 }
 
-.saibaMaisLaranja::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
+.saibaMaisLaranja {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
 }
 
-.saibaMaisLaranja:hover { 
+.saibaMaisLaranja:hover {
     filter: brightness(1.08);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+    /* translateY(-4px) eleva o botão sem quebrar o layout, box-shadow dá a sensação de profundidade */
+    transform: translateY(-4px); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .produtoeicone h2{

@@ -572,14 +572,20 @@ body {
   }
 
   .step-label {
-    font-size: 10px;
+    font-size: 13px;
     white-space: normal;
     text-align: center;
+    white-space: nowrap;
     max-width: 56px;
+    font-weight: 600;
   }
 
   .progress-labels li {
-    font-size: 11px;
+    font-size: 13px;
+    color: #888;
+    text-align: left !important;   
+      /* ADICIONE O FONT-WEIGHT AQUI */
+    font-weight: 600;
   }
 
   .dot {
@@ -588,7 +594,7 @@ body {
   }
 
   /* Botão */
-  .track-btn {
+  .track-btn  {
     width: 100%;
     margin-top: 1.5rem;
     padding: 12px 16px;

@@ -86,7 +86,9 @@ p {
     left: 40px !important;
     z-index: 9999 !important;   
     pointer-events: none !important;
-    
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 div[vw-access-button] {
@@ -99,6 +101,56 @@ div[vw-access-button] {
 }
 
 div[vw-plugin-wrapper] {
-  pointer-events: auto !important;
+    display: none !important;
+    pointer-events: auto !important;
 }
+
+.vp-pop-up {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+
+.saibaMaisLaranja, 
+.seu-botao-roxo, 
+.seu-botao-newsletter {
+    /* Mude de hidden para visible para a animação/sombra expandir livremente */
+    overflow: visible !important; 
+    
+    /* Garante que, ao se moverem, eles fiquem visualmente acima de outros elementos planos */
+    position: relative;
+    z-index: 2; 
+}
+/* animação dos botões */
+
+.btn-suave-global {
+    overflow: visible !important;
+    position: relative;
+    z-index: 1;
+
+   
+    margin-top: 10px !important;
+    margin-bottom: 15px !important;
+
+   
+box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;
+
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.btn-suave-global:hover {
+    z-index: 5; 
+    filter: brightness(1.05); 
+    transform: translateY(-4px) !important; 
+
+box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;}
+
+.container-liberado {
+    overflow: visible !important;
+    padding-bottom: 20px !important;
+}
+
 

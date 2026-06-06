@@ -2,6 +2,7 @@ import '../perfil/perfil.css';
 import SoprinhoImg from '../../assets/images/perfil/soprinho_perfil.svg';
 import Iconecaminhao from '../../assets/images/perfil/icone_caminhao_perfil.svg';
 import Iconesclamacao from '../../assets/images/perfil/icone_esclamacao_perfil.svg';
+import { motion } from 'framer-motion';
 
 const user = {
   name: "Soprinho da Silva",
@@ -62,12 +63,27 @@ function InfoField({ label, value }) {
 }
 
 export default function MinhaConta() {
+
+
   return (
+
     <main className="page">
-      <h1 className="page-title">Minha Conta</h1>
+      <motion.h1 
+        className="page-title"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >Minha Conta
+      </motion.h1>
 
       {/* Perfil */}
-      <section className="card profile-card" aria-label="Informações do perfil">
+      <motion.section 
+        className="card profile-card" 
+        aria-label="Informações do perfil"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         <Avatar />
         <div className="profile-info">
           <p className="profile-name">{user.name}</p>
@@ -79,10 +95,16 @@ export default function MinhaConta() {
                  <strong>{user.location}</strong>
           </address>
         </div>
-      </section>
+      </motion.section>
 
       {/* Último pedido */}
-      <section className="card" aria-label="Último pedido">
+      <motion.section 
+        className="card" 
+        aria-label="Último pedido"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
         <p className="section-heading">Último pedido</p>
         <div className="order-two-cols">
           <div className="order-left">
@@ -115,10 +137,16 @@ export default function MinhaConta() {
             </button>
           </div>
           </div>
-      </section>
+      </motion.section>
 
       {/* Informações pessoais */}
-      <section className="card" aria-label="Informações pessoais">
+      <motion.section 
+        className="card" 
+        aria-label="Informações pessoais"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
         <p className="section-heading">Informações pessoais</p>
         <div className="info-grid">
           <InfoField label="Nome completo:" value={user.name} />
@@ -128,7 +156,7 @@ export default function MinhaConta() {
           <InfoField label="Data de nascimento:" value={user.birthdate} />
           <InfoField label="Endereço:" value={user.address} />
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }

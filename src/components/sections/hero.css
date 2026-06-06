@@ -42,6 +42,12 @@ body {
     padding: 40px;
 }
 
+.titulo_hero p{
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      font-size: 1.5rem;
+}
+
 /* BOTÃO BLINDADO CONTRA ZÍPERES */
 .saibaMaisHero {
     background-color: #FFF !important;

@@ -11,6 +11,7 @@ import menos from "../../assets/icons/menos.svg";
 import circuloSelecionado from "../../assets/icons/circuloSelecionadoLaranja.svg";
 import imgProduto from "../../assets/images/compra/imgCompra1.png";
 import { Link } from "react-router-dom";
+import { motion } from 'framer-motion';
 
 const Checkout = () => {
   const [planoSelecionado, setPlanoSelecionado] = useState("dispositivo");
@@ -40,7 +41,12 @@ const Checkout = () => {
   return (
     <main className="checkout-page">
       <section className="checkout-container">
-        <section className="checkout-left">
+         <motion.section
+          className="checkout-left"
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <article className="checkout-card">
             <h2 className="checkout-card-title">Endereço de entrega</h2>
             <form className="checkout-form">
@@ -172,9 +178,15 @@ const Checkout = () => {
               </fieldset>
             </form>
           </article>
-        </section>
+        </motion.section>
 
-        <aside className="checkout-right">
+        <motion.aside
+          className="checkout-right"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+
           <article className="checkout-card">
             <h2 className="checkout-card-title">Resumo do pedido</h2>
 
@@ -270,7 +282,7 @@ const Checkout = () => {
             </button>
             </Link>
           </article>
-        </aside>
+        </motion.aside>
       </section>
     </main>
   );

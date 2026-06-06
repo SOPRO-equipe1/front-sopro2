@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './dicionario.css';
+import { motion } from 'framer-motion';
+
 
 // ── Chave da API (OpenRouter) ─────────────────────────────────────────
 // Crie sua chave em https://openrouter.ai e substitua abaixo:
@@ -344,7 +346,13 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
     <main className="dic-page">
 
       {/* Abas */}
-      <nav className="dic-abas" aria-label="Modo de frases">
+      <motion.nav
+            className="dic-abas"
+            aria-label="Modo de frases"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
         <button className={`dic-aba ${aba === 'rapidas' ? 'dic-aba--ativa' : ''}`}
           onClick={() => { setAba('rapidas'); voltarInicio(); }}>
           ⚡ Frases rápidas
@@ -353,7 +361,7 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
           onClick={() => { setAba('personalizadas'); voltarInicio(); }}>
           ✨ Frases personalizadas + IA
         </button>
-      </nav>
+      </motion.nav>
 
       <section className="dic-layout">
 
@@ -421,7 +429,13 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
 
           {/* Grade de categorias */}
           {!categoriaAtiva && aba === 'rapidas' && !fraseSelecionada && (
-            <section className="dic-categorias" aria-label="Categorias">
+            <motion.section
+                  className="dic-categorias"
+                  aria-label="Categorias"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
               {CATEGORIAS.map((cat) => (
                 <button key={cat.id} className="dic-categoria-card"
                   style={{ '--cor-cat': cat.cor }}
@@ -431,7 +445,7 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
                   <span className="dic-categoria-nome">{cat.id} - {cat.nome}</span>
                 </button>
               ))}
-            </section>
+            </motion.section>
           )}
 
           {/* Frases personalizadas */}
@@ -490,7 +504,12 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
         </div>
 
         {/* ── Coluna lateral ── */}
-        <aside className="dic-col-lateral">
+        <motion.aside
+              className="dic-col-lateral"
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
 
           <button
             className={`dic-dispositivo ${dispositivo ? 'dic-dispositivo--ligado' : ''}`}
@@ -547,7 +566,7 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
               ))}
             </ul>
           </div>
-        </aside>
+        </motion.aside>
       </section>
     </main>
   );

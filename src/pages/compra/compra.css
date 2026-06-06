@@ -263,9 +263,6 @@
   width: auto;
 }
 
-.iconPayPal{
-}
-
 .botao-comprar-compra {
   width: 100%;
   max-width: 240px;
@@ -280,7 +277,7 @@
   letter-spacing: 1px;
   box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
   transition: transform 0.2s;
-  margin-bottom: 70px;
+  margin-bottom: 70px !important;
   font-family: "Montserrat", sans-serif !important;
 }
 
