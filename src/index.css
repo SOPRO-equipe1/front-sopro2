@@ -85,12 +85,16 @@ p {
     left: 40px !important;
     z-index: 9999 !important;   
     pointer-events: none !important;
-
-
+    
 }
 
 div[vw-access-button] {
   pointer-events: auto !important;
+  min-width: unset !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 div[vw-plugin-wrapper] {

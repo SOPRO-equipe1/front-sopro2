@@ -491,9 +491,10 @@ body {
     align-items: flex-start;
   }
 
-  .order-row {
+  .order-row  >div {
     gap: 10px;
     margin-bottom: 1.5rem;
+    text-align: left;
   }
 
   .icone_caminhao,

@@ -54,6 +54,8 @@
     border: 2px solid #1D252A;
     box-sizing: border-box;
     height: 40px;
+    font-family: "Poppins", sans-serif;
+
 }
 
 .inscreverBotao {
@@ -66,6 +68,7 @@
     cursor: pointer;
     white-space: nowrap; /* Impede que o texto do botão quebre linha */
     transition: transform 0.2s ease;
+    font-family: "Poppins", sans-serif;
 }
 
 .inscreverBotao:hover {
@@ -89,6 +92,7 @@
     cursor: pointer;
     font-weight: 500;
     transition: transform 0.2s ease;
+    font-family: "Poppins", sans-serif;
 
 }
 
