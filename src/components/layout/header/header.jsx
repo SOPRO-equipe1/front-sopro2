@@ -40,49 +40,54 @@ const Header = () => {
             <li><Link to="/produto" className="nav-item">PRODUTO</Link></li>
             <li><Link to="/planos" className="nav-item">PLANOS</Link></li>
             {estaLogado ? (
-  <li style={{ position: 'relative' }}>
-    <img 
-      src={usuario?.photoURL || 'https://ui-avatars.com/api/?name=' + usuario?.displayName} 
-      alt="Foto de perfil"
-      onClick={() => setDropdownAberto(!dropdownAberto)}
-      style={{ 
-        width: '36px', 
-        height: '36px', 
-        borderRadius: '50%', 
-        objectFit: 'cover',
-        cursor: 'pointer'
-      }} 
-    />
-    {dropdownAberto && (
-      <div style={{
-        position: 'absolute',
-        right: 0,
-        top: '45px',
-        background: '#fff',
-        border: '1px solid #e0e0e0',
-        borderRadius: '8px',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-        minWidth: '160px',
-        zIndex: 9999
-      }}>
-        <Link to="/perfil" className="nav-item" style={{ display: 'block', padding: '10px 16px' }}>
-          Minha Conta
-        </Link>
-        <button onClick={async () => { await logout(); setDropdownAberto(false); }} style={{
-          display: 'block',
-          width: '100%',
-          padding: '10px 16px',
-          background: 'none',
-          border: 'none',
-          textAlign: 'left',
-          cursor: 'pointer',
-          fontSize: '16px',
-          color: '#e53935'
-        }}>
-          Sair
-        </button>
-      </div>
-    )}
+                  <li style={{ position: 'relative' }}>
+                    <img 
+                      src={usuario?.photoURL || 'https://ui-avatars.com/api/?name=' + usuario?.displayName} 
+                      alt="Foto de perfil"
+                        onPointerDown={() => {
+                              console.log('clicou!');
+                              setDropdownAberto(!dropdownAberto);
+                            }}
+
+                      style={{ 
+                        width: '36px', 
+                        height: '36px', 
+                        borderRadius: '50%', 
+                        objectFit: 'cover',
+                        cursor: 'pointer'
+                      }} 
+                    />
+                   {dropdownAberto && createPortal(
+  <div style={{
+    position: 'fixed',
+    top: '70px',
+    right: '20px',
+    background: '#fff',
+    border: '1px solid #e0e0e0',
+    borderRadius: '8px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    minWidth: '160px',
+    zIndex: 999999
+  }}>
+    <Link to="/perfil" style={{ display: 'block', padding: '10px 16px', textDecoration: 'none', color: '#111' }}>
+      Minha Conta
+    </Link>
+    <button onClick={async () => { await logout(); setDropdownAberto(false); }} style={{
+      display: 'block',
+      width: '100%',
+      padding: '10px 16px',
+      background: 'none',
+      border: 'none',
+      textAlign: 'left',
+      cursor: 'pointer',
+      fontSize: '16px',
+      color: '#e53935'
+    }}>
+      Sair
+    </button>
+  </div>,
+  document.body
+)}
   </li>
 ) : (
   <li>
