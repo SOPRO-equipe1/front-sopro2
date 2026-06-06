@@ -40,23 +40,21 @@ h1 {
     font-weight: 800;      
 }
 
-p {
+.texto1 {
     font-family: "Montserrat";
-    font-size: 1.75rem;
+    font-size: 2rem;
     padding: 0 20px;  
-    font-weight: 500; 
+    font-weight: 700; 
 }
 
 .fotoHero {
     width: auto;
-    max-width: 80%;
+    max-width: 60%;
     height: auto;
     margin-top: 20px;
     border-radius: 20px;
-    align-self: flex-start;
-    position: relative;
-    left: 270px;
-    
+    align-self: center;
+    position: relative; 
 }
 
 /* Responsividade */
@@ -78,6 +76,7 @@ p {
     p {
         font-size: 1.1rem;
     }
+
        .fotoHero {
         width: 100% !important;
         max-width: 400px !important;        
@@ -94,13 +93,16 @@ p {
     .titulo2 {
     font-family: "Montserrat";
     margin-bottom: 30px;
+    color: #3C3C3C;
     }
 
     .texto2{
         font-family: "Poppins";
         font-size: 1rem;
         padding: 0 20px;  
-        font-weight: 500; 
+        font-weight: 500;
+        color: #3C3C3C;
+        text-align: center;   
     }
 
        .beneficios-container h2 {
@@ -110,9 +112,7 @@ p {
         .beneficios-container p {
             font-size: 1.3rem;
        }
-
 }
-
 
 .conheca-produto {
     font-family: "Poppins", sans-serif;
@@ -128,7 +128,6 @@ p {
 }
 
 .estrelas {
-    
     width: 4rem;
     max-width: 80%;         
     height: auto;
@@ -138,13 +137,19 @@ p {
 .titulo2 {
     font-family: "Montserrat";
     margin-bottom: 25px;
+    font-size: 2.5rem;
+    color: #3C3C3C;
+    font-weight: 700;
 }
+
 .texto2{
     font-family: "Poppins";
     font-size: 1.5rem;
     padding: 0 20px;  
     font-weight: 500; 
     margin-bottom: 15px;
+    color: #3C3C3C;
+    text-align: center !important;
 }
 
 /* Container da Galeria */
@@ -174,19 +179,27 @@ p {
 
 /* --- RESPONSIVIDADE (Mobile) --- */
 @media (max-width: 768px) {
+
+    .fotoHero{
+        display: flex;
+        text-align: center !important;
+    }
+    
     .conheca-produto {
         margin-left: 0; 
     }
 
     .titulo2 {
-        font-size: 1.8rem;
+        font-size: 2rem;
         text-align: center;
+        color: #3C3C3C;
     }
 
     .texto2 {
         font-size: 1.2rem;
         text-align: center;
         line-height: 1.4;
+        color: #3C3C3C;
     }
 
     .galeria-fotos {
@@ -230,6 +243,7 @@ p {
 
 .titulo3 {
     font-family: "Montserrat";
+    
 }
 
 .texto3{
@@ -250,11 +264,11 @@ p {
 
 .titulo-beneficios{
     grid-column: 1 / -1; 
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-    font-size: 2.2rem;   
+    font-family: "Montserrat", sans-serif; 
     text-align: center;
-    color: #1a1a1a;
+    font-size: 2.5rem;
+    color: #3C3C3C;
+    font-weight: 700;
     margin-bottom: 10px;
 
 }
@@ -275,8 +289,7 @@ p {
     font-weight: 500;
     font-size: 1.5rem;
     text-align: center;
-    color: black;       
-    max-width: 800px;   
+    color: #3C3C3C;       
     margin: 0 auto 40px;
     line-height: 1.6;
 }
@@ -291,6 +304,7 @@ p {
     border: none; 
     background-color: #fff;
     transition: box-shadow 0.3s ease, filter 0.3s ease;
+    
 }
 
 .card:hover {
@@ -307,7 +321,7 @@ p {
     font-family: "Poppins", sans-serif;
     font-weight: 800;
     font-size: 1.5rem;
-    color: #1a1a1a;
+    color: #1D252A;
     margin-bottom: 15px;
 }
 
@@ -318,7 +332,10 @@ p {
     color: #444;
     line-height: 1.5;
     padding: 0; /* Reseta o padding global que você tinha para o P */
+    text-align: center;
 }
+
+
 .card.verde { 
     border: 3px solid #34c759; 
 }
@@ -337,17 +354,18 @@ p {
 
 /* Responsividade: 1 coluna no celular */
 @media (max-width: 768px) {
+
     .beneficios-container {
         grid-template-columns: 1fr;
         padding: 20px;
-    }
+    }  
 }
 
 .compra-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 80px 20px;
+    padding: 40px 20px 10px 20px;
 }
 
 .compra-card {
@@ -432,8 +450,11 @@ p {
 }
 
 .divisor-azul {
-    width: 60%; /* Ajuste conforme o tamanho do seu SVG */
+    width: 65%;
+    border: none;
+    border-top: 5px solid #1545D8;
     margin-bottom: 50px;
+    border-radius: 20px;
 }
 
 .especificacoes-content {
@@ -521,6 +542,7 @@ p {
 
 /* Responsividade */
 @media (max-width: 900px) {
+    
     .especificacoes-content {
         flex-direction: column;
         text-align: center;

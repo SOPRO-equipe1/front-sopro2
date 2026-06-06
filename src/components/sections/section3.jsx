@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Section3 = () => {
     return (
+        
         <section className="section3">
             <div className="textos_section3">
                 <div className="produtoTitulo">

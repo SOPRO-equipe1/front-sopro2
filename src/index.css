@@ -28,6 +28,7 @@ body {
     font-family: var(--fonte-corpo);
     line-height: 1.6;
     transition: font-size 0.2s ease;
+    background-color:#FAFCFF
 }
 
 /*tira o scroll da página*/

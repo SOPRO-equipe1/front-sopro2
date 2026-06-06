@@ -18,7 +18,7 @@ import sensorVerde from '../../assets/icons/sensorVerde.svg';
 import escudoSauderoxo from '../../assets/icons/escudoSaudeRoxo.svg';
 import wifiLaranja from '../../assets/icons/wifiLaranja.svg';
 import bateriaAzul from '../../assets/icons/bateriaAzul.svg';
-
+import hardware3d  from '../../assets/images/produto/hardwaregirandoOtimizado.gif'
 import { Link } from 'react-router-dom';
 
 function Produto() { // 2. Cria a função (Componente)
@@ -27,14 +27,14 @@ function Produto() { // 2. Cria a função (Componente)
       <main className="produto-content">
         <h1 className="titulo1">SOPRO</h1>
         <p className="texto1">Transformando seu fôlego em voz</p>
-        <img className="fotoHero" src={fotoHero} alt="Sopro"/>
+        <img className="fotoHero" src={hardware3d} alt="Sopro"/>
       </main>
 
       <section className="conheca-produto">
           <img className="estrelas" src={estrelasLaranjas} alt="Estrelas" />
           <h1 className="titulo2">Conheça o nosso produto</h1>
           <p className="texto2">
-            Nossa tecnologia assistiva inteligente converte padrões de sopro em comunicação fluida
+            Nossa tecnologia assistiva inteligente converte padrões de sopro <br /> em comunicação fluida
           </p>
 
           {/* Novo container para o mosaico de fotos */}
@@ -50,7 +50,7 @@ function Produto() { // 2. Cria a função (Componente)
        <section className="beneficios-container">
             <img src={arAzul} alt="icone de sopro" className="ar-azul"></img>
             <h2 className="titulo-beneficios">Sua voz de volta em cada respiração</h2>
-            <p className="subtitulo-beneficios">Criamos uma tecnologia que transforma o seu fôlego em palavras, devolvendo a autonomia para você se comunicar com o mundo de forma simples e humana.</p>
+            <p className="subtitulo-beneficios">Criamos uma tecnologia que transforma o seu fôlego em palavras,  devolvendo a autonomia para você se  comunicar com o mundo de forma simples e humana.</p>
             <div className="card verde">
               <span className="icon"><img src={bateriaVerde} alt="" /></span> {/* Você pode trocar por SVGs depois */}
               <h3>Autonomia</h3>
@@ -60,7 +60,7 @@ function Produto() { // 2. Cria a função (Componente)
             <div className="card laranja">
               <span className="icon"><img src={porquinhoLaranja} alt="" /></span>
               <h3>Custo benefício</h3>
-              <p>Engenharia inteligente que entrega tecnologia assistiva de alta fidelidade por um valor justo e acessível</p>
+              <p>Engenharia inteligente que entrega tecnologia assistiva de alta fidelidade por um valor justo e acessível.</p>
             </div>
 
             <div className="card azul">
@@ -89,8 +89,11 @@ function Produto() { // 2. Cria a função (Componente)
 
 
        <section className="especificacoes-container">
-          <img src={linhaAzul} alt="" className="divisor-azul" />
-          
+        
+          {/*<img src={linhaAzul} alt="" className="divisor-azul" />*/}
+
+          <hr className="divisor-azul" />
+
           <div className="especificacoes-content">
             <div className="specs-texto">
               <h2 className="titulo-specs">Especificações técnicas</h2>

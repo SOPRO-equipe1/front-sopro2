@@ -47,7 +47,11 @@ const Checkout = () => {
               <fieldset className="checkout-fieldset">
                 <div className="checkout-field">
                   <label htmlFor="cep">CEP</label>
-                  <input id="cep" type="text" className="checkout-input" />
+                  <input id="cep" type="text" className="checkout-input"
+                      maxLength={8}
+                      inputMode="numeric"
+                      onChange={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
+                    />
                 </div>
                 <div className="checkout-row">
                   <div className="checkout-field grow">
@@ -60,7 +64,11 @@ const Checkout = () => {
                   </div>
                   <div className="checkout-field small">
                     <label htmlFor="numero">Número</label>
-                    <input id="numero" type="text" className="checkout-input" />
+                    <input id="numero" type="text" className="checkout-input"
+                          maxLength={6}
+                          inputMode="numeric"
+                          onChange={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
+                        />
                   </div>
                 </div>
                 <div className="checkout-row">
@@ -125,10 +133,10 @@ const Checkout = () => {
                 </div>
                 <div className="checkout-field">
                   <label htmlFor="numero-cartao">Número do cartão</label>
-                  <input
-                    id="numero-cartao"
-                    type="text"
-                    className="checkout-input"
+               <input id="numero-cartao" type="text" className="checkout-input"
+                    maxLength={16}
+                    inputMode="numeric"
+                    onChange={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
                   />
                 </div>
                 <div className="checkout-row">
@@ -142,15 +150,23 @@ const Checkout = () => {
                   </div>
                   <div className="checkout-field medium">
                     <label htmlFor="validade">Validade</label>
-                    <input
-                      id="validade"
-                      type="text"
-                      className="checkout-input"
-                    />
+                    <input id="validade" type="text" className="checkout-input"
+                            maxLength={5}
+                            placeholder="MM/AA"
+                            onChange={(e) => {
+                              let val = e.target.value.replace(/\D/g, '');
+                              if (val.length >= 2) val = val.slice(0,2) + '/' + val.slice(2);
+                              e.target.value = val;
+                            }}
+                          />
                   </div>
                   <div className="checkout-field small">
                     <label htmlFor="cvv">CVV</label>
-                    <input id="cvv" type="text" className="checkout-input" />
+                    <input id="cvv" type="text" className="checkout-input"
+                        maxLength={3}
+                        inputMode="numeric"
+                        onChange={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
+                      />
                   </div>
                 </div>
               </fieldset>

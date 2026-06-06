@@ -12,10 +12,7 @@
   margin-bottom: 5px; 
   margin-top: 30px;
   cursor: pointer;
-  
   width: 100%;
-  max-width: 550px; 
-  text-align: left; 
   padding-left: 0 !important;
 }
 
@@ -42,7 +39,7 @@
   color: inherit !important;          
   display: inline-block;             
   width: 100%;
-  max-width: 550px;
+  max-width: 500px;
 }
 
 .Foto-Principal {
@@ -71,6 +68,7 @@
   border-radius: 10px;
   border: 1px solid #e2e8f0;
   transition: all 0.2s ease;
+  border: none;
 }
  
 
@@ -93,9 +91,10 @@
 .Titulo {
     font-size: clamp(1.5rem, 5vw, 2.4rem); 
     font-weight: 700;
-    margin: 0 0 15px 0;
+    margin: 0 0 20px 0;
     text-align: center;
     margin-top: 60px;
+    margin-top: 90px;
 }
 
 .Descrição {
@@ -240,7 +239,8 @@
 .FormasDePagamento {
   display: flex;
   flex-direction: column;
-  align-self: flex-end !important;
+  align-self: center !important;
+  align-items: center !important;
   gap: 30px;
   width: 100%;
   margin-top: 10px;
@@ -261,6 +261,9 @@
 .FormasDePagamento img {
   height: 50px;
   width: auto;
+}
+
+.iconPayPal{
 }
 
 .botao-comprar-compra {
@@ -293,7 +296,8 @@
   }
 
   .Voltar {
-    padding-left: 110px;
+      padding-left: 0;
+      text-align: left;
   }
 
   .Produto-Container {

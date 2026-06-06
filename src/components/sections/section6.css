@@ -17,9 +17,9 @@
 
 .fiquePorDentro p{
     font-family: "Poppins", sans-serif;
-    font-weight: 500;  
-    font-size: 1.70rem;     
+    font-weight: 500;      
     color: #1A252A;
+     font-size: 1.5rem;
 }
 
 .section6 {
@@ -92,8 +92,11 @@
     cursor: pointer;
     font-weight: 500;
     transition: transform 0.2s ease;
+<<<<<<< Updated upstream
     font-family: "Poppins", sans-serif;
 
+=======
+>>>>>>> Stashed changes
 }
 
 .explorar:hover {
@@ -140,6 +143,8 @@
     margin-top: 40px;
     margin-bottom: 64px;
     cursor: pointer;
+    font-family: "Poppins", sans-serif;
+
 }
 
 .fiquePorDentro p{

@@ -43,7 +43,7 @@ function OrderProgress({ status }) {
       <div className="progress-steps">
         {STATUS_STEPS.map((label, i) => (
           <div key={label} className="progress-step">
-            <span className={`dot ${i <= status ? "active" : ""}`} />
+            <span className={`dot ${i <= status ? "active" : ""} ${i === status ? "current" : ""}`} />
             <span className="step-label">{label}</span>
           </div>
         ))}

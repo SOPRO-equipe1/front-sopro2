@@ -32,7 +32,11 @@
 }
 
 .bloco-header h1 span {
-    color: #34c759; /* Verde do confirmado */
+    color: #30BD30; /* Verde do confirmado */
+}
+
+.bloco-header p{
+    font-weight: 500;
 }
 
 /* Card de Resumo */
@@ -130,7 +134,7 @@
     border-radius: 15px;
     font-weight: 700;
     font-size: 1.1rem;      
-    font-family: 'Montserrat';
+    font-family: "Poppins", sans-serif;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -140,13 +144,13 @@
 
 .btn-voltar {
     background: white;
-    color: #f27420;
+    color: #1D252A;
     border: 2px solid #f27420;
     padding: 15px;
     border-radius: 15px;
     font-weight: 800;
     font-size: 1.1rem;
-    font-family: 'Montserrat';
+    font-family: "Poppins", sans-serif;
     cursor: pointer;
     width: 100%;
     display: flex;

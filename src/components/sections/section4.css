@@ -19,7 +19,7 @@
     margin-top: 80px;
     align-items: center;
     color: #1D252A;
-    gap: 100px;
+    gap: 50px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -31,11 +31,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    max-width: 550px;
+    gap: 3rem;
+    max-width: 700px;
     align-items: flex-start;
     overflow: hidden;
-    gap: 50px;
 }
 
 /* Ajuste específico para a imagem principal da seção 4 */
@@ -54,22 +53,25 @@
     flex-direction: row;
     gap: 12px;
     align-items: center;
+    font-family: "montserrat", sans-serif;
 }
 
 
-
-.autonomia, .inclusao, .inovacao {
+.autonomia p, .inclusao p, .inovacao p {
     position: relative;
     display: flex;
     flex-direction: column;
     line-height: normal;
     gap: 8px;
-    
+    font-family: "Poppins", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 10px;
 }
 
 .linhaRoxaDIV, .linhaAzulDIV {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .saibaMaisLaranja {
@@ -78,9 +80,10 @@
     text-decoration: none !important;
     width: 100%;
     max-width: 230px;
+    align-self: center;
     text-align: center;
     margin-left: 2rem;
-    font-family: Poppins, sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 20px;
     padding: 12px 32px;
     border-radius: 16px;

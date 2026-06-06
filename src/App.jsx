@@ -27,8 +27,12 @@ import Soprinho from './components/layout/chatbot/soprinho.jsx';
 import { useLocation } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop.jsx';
 
+import { AuthProvider } from './context/Auth/AuthContext.jsx';
+
 function App() {
   return (
+    
+    <AuthProvider>
     <AccessibilityProvider>
       <Router>
       <ScrollToTop />
@@ -60,6 +64,7 @@ function App() {
         </div>
       </Router>
     </AccessibilityProvider>
+    </AuthProvider>
   );
 }
 

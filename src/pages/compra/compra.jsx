@@ -6,10 +6,10 @@ import imgCompra4 from "../../assets/images/compra/imgCompra4atualizado.svg"
 /*Pag css*/
 import './compra.css';
 /*Imagens de forma de pagamento*/
-import iconMasterCard from "../../assets/images/compra/iconMasterCard.png"
-import iconPix from "../../assets/images/compra/iconPix.png"
-import iconPayPal from "../../assets/images/compra/iconPayPal.png"
-import iconVisa from "../../assets/images/compra/iconVisa.png"
+import iconMasterCard from "../../assets/images/compra/iconMasterCard.svg"
+import iconPix from "../../assets/images/compra/iconPix.svg"
+import iconPayPal from "../../assets/images/compra/iconPayPal.svg"
+import iconVisa from "../../assets/images/compra/iconVisa.svg"
 import { Link } from 'react-router-dom';
 import React , { useState } from 'react';
 
@@ -18,15 +18,15 @@ function Compra() {
   const [imagemPrincipal, setImagemPrincipal] = useState(imgCompra1);
 
   const aumentar = () => setQuantidade(quantidade + 1);
-  const diminuir = () => setQuantidade(quantidade - 1);
-
+  const diminuir = () => {
+  if (quantidade > 1) setQuantidade(quantidade - 1);
+  }
     return (
 <>
 
 <section className="Produto-Container">
   <div className="Coluna-Fotos">
-  <Link to="/produto" style={{ width: '100%', maxWidth: '550px', textDecoration: 'none' }}>
-      <p className="Voltar">Voltar</p>
+<Link to="/produto" style={{ width: '100%', maxWidth: '490px', textDecoration: 'none' }}>      <p className="Voltar">Voltar</p>
   </Link>
     <img src={imagemPrincipal} alt="Imagem principal produto" className="Foto-Principal"/>
     
@@ -101,7 +101,7 @@ function Compra() {
       <div className="Bandeiras">
         <img src={iconMasterCard} alt="MasterCard" />
         <img src={iconPix} alt="Pix" />
-        <img src={iconPayPal} alt="PayPal" />
+        <img src={iconPayPal} alt="PayPal" className="iconPayPal" />
         <img src={iconVisa} alt="Visa" />
       </div>
         <Link to="/cadastro" style={{ width: '100%', display: 'block'}}>

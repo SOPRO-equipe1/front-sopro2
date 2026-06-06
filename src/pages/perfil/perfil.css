@@ -53,9 +53,13 @@ body {
   width: 100%;
   border: 1.2px solid #B9C1C5;
   border-radius: 12px;
-  padding: 1.25rem 1.25rem 1.5rem 1.25rem; 
+  padding: 1.25rem 1.25rem 1.5rem 1.25rem;
   margin-bottom: 3rem;
   text-align: left !important;
+  overflow: visible;
+}
+
+.card {
   overflow: visible;
 }
 
@@ -65,10 +69,13 @@ body {
   font-weight: 600 !important;
   color: #111;
   padding-bottom: 16px !important; 
+  left: 10px;        
   margin-bottom: 1rem;
   border-bottom: 0.5px solid #e5e5e5;
   display: block !important;
   width: 100%;
+  position: relative;
+   padding-left: 1rem !important; 
 }
 
 .Soprinho,
@@ -139,34 +146,50 @@ body {
 /* ── Pedido ── */
 .order-two-cols {
   display: flex;
-  gap: 1.25rem;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  padding: 0;
-  margin: 0;
-  padding-top: 1rem;
+  justify-content: center;
+  gap: 80px;
 }
 
-.order-left {
-  flex: 1;
-  padding-left: 0;
-  margin: 0;
+.order-left * {
+  text-align: left !important; /*Tive que sobrescrever o código para fazer o*/
+}
+
+.order-left{
+   width: 420px;
+   flex-shrink: 0;
+}
+
+.order-row > div {
+  text-align: left;
 }
 
 .order-right {
-  flex: 1; 
-  min-width: 380px;
+  width: 600px;
+  flex-shrink: 0;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+
+  padding-top: 18px;
+}
+
+.order-right {
+  overflow: visible;
+  width: 600px;
+  max-width: 100%;
 }
 
 .order-row {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 3rem;
+  gap: 16px;
+  margin-bottom: 1.5rem;
   padding: 0;
+  text-align: left;
+}
+
+.order-row > div {
+  text-align: left;
 }
 
 .icone_caminhao{
@@ -238,18 +261,16 @@ body {
 }
 
 /* ── Progress ── */
-.progress-wrap {
-  width: 100%;
-  margin-bottom: 3rem;
-}
-
 .progress-track {
   position: relative;
   height: 4px;
   background: #5a3000;
   border-radius: 99px;
   margin-top: 8px;
-  width: 100%;
+  width: 96%;
+  margin-left: 40px;
+  margin-right: 1px;
+  width: calc(90% - 2px);
 }
 
 .progress-fill {
@@ -260,6 +281,7 @@ body {
   background: #E97B3A;
   transition: width 0.4s ease;
 }
+
 
 .progress-dots {
   display: flex;
@@ -297,13 +319,24 @@ body {
   border-radius: 50%;
   background: #5a3000;   
   border: 2px solid #fff;
-  margin-top: -2.5px;
+  margin-top: -2.0px;
 }
 
 .dot.active {
   background: #E97B3A;
-  border: 3px solid #E97B3A;
-  border: 3px solid #fff;
+  border: 1px solid #E97B3A;
+  border: 1.5px solid #fff;
+}
+
+.dot.current {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 0px #fff, 0 0 10px 1px rgba(233, 123, 58, 0.4);
+}
+
+.progress-wrap {
+  padding-top: 20px;
 }
 
 .progress-labels {
@@ -343,7 +376,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 5rem;
+  margin-top: 100px;
   align-self: flex-end;
 }
 
@@ -394,6 +427,21 @@ body {
   color: #666;
   text-align: left !important;
   margin-bottom: 3px;
+}
+
+.info-grid * {
+  text-align: left !important;
+}
+
+.info-field dt{
+  padding-left: 30px;
+}
+
+.info-field dd {
+  text-align: left !important;
+  font-size: 14px;
+  color: #666;
+  padding-left: 30px;
 }
 
 /* ══════════════════════════════════════
