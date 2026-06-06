@@ -81,14 +81,19 @@ p {
 
 
 [vw] {
+
     position: fixed !important;
+
     top: 300px !important;
+
     left: 40px !important;
-    z-index: 9999 !important;   
+
+    z-index: 9999 !important;  
+
     pointer-events: none !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+
+   
+
 }
 
 div[vw-access-button] {
@@ -98,19 +103,17 @@ div[vw-access-button] {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+
 }
+
+
 
 div[vw-plugin-wrapper] {
-    display: none !important;
-    pointer-events: auto !important;
-}
+  pointer-events: auto !important;
 
-.vp-pop-up {
-    display: none !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    visibility: hidden !important;
-}
+} 
+
+
 
 
 .saibaMaisLaranja, 
