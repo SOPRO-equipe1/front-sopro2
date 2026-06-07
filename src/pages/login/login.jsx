@@ -33,7 +33,7 @@ const Login = () => {
     setCarregando(true);
     try {
       await signInWithEmailAndPassword(auth, usuario.trim(), senha);
-      navigate('/perfil');
+      navigate('/checkout');
     } catch (err) {
       setErro(traduzirErro(err.code));
     } finally {
@@ -46,7 +46,7 @@ const Login = () => {
     setCarregando(true);
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate('/perfil');
+      navigate('/checkout');
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') setErro(traduzirErro(err.code));
     } finally {

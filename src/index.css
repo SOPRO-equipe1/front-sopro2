@@ -83,14 +83,16 @@ p {
 [vw] {
 
     position: fixed !important;
-    top: 50% !important;
+    top: 30% !important;
     left: 60% !important;
-    z-index: 9999 !important;  
     pointer-events: none !important;
-
+    z-index: 999 !important;
 }
 
 div[vw-access-button] {
+  
+  position: fixed;
+  z-index: 1 !important;  
   pointer-events: auto !important;
   min-width: unset !important;
   padding: 0 !important;
@@ -98,17 +100,12 @@ div[vw-access-button] {
   border: none !important;
   box-shadow: none !important;
 
+
 }
-
-
 
 div[vw-plugin-wrapper] {
   pointer-events: auto !important;
-
 } 
-
-
-
 
 .saibaMaisLaranja, 
 .seu-botao-roxo, 
@@ -143,7 +140,7 @@ box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;
     filter: brightness(1.05); 
     transform: translateY(-4px) !important; 
 
-box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;}
+    box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;}
 
 .container-liberado {
     overflow: visible !important;

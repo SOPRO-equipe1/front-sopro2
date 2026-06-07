@@ -12,7 +12,7 @@ body {
 
 .componente_principal {
     position: fixed;
-      z-index: 2147483644;
+    z-index: 2 !important;
     width: min(380px, 90vw);
     height: min(520px, 85dvh);
     max-width: calc(100vw - 40px);
@@ -24,6 +24,7 @@ body {
     flex-direction: column;
     overflow: hidden;
     box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+
 }
 
 .componente_principal > section {
@@ -50,9 +51,8 @@ body {
     overflow-y: auto; /* Permite rolar o conteúdo interno */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
-    scrollbar-width: thin;
-
-    
+    scrollbar-width: thin; 
+    z-index: 1000 !important;
 }
 
 .header_chatbot {
