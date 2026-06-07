@@ -310,7 +310,7 @@ hr {
 .containercards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, auto);
+    grid-template-rows: repeat(4, 174px);
     gap: 24px; 
     width: 100%;
     max-width: 1100px;
@@ -431,7 +431,7 @@ hr {
   justify-content:flex-end;
   gap: 12px;
   position: absolute;
-  bottom: -5px;
+  bottom: 15px;
   right: 15px;
 }
 .conteiner-icone a,
@@ -440,6 +440,8 @@ hr {
   text-decoration: none !important;
   line-height: 0;
   display: inline-flex;
+  margin-top: 0;
+  margin-bottom: 0 !important;
 }
 
 /* Cores dos Cards */
