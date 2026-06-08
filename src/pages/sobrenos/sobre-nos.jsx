@@ -130,6 +130,12 @@ return (
   </div>
 </section>
 
+        <section className="ParteEquipe">
+          <div className="FotoEquipe">
+          <img src={conhecaequipe} alt="Foto da equipe SOPRO" />
+          </div>
+        </section>
+
       <motion.section 
         style={{ overflow: 'hidden' }}
         initial={{ opacity: 0, y: 30 }}
