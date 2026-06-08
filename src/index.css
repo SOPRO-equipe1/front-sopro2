@@ -75,20 +75,9 @@ p {
     font-size: 1.25rem; 
 }
 
-/*V-libras*/
-
-/* VLibras - isolado do fluxo da página */
-[vw] {
-    position: fixed !important;
-    top: 30% !important;
-    left: 60% !important;
-    pointer-events: none !important;
-    z-index: 1000 !important; /* Abaixo do chatbot (10000) e da a11y toolbar (9999) */
-}
+/*V-libras - posicionamento controlado pelo index.html */
 
 div[vw-access-button] {
-    position: fixed;
-    z-index: 1000 !important;
     pointer-events: auto !important;
     min-width: unset !important;
     padding: 0 !important;
@@ -99,7 +88,6 @@ div[vw-access-button] {
 
 div[vw-plugin-wrapper] {
     pointer-events: auto !important;
-    z-index: 1000 !important;
 }
 
 /* Alto contraste: impede VLibras de virar tela preta */

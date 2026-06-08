@@ -667,3 +667,31 @@ body {
     margin-left: 30px;
   }
 }
+
+/* ── Fix: labels do progress cortados no mobile ── */
+@media (max-width: 480px) {
+  .step-label {
+    font-size: 10px !important;
+    white-space: normal !important;
+    max-width: 48px !important;
+    word-break: break-word;
+    line-height: 1.2;
+  }
+
+  .progress-track {
+    width: calc(84% - 2px) !important;
+    margin-left: 24px !important;
+  }
+
+  /* Botão de acessibilidade não sobrepõe conteúdo */
+  .a11y-container {
+    bottom: 80px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .step-label {
+    font-size: 9px !important;
+    max-width: 40px !important;
+  }
+}
