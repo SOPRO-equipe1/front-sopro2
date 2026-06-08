@@ -93,7 +93,6 @@
     font-weight: 700;
     margin: 0 0 20px 0;
     text-align: center;
-    margin-top: 60px;
     margin-top: 90px;
 }
 
@@ -340,6 +339,10 @@
 
 
 @media (max-width: 480px) {
+
+  .Voltar{
+    padding-left: 20px !important;
+  }
   .card-quantidade {
     flex-direction: column; 
     align-items: center;    
@@ -360,4 +363,8 @@
     height: 40px;                  /* Leve redução na altura para ganhar espaço */
     padding: 0 15px;
   }
+
+  .Titulo{
+    margin: 0px;
+  } 
 }

@@ -124,6 +124,11 @@ html, body {
     box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
 } */
 
+
+.sinoVerde{
+        display: inline-block !important; /*Tive que adicionar para centralizar o sino*/
+}
+
 .fiquePorDentro p {
     margin-bottom: 30px;
 }
