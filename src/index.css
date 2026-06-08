@@ -112,3 +112,6 @@ body.high-contrast .Verde    { background-color: #00FF09 !important; }
     padding-bottom: 20px !important;
 }
 
+div[vw]{
+    z-index: 5 !important;
+}
