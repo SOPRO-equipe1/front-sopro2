@@ -34,10 +34,6 @@ function SobreNos () {
 return (
 
 <main>
-
-{/* ✅ CORREÇÃO 1: backgroundAttachment removido do inline style.
-    O controle de scroll/fixed fica só no CSS (via media query),
-    evitando o bug de paralaxe quebrada em iOS/Safari. */}
 <motion.section 
         className="Seção1"
         style={{ 
