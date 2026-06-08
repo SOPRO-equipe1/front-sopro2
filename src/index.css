@@ -112,24 +112,3 @@ body.high-contrast .Verde    { background-color: #00FF09 !important; }
     padding-bottom: 20px !important;
 }
 
-/* ── VLIBRAS ─────────────────────────────────────────────────────── */
-[vw] {
-  position: fixed !important;
-  bottom: 80px !important;
-  right: 20px !important;
-  top: unset !important;
-  left: unset !important;
-  z-index: 9000 !important;
-}
-
-div[vw-access-button] {
-  display: block !important;
-}
-
-body.high-contrast [vw],
-body.high-contrast [vw] * {
-  background-color: unset !important;
-  color: unset !important;
-  border-color: unset !important;
-  filter: none !important;
-}
