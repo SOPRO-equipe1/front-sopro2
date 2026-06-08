@@ -147,22 +147,7 @@ body.high-contrast *:not(.a11y-container, .a11y-container *) {
   border-color: #ffffff !important;
 }
 
-/* ✅ CORREÇÃO 3: VLibras não é afetado pelo alto contraste */
-body.high-contrast #VLibras,
-body.high-contrast [vw],
-body.high-contrast [vw] *,
-body.high-contrast div[vw-plugin-wrapper],
-body.high-contrast div[vw-plugin-wrapper] *,
-body.high-contrast #vlibras-btn {
-  background-color: unset !important;
-  color: unset !important;
-  border-color: unset !important;
-  filter: none !important;
-  max-width: unset !important;
-  max-height: unset !important;
-  width: unset !important;
-  height: unset !important;
-}
+
 
 body.high-contrast .a11y-menu {
   background-color: #111111 !important;
@@ -174,24 +159,6 @@ body.high-contrast .a11y-menu h3 {
   text-decoration: underline !important;
 }
 
-/* ✅ CORREÇÃO 3: Garante que #vlibras-btn não é deslocado pelo script do VLibras */
-/* (overrides de posicionamento com !important para sobreviver a estilos injetados) */
-#vlibras-btn {
-  position: fixed !important;
-  bottom: 20px !important;
-  right: 20px !important;
-  z-index: 9001 !important;
-}
-
-[vw] {
-  position: fixed !important;
-  bottom: 80px !important;
-  right: 20px !important;
-  top: unset !important;
-  left: unset !important;
-  z-index: 9000 !important;
-  max-width: 320px !important;
-}
 
 /* Modo foco cognitivo */
 .focus-overlay {

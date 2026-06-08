@@ -19,7 +19,7 @@ body {
     border-radius: 15px;
     background-color: white;
     bottom: 90px;
-    right: 90px;
+    right: 20px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -46,11 +46,11 @@ body {
     padding: 15px;
     gap: 15px;
     flex: 1;
-    min-height: 0; /* Necessário para rolar o conteúdo */
-    overflow-y: auto; /* Permite rolar o conteúdo interno */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-    scrollbar-width: thin; 
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: thin;
     z-index: 1000 !important;
 }
 
@@ -81,7 +81,7 @@ body {
 .soprinho_e_logo {
     display: flex;
     align-items: center;
-    gap: 10px; 
+    gap: 10px;
 }
 
 .soprinho_e_logo .logo_header {
@@ -131,7 +131,7 @@ body {
     line-height: 1.2;
     color: #111;
     max-width: 22ch;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
 .sugestoes {
@@ -200,11 +200,10 @@ body {
     display: block;
 }
 
-
 .botao_flutuante {
-   position: fixed;
+    position: fixed;
     bottom: 20px;
-    right: 90px;
+    right: 20px;
     background: none;
     border: none;
     cursor: pointer;
@@ -214,19 +213,17 @@ body {
     overflow: hidden;
     width: 60px;
     height: 60px;
+    animation: float 3s ease-in-out infinite;
 }
 
 .botao_flutuante img {
     transform: scale(1.1);
     border-radius: 50%;
-    animation: none;
+    transition: filter 0.25s ease;
 }
 
 .botao_flutuante:hover {
     filter: drop-shadow(0 0 12px rgba(0, 120, 255, 0.6));
-}
-.botao_flutuante img {
-    transition: filter 0.25s ease;
 }
 
 .botao_flutuante:hover img {
@@ -238,20 +235,11 @@ body {
     height: 60px;
     object-fit: cover;
     display: block;
-
 }
 
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
-}
-
-.botao_flutuante {
-    animation: float 3s ease-in-out infinite;
-}
-
-.botao_flutuante img, .icone_chatbot {
-    animation: none;
 }
 
 .botao_flutuante:hover img {
@@ -261,8 +249,9 @@ body {
     border-radius: 50%;
 }
 
+/* Mobile */
 @media (max-width: 425px) {
-     .componente_principal {
+    .componente_principal {
         width: 92vw;
         height: 70dvh;
         right: 4vw;
@@ -272,6 +261,6 @@ body {
 
     .botao_flutuante {
         bottom: 20px;
-        right: 4vw;
+        right: 20px;
     }
 }

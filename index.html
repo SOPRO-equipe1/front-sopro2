@@ -6,61 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SOPRO</title>
     <style>
-      /* ✅ CORREÇÃO 2 & 3: VLibras — botão customizado no bottom-right, sem sobrepor outros elementos */
-
-      /* Esconde o botão padrão do VLibras */
-      div[vw-access-button] {
-        display: none !important;
-      }
-
-      /* Container do painel VLibras — abre acima do botão, à direita */
+      /* VLibras: posiciona o widget no canto inferior direito */
       [vw] {
         position: fixed !important;
-        bottom: 80px !important;   /* painel abre acima do botão #vlibras-btn */
+        bottom: 80px !important;
         right: 20px !important;
         top: unset !important;
         left: unset !important;
-        z-index: 9000 !important;  /* abaixo do #vlibras-btn */
-        width: auto !important;
-        height: auto !important;
-        max-width: 320px !important;
+        z-index: 9000 !important;
       }
 
-      /* Botão customizado fixado no canto inferior direito */
-      #vlibras-btn {
-        position: fixed !important;
-        bottom: 20px !important;
-        right: 20px !important;
-        width: 50px !important;
-        height: 50px !important;
-        border-radius: 50% !important;
-        background: #1A53FF !important;
-        border: none !important;
-        cursor: pointer !important;
-        z-index: 9001 !important;  /* acima do container [vw] */
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
-        transition: background 0.2s ease !important;
-      }
-
-      #vlibras-btn:hover {
-        background: #0f3fd8 !important;
-      }
-
-      /* Alto contraste — VLibras não herda inversão de cores */
       body.high-contrast [vw],
-      body.high-contrast [vw] *,
-      body.high-contrast div[vw-plugin-wrapper],
-      body.high-contrast div[vw-plugin-wrapper] *,
-      body.high-contrast #vlibras-btn {
+      body.high-contrast [vw] * {
         background-color: unset !important;
         color: unset !important;
         border-color: unset !important;
         filter: none !important;
-        width: unset !important;
-        height: unset !important;
       }
     </style>
   </head>
@@ -68,7 +29,6 @@
   <body>
     <div id="root"></div>
 
-    <!-- Widget oficial VLibras -->
     <div vw class="enabled">
       <div vw-access-button class="active"></div>
       <div vw-plugin-wrapper>
@@ -79,24 +39,6 @@
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>
       new window.VLibras.Widget('https://vlibras.gov.br/app');
-
-      window.addEventListener('load', function () {
-        /* Cria o botão customizado de acessibilidade (ícone de mão em Libras) */
-        var btn = document.createElement('button');
-        btn.id = 'vlibras-btn';
-        btn.setAttribute('aria-label', 'Abrir VLibras - Tradução em Libras');
-        btn.innerHTML = `
-          <svg viewBox="0 0 24 24" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
-            <path fill="white" d="M21 7.5C21 4.46 18.54 2 15.5 2S10 4.46 10 7.5v.05C8.85 7.19 7.63 7 6.35 7 3.4 7 1 9.4 1 12.35c0 2.09 1.19 3.91 2.93 4.82L3 21h4l.5-2h4l.5 2h4l-.63-3.95C16.88 16.4 18 14.58 18 12.5v-.08c.16.01.33.02.5.02 1.38 0 2.5-1.12 2.5-2.5V7.5zM7 17l.5-2h3l.5 2H7zm6.5-4.5c0 1.38-1.12 2.5-2.5 2.5s-2.5-1.12-2.5-2.5S9.62 10 11 10s2.5 1.12 2.5 2.5z"/>
-          </svg>`;
-        document.body.appendChild(btn);
-
-        /* Ao clicar no botão customizado, dispara o botão original (oculto) do VLibras */
-        btn.addEventListener('click', function () {
-          var originalBtn = document.querySelector('div[vw-access-button]');
-          if (originalBtn) originalBtn.click();
-        });
-      });
     </script>
 
     <script type="module" src="/src/main.jsx"></script>

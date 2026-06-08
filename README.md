@@ -60,30 +60,25 @@ graph LR
 
 </details>
 
+
 ##  Ecossistema de interação
 *Onde a tecnologia encontra a humanidade.*
 
 <table align="center" style="border: none;">
   <tr>
-    <td align="center" width="45%" style="vertical-align: top;">
-      <h3>🤖 Chatbot de suporte</h3>
+    <td align="center" width="45%">
+      <h3>🤖 Chatbot de Suporte</h3>
       <p>Auxílio imediato para familiares e cuidadores configurarem o dispositivo.</p>
-      <br>
-      <img src="https://github.com/SOPRO-equipe1/front-sopro2/blob/main/src/assets/imagesReadme/Chatbot.png" alt="Preview Chatbot" width="300">
-      <br><br>
       <a href="https://github.com/SOPRO-equipe1/front-sopro/blob/main/imagesReadme/Chatbot.png">
-       
-  </a>
+        <img src="https://img.shields.io/badge/Conectar-Chatbot-brightgreen?style=for-the-badge&logo=probot" alt="Chatbot">
+      </a>
     </td>
-    <td align="center" width="45%" style="vertical-align: top;">
-      <h3>♿ Ferramenta de acessibilidade</h3>
-      <p>Ajustes dinâmicos de contraste, voz e tamanho para diferentes necessidades. Ferramenta feita especialmente pela nossa equipe. </p>
-      <br>
-      <img src="https://github.com/SOPRO-equipe1/front-sopro2/blob/main/src/assets/imagesReadme/AcessibilidadeSOPRO.png" width="320">
-      <br><br>
+    <td align="center" width="45%">
+      <h3>♿ Ferramenta de Acessibilidade</h3>
+      <p>Ajustes dinâmicos de contraste, voz e tamanho para diferentes necessidades.</p>
       <a href="LINK_DA_FERRAMENTA">
-    
-   </a>
+        <img src="https://img.shields.io/badge/Abrir-Painel_Acessibilidade-blueviolet?style=for-the-badge&logo=accessibility" alt="Acessibilidade">
+      </a>
     </td>
   </tr>
 </table>
@@ -116,6 +111,8 @@ Nossa interface foi construída para ser leve. O frontend consome os dados do **
 
 ---
 
-<div align= "center"> Desenvolvido com 💙 e muito café pela equipe do Front-end. </div>
+<p align="center">
+<b>SOPRO Equipe 1</b> • Licença MIT • 2026
+</p>
 
 </div>

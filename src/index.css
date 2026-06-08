@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    /* Paleta de Cores */
     --cor-azul: #1A53FF;
     --cor-roxo: #9333EA;
     --cor-verde: #30BD30;
@@ -9,11 +8,24 @@
     --cor-preto: #1D252A;
     --cor-branco: #FAFCFF;
 
-    /* Tipografia */
     --fonte-titulos: 'Montserrat', sans-serif;
     --fonte-corpo: 'Poppins', sans-serif;
 
     font-size: var(--main-font-size, 16px);
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    overflow-x: hidden;
+    max-width: 100%;
+    background-color: var(--cor-branco);
+    color: var(--cor-preto);
+    font-family: var(--fonte-corpo);
+    line-height: 1.6;
+    transition: font-size 0.2s ease;
 }
 
 * {
@@ -22,90 +34,38 @@
     box-sizing: border-box;
 }
 
-body {
-    background-color: var(--cor-branco);
-    color: var(--cor-preto);
-    font-family: var(--fonte-corpo);
-    line-height: 1.6;
-    transition: font-size 0.2s ease;
-    background-color:#FAFCFF
-}
-
-/*tira o scroll da página*/
-
-* {
-    scrollbar-width: none;
-}
-
 * {
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
-
 *::-webkit-scrollbar {
     display: none;
 }
 
-
-/* Padronização de títulos usando rem */
 h1 {
     font-family: var(--fonte-titulos);
     font-weight: 800;
-    font-size: 3rem; 
+    font-size: 3rem;
     line-height: 1.2;
 }
 
 h2 {
     font-family: var(--fonte-titulos);
     font-weight: 700;
-    font-size: 2.25rem; 
+    font-size: 2.25rem;
 }
 
 h3 {
     font-family: var(--fonte-titulos);
     font-weight: 600;
-    font-size: 1.75rem; 
+    font-size: 1.75rem;
 }
 
-p {
-    font-size: 1rem; 
-}
+p { font-size: 1rem; }
 
-.lead {
-    font-size: 1.25rem; 
-}
+.lead { font-size: 1.25rem; }
 
-/*V-libras - posicionamento controlado pelo index.html */
-
-div[vw-access-button] {
-    pointer-events: auto !important;
-    min-width: unset !important;
-    padding: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-div[vw-plugin-wrapper] {
-    pointer-events: auto !important;
-}
-
-/* Alto contraste: impede VLibras de virar tela preta */
-body.high-contrast [vw],
-body.high-contrast [vw] *,
-body.high-contrast div[vw-access-button],
-body.high-contrast div[vw-plugin-wrapper],
-body.high-contrast div[vw-plugin-wrapper] * {
-    background-color: unset !important;
-    color: unset !important;
-    border-color: unset !important;
-    width: unset !important;
-    height: unset !important;
-    max-width: unset !important;
-    max-height: unset !important;
-}
-
-/* Alto contraste: preserva cores reais dos swatches de produto */
+/* Alto contraste: preserva cores dos swatches de produto */
 body.high-contrast .Branco   { background-color: #ffffff !important; }
 body.high-contrast .Preto    { background-color: #1e293b !important; }
 body.high-contrast .Vermelho { background-color: #FF0000 !important; }
@@ -115,44 +75,55 @@ body.high-contrast .Azul     { background-color: #1545D8 !important; }
 body.high-contrast .Rosa     { background-color: #FF0099 !important; }
 body.high-contrast .Verde    { background-color: #00FF09 !important; }
 
-.saibaMaisLaranja, 
-.seu-botao-roxo, 
+.saibaMaisLaranja,
+.seu-botao-roxo,
 .seu-botao-newsletter {
-    /* Mude de hidden para visible para a animação/sombra expandir livremente */
-    overflow: visible !important; 
-    
-    /* Garante que, ao se moverem, eles fiquem visualmente acima de outros elementos planos */
+    overflow: visible !important;
     position: relative;
-    z-index: 2; 
+    z-index: 2;
 }
-/* animação dos botões */
 
 .btn-suave-global {
     overflow: visible !important;
     position: relative;
     z-index: 1;
-
-   
     margin-top: 10px !important;
     margin-bottom: 15px !important;
-
-   
-box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;
-
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+    box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
                 box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
 .btn-suave-global:hover {
-    z-index: 5; 
-    filter: brightness(1.05); 
-    transform: translateY(-4px) !important; 
-
-    box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;}
+    z-index: 5;
+    filter: brightness(1.05);
+    transform: translateY(-4px) !important;
+    box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;
+}
 
 .container-liberado {
     overflow: visible !important;
     padding-bottom: 20px !important;
 }
 
+/* ── VLIBRAS ─────────────────────────────────────────────────────── */
+[vw] {
+  position: fixed !important;
+  bottom: 80px !important;
+  right: 20px !important;
+  top: unset !important;
+  left: unset !important;
+  z-index: 9000 !important;
+}
 
+div[vw-access-button] {
+  display: block !important;
+}
+
+body.high-contrast [vw],
+body.high-contrast [vw] * {
+  background-color: unset !important;
+  color: unset !important;
+  border-color: unset !important;
+  filter: none !important;
+}
