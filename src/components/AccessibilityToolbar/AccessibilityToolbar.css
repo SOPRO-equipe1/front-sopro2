@@ -1,15 +1,13 @@
 /* 1. ESTRUTURA FIXA */
 .a11y-container {
   position: fixed !important;
-  bottom: 20px !important; 
-  right: 10px !important;
-  left: 20px !important; 
-  /* 🔥 Máxima prioridade para não ser coberto por nenhum outro elemento do site */
-   right: unset !important; 
-  z-index: 2147483647 !important; 
+  bottom: 90px !important; /* Acima do chatbot (60px botão + margem) */
+  left: 20px !important;
+  right: unset !important;
+  z-index: 9999 !important; /* Abaixo do chatbot que usa z-index maior */
   display: flex !important;
   flex-direction: column !important;
-  align-items: flex-end !important;
+  align-items: flex-start !important;
   width: auto !important;
   height: auto !important;
 }
@@ -56,9 +54,9 @@
 /* Menu Card */
 .a11y-menu {
   position: fixed !important;
-  right: 25px !important;
-  left: 10px !important;
-  bottom: 100px !important;
+  left: 20px !important;
+  right: unset !important;
+  bottom: 170px !important;
   background: white !important;
   border-radius: 24px !important;
   padding: 20px !important; 
@@ -68,7 +66,7 @@
   flex-direction: column !important;
   gap: 12px !important;
   border: 1px solid #f0f0f0 !important;
-  z-index: 2147483647 !important;
+  z-index: 9998 !important;
 }
 
 .a11y-menu h3 {
@@ -148,6 +146,19 @@ body.high-contrast *:not(.a11y-container, .a11y-container *) {
   background-color: #000000 !important;
   color: #ffffff !important;
   border-color: #ffffff !important;
+}
+
+/* Fix: VLibras não deve ser afetado pelo alto contraste (evita div enorme) */
+body.high-contrast #VLibras,
+body.high-contrast [vw],
+body.high-contrast [vw] * {
+  background-color: unset !important;
+  color: unset !important;
+  border-color: unset !important;
+  max-width: unset !important;
+  max-height: unset !important;
+  width: unset !important;
+  height: unset !important;
 }
 
 body.high-contrast .a11y-menu {

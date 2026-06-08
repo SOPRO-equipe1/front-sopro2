@@ -5,6 +5,41 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SOPRO</title>
+    <style>
+      /* VLibras: canto inferior esquerdo, abaixo do chatbot e da toolbar */
+      [vw] {
+        position: fixed !important;
+        bottom: 20px !important;
+        left: 20px !important;
+        top: unset !important;
+        right: unset !important;
+        z-index: 500 !important;
+        pointer-events: none !important;
+        width: auto !important;
+        height: auto !important;
+      }
+      div[vw-access-button] {
+        pointer-events: auto !important;
+        position: relative !important;
+        z-index: 500 !important;
+      }
+      div[vw-plugin-wrapper] {
+        pointer-events: auto !important;
+        z-index: 500 !important;
+      }
+      /* Alto contraste: impede VLibras de virar tela preta */
+      body.high-contrast [vw],
+      body.high-contrast [vw] *,
+      body.high-contrast div[vw-access-button],
+      body.high-contrast div[vw-plugin-wrapper],
+      body.high-contrast div[vw-plugin-wrapper] * {
+        background-color: unset !important;
+        color: unset !important;
+        border-color: unset !important;
+        width: unset !important;
+        height: unset !important;
+      }
+    </style>
   </head>
 
   <body>

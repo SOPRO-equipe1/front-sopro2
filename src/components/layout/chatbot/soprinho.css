@@ -12,7 +12,7 @@ body {
 
 .componente_principal {
     position: fixed;
-    z-index: 2 !important;
+    z-index: 10000 !important;
     width: min(380px, 90vw);
     height: min(520px, 85dvh);
     max-width: calc(100vw - 40px);
@@ -209,7 +209,7 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 100000;
+    z-index: 10001;
     padding: 0;
     border-radius: 50%;
     overflow: hidden;

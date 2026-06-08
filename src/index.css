@@ -78,34 +78,54 @@ p {
 /*V-libras*/
 
 /* VLibras - isolado do fluxo da página */
-
-
 [vw] {
-
     position: fixed !important;
     top: 30% !important;
     left: 60% !important;
     pointer-events: none !important;
-    z-index: 999 !important;
+    z-index: 1000 !important; /* Abaixo do chatbot (10000) e da a11y toolbar (9999) */
 }
 
 div[vw-access-button] {
-  
-  position: fixed;
-  z-index: 1 !important;  
-  pointer-events: auto !important;
-  min-width: unset !important;
-  padding: 0 !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-
-
+    position: fixed;
+    z-index: 1000 !important;
+    pointer-events: auto !important;
+    min-width: unset !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 div[vw-plugin-wrapper] {
-  pointer-events: auto !important;
-} 
+    pointer-events: auto !important;
+    z-index: 1000 !important;
+}
+
+/* Alto contraste: impede VLibras de virar tela preta */
+body.high-contrast [vw],
+body.high-contrast [vw] *,
+body.high-contrast div[vw-access-button],
+body.high-contrast div[vw-plugin-wrapper],
+body.high-contrast div[vw-plugin-wrapper] * {
+    background-color: unset !important;
+    color: unset !important;
+    border-color: unset !important;
+    width: unset !important;
+    height: unset !important;
+    max-width: unset !important;
+    max-height: unset !important;
+}
+
+/* Alto contraste: preserva cores reais dos swatches de produto */
+body.high-contrast .Branco   { background-color: #ffffff !important; }
+body.high-contrast .Preto    { background-color: #1e293b !important; }
+body.high-contrast .Vermelho { background-color: #FF0000 !important; }
+body.high-contrast .Roxo     { background-color: #9333EA !important; }
+body.high-contrast .Laranja  { background-color: #F97316 !important; }
+body.high-contrast .Azul     { background-color: #1545D8 !important; }
+body.high-contrast .Rosa     { background-color: #FF0099 !important; }
+body.high-contrast .Verde    { background-color: #00FF09 !important; }
 
 .saibaMaisLaranja, 
 .seu-botao-roxo, 

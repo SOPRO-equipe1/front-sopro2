@@ -112,9 +112,9 @@ body {
     
 }
 
-.sensivel p, .aprende p { font-size: 25px; }
+.sensivel p, .aprende p { font-size: 25px; max-width: 280px; }
 
-.imgSection3 { width: 100%; max-width: 500px; height: auto; object-fit: contain; display: block; }
+.imgSection3 { width: 100%; max-width: 580px; height: auto; object-fit: contain; display: block; }
 
 @media (max-width: 768px) {
 

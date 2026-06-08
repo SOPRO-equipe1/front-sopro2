@@ -18,6 +18,24 @@ const Checkout = () => {
   const [quantidade, setQuantidade] = useState(1);
   const [pagamento, setPagamento] = useState("pix");
 
+  // Formata número do cartão: 4 grupos de 4 dígitos
+  const formatCardNumber = (value) => {
+    const digits = value.replace(/\D/g, '').slice(0, 16);
+    return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+  };
+
+  // Opções de parcelamento
+  const parcelaOpcoes = [
+    { value: '1', label: '1x de R$ 200,97 sem juros' },
+    { value: '2', label: '2x de R$ 100,49 sem juros' },
+    { value: '3', label: '3x de R$ 66,99 sem juros' },
+    { value: '6', label: '6x de R$ 33,50 sem juros' },
+    { value: '12', label: '12x de R$ 16,75 com juros' },
+  ];
+  const [parcelas, setParcelas] = useState('1');
+
+
+
   const precoBase = 200.97;
   const planos = {
     dispositivo: { label: "Só o dispositivo", preco: 0 },
@@ -140,19 +158,25 @@ const Checkout = () => {
                 <div className="checkout-field">
                   <label htmlFor="numero-cartao">Número do cartão</label>
                <input id="numero-cartao" type="text" className="checkout-input"
-                    maxLength={16}
+                    maxLength={19}
                     inputMode="numeric"
-                    onChange={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
+                    placeholder="0000 0000 0000 0000"
+                    onChange={(e) => { e.target.value = formatCardNumber(e.target.value); }}
                   />
                 </div>
                 <div className="checkout-row">
                   <div className="checkout-field grow">
                     <label htmlFor="parcelamento">Parcelamento</label>
-                    <input
+                    <select
                       id="parcelamento"
-                      type="text"
-                      className="checkout-input"
-                    />
+                      className="checkout-input checkout-select"
+                      value={parcelas}
+                      onChange={(e) => setParcelas(e.target.value)}
+                    >
+                      {parcelaOpcoes.map(op => (
+                        <option key={op.value} value={op.value}>{op.label}</option>
+                      ))}
+                    </select>
                   </div>
                   <div className="checkout-field medium">
                     <label htmlFor="validade">Validade</label>

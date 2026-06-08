@@ -24,6 +24,7 @@ body {
 .Seção1{
   width: 100%;
   min-height: 300px;
+  position: relative;
 }
 
 .QuadradoVerde1 {
