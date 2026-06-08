@@ -66,20 +66,20 @@ graph LR
 <table align="center" style="border: none;">
   <tr>
     <td align="center" width="45%" style="vertical-align: top;">
-      <h3>🤖 Chatbot de Suporte</h3>
+      <h3>🤖 Chatbot de suporte</h3>
       <p>Auxílio imediato para familiares e cuidadores configurarem o dispositivo.</p>
       <br>
-      <img src="https://github.com/SOPRO-equipe1/front-sopro/blob/main/imagesReadme/Chatbot.png?raw=true" alt="Preview Chatbot" width="320">
+      <img src="https://github.com/SOPRO-equipe1/front-sopro2/blob/main/src/assets/imagesReadme/Chatbot.png" alt="Preview Chatbot" width="300">
       <br><br>
       <a href="https://github.com/SOPRO-equipe1/front-sopro/blob/main/imagesReadme/Chatbot.png">
        
   </a>
     </td>
     <td align="center" width="45%" style="vertical-align: top;">
-      <h3>♿ Ferramenta de Acessibilidade</h3>
-      <p>Ajustes dinâmicos de contraste, voz e tamanho para diferentes necessidades.</p>
+      <h3>♿ Ferramenta de acessibilidade</h3>
+      <p>Ajustes dinâmicos de contraste, voz e tamanho para diferentes necessidades. Ferramenta feita especialmente pela nossa equipe. </p>
       <br>
-      <img src="https://github.com/SOPRO-equipe1/front-sopro/blob/main/imagesReadme/Acessibilidade.png?raw=true" alt="Preview Acessibilidade" width="320">
+      <img src="https://github.com/SOPRO-equipe1/front-sopro2/blob/main/src/assets/imagesReadme/AcessibilidadeSOPRO.png" width="320">
       <br><br>
       <a href="LINK_DA_FERRAMENTA">
     
