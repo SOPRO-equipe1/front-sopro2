@@ -18,10 +18,13 @@ body {
 /* ✅ CORREÇÃO 1: Hero com 100vh e conteúdo centralizado verticalmente */
 .Seção1 {
   width: 100%;
-  height: 100vh;           /* ocupa 100% da altura da tela */
+  height: 100vh;
   position: relative;
-  display: flex;           /* permite centralizar verticalmente */
-  align-items: center;     /* centraliza o QuadradoVerde1 */
+  display: flex;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .Img1 {
@@ -79,32 +82,42 @@ hr {
 
 @media (max-width: 768px) {
   .Seção1 {
-    height: 100vh !important;
-    background-attachment: scroll !important; /* fixed não funciona em iOS */
-    overflow: visible !important;
+    height: auto !important;
+    min-height: 100svh !important;
+    background-attachment: scroll !important;
+    background-position: center bottom !important; /* mostra a parte inferior da imagem onde está o produto */
+    align-items: flex-end !important;              /* card fica na parte de baixo, sobre o produto */
+    padding-bottom: 40px !important;
+    padding-top: 20px !important;
+    justify-content: center !important;
   }
 
   .QuadradoVerde1 {
-    width: 85%; 
-    margin-left: 7.5%;
-    margin-right: 7.5%;
-    max-height: 80%;
-    padding: 15px; 
+    width: 88%;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: none;
+    padding: 24px 20px;
   }
   
   .hV1 {
-    font-size: clamp(1.1rem, 4.5vw, 1.6rem);
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
   }
   
   .pV1 {
-    font-size: clamp(0.8rem, 3.5vw, 1.1rem);
+    font-size: clamp(0.9rem, 3.8vw, 1.15rem);
+    line-height: 1.6;
   }
 }
 
 @media (max-width: 480px) {
+  .Seção1 {
+    background-position: center 60% !important; /* foca no produto */
+  }
+
   .QuadradoVerde1 {
-    max-height: 85%;
-    padding: 10px;
+    width: 92%;
+    padding: 20px 16px;
   }
 }
 

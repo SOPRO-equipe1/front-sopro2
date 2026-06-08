@@ -43,7 +43,7 @@ return (
         style={{ 
           backgroundImage: `url(${imgSection1SobreNos})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          backgroundPosition: 'center'   
         }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

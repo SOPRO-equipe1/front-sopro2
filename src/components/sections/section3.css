@@ -20,6 +20,7 @@ body {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    overflow: hidden;
 }
 
 .textos_section3 {
@@ -174,8 +175,9 @@ body {
     }
 
     .imgSection3 {
-         max-width: 350px; 
-         margin: 0 auto; 
+         width: 100%;
+         max-width: 350px;
+         margin: 0 auto;
         }
      .sensivel p{
         font-size: 18px;

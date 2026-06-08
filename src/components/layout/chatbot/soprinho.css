@@ -15,7 +15,7 @@ body {
     z-index: 10000 !important;
     width: min(380px, 90vw);
     height: min(520px, 85dvh);
-    max-width: calc(100vw - 40px);
+    max-width: min(380px, calc(100% - 40px));
     border-radius: 15px;
     background-color: white;
     bottom: 90px;
@@ -256,7 +256,7 @@ body {
         height: 70dvh;
         right: 4vw;
         bottom: 90px;
-        max-width: calc(100vw - 40px);
+        max-width: min(380px, calc(100% - 40px));
     }
 
     .botao_flutuante {
