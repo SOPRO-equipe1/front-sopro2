@@ -20,6 +20,12 @@ body {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    overflow: hidden;
+}
+
+.section3 .saibaMaisLaranja{
+    align-self: flex-start !important;
+    margin-left: 0 !important;
 }
 
 .textos_section3 {
@@ -112,9 +118,9 @@ body {
     
 }
 
-.sensivel p, .aprende p { font-size: 25px; }
+.sensivel p, .aprende p { font-size: 25px; max-width: 280px; }
 
-.imgSection3 { width: 100%; max-width: 500px; height: auto; object-fit: contain; display: block; }
+.imgSection3 { width: 100%; max-width: 580px; height: auto; object-fit: contain; display: block; }
 
 @media (max-width: 768px) {
 
@@ -174,8 +180,9 @@ body {
     }
 
     .imgSection3 {
-         max-width: 350px; 
-         margin: 0 auto; 
+         width: 100%;
+         max-width: 350px;
+         margin: 0 auto;
         }
      .sensivel p{
         font-size: 18px;
@@ -189,6 +196,7 @@ body {
         }
 
     .saibaMaisLaranja{
-        margin-right: 45px;
+        margin-right: 0 !important;
+        align-self: center !important;
     }
 }

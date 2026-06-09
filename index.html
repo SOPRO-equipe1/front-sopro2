@@ -5,24 +5,56 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SOPRO</title>
+    
   </head>
 
   <body>
     <div id="root"></div>
 
-    <div vw class="enabled">
-      <div vw-access-button class="active"></div>
-      <div vw-plugin-wrapper>
-        <div class="vw-plugin-top-wrapper"></div>
-      </div>
-    </div>
-
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-
-    <script>
-      new window.VLibras.Widget('https://vlibras.gov.br/app');
-    </script>
+    
 
     <script type="module" src="/src/main.jsx"></script>
+  
+    <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+
+    // Aguarda o VLibras montar e sobrescreve o z-index
+    function rebaixarVLibras() {
+      const alvos = [
+        'div[vw]',
+        'div[vw-access-button]',
+        'div[vw-plugin-wrapper]',
+        '.vw-plugin-top-wrapper'
+      ];
+
+      alvos.forEach(seletor => {
+        document.querySelectorAll(seletor).forEach(el => {
+          el.style.setProperty('z-index', '5', 'important');
+        });
+      });
+
+      // Tenta também o iframe que o VLibras injeta
+      document.querySelectorAll('iframe').forEach(el => {
+        if (el.src && el.src.includes('vlibras')) {
+          el.style.setProperty('z-index', '5', 'important');
+        }
+      });
+    }
+
+    // Roda após carregamento e após um delay para garantir que o plugin montou
+    window.addEventListener('load', () => {
+      rebaixarVLibras();
+      setTimeout(rebaixarVLibras, 1000);
+      setTimeout(rebaixarVLibras, 3000);
+    });
+  </script>
+
   </body>
 </html>

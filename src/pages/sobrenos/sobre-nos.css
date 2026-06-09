@@ -9,30 +9,36 @@ body {
   width: 100%;
 }
 
-/*Parte de cima*/
 .sobre-container {
   position: relative;
   width: 100%;
 }
 
+/* ✅ CORREÇÃO 1: Hero com 100vh e conteúdo centralizado verticalmente */
+.Seção1 {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .Img1 {
-  width: 100%;
-  height: auto;
-  display: block;
+  display: none;
 }
 
-.Seção1{
-  width: 100%;
-  min-height: 300px;
-}
-
+/* ✅ CORREÇÃO 1b: QuadradoVerde1 deixa de ser absolute */
 .QuadradoVerde1 {
-  position: absolute;
-  top: 40%; 
-  left: 9%;
+  position: relative;      /* sai do absolute */
+  top: unset;
+  left: unset;
+  margin-left: 9%;         /* mantém o recuo lateral */
   width: 35%;
   height: auto; 
-  max-height: 100%; 
+  max-height: 90%;
   background-color: rgba(48, 189, 48, 0.8); 
   border-radius: 15px;
   padding: 2vw; 
@@ -73,30 +79,42 @@ hr {
     box-shadow: none !important;
 }
 
-
 @media (max-width: 768px) {
+  .Seção1 {
+    height: auto !important;
+    background-attachment: scroll !important;
+    background-position: center bottom !important; /* mostra a parte inferior da imagem onde está o produto */
+    padding-bottom: 40px !important;
+    padding-top: 20px !important;
+    justify-content: center !important;
+  }
+
   .QuadradoVerde1 {
-    width: 85%; 
-    left: 7.5%;   
-    top: 15%; 
-    max-height: 70%; 
-    padding: 15px; 
+    width: 88%;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: none;
+    padding: 24px 20px;
   }
   
   .hV1 {
-    font-size: clamp(1.1rem, 4.5vw, 1.6rem);
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
   }
   
   .pV1 {
-    font-size: clamp(0.8rem, 3.5vw, 1.1rem);
+    font-size: clamp(0.9rem, 3.8vw, 1.15rem);
+    line-height: 1.6;
   }
 }
 
 @media (max-width: 480px) {
+  .Seção1 {
+    background-position: center 60% !important; /* foca no produto */
+  }
+
   .QuadradoVerde1 {
-    top: 10%;
-    max-height: 80%;
-    padding: 10px;
+    width: 92%;
+    padding: 20px 16px;
   }
 }
 
@@ -125,7 +143,7 @@ hr {
   width: 35px;
   height: auto;
   margin-right: 15px; 
-  margin-left: 3%;
+  margin-left: 1%;
   margin-top: 100px;  
 }
 
@@ -140,16 +158,10 @@ hr {
   width: 100%;            
   margin-top: 15px;  
   font-size: 150%;
-  font-weight: 550;   
+  font-weight: 500;   
 }
 
 @media (max-width: 768px) {
-
-   .Seção1 {
-        min-height: unset !important;
-        max-height: 250px !important;
-        overflow: hidden !important;
-    }
 
   .Seção2 {
         margin-top: 0px !important;
@@ -157,8 +169,7 @@ hr {
     }
 
   .Texto2{
-        padding-top: 0 !important;
-        margin-top: 10px !important;
+
         align-items: center !important;
         text-align: center !important;
         flex-direction: column !important;
@@ -171,12 +182,11 @@ hr {
 
 
   .Texto2 p {
-        font-size: 120%;
+        font-size: 0.5rem;
         width: 100%;
         margin-left: 0;
-        text-align: center !important;
-        padding-top: 0 !important;
-        margin-top: 10px !important;
+        text-align: center;
+        margin-top: 10px; 
   }
 
   .IconAzul {
@@ -285,7 +295,6 @@ hr {
   max-height: none;
   height: auto;
   display: block;
-  
 }
 
 .Img1 {
@@ -310,7 +319,7 @@ hr {
 .containercards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, auto);
+    grid-template-rows: repeat(4, 174px);
     gap: 24px; 
     width: 100%;
     max-width: 1100px;
@@ -366,6 +375,9 @@ hr {
     display: flex !important;         /* Força o comportamento flex para alinhar foto e texto */
   height: auto !important;
   min-height: 145px !important;    /* Mantém consistência sem prender o conteúdo */
+    display: flex !important;
+    height: 100% !important;
+    min-height: 145px !important;
     align-items: center !important;  
     width: 100%;
     box-sizing: border-box;
@@ -377,13 +389,12 @@ hr {
     height: 100%;
     object-fit:cover;
     object-position: center top;
-    
 }
 
 .conteudoperfil {
     display: flex;
     flex-direction: column;    
-    align-items: flex-start ;  
+    align-items: flex-start;  
     text-align: left;          
     width: 100%;
     padding-bottom: 15px; 
@@ -427,20 +438,24 @@ hr {
     height: 100%;
     object-fit: contain;
 }
+
 .conteiner-icone{
   display: flex;
   justify-content:flex-end;
   gap: 12px;
   position: absolute;
-  bottom: -5px;
+  bottom: 15px;
   right: 15px;
 }
+
 .conteiner-icone a,
 .conteiner-icone a:hover,
 .conteiner-icone a:visited {
   text-decoration: none !important;
   line-height: 0;
   display: inline-flex;
+  margin-top: 0;
+  margin-bottom: 0 !important;
 }
 
 /* Cores dos Cards */
@@ -448,28 +463,19 @@ hr {
 .card-azul, .card-Azul { border-color: #1545D8; background-color: #EEF2FF; }
 .card-roxo { border-color: #9333EA; background-color: #F5F0FF; }
 .card-verde { border-color: #30BD30; background-color: #F0FDF4; }
- 
+
 
 @media (max-width: 768px) {
-
-    .Seção1 {
-        position: relative !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        min-height: 10px !important;
-    }
 
     .containercards {
         grid-template-columns: 1fr; 
         grid-template-rows: auto;
     }
 
-    
     [class^="card-"], [class^="card-L"] {
         flex-direction: row; 
         padding: 16px; 
         gap: 15px;
-       
     }
 
     .fotoperfil {
@@ -489,6 +495,11 @@ hr {
     margin-top: 20px !important;
   }
 
+    .Texto2 h2{
+      padding: 0px !important;
+      margin-top: 0px !important;
+    }
+
     .Texto2 {
     width: 100% !important;
     order: 1 !important; 
@@ -497,14 +508,17 @@ hr {
     align-items: center !important;
     }
 
-    
+     .Texto2 p{
+          font-size: 1.1rem !important;
+          text-align: justify !important;
+           }
+
    .Img2 {
     width: 100% !important;
     max-width: 500px !important; 
     height: auto !important;
     order: 2 !important; 
     display: none !important;
-
   }
 
   .ParteEquipe h4{
@@ -513,7 +527,6 @@ hr {
     align-items: center;
     flex-direction:column;
   }
-
 }
 
 @media (max-width: 380px) {
@@ -525,5 +538,4 @@ hr {
         width: 55px;
         height: 55px;
     }
-
 }

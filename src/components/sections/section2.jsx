@@ -15,8 +15,9 @@ const Section2 = () =>{
                 <motion.div
                         className="titulo_section2"
                         initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
                         >
                     <img src={lampadaAzul} className="lampadaAzul"/>
                     <h3>Capacidades</h3>

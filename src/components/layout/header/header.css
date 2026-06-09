@@ -1,11 +1,15 @@
 /* --- Header Principal --- */
 
+
+
 .main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     background-color: var(--cor-branco);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding: 15px 5%;
-    position: sticky;
     top: 0;
     box-sizing: border-box;
     z-index: 10000;

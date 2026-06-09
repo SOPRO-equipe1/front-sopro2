@@ -93,7 +93,6 @@
     font-weight: 700;
     margin: 0 0 20px 0;
     text-align: center;
-    margin-top: 60px;
     margin-top: 90px;
 }
 
@@ -340,6 +339,10 @@
 
 
 @media (max-width: 480px) {
+
+  .Voltar{
+    padding-left: 20px !important;
+  }
   .card-quantidade {
     flex-direction: column; 
     align-items: center;    
@@ -349,10 +352,23 @@
   }
 
   .NameQ {
-    margin-left: 0 !important;     /* Remove o deslocamento lateral */
     font-size: 1.5rem;             /* Reduz levemente para não quebrar linha */
     text-align: center;
   }
+
+  .Descrição {
+      margin-top: 20px;
+      margin-bottom: 20px;;
+      padding: 0 50px !important;
+      text-align: justify;
+  }
+
+  .Name{
+
+    align-self: center !important;
+    text-align: center !important;
+}
+  
 
   .seletorempílula {
     margin-right: 0 !important;    /* Remove o deslocamento lateral */
@@ -360,4 +376,8 @@
     height: 40px;                  /* Leve redução na altura para ganhar espaço */
     padding: 0 15px;
   }
+
+  .Titulo{
+    margin: 0px;
+  } 
 }

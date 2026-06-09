@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 import './header.css'
 import soproLogo from "../../../assets/icons/logo.png";
+import soproLogoBranca from "../../../assets/icons/logobranc.png";
 import { useState } from 'react';
 import menuSanduiche from '../../../assets/icons/menu_sanduiche.svg'
 import botaofechar from '../../../assets/images/chatbot/botao_fechar.svg'
 import { createPortal } from 'react-dom';
 import { useAuth } from '../../../context/auth/authContext.jsx'
-
+import { useA11y } from '../../../context/AccessibilityContext.jsx'
 
 import { AnimatePresence } from 'framer-motion';
 
@@ -16,6 +17,8 @@ const Header = () => {
   const [menuAberto, setMenuAberto] = useState(false);
   const { estaLogado, usuario, logout } = useAuth(); 
   const [dropdownAberto, setDropdownAberto] = useState(false);
+  const { highContrast } = useA11y();
+  const logoAtual = highContrast ? soproLogoBranca : soproLogo;
   
 
   return (
@@ -23,7 +26,7 @@ const Header = () => {
       <div className="header-container">
        
         <Link to="/" className="logo-link">
-          <img src={soproLogo} alt="SOPRO Logotipo" className="sopro-logo" />
+          <img src={logoAtual} alt="SOPRO Logotipo" className="sopro-logo" />
         </Link>
 
         <button className="menu_lateral" onClick={() => setMenuAberto(!menuAberto)}>
@@ -33,7 +36,7 @@ const Header = () => {
   
         <nav className={`nav-menu ${menuAberto ? "aberto" : ""}`}>
         <div className="menu_topo">
-            <img src={soproLogo} alt="SOPRO Logotipo" className="sopro-logo-menu" />
+            <img src={logoAtual} alt="SOPRO Logotipo" className="sopro-logo-menu" />
             <img src={botaofechar} alt="SOPRO Logotipo" className="btn-fechar" onClick={() => setMenuAberto(false)} />
         </div>
           <ul className="nav-list">

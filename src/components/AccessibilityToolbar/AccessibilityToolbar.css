@@ -1,15 +1,13 @@
 /* 1. ESTRUTURA FIXA */
 .a11y-container {
   position: fixed !important;
-  bottom: 20px !important; 
-  right: 10px !important;
-  left: 20px !important; 
-  /* 🔥 Máxima prioridade para não ser coberto por nenhum outro elemento do site */
-   right: unset !important; 
-  z-index: 2147483647 !important; 
+  bottom: 90px !important; /* Acima do chatbot (60px botão + margem) */
+  left: 20px !important;
+  right: unset !important;
+  z-index: 9999 !important;
   display: flex !important;
   flex-direction: column !important;
-  align-items: flex-end !important;
+  align-items: flex-start !important;
   width: auto !important;
   height: auto !important;
 }
@@ -49,16 +47,15 @@
   height: 100% !important;
   object-fit: cover !important;
   display: block !important;
-  /* 🔥 Faz o clique do mouse passar através da imagem diretamente para o botão */
   pointer-events: none !important; 
 }
 
 /* Menu Card */
 .a11y-menu {
   position: fixed !important;
-  right: 25px !important;
-  left: 10px !important;
-  bottom: 100px !important;
+  left: 20px !important;
+  right: unset !important;
+  bottom: 170px !important;
   background: white !important;
   border-radius: 24px !important;
   padding: 20px !important; 
@@ -68,7 +65,7 @@
   flex-direction: column !important;
   gap: 12px !important;
   border: 1px solid #f0f0f0 !important;
-  z-index: 2147483647 !important;
+  z-index: 9998 !important;
 }
 
 .a11y-menu h3 {
@@ -150,6 +147,8 @@ body.high-contrast *:not(.a11y-container, .a11y-container *) {
   border-color: #ffffff !important;
 }
 
+
+
 body.high-contrast .a11y-menu {
   background-color: #111111 !important;
   border: 2px solid #ffffff !important;
@@ -160,16 +159,22 @@ body.high-contrast .a11y-menu h3 {
   text-decoration: underline !important;
 }
 
+
 /* Modo foco cognitivo */
 .focus-overlay {
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  /* 🔥 Faz os cliques passarem direto por ela, permitindo interagir com o site */
+  width: 100% !important;
+  height: 100% !important;
   pointer-events: none !important;
-  /* Logo abaixo do menu de acessibilidade */
   z-index: 2147483646 !important; 
   transition: background 0.02s linear;
+}
+
+/* Mobile: garante que não sobrepõe conteúdo */
+@media (max-width: 480px) {
+  .a11y-container {
+    bottom: 10px !important;
+  }
 }

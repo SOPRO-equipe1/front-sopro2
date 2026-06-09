@@ -66,23 +66,26 @@ graph LR
 
 <table align="center" style="border: none;">
   <tr>
-    <td align="center" width="45%">
-      <h3>🤖 Chatbot de Suporte</h3>
+    <td align="center" width="45%" style="vertical-align: top;">
+      <h3>🤖 Chatbot de suporte</h3>
       <p>Auxílio imediato para familiares e cuidadores configurarem o dispositivo.</p>
-      <a href="https://github.com/SOPRO-equipe1/front-sopro/blob/main/imagesReadme/Chatbot.png">
-        <img src="https://img.shields.io/badge/Conectar-Chatbot-brightgreen?style=for-the-badge&logo=probot" alt="Chatbot">
-      </a>
-    </td>
-    <td align="center" width="45%">
-      <h3>♿ Ferramenta de Acessibilidade</h3>
-      <p>Ajustes dinâmicos de contraste, voz e tamanho para diferentes necessidades.</p>
-      <a href="LINK_DA_FERRAMENTA">
-        <img src="https://img.shields.io/badge/Abrir-Painel_Acessibilidade-blueviolet?style=for-the-badge&logo=accessibility" alt="Acessibilidade">
-      </a>
-    </td>
+      <br>
+      <img src="https://github.com/SOPRO-equipe1/front-sopro/blob/main/imagesReadme/Chatbot.png?raw=true" alt="Preview Chatbot" width="300">
+      <br><br>
+      
+  </td>
+    <td align="center" width="45%" style="vertical-align: top;">
+      <h3>♿ Ferramenta de acessibilidade</h3>
+      <p>Ajustes dinâmicos de contraste, voz e tamanho para diferentes necessidades.Ferramenta feita especialmente por nós</p>
+      <br>
+      <img src="https://github.com/SOPRO-equipe1/front-sopro2/blob/main/src/assets/imagesReadme/AcessibilidadeSOPRO.png?raw=true" alt="Preview Acessibilidade" width="320">
+      <br><br>
+     
+  </td>
   </tr>
 </table>
 
+---
 ---
 
 ##  Design System & UI
@@ -108,9 +111,9 @@ Nossa interface foi construída para ser leve. O frontend consome os dados do **
 
 ---
 
-
----
-
-<div align= "center"> Desenvolvido com 💙 e muito café pela equipe do Front-end. </div>
-
+<div align="center">
+Desenvolvido com 💙 e muito café pela equipe do Front-end
 </div>
+
+
+

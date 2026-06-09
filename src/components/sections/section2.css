@@ -1,13 +1,9 @@
 /* Estilos Base (Desktop/Default) */
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
 
-    overflow-x: hidden
 }
 
 .titulo_section2 {
@@ -39,7 +35,7 @@
     font-family: "Poppins", sans-serif;
     line-height: 1.8;    
     letter-spacing: 0.3px;
-     font-size: 1.5rem;
+    font-size: 1.5rem;
 
 }
 
@@ -55,14 +51,12 @@
 }
 
 .controle p, .integracao p, .design p{
+    min-width: 0;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 20px;
     font-size: 1.2rem;
     gap: 10px;
-    max-width: 300px;
-    min-height: 120px;
-
 }
 
 /* Classes dos containers */
@@ -73,18 +67,22 @@
     max-width: 600px;
     text-align: center;
     gap: 16px;
+    max-width: 360px;
+    min-height: 120px;
+    flex: 1;
 }
 
 /* Imagens Responsivas */
 .imgMulher, .imgIA, .imgProduto {
-    width: 100%; /* A imagem ocupa no máximo o container pai */
-    max-width: 300px;
-    height: auto; /* Mantém a proporção original */
+    width: 100%;
+    max-width: 360px;
+    height: auto;
     object-fit: cover;
 }
 
 /* --- RESPONSIVIDADE PARA CELULARES --- */
 @media (max-width: 768px) {
+
     .section2 {
         flex-direction: column; /* Muda para um abaixo do outro */
         gap: 40px; /* Reduz o espaçamento entre os blocos */
@@ -99,10 +97,13 @@
         font-size: 30px;
     }
 
+    .descricao_capacidades {
+        font-size: 1rem !important;
+    }
+
     .controle, .integracao, .design {
     max-width: 100%;
     width: 100%;
     
     }
-
 }

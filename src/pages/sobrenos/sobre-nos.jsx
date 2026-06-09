@@ -34,14 +34,18 @@ function SobreNos () {
 return (
 
 <main>
-
 <motion.section 
         className="Seção1"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        style={{ 
+          backgroundImage: `url(${imgSection1SobreNos})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'   
+        }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-<img className="Img1"src={imgSection1SobreNos} alt="Imagem da Seção 1" />
 
 <div className="QuadradoVerde1">
 <h1 className="hV1">Sobre Nós</h1>
@@ -69,10 +73,8 @@ return (
 </motion.section>
 
 <section>
-  {/* Mantemos a div comum para o CSS aplicar o fundo azul perfeitamente */}
   <div className="RetanguloAzul">
  
-    {/* Animamos o título subindo suavemente */}
     <motion.h3
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -128,9 +130,12 @@ return (
   </div>
 </section>
 
-      {/* SEÇÃO DA EQUIPE (CORRIGIDA) */}
-      {/* 1. Mudamos a animação para a tag <section> de fora */}
-      
+        <section className="ParteEquipe">
+          <div className="FotoEquipe">
+          <img src={conhecaequipe} alt="Foto da equipe SOPRO" />
+          </div>
+        </section>
+
       <motion.section 
         style={{ overflow: 'hidden' }}
         initial={{ opacity: 0, y: 30 }}
@@ -138,7 +143,6 @@ return (
         viewport={{ once: true, amount: 0.05 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        {/* 2. Deixamos a "secaocards" como uma DIV normal de HTML (Sem motion) */}
         <div className="secaocards">
           <div className="containercards">
             
