@@ -39,7 +39,7 @@ function App() {
         <div className="app-container">
           <Header />
           
-          <main style={{ minHeight: '80vh' }}>
+          <main style={{ minHeight: '80vh' , paddingTop: '80px'  }}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<LoginPage />} />

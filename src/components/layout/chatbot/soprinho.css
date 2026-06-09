@@ -15,12 +15,10 @@ body {
     z-index: 10000 !important;
     width: min(380px, 90vw);
     height: auto;
-    max-height: calc(100dvh - 130px);
-
+    max-height: calc(100dvh - 80px);
+    bottom: 30px;;
     border-radius: 15px;
     background-color: white;
-    
-    bottom: 20px;
     right: 20px;
     display: flex;
     flex-direction: column;
@@ -121,17 +119,19 @@ body {
 
 .area_de_perguntas {
     display: flex;
+    min-height: 120px;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
     text-align: center;
-    min-height: 220px;
+    min-height: 120px;
     justify-content: center;
 }
 
 .icone_area_de_perguntas {
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
+    min-height: auto !important; 
     object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 0 0 3px white, 0 8px 18px rgba(0, 0, 0, 0.15);
