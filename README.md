@@ -12,6 +12,10 @@
 
 ---
 
+```Se quiser ver uma documentação mais detalhada sobre a arquitetura:```
+
+[![GitBook](https://img.shields.io/badge/GITBOOK-000?style=for-the-badge&logoColor=FFF&color=000)](https://app.gitbook.com/o/3BzJD9kc8XUB2pCNxAEC/s/0DAvVlEyijknqLU9utZf/visao-geral/introducao)
+
 ## 📽️ A jornada do usuário
 *A experiência de quem utiliza o SOPRO, do primeiro contato à comunicação real.*
 
