@@ -1,7 +1,7 @@
 /* 1. ESTRUTURA FIXA */
 .a11y-container {
   position: fixed !important;
-  bottom: 90px !important; /* Acima do chatbot (60px botão + margem) */
+  bottom: 30px !important; /* Acima do chatbot (60px botão + margem) */
   left: 20px !important;
   right: unset !important;
   z-index: 9999 !important;

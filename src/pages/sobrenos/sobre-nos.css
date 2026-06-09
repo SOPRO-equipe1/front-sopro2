@@ -17,7 +17,7 @@ body {
 /* ✅ CORREÇÃO 1: Hero com 100vh e conteúdo centralizado verticalmente */
 .Seção1 {
   width: 100%;
-  height: 100vh;
+  height: 120vh;
   position: relative;
   display: flex;
   align-items: center;

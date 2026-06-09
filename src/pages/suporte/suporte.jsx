@@ -50,7 +50,7 @@ const Suporte = () => {
             <div className="botoes-guia">
                 <button className="play-btn btn-suave-global">Passo a passo</button>
                 <Link to="/dicionario">
-                   <button className="play-btn btn-suave-global" > Dicionario de frases</button>
+                   <button className="play-btn btn-suave-global" > Dicionário de frases </button>
                 </Link>
             </div>
 
