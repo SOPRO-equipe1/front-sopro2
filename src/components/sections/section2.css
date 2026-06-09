@@ -1,12 +1,8 @@
 /* Estilos Base (Desktop/Default) */
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
 
 }
 
@@ -39,7 +35,7 @@
     font-family: "Poppins", sans-serif;
     line-height: 1.8;    
     letter-spacing: 0.3px;
-     font-size: 1.5rem;
+    font-size: 1.5rem;
 
 }
 
@@ -85,6 +81,7 @@
 
 /* --- RESPONSIVIDADE PARA CELULARES --- */
 @media (max-width: 768px) {
+
     .section2 {
         flex-direction: column; /* Muda para um abaixo do outro */
         gap: 40px; /* Reduz o espaçamento entre os blocos */
@@ -99,10 +96,13 @@
         font-size: 30px;
     }
 
+    .descricao_capacidades {
+        font-size: 1rem !important;
+    }
+
     .controle, .integracao, .design {
     max-width: 100%;
     width: 100%;
     
     }
-
 }
