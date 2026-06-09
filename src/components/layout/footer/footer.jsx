@@ -30,8 +30,8 @@ const Footer = () => {
           <div className="footer-col">
             <h4>Área do Usuário</h4>
             <ul className="footer-list">
-              <li><a href="/planos">Preços</a></li>
-              <li><a href="/suporte">Contato</a></li>
+              <li><a href="/planos">Planos</a></li>
+              <li><a href="/suporte">Suporte</a></li>
               <li><a href="/perfil">Conta</a></li>
             </ul>
           </div>
