@@ -36,50 +36,51 @@ function Soprinho2({ perguntaInicial }) {
         }
     }, []); // Array vazio garante que o useEffect só rode na montagem do componente
 
-    const enviarMensagemParaBackend = async (textoMensagem) => {
-        if (!textoMensagem.trim()) return;
+   const enviarMensagemParaBackend = async (textoMensagem) => {
+    if (!textoMensagem.trim()) return;
 
-        // Adiciona a mensagem do usuário na tela
-        const msgUsuario = {
-            id: Date.now(),
-            remetente: 'usuario',
-            texto: textoMensagem
-        };
-        
-        setMensagens((antigas) => [...antigas, msgUsuario]);
-        setNovoInput('');
-        setCarregando(true);
-
-        const emailUsuarioLogado = "soprinhoosilva@gmail.com"; 
-
-        try {
-            const response = await axios.post(
-                `http://localhost:8080/api/conhecimento/chat?email=${emailUsuarioLogado}`, 
-                { mensagem: textoMensagem },
-                { headers: { 'Content-Type': 'application/json' } }
-            );
-
-            const msgSoprinho = {
-                id: Date.now() + 1,
-                remetente: 'soprinho',
-                texto: response.data
-            };
-            setMensagens((antigas) => [...antigas, msgSoprinho]);
-
-        } catch (error) {
-            console.error("Erro ao conectar com o motor Java:", error);
-            setMensagens((antigas) => [
-                ...antigas,
-                { 
-                    id: Date.now() + 2, 
-                    remetente: 'soprinho', 
-                    texto: 'Ops! Estou com dificuldades para me conectar ao servidor agora. Tente novamente em instantes.' 
-                }
-            ]);
-        } finally {
-            setCarregando(false);
-        }
+    // Adiciona a mensagem do usuário na tela
+    const msgUsuario = {
+        id: Date.now(),
+        remetente: 'usuario',
+        texto: textoMensagem
     };
+    
+    setMensagens((antigas) => [...antigas, msgUsuario]);
+    setNovoInput('');
+    setCarregando(true);
+
+    const emailUsuarioLogado = "soprinhoosilva@gmail.com"; 
+
+    try {
+        
+        const response = await axios.post(
+            `https://back-sopro.onrender.com/api/conhecimento/chat?email=${emailUsuarioLogado}`, 
+            { mensagem: textoMensagem },
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+
+        const msgSoprinho = {
+            id: Date.now() + 1,
+            remetente: 'soprinho',
+            texto: response.data
+        };
+        setMensagens((antigas) => [...antigas, msgSoprinho]);
+
+    } catch (error) {
+        console.error("Erro ao conectar com o motor Java no Render:", error);
+        setMensagens((antigas) => [
+            ...antigas,
+            { 
+                id: Date.now() + 2, 
+                remetente: 'soprinho', 
+                texto: 'Ops! Estou com dificuldades para me conectar ao servidor agora. Tente novamente em instantes.' 
+            }
+        ]);
+    } finally {
+        setCarregando(false);
+    }
+};
 
     const mapearTeclaEnter = (e) => {
         if (e.key === 'Enter') {

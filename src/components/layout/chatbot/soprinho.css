@@ -47,12 +47,15 @@ body {
     gap: 15px;
     flex: 1;
     min-height: 0; /* Necessário para rolar o conteúdo */
-    overflow-y: auto; /* Permite rolar o conteúdo interno */
+    overflow-y: hidden;
+    overflow-x: hidden;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
-    scrollbar-width: thin;
 
-    
+}
+
+.container_chatbot::-webkit-scrollbar {
+    display: none;
 }
 
 .header_chatbot {
@@ -114,6 +117,8 @@ body {
     align-items: center;
     gap: 12px;
     text-align: center;
+    min-height: 220px;
+    justify-content: center;
 }
 
 .icone_area_de_perguntas {
@@ -132,7 +137,12 @@ body {
     line-height: 1.2;
     color: #111;
     max-width: 22ch;
-    margin-bottom: 10px; 
+    margin: 0;
+    min-height: 3.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-wrap: balance;
 }
 
 .sugestoes {

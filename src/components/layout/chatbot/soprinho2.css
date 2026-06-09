@@ -29,6 +29,12 @@
     flex: 1 1 auto !important;
     overflow-y: auto !important; 
     overflow-x: hidden !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.mensagens::-webkit-scrollbar {
+    display: none;
 }
 
 .icone_sessao2 {
@@ -49,6 +55,9 @@
     border-radius: 0px 15px 15px 15px;
     padding: 10px 15px;
     font-size: 14px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }
 
 .mensagem_do_usuario {
@@ -67,7 +76,12 @@
     padding: 10px 15px;
     font-size: 14px;
     max-width: 75%;  
+    width: fit-content;
+    min-width: 0;
     word-break: break-word;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
     
     /* MATANDO O SCROLL INTERNO DO BALÃO: */
     height: auto !important;
@@ -97,7 +111,12 @@
     padding: 10px 15px;
     font-size: 14px;
     max-width: 75%;
+    width: fit-content;
+    min-width: 0;
     word-break: break-word;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
     
     /* MATANDO O SCROLL INTERNO DO BALÃO: */
     height: auto !important;

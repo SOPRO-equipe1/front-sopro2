@@ -314,7 +314,8 @@ hr {
     gap: 24px; 
     width: 100%;
     max-width: 1100px;
-    height: 100% !important 
+  height: auto;
+  align-items: stretch;
 }
 
 
@@ -363,13 +364,12 @@ hr {
 .containercards > div,
 .card-laranja, .card-azul, .card-roxo, .card-verde {
     display: flex !important;         /* Força o comportamento flex para alinhar foto e texto */
-    height: 100% !important;         /* Obriga a preencher toda a altura da linha do grid */
-    min-height: 145px !important;    /* Ajuste esse valor para a altura exata que você quer que todos tenham */
+  height: auto !important;
+  min-height: 145px !important;    /* Mantém consistência sem prender o conteúdo */
     align-items: center !important;  
     width: 100%;
-    height: 100%;
     box-sizing: border-box;
-    height: 100% !important 
+  overflow: visible;
 }
 
 .fotoperfil img {
@@ -405,6 +405,7 @@ hr {
     margin: 0px 0px 16px 0px ; 
     text-align: left;
     padding: 0px; 
+  overflow-wrap: anywhere;
 }
 
  .card-redes-perfil {
