@@ -6,7 +6,7 @@
 ### *Sua voz, seu sopro.*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Figma](https://img.shields.io/badge/Design-Figma-F24E1E?logo=figma&logoColor=white)
+[![Figma](https://img.shields.io/badge/Design-Figma-F24E1E?logo=figma&logoColor=white)](https://www.figma.com/design/aZ0YTbIB6YzSKI57QohXxj/SOPRO?node-id=3-1011&p=f&t=DgQue191eudg5ICx-0)
 ![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react&logoColor=black)
 ![Accessibility](https://img.shields.io/badge/Acessibilidade-WCAG%202.1-blueviolet)
 
