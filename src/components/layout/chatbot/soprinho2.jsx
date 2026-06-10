@@ -17,7 +17,6 @@ function Soprinho2({ perguntaInicial }) {
     const [novoInput, setNovoInput] = useState('');
     const [carregando, setCarregando] = useState(false);
     
-   
     const requisicaoDisparada = useRef(false);
     const fimDasMensagensRef = useRef(null);
 
@@ -29,7 +28,6 @@ function Soprinho2({ perguntaInicial }) {
         rolarParaBaixo();
     }, [mensagens]);
 
-    
     useEffect(() => {
         if (perguntaInicial && perguntaInicial.trim() !== '' && !requisicaoDisparada.current) {
             requisicaoDisparada.current = true; 
@@ -37,51 +35,49 @@ function Soprinho2({ perguntaInicial }) {
         }
     }, []); 
 
-   const enviarMensagemParaBackend = async (textoMensagem) => {
-    if (!textoMensagem.trim()) return;
+    const enviarMensagemParaBackend = async (textoMensagem) => {
+        if (!textoMensagem.trim()) return;
 
-  
-    const msgUsuario = {
-        id: Date.now(),
-        remetente: 'usuario',
-        texto: textoMensagem
-    };
-    
-    setMensagens((antigas) => [...antigas, msgUsuario]);
-    setNovoInput('');
-    setCarregando(true);
-
-    const emailUsuarioLogado = "soprinhoosilva@gmail.com"; 
-
-    try {
-        
-        const response = await axios.post(
-            `https://back-sopro.onrender.com/api/conhecimento/chat?email=${emailUsuarioLogado}`, 
-            { mensagem: textoMensagem },
-            { headers: { 'Content-Type': 'application/json' } }
-        );
-
-        const msgSoprinho = {
-            id: Date.now() + 1,
-            remetente: 'soprinho',
-            texto: response.data
+        const msgUsuario = {
+            id: Date.now(),
+            remetente: 'usuario',
+            texto: textoMensagem
         };
-        setMensagens((antigas) => [...antigas, msgSoprinho]);
+        
+        setMensagens((antigas) => [...antigas, msgUsuario]);
+        setNovoInput('');
+        setCarregando(true);
 
-    } catch (error) {
-        console.error("Erro ao conectar com o motor Java no Render:", error);
-        setMensagens((antigas) => [
-            ...antigas,
-            { 
-                id: Date.now() + 2, 
-                remetente: 'soprinho', 
-                texto: 'Ops! Estou com dificuldades para me conectar ao servidor agora. Tente novamente em instantes.' 
-            }
-        ]);
-    } finally {
-        setCarregando(false);
-    }
-};
+        const emailUsuarioLogado = "soprinhoosilva@gmail.com"; 
+
+        try {
+            const response = await axios.post(
+                `https://back-sopro.onrender.com/api/conhecimento/chat?email=${emailUsuarioLogado}`, 
+                { mensagem: textoMensagem },
+                { headers: { 'Content-Type': 'application/json' } }
+            );
+
+            const msgSoprinho = {
+                id: Date.now() + 1,
+                remetente: 'soprinho',
+                texto: response.data
+            };
+            setMensagens((antigas) => [...antigas, msgSoprinho]);
+
+        } catch (error) {
+            console.error("Erro ao conectar com o motor Java no Render:", error);
+            setMensagens((antigas) => [
+                ...antigas,
+                { 
+                    id: Date.now() + 2, 
+                    remetente: 'soprinho', 
+                    texto: 'Ops! Estou com dificuldades para me conectar ao servidor agora. Tente novamente em instantes.' 
+                }
+            ]);
+        } finally {
+            setCarregando(false);
+        }
+    };
 
     const mapearTeclaEnter = (e) => {
         if (e.key === 'Enter') {
@@ -101,6 +97,7 @@ function Soprinho2({ perguntaInicial }) {
                             <img src={icone2} alt='Icone do soprinho' />
                         )}
                         
+                        {/* O container com a classe correta isola e protege o texto estruturado em Markdown */}
                         <div className="texto_mensagem">
                             <ReactMarkdown>{msg.texto}</ReactMarkdown>
                         </div>
@@ -110,7 +107,10 @@ function Soprinho2({ perguntaInicial }) {
                 {carregando && (
                     <article className='mensagens_soprinho'>
                         <img src={icone2} alt='Soprinho digitando' />
-                        <p><em>Digitando...</em></p>
+                        {/* Envolvido na mesma classe para manter o balão cinza de carregamento alinhado */}
+                        <div className="texto_mensagem">
+                            <p><em>Digitando...</em></p>
+                        </div>
                     </article>
                 )}
                 
