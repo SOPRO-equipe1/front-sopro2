@@ -14,9 +14,9 @@ body {
     position: fixed;
     z-index: 10000 !important;
     width: min(380px, 90vw);
-    height: min(520px, calc(100dvh - 100px));
-    max-height: calc(100dvh - 100px);
-    bottom: 90px;
+    height: auto;
+    max-height: calc(100dvh - 80px);
+    bottom: 30px;;
     border-radius: 15px;
     background-color: white;
     right: 20px;
