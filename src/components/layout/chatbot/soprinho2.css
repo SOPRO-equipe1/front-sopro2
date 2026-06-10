@@ -7,7 +7,7 @@
     flex-shrink: 0 !important;
 }
 
-/* O BALÃO AGORA SE ADAPTA AO MARKDOWN DO USUÁRIO */
+
 .mensagem_do_usuario .texto_mensagem {
     background-color: #1545D8;
     color: white;
@@ -20,7 +20,8 @@
     line-height: 1.45;
 }
 
-.mensagem_do_usuario .texto_mensagem p {
+.mensagem_do_usuario .texto_mensagem p,
+.mensagem_do_usuario .texto_mensagem li {
     margin: 0;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
@@ -43,7 +44,7 @@
     flex-shrink: 0;
 }
 
-/* O BALÃO AGORA SE ADAPTA AO MARKDOWN DO SOPRINHO */
+
 .mensagens_soprinho .texto_mensagem {
     background-color: #f0f0f0;
     color: #111;
@@ -56,9 +57,32 @@
     line-height: 1.45;
 }
 
+
 .mensagens_soprinho .texto_mensagem p {
-    margin: 0;
+    margin-bottom: 8px;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
     word-break: break-word;
+}
+
+.mensagens_soprinho .texto_mensagem p:last-child {
+    margin-bottom: 0;
+}
+
+
+.mensagens_soprinho .texto_mensagem ol, 
+.mensagens_soprinho .texto_mensagem ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.mensagens_soprinho .texto_mensagem li {
+    margin-bottom: 6px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.mensagens_soprinho .texto_mensagem li:last-child {
+    margin-bottom: 0;
 }
