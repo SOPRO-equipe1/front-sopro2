@@ -61,7 +61,6 @@ function App() {
           <AccessibilityToolbar /> 
           <Soprinho />
           <FitaScroll />
-          
           <Footer />
         </div>
       </Router>

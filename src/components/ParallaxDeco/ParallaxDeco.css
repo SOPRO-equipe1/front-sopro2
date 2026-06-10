@@ -1,0 +1,28 @@
+.parallax-deco {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: visible;
+}
+
+/* SVG ocupa 100% da largura e se estende por toda a altura da página */
+.linha-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+@media (max-width: 768px) {
+    .linha-svg { opacity: 0.55; }
+}
+
+@media (max-width: 480px) {
+    .parallax-deco { display: none; }
+}

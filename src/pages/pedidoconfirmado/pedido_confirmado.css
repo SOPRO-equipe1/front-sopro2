@@ -6,11 +6,16 @@
     background-color: #f8fafc;
     min-height: 100vh;
     font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
 .verificado-laranja {
     width: 120px;
     margin-bottom: 20px;
+    /* padding extra para a animação scale(1.2) não ser cortada */
+    padding: 16px;
+    box-sizing: content-box;
     animation: checkBounce 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) 0.2s both;
 }
 

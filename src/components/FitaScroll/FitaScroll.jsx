@@ -16,7 +16,7 @@ export default function FitaScroll() {
                 height: '100vh',
                 background: 'linear-gradient(to bottom, #00C8FF, #00D97A, #8DC63F)',
                 borderRadius: '0 0 3px 3px',
-                zIndex: 100,       /* abaixo de tudo — não corta conteúdo */
+                zIndex: 100,
                 pointerEvents: 'none',
             }}
         />
