@@ -3,6 +3,7 @@ import axios from 'axios';
 import icone2 from '../../../assets/images/chatbot/soprinho2.svg';
 import './soprinho2.css';
 import enviar from '../../../assets/images/chatbot/icone_enviar.svg';
+import ReactMarkdown from 'react-markdown';
 
 function Soprinho2({ perguntaInicial }) {
     const [mensagens, setMensagens] = useState([
@@ -28,18 +29,18 @@ function Soprinho2({ perguntaInicial }) {
         rolarParaBaixo();
     }, [mensagens]);
 
-    // Executa apenas uma vez quando o componente é montado na tela
+    
     useEffect(() => {
         if (perguntaInicial && perguntaInicial.trim() !== '' && !requisicaoDisparada.current) {
             requisicaoDisparada.current = true; 
             enviarMensagemParaBackend(perguntaInicial);
         }
-    }, []); // Array vazio garante que o useEffect só rode na montagem do componente
+    }, []); 
 
    const enviarMensagemParaBackend = async (textoMensagem) => {
     if (!textoMensagem.trim()) return;
 
-    // Adiciona a mensagem do usuário na tela
+  
     const msgUsuario = {
         id: Date.now(),
         remetente: 'usuario',
@@ -99,7 +100,10 @@ function Soprinho2({ perguntaInicial }) {
                         {msg.remetente === 'soprinho' && (
                             <img src={icone2} alt='Icone do soprinho' />
                         )}
-                        <p>{msg.texto}</p>
+                        
+                        <div className="texto_mensagem">
+                            <ReactMarkdown>{msg.texto}</ReactMarkdown>
+                        </div>
                     </div>
                 ))}
                 

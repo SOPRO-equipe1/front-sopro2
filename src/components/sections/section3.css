@@ -195,8 +195,9 @@ body {
         text-align: left;
         }
 
-    .saibaMaisLaranja{
-        margin-right: 0 !important;
+     .section3 .saibaMaisLaranja {
         align-self: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
