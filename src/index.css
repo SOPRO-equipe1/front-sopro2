@@ -15,11 +15,12 @@
 }
 
 html {
-    overflow-x: hidden;
+    /* Não usar overflow-x: hidden no html — quebra position:sticky do header no mobile */
+    scroll-behavior: smooth;
 }
 
 body {
-    overflow-x: hidden;
+    overflow-x: clip; /* clip não cria contexto de scroll, não quebra sticky */
     max-width: 100%;
     background-color: var(--cor-branco);
     color: var(--cor-preto);
@@ -112,13 +113,24 @@ body.high-contrast .Verde    { background-color: #00FF09 !important; }
     padding-bottom: 20px !important;
 }
 
-div[vw]{
-    z-index: 5 !important;
+/* ── VLIBRAS ─────────────────────────────────────────────────────── */
+[vw] {
+  position: fixed !important;
+  bottom: 80px !important;
+  right: 20px !important;
+  top: unset !important;
+  left: unset !important;
+  z-index: 9000 !important;
 }
 
-div[vw],
-div[vw-access-button],
-div[vw-plugin-wrapper],
-.vw-plugin-top-wrapper {
-    z-index: 5 !important;
+div[vw-access-button] {
+  display: block !important;
+}
+
+body.high-contrast [vw],
+body.high-contrast [vw] * {
+  background-color: unset !important;
+  color: unset !important;
+  border-color: unset !important;
+  filter: none !important;
 }

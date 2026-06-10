@@ -28,4 +28,7 @@ p, span, a, li, input, button:not(.btn-font, .btn-reset, .btn-contrast, .btn-voi
 
 .app-container{
   z-index: 0;
+  /* overflow-x aqui não quebra position:sticky do header */
+  overflow-x: clip;
+  width: 100%;
 }
