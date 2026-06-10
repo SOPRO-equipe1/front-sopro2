@@ -366,7 +366,7 @@
     }
     
     .checkout-card {
-        padding: 20px 60px;
+        padding: 20px 16px;
     }
     
     .checkout-row {
@@ -397,4 +397,21 @@
 
 .checkout-select:focus {
     border-color: var(--cor-azul);
+}
+
+/* Espaço para o botão VLibras não cobrir o conteúdo */
+@media (max-width: 768px) {
+  .checkout-page {
+    padding-right: 16px;
+    padding-left: 16px;
+    box-sizing: border-box;
+  }
+
+  .checkout-page h2,
+  .checkout-page h3,
+  .checkout-section-title {
+    padding-right: 0;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
 }

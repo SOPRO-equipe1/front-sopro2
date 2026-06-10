@@ -173,3 +173,13 @@
     width: 100%;
     display: flex;
 }
+/* Espaço para o botão VLibras não cobrir o conteúdo */
+@media (max-width: 768px) {
+  .confirmado-page,
+  .pedido-confirmado-container,
+  .confirmation-page {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+    box-sizing: border-box !important;
+  }
+}
