@@ -28,7 +28,12 @@ p, span, a, li, input, button:not(.btn-font, .btn-reset, .btn-contrast, .btn-voi
 
 .app-container{
   z-index: 0;
-  /* overflow-x aqui não quebra position:sticky do header */
   overflow-x: clip;
   width: 100%;
+}
+
+/* Compensa a altura do header sticky em todas as páginas */
+.app-container > main {
+  padding-top: 0; /* Hero sections têm fundo próprio, não precisam de padding */
+  scroll-margin-top: var(--header-height);
 }

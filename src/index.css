@@ -11,12 +11,24 @@
     --fonte-titulos: 'Montserrat', sans-serif;
     --fonte-corpo: 'Poppins', sans-serif;
 
+    /* Altura do header — usada para compensar o sticky em todas as páginas */
+    --header-height: 80px;
+
     font-size: var(--main-font-size, 16px);
+}
+
+/* No mobile o header é menor: padding 10px + logo 38px + border = ~59px */
+@media (max-width: 850px) {
+    :root {
+        --header-height: 59px;
+    }
 }
 
 html {
     /* Não usar overflow-x: hidden no html — quebra position:sticky do header no mobile */
     scroll-behavior: smooth;
+    /* Altura do header para scroll-margin funcionar corretamente */
+    scroll-padding-top: var(--header-height, 80px);
 }
 
 body {
@@ -123,10 +135,32 @@ body.high-contrast .Verde    { background-color: #00FF09 !important; }
   z-index: 9000 !important;
 }
 
+div[vw-access-button] {
+  display: block !important;
+}
+
 body.high-contrast [vw],
 body.high-contrast [vw] * {
   background-color: unset !important;
   color: unset !important;
   border-color: unset !important;
   filter: none !important;
+}
+
+/* ── Compensa header sticky no mobile ──────────────────────
+   Páginas que não têm hero section ficam com conteúdo
+   parcialmente oculto atrás do header sticky no mobile.
+   Essa regra garante que o primeiro elemento visível
+   comece abaixo do header.
+   As páginas com hero (home, sobrenos) não são afetadas
+   porque o hero section tem min-height próprio.
+─────────────────────────────────────────────────────────── */
+@media (max-width: 850px) {
+  .checkout-page,
+  .page,
+  .pagina-planos,
+  .suporte-page,
+  .container-produto {
+    padding-top: calc(var(--header-height) + 8px) !important;
+  }
 }
