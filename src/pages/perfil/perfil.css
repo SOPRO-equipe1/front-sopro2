@@ -312,7 +312,10 @@ body {
   font-size: 13px;
   color: #888;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
+  max-width: 60px;
+  line-height: 1.3;
+  word-break: break-word;
 }
 
 .dot {
@@ -378,8 +381,9 @@ body {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 100px;
-  align-self: flex-end;
+  margin-top: 24px;
+  align-self: stretch;
+  width: 100%;
 }
 
 .track-btn:hover {
@@ -675,7 +679,7 @@ body {
 
   .progress-track {
     width: calc(88% - 2px);
-    margin-left: 30px;
+    margin-left: 28px;
   }
 }
 
@@ -704,5 +708,61 @@ body {
   .step-label {
     font-size: 9px !important;
     max-width: 40px !important;
+  }
+}
+
+/* ══════════════════════════════════════
+   ── Fix mobile: progress + entrega ──
+   ══════════════════════════════════════ */
+@media (max-width: 560px) {
+
+  /* Order em coluna única limpa */
+  .order-two-cols {
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  .order-left,
+  .order-right {
+    width: 100% !important;
+    min-width: unset !important;
+  }
+
+  /* Progress: cabe na tela sem labels quebrados */
+  .progress-wrap {
+    width: 100%;
+    overflow: hidden;
+    padding: 16px 0 8px;
+  }
+
+  .progress-track {
+    width: calc(100% - 48px) !important;
+    margin-left: 24px !important;
+    margin-right: 24px !important;
+  }
+
+  .progress-steps {
+    padding: 0 8px;
+  }
+
+  .step-label {
+    font-size: 10px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    max-width: 52px !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+  }
+
+  .dot {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  /* Botão rastrear sempre full-width */
+  .track-btn {
+    width: 100% !important;
+    margin-top: 16px !important;
+    align-self: stretch !important;
   }
 }

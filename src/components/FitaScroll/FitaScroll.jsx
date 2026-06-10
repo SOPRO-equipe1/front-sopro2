@@ -11,12 +11,12 @@ export default function FitaScroll() {
                 transformOrigin: 'top',
                 position: 'fixed',
                 top: 0,
-                right: '6px',
-                width: '4px',
+                right: '3px',
+                width: '3px',
                 height: '100vh',
                 background: 'linear-gradient(to bottom, #00C8FF, #00D97A, #8DC63F)',
-                borderRadius: '0 0 4px 4px',
-                zIndex: 9999,
+                borderRadius: '0 0 3px 3px',
+                zIndex: 100,       /* abaixo de tudo — não corta conteúdo */
                 pointerEvents: 'none',
             }}
         />
