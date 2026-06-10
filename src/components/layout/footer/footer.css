@@ -32,6 +32,12 @@
     flex-direction: column;
     align-items: flex-start;
     overflow: visible;
+    gap: 2px;
+}
+
+.logo-sopro{
+  width: 90px;
+  height: 41px;
 }
 
 .footer-logo-brand {
