@@ -3,7 +3,6 @@ import axios from 'axios';
 import icone2 from '../../../assets/images/chatbot/soprinho2.svg';
 import './soprinho2.css';
 import enviar from '../../../assets/images/chatbot/icone_enviar.svg';
-import ReactMarkdown from 'react-markdown';
 
 function Soprinho2({ perguntaInicial }) {
     const [mensagens, setMensagens] = useState([
@@ -21,19 +20,24 @@ function Soprinho2({ perguntaInicial }) {
     const fimDasMensagensRef = useRef(null);
 
     const rolarParaBaixo = () => {
-        fimDasMensagensRef.current?.scrollIntoView({ behavior: 'smooth' });
+        // Rola até o fim do container garantindo o foco na última mensagem
+        fimDasMensagensRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
 
+    // O timer de 80ms dá o tempo exato para o navegador renderizar a tag <p> antes de rolar
     useEffect(() => {
-        rolarParaBaixo();
-    }, [mensagens]);
+        const timer = setTimeout(() => {
+            rolarParaBaixo();
+        }, 80);
+        return () => clearTimeout(timer);
+    }, [mensagens, carregando]);
 
     useEffect(() => {
         if (perguntaInicial && perguntaInicial.trim() !== '' && !requisicaoDisparada.current) {
             requisicaoDisparada.current = true; 
             enviarMensagemParaBackend(perguntaInicial);
         }
-    }, []); 
+    }, [perguntaInicial]); 
 
     const enviarMensagemParaBackend = async (textoMensagem) => {
         if (!textoMensagem.trim()) return;
@@ -97,9 +101,9 @@ function Soprinho2({ perguntaInicial }) {
                             <img src={icone2} alt='Icone do soprinho' />
                         )}
                         
-                        {/* O container com a classe correta isola e protege o texto estruturado em Markdown */}
+                        {/* SAINDO MARKDOWN, ENTRANDO PARÁGRAFO LIMPO */}
                         <div className="texto_mensagem">
-                            <ReactMarkdown>{msg.texto}</ReactMarkdown>
+                            <p>{msg.texto}</p>
                         </div>
                     </div>
                 ))}
@@ -107,7 +111,6 @@ function Soprinho2({ perguntaInicial }) {
                 {carregando && (
                     <article className='mensagens_soprinho'>
                         <img src={icone2} alt='Soprinho digitando' />
-                        {/* Envolvido na mesma classe para manter o balão cinza de carregamento alinhado */}
                         <div className="texto_mensagem">
                             <p><em>Digitando...</em></p>
                         </div>
