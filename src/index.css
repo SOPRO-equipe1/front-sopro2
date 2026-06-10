@@ -123,10 +123,6 @@ body.high-contrast .Verde    { background-color: #00FF09 !important; }
   z-index: 9000 !important;
 }
 
-div[vw-access-button] {
-  display: block !important;
-}
-
 body.high-contrast [vw],
 body.high-contrast [vw] * {
   background-color: unset !important;
