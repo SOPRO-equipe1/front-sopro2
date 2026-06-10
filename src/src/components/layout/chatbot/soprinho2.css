@@ -1,0 +1,90 @@
+.mensagem_do_usuario {
+    display: flex !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+    padding: 0 10px !important;
+    flex-direction: row !important;
+    flex-shrink: 0 !important;
+}
+
+
+.mensagem_do_usuario .texto_mensagem {
+    background-color: #1545D8;
+    color: white;
+    border-radius: 15px 15px 0px 15px;
+    padding: 10px 15px;
+    font-size: 14px;
+    max-width: 75%;  
+    width: fit-content;
+    min-width: 0;
+    line-height: 1.45;
+}
+
+.mensagem_do_usuario .texto_mensagem p,
+.mensagem_do_usuario .texto_mensagem li {
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.mensagens_soprinho {
+    display: flex !important;
+    gap: 8px !important;
+    width: 100% !important;
+    padding-right: 40px !important;
+    align-items: flex-start !important;
+    flex-direction: row !important;
+    flex-shrink: 0 !important;
+}
+
+.mensagens_soprinho img {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+}
+
+
+.mensagens_soprinho .texto_mensagem {
+    background-color: #f0f0f0;
+    color: #111;
+    border-radius: 0px 15px 15px 15px;
+    padding: 10px 15px;
+    font-size: 14px;
+    max-width: 75%;
+    width: fit-content;
+    min-width: 0;
+    line-height: 1.45;
+}
+
+
+.mensagens_soprinho .texto_mensagem p {
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.mensagens_soprinho .texto_mensagem p:last-child {
+    margin-bottom: 0;
+}
+
+
+.mensagens_soprinho .texto_mensagem ol, 
+.mensagens_soprinho .texto_mensagem ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.mensagens_soprinho .texto_mensagem li {
+    margin-bottom: 6px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.mensagens_soprinho .texto_mensagem li:last-child {
+    margin-bottom: 0;
+}
+
+/*Ajuste do soprinho*/

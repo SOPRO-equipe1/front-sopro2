@@ -1,0 +1,162 @@
+/* --- Estilos Base (Desktop) --- */
+html, body {
+    overflow-x: hidden;
+}
+
+.btn-animado {
+    overflow: visible !important; /* Libera o espaço para a sombra expandir */
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.25s cubic-bezier(0.33, 1, 0.68, 1), 
+                box-shadow 0.25s cubic-bezier(0.33, 1, 0.68, 1) !important;
+}
+
+.btn-animado:hover {
+    z-index: 5;
+    transform: translateY(-5px) !important; 
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important; /* Sombra ultra suave */
+}
+
+/* Use essa classe na DIV que embrulha o botão se a sombra ainda tentar cortar */
+.container-com-sombra {
+    overflow: visible !important;
+    padding-bottom: 15px !important; /* Dá uma folga embaixo para o botão flutuar */
+}
+
+.section4 {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 80px;
+    align-items: center;
+    color: #1D252A;
+    gap: 50px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 5%;
+    
+}
+
+.textos_section4 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 700px;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+/* Ajuste específico para a imagem principal da seção 4 */
+.imgSection4 {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* Restante dos seus estilos */
+.autonomiaTitulo, .inclusaoTitulo, .inovacaoTitulo {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    font-family: "montserrat", sans-serif;
+}
+
+
+.autonomia p, .inclusao p, .inovacao p {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    gap: 8px;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.linhaRoxaDIV, .linhaAzulDIV {
+    display: flex;
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;          
+    align-self: center;     
+    margin: 1rem 0;
+}
+
+.saibaMaisLaranja {
+    background-color: #E86B15 !important;
+    color: #FFF !important;
+    text-decoration: none !important;
+    width: 100%;
+    max-width: 230px;
+    align-self: center;
+    text-align: center;
+    margin-left: 2rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    padding: 12px 32px;
+    border-radius: 16px;
+    transition: transform 0.2s ease;
+    overflow: visible !important; 
+    margin: 15px auto !important; 
+    
+    transition: transform 0.3s cubic-bezier(0.215, 0.610, 0.355, 1), box-shadow 0.3s cubic-bezier(0.215, 0.610, 0.355, 1) !important;
+    
+    /* FORÇA BRUTA: Impede rolagem */
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    
+    /* Remove scrollbars forçadas */
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.saibaMaisLaranja {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+.saibaMaisLaranja:hover {
+    filter: brightness(1.08);
+    /* translateY(-4px) eleva o botão sem quebrar o layout, box-shadow dá a sensação de profundidade */
+    transform: translateY(-4px); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.produtoeicone h2{
+    font-size: 16px;
+}
+
+/* --- RESPONSIVIDADE PARA CELULARES --- */
+@media (max-width: 768px) {
+    .section4 {
+        flex-direction: column-reverse; /* Imagem fica em cima ou baixo dependendo da ordem no HTML */
+        gap: 40px;
+        text-align: center;
+    }
+
+    .textos_section4 {
+        align-items: center;
+    }
+
+    .imgSection4 {
+        max-width: 350px; /* Reduz o tamanho no mobile */
+        margin: 0 auto;
+    }
+
+    .autonomiaTitulo, .inclusaoTitulo, .inovacaoTitulo {
+        justify-content: center;
+    }
+}

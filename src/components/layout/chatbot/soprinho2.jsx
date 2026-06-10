@@ -16,30 +16,32 @@ function Soprinho2({ perguntaInicial }) {
     const [novoInput, setNovoInput] = useState('');
     const [carregando, setCarregando] = useState(false);
     
-   
     const requisicaoDisparada = useRef(false);
     const fimDasMensagensRef = useRef(null);
 
     const rolarParaBaixo = () => {
-        fimDasMensagensRef.current?.scrollIntoView({ behavior: 'smooth' });
+        // Rola até o fim do container garantindo o foco na última mensagem
+        fimDasMensagensRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
 
+    // O timer de 80ms dá o tempo exato para o navegador renderizar a tag <p> antes de rolar
     useEffect(() => {
-        rolarParaBaixo();
-    }, [mensagens]);
+        const timer = setTimeout(() => {
+            rolarParaBaixo();
+        }, 80);
+        return () => clearTimeout(timer);
+    }, [mensagens, carregando]);
 
-    // Executa apenas uma vez quando o componente é montado na tela
     useEffect(() => {
         if (perguntaInicial && perguntaInicial.trim() !== '' && !requisicaoDisparada.current) {
             requisicaoDisparada.current = true; 
             enviarMensagemParaBackend(perguntaInicial);
         }
-    }, []); // Array vazio garante que o useEffect só rode na montagem do componente
+    }, [perguntaInicial]); 
 
     const enviarMensagemParaBackend = async (textoMensagem) => {
         if (!textoMensagem.trim()) return;
 
-        // Adiciona a mensagem do usuário na tela
         const msgUsuario = {
             id: Date.now(),
             remetente: 'usuario',
@@ -54,7 +56,7 @@ function Soprinho2({ perguntaInicial }) {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/api/conhecimento/chat?email=${emailUsuarioLogado}`, 
+                `https://back-sopro.onrender.com/api/conhecimento/chat?email=${emailUsuarioLogado}`, 
                 { mensagem: textoMensagem },
                 { headers: { 'Content-Type': 'application/json' } }
             );
@@ -67,13 +69,13 @@ function Soprinho2({ perguntaInicial }) {
             setMensagens((antigas) => [...antigas, msgSoprinho]);
 
         } catch (error) {
-            console.error("Erro ao conectar com o motor Java:", error);
+            console.error("Erro ao conectar com o motor Java no Render:", error);
             setMensagens((antigas) => [
                 ...antigas,
                 { 
                     id: Date.now() + 2, 
                     remetente: 'soprinho', 
-                    texto: 'Ops! Estou com dificuldades para me conectar ao servidor agora. Tente novamente em instantes.' 
+                    texto: 'Servidor indisponível no momento. Tente novamente em instantes! 🙂' 
                 }
             ]);
         } finally {
@@ -98,14 +100,20 @@ function Soprinho2({ perguntaInicial }) {
                         {msg.remetente === 'soprinho' && (
                             <img src={icone2} alt='Icone do soprinho' />
                         )}
-                        <p>{msg.texto}</p>
+                        
+                        {/* SAINDO MARKDOWN, ENTRANDO PARÁGRAFO LIMPO */}
+                        <div className="texto_mensagem">
+                            <p>{msg.texto}</p>
+                        </div>
                     </div>
                 ))}
                 
                 {carregando && (
                     <article className='mensagens_soprinho'>
                         <img src={icone2} alt='Soprinho digitando' />
-                        <p><em>Digitando...</em></p>
+                        <div className="texto_mensagem">
+                            <p><em>Digitando...</em></p>
+                        </div>
                     </article>
                 )}
                 

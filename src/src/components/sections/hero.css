@@ -1,0 +1,90 @@
+/* Reset Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* --- ESTILOS DO HERO --- */
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 940px;
+    background-image: url('../../assets/images/home/imgSection1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px 80px 20px 20px;
+}
+
+.titulo_hero {
+    display: flex;
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+    min-height: 500px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(232, 107, 21, 0.70);
+    text-align: center;
+    color: #FAFCFF;
+    gap: 40px;
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    padding: 40px;
+}
+
+.titulo_hero p{
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      font-size: 1.5rem;
+}
+
+/* BOTÃO BLINDADO CONTRA ZÍPERES */
+.saibaMaisHero {
+    background-color: #FFF !important;
+    color: #1D252A !important;
+    text-decoration: none !important;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 40px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    
+    /* FORÇA BRUTA: Impede qualquer rolagem */
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    
+    /* Desativa qualquer estilo de scroll padrão */
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.saibaMaisHero::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.saibaMaisHero:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+    .hero { justify-content: center; padding-right: 20px; min-height: 600px; }
+    .titulo_hero { width: 100%; padding: 30px 20px; }
+}

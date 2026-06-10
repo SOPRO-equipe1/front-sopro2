@@ -14,11 +14,11 @@ body {
     position: fixed;
     z-index: 10000 !important;
     width: min(380px, 90vw);
-    height: min(520px, 85dvh);
-    max-width: min(380px, calc(100% - 40px));
+    height: min(520px, calc(100dvh - 100px));
+    max-height: calc(100dvh - 100px);
+    bottom: 90px;
     border-radius: 15px;
     background-color: white;
-    bottom: 90px;
     right: 20px;
     display: flex;
     flex-direction: column;
@@ -46,6 +46,16 @@ body {
     padding: 15px;
     gap: 15px;
     flex: 1;
+    min-height: 0; /* Necessário para rolar o conteúdo */
+    overflow-y: hidden;
+    overflow-x: hidden;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    padding-bottom: 10px;
+}
+
+.container_chatbot::-webkit-scrollbar {
+    display: none;
     min-height: 0;
     overflow-y: auto;
     scrollbar-width: none;
@@ -109,15 +119,19 @@ body {
 
 .area_de_perguntas {
     display: flex;
+    min-height: 120px;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
     text-align: center;
+    min-height: 120px;
+    justify-content: center;
 }
 
 .icone_area_de_perguntas {
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
+    min-height: auto !important; 
     object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 0 0 3px white, 0 8px 18px rgba(0, 0, 0, 0.15);
@@ -131,7 +145,12 @@ body {
     line-height: 1.2;
     color: #111;
     max-width: 22ch;
-    margin-bottom: 10px;
+    margin: 0;
+    min-height: 3.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-wrap: balance;
 }
 
 .sugestoes {

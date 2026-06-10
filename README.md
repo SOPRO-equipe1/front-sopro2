@@ -6,11 +6,15 @@
 ### *Sua voz, seu sopro.*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Figma](https://img.shields.io/badge/Design-Figma-F24E1E?logo=figma&logoColor=white)
+[![Figma](https://img.shields.io/badge/Design-Figma-F24E1E?logo=figma&logoColor=white)](https://www.figma.com/design/aZ0YTbIB6YzSKI57QohXxj/SOPRO?node-id=3-1011&p=f&t=DgQue191eudg5ICx-0)
 ![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react&logoColor=black)
 ![Accessibility](https://img.shields.io/badge/Acessibilidade-WCAG%202.1-blueviolet)
 
 ---
+
+```Se quiser ver uma documentação mais detalhada sobre a arquitetura:```
+
+[![GitBook](https://img.shields.io/badge/GITBOOK-000?style=for-the-badge&logoColor=FFF&color=000)](https://app.gitbook.com/o/3BzJD9kc8XUB2pCNxAEC/s/0DAvVlEyijknqLU9utZf/visao-geral/introducao)
 
 ## 📽️ A jornada do usuário
 *A experiência de quem utiliza o SOPRO, do primeiro contato à comunicação real.*
@@ -111,11 +115,9 @@ Nossa interface foi construída para ser leve. O frontend consome os dados do **
 
 ---
 
-
----
-
-<p align="center">
-<b>SOPRO Equipe 1</b> • Licença MIT • 2026
-</p>
-
+<div align="center">
+Desenvolvido com 💙 e muito café pela equipe do Front-end
 </div>
+
+
+
