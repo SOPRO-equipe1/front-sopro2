@@ -372,14 +372,13 @@ hr {
 
 .containercards > div,
 .card-laranja, .card-azul, .card-roxo, .card-verde {
-    display: flex !important;         /* Força o comportamento flex para alinhar foto e texto */
-  height: auto !important;\n  min-height: 175px !important;
     display: flex !important;
-    height: 100% !important;\n  min-height: 175px !important;
-    align-items: center !important;  
+    height: auto !important;
+    min-height: 175px !important;
+    align-items: center !important;
     width: 100%;
     box-sizing: border-box;
-  overflow: visible;
+    overflow: visible;
 }
 
 .fotoperfil img {
