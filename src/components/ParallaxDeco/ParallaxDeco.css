@@ -1,19 +1,31 @@
+/* Container — fixed para dentes-de-leão, absolute para a linha */
 .parallax-deco {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 5;
-    overflow: hidden;
+    z-index: 0;
+    overflow: visible;
 }
 
-/* Cada dente-de-leão */
+/* Linha serpentina — acompanha a altura da home */
+.linha-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* Dentes-de-leão — fixed para flutuar por toda a tela */
 .denteleao-cai {
     position: fixed;
     pointer-events: none;
     transform-origin: center center;
+    z-index: 5;
 }
 
 .denteleao-cai--ativo {
@@ -21,40 +33,21 @@
 }
 
 @keyframes flutuar {
-    0% {
-        opacity: 0;
-        transform: translateY(0px) translateX(0px) rotate(0deg);
-    }
-    6% {
-        opacity: var(--op, 0.4);
-    }
-    /* Movimento suave de vai-e-vem horizontal — imita flutuação */
-    25% {
-        transform: translateY(25vh)  translateX(calc(var(--drift) * 0.3))  rotate(20deg);
-        opacity: var(--op, 0.4);
-    }
-    50% {
-        transform: translateY(50vh)  translateX(calc(var(--drift) * 0.7))  rotate(-10deg);
-        opacity: var(--op, 0.4);
-    }
-    75% {
-        transform: translateY(75vh)  translateX(calc(var(--drift) * 0.5))  rotate(15deg);
-        opacity: var(--op, 0.38);
-    }
-    92% {
-        opacity: var(--op, 0.3);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(calc(100vh + 100px)) translateX(var(--drift)) rotate(30deg);
-    }
+    0%   { opacity: 0;    transform: translateY(0)               translateX(0)                        rotate(0deg);  }
+    6%   { opacity: 0.85; }
+    25%  { opacity: 0.85; transform: translateY(25vh)  translateX(calc(var(--drift) * 0.3))  rotate(20deg); }
+    50%  { opacity: 0.82; transform: translateY(50vh)  translateX(calc(var(--drift) * 0.7))  rotate(-10deg);}
+    75%  { opacity: 0.78; transform: translateY(75vh)  translateX(calc(var(--drift) * 0.5))  rotate(15deg); }
+    92%  { opacity: 0.5;  }
+    100% { opacity: 0;    transform: translateY(calc(100vh + 100px)) translateX(var(--drift)) rotate(30deg); }
 }
 
 @media (max-width: 768px) {
-    .denteleao-cai { filter: opacity(0.7); }
+    .linha-svg { opacity: 0.55; }
+    .denteleao-cai { max-width: 40px !important; }
 }
 
 @media (max-width: 480px) {
-    /* Menos dentes-de-leão no mobile — controlado pelo JS via intervalo maior */
+    .linha-svg { display: none; }
     .denteleao-cai { max-width: 32px !important; }
 }
