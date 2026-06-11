@@ -56,7 +56,7 @@ function Soprinho2({ perguntaInicial }) {
 
         try {
             const response = await axios.post(
-                `https://back-sopro.onrender.com/api/conhecimento/chat?email=${emailUsuarioLogado}`, 
+                `https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/conhecimento/chat?email=${emailUsuarioLogado}`, 
                 { mensagem: textoMensagem },
                 { headers: { 'Content-Type': 'application/json' } }
             );
@@ -101,7 +101,7 @@ function Soprinho2({ perguntaInicial }) {
                             <img src={icone2} alt='Icone do soprinho' />
                         )}
                         
-                        {/* SAINDO MARKDOWN, ENTRANDO PARÁGRAFO LIMPO */}
+                        
                         <div className="texto_mensagem">
                             <p>{msg.texto}</p>
                         </div>
