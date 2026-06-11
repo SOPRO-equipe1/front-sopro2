@@ -21,7 +21,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 20px 80px 20px 20px;
+    padding: 80px 80px 20px 20px;
 }
 
 .titulo_hero {
@@ -85,6 +85,6 @@ body {
 
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
-    .hero { justify-content: center; padding-right: 20px; min-height: 600px; }
+    .hero { justify-content: center; padding-right: 20px; min-height: 600px; padding-top: 80px; }
     .titulo_hero { width: 100%; padding: 30px 20px; }
 }
