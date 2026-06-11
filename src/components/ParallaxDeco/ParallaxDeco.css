@@ -1,4 +1,3 @@
-/* Container — fixed para dentes-de-leão, absolute para a linha */
 .parallax-deco {
     position: absolute;
     top: 0;
@@ -10,7 +9,6 @@
     overflow: visible;
 }
 
-/* Linha serpentina — acompanha a altura da home */
 .linha-svg {
     position: absolute;
     top: 0;
@@ -20,34 +18,10 @@
     overflow: visible;
 }
 
-/* Dentes-de-leão — fixed para flutuar por toda a tela */
-.denteleao-cai {
-    position: fixed;
-    pointer-events: none;
-    transform-origin: center center;
-    z-index: 5;
-}
-
-.denteleao-cai--ativo {
-    animation: flutuar var(--dur, 12s) var(--delay, 0s) ease-in forwards;
-}
-
-@keyframes flutuar {
-    0%   { opacity: 0;    transform: translateY(0)               translateX(0)                        rotate(0deg);  }
-    6%   { opacity: 0.85; }
-    25%  { opacity: 0.85; transform: translateY(25vh)  translateX(calc(var(--drift) * 0.3))  rotate(20deg); }
-    50%  { opacity: 0.82; transform: translateY(50vh)  translateX(calc(var(--drift) * 0.7))  rotate(-10deg);}
-    75%  { opacity: 0.78; transform: translateY(75vh)  translateX(calc(var(--drift) * 0.5))  rotate(15deg); }
-    92%  { opacity: 0.5;  }
-    100% { opacity: 0;    transform: translateY(calc(100vh + 100px)) translateX(var(--drift)) rotate(30deg); }
-}
-
 @media (max-width: 768px) {
     .linha-svg { opacity: 0.55; }
-    .denteleao-cai { max-width: 40px !important; }
 }
 
 @media (max-width: 480px) {
-    .linha-svg { display: none; }
-    .denteleao-cai { max-width: 32px !important; }
+    .parallax-deco { display: none; }
 }
