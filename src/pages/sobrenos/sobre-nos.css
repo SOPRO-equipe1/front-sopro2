@@ -344,8 +344,8 @@ hr {
 }
 
 .fotoperfil {
-    width: 90px;  
-    height: 90px;
+    width: 130px;  
+    height: 130px;
     border-radius: 50%; 
     overflow: hidden;
     flex-shrink: 0; 
@@ -373,11 +373,9 @@ hr {
 .containercards > div,
 .card-laranja, .card-azul, .card-roxo, .card-verde {
     display: flex !important;         /* Força o comportamento flex para alinhar foto e texto */
-  height: auto !important;
-  min-height: 145px !important;    /* Mantém consistência sem prender o conteúdo */
+  height: auto !important;\n  min-height: 175px !important;
     display: flex !important;
-    height: 100% !important;
-    min-height: 145px !important;
+    height: 100% !important;\n  min-height: 175px !important;
     align-items: center !important;  
     width: 100%;
     box-sizing: border-box;

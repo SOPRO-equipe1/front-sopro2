@@ -12,7 +12,7 @@ export default function FitaScroll() {
                 position: 'fixed',
                 top: 0,
                 right: '3px',
-                width: '3px',
+                width: '5px',
                 height: '100vh',
                 background: 'linear-gradient(to bottom, #00C8FF, #00D97A, #8DC63F)',
                 borderRadius: '0 0 3px 3px',
