@@ -18,7 +18,12 @@
     overflow: visible;
 }
 
-/* Mobile: linha mais fina e levemente opaca, mas sempre visível */
+/* Desktop: mostra SVG desktop, esconde mobile */
+.linha-svg--mobile  { display: none; }
+.linha-svg--desktop { display: block; }
+
+/* Mobile: mostra SVG mobile, esconde desktop */
 @media (max-width: 768px) {
-    .linha-svg { opacity: 0.6; }
+    .linha-svg--desktop { display: none; }
+    .linha-svg--mobile  { display: block; opacity: 0.65; }
 }
