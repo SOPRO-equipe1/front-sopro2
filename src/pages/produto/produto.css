@@ -24,14 +24,14 @@
 .produto-content {
     display: flex;
     flex-direction: column;
-    
     padding: 60px 0px; 
     gap: 10px;
     min-height: 80vh;
     width: 100%; 
     margin: 0 auto;
     overflow-x: hidden; 
-    text-align: center; 
+    text-align: center;
+ 
 }
 
 h1 {
@@ -68,6 +68,7 @@ h1 {
         display: flex !important;
         flex-direction: column !important;
         align-items: center;
+
     }
 
     h1 {
