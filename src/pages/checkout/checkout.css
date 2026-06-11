@@ -339,7 +339,8 @@
 }
 
 @media (max-width: 900px) {
-    .checkout-container { flex-direction: column; }
+    .checkout-container { flex-direction: column; 
+    }
     .checkout-right { width: 100%; }
     .checkout-pagamento-options { grid-template-columns: repeat(2, 1fr); }
 }
@@ -367,7 +368,10 @@
     
     .checkout-card {
         padding: 20px 16px;
+        box-sizing: border-box;
+
     }
+    
     
     .checkout-row {
         flex-direction: column;
@@ -405,6 +409,17 @@
     padding-right: 16px;
     padding-left: 16px;
     box-sizing: border-box;
+  }
+
+    .checkout-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+.checkout-left,
+  .checkout-right {
+    width: 100%;
+    max-width: 100%;
   }
 
   .checkout-page h2,
