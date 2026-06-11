@@ -12,16 +12,13 @@
 }
 
 .linha-svg {
+    opacity: 0.75;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     overflow: visible;
-}
-
-@media (max-width: 768px) {
-    .linha-svg { opacity: 0.02; } /* Reduzido de 0.05 para 0.02 */
 }
 
 @media (max-width: 480px) {
