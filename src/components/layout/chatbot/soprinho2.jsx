@@ -75,7 +75,7 @@ function Soprinho2({ perguntaInicial }) {
                 { 
                     id: Date.now() + 2, 
                     remetente: 'soprinho', 
-                    texto: 'Ops! Estou com dificuldades para me conectar ao servidor agora. Tente novamente em instantes.' 
+                    texto: 'Servidor indisponível no momento. Tente novamente em instantes! 🙂' 
                 }
             ]);
         } finally {

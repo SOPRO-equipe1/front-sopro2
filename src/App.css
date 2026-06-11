@@ -1,31 +1,15 @@
-:root {
-  --main-font-size: 16px; 
+:root { --main-font-size: 16px; }
+body { font-size: var(--main-font-size); }
+
+p, span, a, li, input, button:not(.btn-font,.btn-reset,.btn-contrast,.btn-voice) {
+    font-size: inherit;
 }
 
-body {
-  font-size: var(--main-font-size);
+.high-contrast-mode { background-color: #000 !important; color: #fff !important; }
+.high-contrast-mode header, .high-contrast-mode footer, .high-contrast-mode main {
+    background-color: #000 !important; color: #fff !important;
 }
 
-
-p, span, a, li, input, button:not(.btn-font, .btn-reset, .btn-contrast, .btn-voice) {
-  font-size: inherit;
-}
-
-/* Estilo para o Modo de Alto Contraste */
-.high-contrast-mode {
-  background-color: #000000 !important;
-  color: #ffffff !important;
-}
-
-
-.high-contrast-mode header, 
-.high-contrast-mode footer, 
-.high-contrast-mode main {
-  background-color: #000000 !important;
-  color: #ffffff !important;
-}
-
-
-.app-container{
-  z-index: 0;
-}
+.app-container { z-index: 0; overflow-x: clip; width: 100%; }
+.app-container > main { padding-top: 0; scroll-margin-top: var(--header-height); }
+.home-main { position: relative; overflow: hidden; }

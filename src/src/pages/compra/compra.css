@@ -1,0 +1,383 @@
+/*body {
+  background-color: #FAFCFF;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  padding: 0; 
+  margin: 0;
+} */
+
+.Voltar { 
+  font-size: 155%;
+  font-weight: bold;
+  margin-bottom: 5px; 
+  margin-top: 30px;
+  cursor: pointer;
+  width: 100%;
+  padding-left: 0 !important;
+}
+
+.Produto-Container {
+  display: flex;
+  flex-direction: column; 
+  gap: 3rem; 
+  max-width: 1200px;
+  margin: 0 auto;
+  height: auto;
+}
+
+.Coluna-Fotos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  width: 100%; 
+}
+
+.Coluna-Fotos a{
+  text-decoration: none !important; 
+  color: inherit !important;          
+  display: inline-block;             
+  width: 100%;
+  max-width: 500px;
+}
+
+.Foto-Principal {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  image-rendering: -webkit-optimize-contrast; 
+  image-rendering: crisp-edges;
+}
+
+.Produto2 { 
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.Produto2 img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+  border: none;
+}
+ 
+
+/*Descrição*/
+
+.Coluna-Detalhes {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-top: 0;
+}
+
+.description {
+  width: 100%;
+}
+
+.Titulo {
+    font-size: clamp(1.5rem, 5vw, 2.4rem); 
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    text-align: center;
+    margin-top: 90px;
+}
+
+.Descrição {
+  font-size: 105%;
+  color: #000000;
+  line-height: 1.5;
+  max-width: 700px;
+  margin: 0 auto 25px auto;
+  text-align: center;
+}
+
+.Preço {
+  font-size: 260%;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.linha1 {
+  width: 70%;
+  background-color: #250fe2;
+  height: 3px;
+  border: none;
+  margin: 0 auto 25px auto !important;
+
+}
+
+/* Paleta de cores */
+.Name {
+  font-size: 180%;
+  font-weight: 700; 
+  margin: 0 0 15px 0;
+  align-self: flex-start;
+  font-size: 190%;
+}
+
+.Paletadecores {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  margin-bottom: 35px;
+  gap: 2px !important;
+  align-self: center;
+  width: 100%;
+  max-width: 550px;
+}
+
+.card-cor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 100%;
+  font-weight: 500;
+  gap: 8px;
+  margin-left: 0;
+  cursor: pointer;
+  border: none !important; 
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.card-cor p {
+  margin: 0;
+  font-size: 0.9rem;
+  padding: 0 
+}
+
+ .card-cor > div {
+  width: 100%; 
+  height: 30px;        
+  border-radius: 8px;   
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, filter 0.3s ease; 
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.card-cor:hover > div {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.30);
+  filter: brightness(1.03);
+}
+
+.Branco   { background-color: #ffffff; border: 1px solid #484848; }
+.Preto    { background-color: #1e293b; border: 1px solid #484848; }
+.Vermelho { background-color: #FF0000; border: 1px solid #484848; }
+.Roxo     { background-color: #9333EA; border: 1px solid #484848; }
+.Laranja  { background-color: #F97316; border: 1px solid #484848; }
+.Azul     { background-color: #1545D8; border: 1px solid #484848; }
+.Rosa     { background-color: #FF0099; border: 1px solid #484848; }
+.Verde    { background-color: #00FF09; border: 1px solid #484848; }
+
+/* Quantidade */
+.card-quantidade {
+  display: flex;
+  flex-direction: column; /* Empilha o título e o seletor no mobile */
+  align-items: center;    /* Centraliza tudo no mobile */
+  width: 100%;
+  margin: 0 0 35px 0;   
+  border: none;  
+  background: transparent !important;
+  box-shadow: none !important;        
+}
+
+.container-quantidade {
+  margin: 0;
+}
+
+.NameQ {
+  font-weight: 700;
+  font-size: 180%;
+  margin: 0 0 15px 0; /* Remove a margem negativa e adiciona espaçamento abaixo */
+  text-align: center;
+}
+
+.seletorempílula {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 190px;        
+  height: 45px;        
+  border: 4px solid #cbd5e1; 
+  background-color: #ffffff;
+  border-radius: 100px; 
+  padding: 0 25px;
+  margin-right: 0; /* Remove a margem negativa */
+}
+
+.botao-menos, .botao-mais {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.numero-whitespace, .numero-quantidade {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Pagamento */
+.FormasDePagamento {
+  display: flex;
+  flex-direction: column;
+  align-self: center !important;
+  align-items: center !important;
+  gap: 30px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.FormasDePagamento a {
+  text-decoration: none !important;
+}
+
+.Bandeiras {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  align-items: center;
+  gap: 20px; 
+}
+
+.FormasDePagamento img {
+  height: 50px;
+  width: auto;
+}
+
+.botao-comprar-compra {
+  width: 100%;
+  max-width: 240px;
+  background: linear-gradient(135deg, #ff7a00 0%, #ff5500 100%);
+  color: white;
+  border: none;
+  border-radius: 25px !important;
+  padding: 16px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
+  transition: transform 0.2s;
+  margin-bottom: 70px !important;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.botao-comprar:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+}
+
+/* MEDIA QUERY (DESKTOP) */
+@media (min-width: 900px) {
+  body {
+    padding: 0px 0px;
+  }
+
+  .Voltar {
+      padding-left: 0;
+      text-align: left;
+  }
+
+  .Produto-Container {
+    flex-direction: row; 
+    align-items: flex-start;
+    gap: 10rem;
+  }
+
+  .Coluna-Detalhes {
+    margin-top: -50px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .Descrição {
+    margin: 0 0 25px 0;
+  }
+
+  .linha1 {
+    margin: 0 0 25px 0;
+  }
+
+  .Paletadecores {
+    align-self: flex-start;
+    gap: 8px; 
+  }
+
+  .card-quantidade {
+    align-self: flex-start;
+  }
+
+  .FormasDePagamento{
+    align-items: flex-start;
+  }
+
+  .botao-comprar-compra {
+    align-self: flex-end;
+    margin-left: 130px;
+  }
+
+/*Adicionei a responsividade do botão comprar no JSX. Porque por força ele a ficar no tamanho ideal da responsividade.*/
+}
+
+
+@media (max-width: 480px) {
+
+  .Voltar{
+    padding-left: 20px !important;
+  }
+  .card-quantidade {
+    flex-direction: column; 
+    align-items: center;    
+    gap: 15px;              
+    width: 100%;            
+    margin: 0 0 25px 0 !important; /* Força a remoção de margens externas */
+  }
+
+  .NameQ {
+    font-size: 1.5rem;             /* Reduz levemente para não quebrar linha */
+    text-align: center;
+  }
+
+  .Descrição {
+      margin-top: 20px;
+      margin-bottom: 20px;;
+      padding: 0 50px !important;
+      text-align: justify;
+  }
+
+  .Name{
+
+    align-self: center !important;
+    text-align: center !important;
+}
+  
+
+  .seletorempílula {
+    margin-right: 0 !important;    /* Remove o deslocamento lateral */
+    width: 170px;                  /* Ajuste fino para caber em telas pequenas */
+    height: 40px;                  /* Leve redução na altura para ganhar espaço */
+    padding: 0 15px;
+  }
+
+  .Titulo{
+    margin: 0px;
+  } 
+}

@@ -7,19 +7,23 @@
     --cor-laranja: #F97316;
     --cor-preto: #1D252A;
     --cor-branco: #FAFCFF;
-
     --fonte-titulos: 'Montserrat', sans-serif;
     --fonte-corpo: 'Poppins', sans-serif;
-
+    --header-height: 80px;
     font-size: var(--main-font-size, 16px);
 }
 
+@media (max-width: 850px) {
+    :root { --header-height: 59px; }
+}
+
 html {
-    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height, 80px);
 }
 
 body {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
     background-color: var(--cor-branco);
     color: var(--cor-preto);
@@ -28,50 +32,17 @@ body {
     transition: font-size 0.2s ease;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+img { max-width: 100%; height: auto; display: block; }
+* { scrollbar-width: none; -ms-overflow-style: none; }
+*::-webkit-scrollbar { display: none; }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-* {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-*::-webkit-scrollbar {
-    display: none;
-}
-
-h1 {
-    font-family: var(--fonte-titulos);
-    font-weight: 800;
-    font-size: 3rem;
-    line-height: 1.2;
-}
-
-h2 {
-    font-family: var(--fonte-titulos);
-    font-weight: 700;
-    font-size: 2.25rem;
-}
-
-h3 {
-    font-family: var(--fonte-titulos);
-    font-weight: 600;
-    font-size: 1.75rem;
-}
-
-p { font-size: 1rem; }
-
+h1 { font-family: var(--fonte-titulos); font-weight: 800; font-size: 3rem; line-height: 1.2; }
+h2 { font-family: var(--fonte-titulos); font-weight: 700; font-size: 2.25rem; }
+h3 { font-family: var(--fonte-titulos); font-weight: 600; font-size: 1.75rem; }
+p  { font-size: 1rem; }
 .lead { font-size: 1.25rem; }
 
-/* Alto contraste: preserva cores dos swatches de produto */
 body.high-contrast .Branco   { background-color: #ffffff !important; }
 body.high-contrast .Preto    { background-color: #1e293b !important; }
 body.high-contrast .Vermelho { background-color: #FF0000 !important; }
@@ -81,38 +52,23 @@ body.high-contrast .Azul     { background-color: #1545D8 !important; }
 body.high-contrast .Rosa     { background-color: #FF0099 !important; }
 body.high-contrast .Verde    { background-color: #00FF09 !important; }
 
-.saibaMaisLaranja,
-.seu-botao-roxo,
-.seu-botao-newsletter {
-    overflow: visible !important;
-    position: relative;
-    z-index: 2;
+.saibaMaisLaranja, .seu-botao-roxo, .seu-botao-newsletter {
+    overflow: visible !important; position: relative; z-index: 2;
 }
-
 .btn-suave-global {
-    overflow: visible !important;
-    position: relative;
-    z-index: 1;
-    margin-top: 10px !important;
-    margin-bottom: 15px !important;
-    box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-                box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    overflow: visible !important; position: relative; z-index: 1;
+    margin-top: 10px !important; margin-bottom: 15px !important;
+    box-shadow: 0 4px 15px rgba(26,83,255,.04) !important;
+    transition: transform 0.3s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.3s cubic-bezier(0.25,0.8,0.25,1) !important;
 }
-
 .btn-suave-global:hover {
-    z-index: 5;
-    filter: brightness(1.05);
+    z-index: 5; filter: brightness(1.05);
     transform: translateY(-4px) !important;
-    box-shadow: 0 4px 15px rgba(26, 83, 255, 0.04) !important;
+    box-shadow: 0 4px 15px rgba(26,83,255,.04) !important;
 }
+.container-liberado { overflow: visible !important; padding-bottom: 20px !important; }
 
-.container-liberado {
-    overflow: visible !important;
-    padding-bottom: 20px !important;
-}
-
-div[vw]{
+div[vw] {
     z-index: 5 !important;
 }
 
@@ -121,4 +77,25 @@ div[vw-access-button],
 div[vw-plugin-wrapper],
 .vw-plugin-top-wrapper {
     z-index: 5 !important;
+}
+
+body.high-contrast [vw], body.high-contrast [vw] * {
+    background-color: unset !important; color: unset !important;
+    border-color: unset !important; filter: none !important;
+}
+
+/* ── Padding-top para compensar header sticky — desktop e mobile ── */
+.checkout-page, .perfil-page, .page,
+.pagina-planos, .suporte-page, .container-produto {
+    padding-top: calc(var(--header-height) + 16px);
+}
+
+.login-page, .cadastro-page { padding-top: 40px; }
+
+@media (max-width: 850px) {
+    .checkout-page, .perfil-page, .page,
+    .pagina-planos, .suporte-page, .container-produto {
+        padding-top: calc(var(--header-height) + 8px) !important;
+    }
+    .login-page, .cadastro-page { padding-top: 60px !important; }
 }

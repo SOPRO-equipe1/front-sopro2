@@ -1,0 +1,174 @@
+/* Estilos Base (Desktop) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+.fiquePorDentro h2{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700; 
+}
+
+.fiquePorDentro p{
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;      
+    color: #1A252A;
+     font-size: 1.5rem;
+}
+
+.section6 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 950px;
+    gap: 16px;
+    text-align: center;
+    padding: 0 80px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    
+}
+
+.inscricao {
+    display: flex;
+    flex-direction: row; /* Lado a lado no desktop */
+    gap: 16px; /* Reduzi de 40px para 16px para melhor ajuste */
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.email {
+    width: 100%;
+    max-width: 400px; /* Limitado para não ficar gigante */
+    padding: 10px 16px; /* Removi o padding horizontal fixo de 420px */
+    border-radius: 8px;
+    border: 2px solid #1D252A;
+    box-sizing: border-box;
+    height: 40px;
+    font-family: "Poppins", sans-serif;
+
+}
+
+.inscreverBotao {
+    padding: 10px 24px;
+    border-radius: 8px;
+    height: 40px;
+    background: #9333EA;
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap; /* Impede que o texto do botão quebre linha */
+    transition: transform 0.2s ease;
+    font-family: "Poppins", sans-serif;
+}
+
+.inscreverBotao:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+}
+
+.inscreverBotao:active {
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.explorar{
+    color: #FFF;
+    padding: 10px 32px;
+    background: #F97316;
+    border: none;
+    border-radius: 16px;
+    margin-top: 40px;
+    margin-bottom: 64px !important;
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+    font-family: "Poppins", sans-serif;
+}
+
+
+.explorar:hover {
+    filter: brightness(1.08);
+    transform: scale(1.05);
+}
+
+.inscreverBotao:hover {
+    filter: brightness(1.08);
+    transform: scale(1.05);
+}
+
+.explorar {
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.inscreverBotao {
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+/*
+.explorar:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+}
+
+.explorar:active {
+    filter: brightness(0.9);
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+} */
+
+
+.sinoVerde{
+        display: inline-block !important; /*Tive que adicionar para centralizar o sino*/
+}
+
+.fiquePorDentro p {
+    margin-bottom: 30px;
+}
+
+/* --- RESPONSIVIDADE PARA CELULARES --- */
+@media (max-width: 600px) {
+    
+    .section6 {
+        padding: 0 20px;
+    }
+
+    .inscricao {
+        flex-direction: column; /* Empilha input e botão no mobile */
+        gap: 12px;
+    }
+
+    .email {
+        max-width: 100%; /* Ocupa a largura total da tela */
+    }
+
+    .inscreverBotao {
+        width: 100%; /* Botão ocupa a largura total */
+   
+}
+
+.explorar {
+    color: #FFF;
+    padding: 8px 32px;
+    background: #F97316;
+    border: none;
+    border-radius: 16px;
+    margin-top: 40px;
+    margin-bottom: 64px;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+
+}
+
+.fiquePorDentro p{
+    font-size: 16px;
+}
+
+ }

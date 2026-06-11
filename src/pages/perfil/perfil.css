@@ -80,24 +80,26 @@ body {
 
 .Soprinho,
 .avatar-perfil {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   background: transparent;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  overflow: visible;
+  overflow: hidden;
+  border-radius: 50%;
   margin: 0;
   padding: 0;
 }
 
 .Soprinho img,
 .avatar-perfil img {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
   display: block;
 }
 
@@ -268,9 +270,9 @@ body {
   border-radius: 99px;
   margin-top: 8px;
   width: 96%;
-  margin-left: 70px;
+  margin-left: 40px;
   margin-right: 1px;
-  width: calc(75% - 2px);
+  width: calc(90% - 2px);
 }
 
 .progress-fill {
@@ -297,23 +299,23 @@ body {
   margin-top: -8px;
   position: relative;
   z-index: 1;
-  align-items: center !important;
 }
 
 .progress-step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25% !important;
   gap: 6px;
 }
 
 .step-label {
   font-size: 13px;
-  color: #1D252A;
+  color: #888;
   text-align: center;
-  white-space: nowrap;
-  font-weight: 500;
+  white-space: normal;
+  max-width: 60px;
+  line-height: 1.3;
+  word-break: break-word;
 }
 
 .dot {
@@ -339,7 +341,7 @@ body {
 }
 
 .progress-wrap {
-  padding-top: 0 10px important;
+  padding-top: 20px;
 }
 
 .progress-labels {
@@ -352,7 +354,7 @@ body {
 
 .progress-labels li {
   font-size: 13px;
-  color: #1D252A;
+  color: #888;
   text-align: left !important;   
 }
 
@@ -379,8 +381,9 @@ body {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 100px;
-  align-self: flex-end;
+  margin-top: 24px;
+  align-self: stretch;
+  width: 100%;
 }
 
 .track-btn:hover {
@@ -442,15 +445,17 @@ body {
 
 .info-field dd {
   text-align: left !important;
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
   padding-left: 30px;
-  overflow-wrap: break-word !important;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  min-width: 0;
 }
 
 /* ══════════════════════════════════════
    ── Responsivo 560px (já existia) ──
-   ══════════════════════════════════════ 
+   ══════════════════════════════════════ */
 @media (max-width: 560px) {
   .order-two-cols {
     flex-direction: column;
@@ -466,52 +471,12 @@ body {
   }
 }
 
-*/
-
-/* ══════════════════════════════════════
-   ── Responsivo 768px ──
-   ══════════════════════════════════════ */
-@media (max-width: 768px) {
-  .page {
-    padding: 1.5rem 1rem;
-  }
-
-  .order-two-cols {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .order-left {
-    width: 100%;
-  }
-
-  .order-right {
-    width: 100%;
-    min-width: unset;
-  }
-
-  .track-btn {
-    width: 100%;
-    margin-top: 1.5rem;
-    align-self: stretch;
-  }
-
-  .info-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .progress-track {
-    width: calc(80% - 2px);
-    margin-left: 20px !important;
-  }
-}
-
 /* ══════════════════════════════════════
    ── Responsivo 480px (novo) ──
    ══════════════════════════════════════ */
 @media (max-width: 480px) {
 
-
+  /* Page */
   .page {
     padding: 1rem 0.75rem;
   }
@@ -522,7 +487,7 @@ body {
     margin-bottom: 1rem;
   }
 
-
+  /* Card */
   .card {
     padding: 1rem;
     margin-bottom: 1.5rem;
@@ -535,7 +500,7 @@ body {
     margin-bottom: 0.75rem;
   }
 
-
+  /* Perfil */
   .profile-card {
     flex-direction: row;
     align-items: center;
@@ -570,7 +535,7 @@ body {
     font-size: 12px !important;
   }
 
-
+  /* Pedido */
   .order-two-cols {
     flex-direction: column;
     gap: 0.75rem;
@@ -610,18 +575,9 @@ body {
     font-size: 12px;
   }
 
+  /* Progress */
   .progress-wrap {
-    margin-bottom: 1rem;
-    align-items: center !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-  }
-
-  .progress-steps {
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    gap: 10px !important;
+    margin-bottom: 1.5rem;
   }
 
   .step-label {
@@ -629,7 +585,7 @@ body {
     white-space: normal;
     text-align: center;
     white-space: nowrap;
-    max-width: 80px;
+    max-width: 56px;
     font-weight: 600;
   }
 
@@ -637,14 +593,16 @@ body {
     font-size: 13px;
     color: #888;
     text-align: left !important;   
+      /* ADICIONE O FONT-WEIGHT AQUI */
     font-weight: 600;
   }
 
-
-  .order-row {
-      margin-bottom: 0px;;
+  .dot {
+    width: 12px;
+    height: 12px;
   }
 
+  /* Botão */
   .track-btn  {
     width: 100%;
     margin-top: 1.5rem;
@@ -654,13 +612,13 @@ body {
     text-align: center;
   }
 
-
+  /* Tracking box */
   .tracking-box {
     font-size: 12px;
     padding: 8px 12px;
   }
 
-  
+  /* Informações pessoais */
   .info-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.875rem 0.5rem;
@@ -673,49 +631,138 @@ body {
   .info-field span {
     font-size: 16px;
   }
+}
 
-  .step-label {
-    max-width: 100px
+
+@media (max-width: 480px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem 0;
+  }
+
+  .info-field dd {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+}
+/* ══════════════════════════════════════
+   ── Responsivo 768px ──
+   ══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .page {
+    padding: 1.5rem 1rem;
+  }
+
+  .order-two-cols {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .order-left {
+    width: 100%;
+  }
+
+  .order-right {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .track-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    align-self: stretch;
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .progress-track {
-    width: calc(80% - 2px) !important;
-    margin-left: 40px !important;
+    width: calc(88% - 2px);
+    margin-left: 28px;
+  }
+}
+
+/* ── Fix: labels do progress cortados no mobile ── */
+@media (max-width: 480px) {
+  .step-label {
+    font-size: 10px !important;
+    white-space: normal !important;
+    max-width: 48px !important;
+    word-break: break-word;
+    line-height: 1.2;
   }
 
-  .dot {
-    width: 14px !important;
-    height: 14px !important;  
-  
-}
-
-.dot span{
-  margin-top: 0;
-}
+  .progress-track {
+    width: calc(84% - 2px) !important;
+    margin-left: 24px !important;
+  }
 
   /* Botão de acessibilidade não sobrepõe conteúdo */
   .a11y-container {
     bottom: 80px !important;
   }
-
-  .info-field dd{
-    font-size: 12px;
-    
-  }
-
 }
-
-@media (max-width: 380px) {
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
 
 @media (max-width: 380px) {
   .step-label {
     font-size: 9px !important;
     max-width: 40px !important;
+  }
+}
+
+/* ══════════════════════════════════════
+   ── Fix mobile: progress + entrega ──
+   ══════════════════════════════════════ */
+@media (max-width: 560px) {
+
+  /* Order em coluna única limpa */
+  .order-two-cols {
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  .order-left,
+  .order-right {
+    width: 100% !important;
+    min-width: unset !important;
+  }
+
+  /* Progress: cabe na tela sem labels quebrados */
+  .progress-wrap {
+    width: 100%;
+    overflow: hidden;
+    padding: 16px 0 8px;
+  }
+
+  .progress-track {
+    width: calc(100% - 48px) !important;
+    margin-left: 24px !important;
+    margin-right: 24px !important;
+  }
+
+  .progress-steps {
+    padding: 0 8px;
+  }
+
+  .step-label {
+    font-size: 10px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    max-width: 52px !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+  }
+
+  .dot {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  /* Botão rastrear sempre full-width */
+  .track-btn {
+    width: 100% !important;
+    margin-top: 16px !important;
+    align-self: stretch !important;
   }
 }
