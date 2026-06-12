@@ -25,7 +25,8 @@ export default function ParallaxDeco() {
         offset: ['start start', 'end end'],
     });
 
-    const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const isMobile   = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const pathLength = useTransform(scrollYProgress, [0, isMobile ? 0.75 : 1], [0, 1]);
     const opacity    = useTransform(scrollYProgress, [0, 0.01, 0.98, 1], [0, 1, 1, 0]);
 
     const h = pageHeight;
