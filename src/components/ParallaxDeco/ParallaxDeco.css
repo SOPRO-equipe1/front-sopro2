@@ -7,21 +7,36 @@
     pointer-events: none;
     z-index: -1;
     overflow: visible;
+    display: flex;
+    justify-content: center;
 }
 
-.linha-svg {
+/* Linha vertical centralizada que cresce com o scroll */
+.linha-central {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
     height: 100%;
-    overflow: visible;
+    background: linear-gradient(
+        to bottom,
+        #00C8FF,
+        #00D97A 33%,
+        #8DC63F 66%,
+        #F97316
+    );
+    border-radius: 4px;
+    opacity: 0.45;
 }
 
 @media (max-width: 768px) {
-    .linha-svg { opacity: 0.9; }
+    .linha-central {
+        width: 3px;
+        opacity: 0.5;
+    }
 }
 
 @media (max-width: 480px) {
-    .parallax-deco { display: block; }
+    .parallax-deco { display: none; }
 }
