@@ -29,7 +29,6 @@ import ScrollToTop from './ScrollToTop.jsx';
 
 import { AuthProvider } from './context/auth/authContext.jsx';
 import FitaScroll from './components/FitaScroll/FitaScroll.jsx';
-import ParallaxDeco from './components/ParallaxDeco/ParallaxDeco.jsx';
 
 function App() {
   return (
@@ -62,7 +61,6 @@ function App() {
           <AccessibilityToolbar /> 
           <Soprinho />
           <FitaScroll />
-          <ParallaxDeco />
           <Footer />
         </div>
       </Router>

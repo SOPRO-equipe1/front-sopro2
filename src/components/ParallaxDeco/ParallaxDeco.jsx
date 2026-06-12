@@ -1,19 +1,53 @@
+import { useRef, useEffect, useState } from 'react';
 import { useScroll, useTransform, motion } from 'framer-motion';
 import './ParallaxDeco.css';
 
 export default function ParallaxDeco() {
-    const { scrollYProgress } = useScroll();
-    const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const containerRef = useRef(null);
+    const [pageHeight, setPageHeight] = useState(5200);
+
+    useEffect(() => {
+        const update = () => {
+            const h = document.documentElement.scrollHeight;
+            setPageHeight(h);
+        };
+        update();
+        setTimeout(update, 500);
+        window.addEventListener('resize', update);
+        return () => window.removeEventListener('resize', update);
+    }, []);
+
+    // offset: start start = quando o topo do container chega ao topo da tela
+    // offset: end end     = quando o fundo do container chega ao fundo da tela
+    // Isso faz o pathLength mapear 0→1 exatamente no trecho visível
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ['start start', 'end end'],
+    });
+
+    const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const opacity    = useTransform(scrollYProgress, [0, 0.01, 0.98, 1], [0, 1, 1, 0]);
+
+    const h = pageHeight;
+    const d = `
+        M 180 0
+        C 180 ${h*0.07}, 1260 ${h*0.10}, 1260 ${h*0.16}
+        C 1260 ${h*0.21}, 180  ${h*0.24}, 180  ${h*0.30}
+        C 180  ${h*0.35}, 1200 ${h*0.38}, 1200 ${h*0.43}
+        C 1200 ${h*0.48}, 180  ${h*0.51}, 180  ${h*0.57}
+        C 180  ${h*0.62}, 1200 ${h*0.65}, 1200 ${h*0.70}
+        C 1200 ${h*0.75}, 180  ${h*0.78}, 180  ${h*0.84}
+        C 180  ${h*0.89}, 1200 ${h*0.92}, 1200 ${h*0.97}
+        C 1200 ${h*0.99}, 720  ${h}, 720 ${h}
+    `;
 
     return (
-        // Fixed na viewport — sempre visível onde o usuário está
-        <div className="parallax-deco" aria-hidden="true">
-            <motion.svg
+        <div ref={containerRef} className="parallax-deco" aria-hidden="true">
+            <svg
                 className="linha-svg"
-                viewBox="0 0 1440 100"
-                preserveAspectRatio="none"
+                viewBox={`0 0 1440 ${pageHeight}`}
+                preserveAspectRatio="xMidYMin slice"
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ scaleY, transformOrigin: 'top' }}
             >
                 <defs>
                     <linearGradient id="serpGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -22,8 +56,8 @@ export default function ParallaxDeco() {
                         <stop offset="66%"  stopColor="#8DC63F"/>
                         <stop offset="100%" stopColor="#F97316"/>
                     </linearGradient>
-                    <filter id="brilho">
-                        <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+                    <filter id="brilho" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
                         <feMerge>
                             <feMergeNode in="blur"/>
                             <feMergeNode in="SourceGraphic"/>
@@ -31,41 +65,28 @@ export default function ParallaxDeco() {
                     </filter>
                 </defs>
 
-                {/* Curvas que atravessam a tela de lado a lado */}
                 {/* Brilho */}
-                <path
-                    d="
-                        M 180 0
-                        C 180 8, 1260 12, 1260 20
-                        C 1260 28, 180 32, 180 40
-                        C 180 48, 1200 52, 1200 60
-                        C 1200 68, 180 72, 180 80
-                        C 180 88, 1200 92, 1200 100
-                    "
+                <motion.path
+                    d={d}
                     stroke="url(#serpGrad)"
                     strokeWidth="14"
                     strokeLinecap="round"
                     fill="none"
                     opacity="0.12"
                     filter="url(#brilho)"
+                    style={{ pathLength, opacity }}
                 />
                 {/* Linha principal */}
-                <path
-                    d="
-                        M 180 0
-                        C 180 8, 1260 12, 1260 20
-                        C 1260 28, 180 32, 180 40
-                        C 180 48, 1200 52, 1200 60
-                        C 1200 68, 180 72, 180 80
-                        C 180 88, 1200 92, 1200 100
-                    "
+                <motion.path
+                    d={d}
                     stroke="url(#serpGrad)"
-                    strokeWidth="5"
+                    strokeWidth="4"
                     strokeLinecap="round"
                     fill="none"
                     opacity="0.5"
+                    style={{ pathLength, opacity }}
                 />
-            </motion.svg>
+            </svg>
         </div>
     );
 }
