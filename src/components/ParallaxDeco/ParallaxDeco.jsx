@@ -19,8 +19,18 @@ export default function ParallaxDeco() {
 
     // Scroll relativo ao documento inteiro
     const { scrollYProgress } = useScroll();
-    const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
-    const opacity    = useTransform(scrollYProgress, [0, 0.01, 0.98, 1], [0, 1, 1, 0]);
+    // Mobile tem página mais longa — comprime o range para a linha aparecer mais cedo
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const pathLength = useTransform(
+        scrollYProgress,
+        isMobile ? [0, 0.7] : [0, 1],
+        [0, 1]
+    );
+    const opacity = useTransform(
+        scrollYProgress,
+        isMobile ? [0, 0.01, 0.65, 0.7] : [0, 0.01, 0.98, 1],
+        [0, 1, 1, 0]
+    );
 
     // Path serpentina: pontos X fixos, Y proporcionais à altura real
     const h = pageHeight;
