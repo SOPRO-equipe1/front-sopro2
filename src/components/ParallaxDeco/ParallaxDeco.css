@@ -1,4 +1,4 @@
-/* Linha fixa na tela — sempre visível enquanto o usuário desce */
+/* Fixed na tela — sempre visível onde o usuário está */
 .linha-fixa {
     position: fixed;
     top: 0;
@@ -14,9 +14,9 @@
         #F97316
     );
     border-radius: 4px;
-    opacity: 0.4;
+    opacity: 0.45;
     pointer-events: none;
-    z-index: 0;
+    z-index: -1;
 }
 
 @media (max-width: 768px) {
