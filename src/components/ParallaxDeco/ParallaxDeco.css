@@ -23,5 +23,5 @@
 }
 
 @media (max-width: 480px) {
-    .parallax-deco { display: none; }
+    .parallax-deco { display: block; }
 }
