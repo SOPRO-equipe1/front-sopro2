@@ -1,24 +1,11 @@
-.parallax-deco {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-    overflow: visible;
-    display: flex;
-    justify-content: center;
-}
-
-/* Linha vertical centralizada que cresce com o scroll */
-.linha-central {
-    position: absolute;
+/* Linha fixa na tela — sempre visível enquanto o usuário desce */
+.linha-fixa {
+    position: fixed;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 4px;
-    height: 100%;
+    height: 100vh;
     background: linear-gradient(
         to bottom,
         #00C8FF,
@@ -27,16 +14,15 @@
         #F97316
     );
     border-radius: 4px;
-    opacity: 0.45;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
 }
 
 @media (max-width: 768px) {
-    .linha-central {
-        width: 3px;
-        opacity: 0.5;
-    }
+    .linha-fixa { width: 3px; opacity: 0.5; }
 }
 
 @media (max-width: 480px) {
-    .parallax-deco { display: none; }
+    .linha-fixa { display: none; }
 }
