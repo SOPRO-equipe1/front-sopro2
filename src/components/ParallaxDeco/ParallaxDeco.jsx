@@ -13,9 +13,6 @@ export default function ParallaxDeco() {
             setPageHeight(h);
         };
         update();
-
-        setTimeout(update, 500);
-        
         window.addEventListener('resize', update);
         return () => window.removeEventListener('resize', update);
     }, []);
