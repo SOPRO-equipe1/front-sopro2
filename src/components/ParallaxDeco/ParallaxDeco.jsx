@@ -5,11 +5,12 @@ import './ParallaxDeco.css';
 export default function ParallaxDeco() {
     const containerRef = useRef(null);
     const [pageHeight, setPageHeight] = useState(5200);
+    const [isMobile,   setIsMobile]   = useState(false);
 
     useEffect(() => {
         const update = () => {
-            const h = document.documentElement.scrollHeight;
-            setPageHeight(h);
+            setPageHeight(document.documentElement.scrollHeight);
+            setIsMobile(window.innerWidth <= 768);
         };
         update();
         setTimeout(update, 500);
@@ -17,9 +18,6 @@ export default function ParallaxDeco() {
         return () => window.removeEventListener('resize', update);
     }, []);
 
-    // offset: start start = quando o topo do container chega ao topo da tela
-    // offset: end end     = quando o fundo do container chega ao fundo da tela
-    // Isso faz o pathLength mapear 0→1 exatamente no trecho visível
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ['start start', 'end end'],
@@ -28,8 +26,7 @@ export default function ParallaxDeco() {
     const pathLength = useTransform(scrollYProgress, [0, isMobile ? 0.75 : 1], [0, 1]);
     const opacity    = useTransform(scrollYProgress, [0, 0.01, 0.98, 1], [0, 1, 1, 0]);
 
-    const h = pageHeight;
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const h    = pageHeight;
     const vw   = isMobile ? 480  : 1440;
     const xL   = isMobile ? 48   : 180;
     const xR   = isMobile ? 432  : 1260;
@@ -53,7 +50,7 @@ export default function ParallaxDeco() {
             <svg
                 className="linha-svg"
                 viewBox={`0 0 ${vw} ${pageHeight}`}
-                preserveAspectRatio="xMidYMin meet"
+                preserveAspectRatio="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <defs>
@@ -72,7 +69,6 @@ export default function ParallaxDeco() {
                     </filter>
                 </defs>
 
-                {/* Brilho */}
                 <motion.path
                     d={d}
                     stroke="url(#serpGrad)"
@@ -83,7 +79,6 @@ export default function ParallaxDeco() {
                     filter="url(#brilho)"
                     style={{ pathLength, opacity }}
                 />
-                {/* Linha principal */}
                 <motion.path
                     d={d}
                     stroke="url(#serpGrad)"
