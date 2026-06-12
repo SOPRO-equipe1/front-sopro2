@@ -19,38 +19,34 @@ export default function ParallaxDeco() {
 
     // Scroll relativo ao documento inteiro
     const { scrollYProgress } = useScroll();
-    // Mobile tem página mais longa — comprime o range para a linha aparecer mais cedo
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-    const pathLength = useTransform(
-        scrollYProgress,
-        isMobile ? [0, 0.7] : [0, 1],
-        [0, 1]
-    );
-    const opacity = useTransform(
-        scrollYProgress,
-        isMobile ? [0, 0.01, 0.65, 0.7] : [0, 0.01, 0.98, 1],
-        [0, 1, 1, 0]
-    );
+    const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const opacity    = useTransform(scrollYProgress, [0, 0.01, 0.98, 1], [0, 1, 1, 0]);
 
     // Path serpentina: pontos X fixos, Y proporcionais à altura real
     const h = pageHeight;
+    const mobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    // No mobile as curvas são menos largas para caber na tela menor
+    const xL = mobile ? 80  : 180;
+    const xR = mobile ? 360 : 1260;
+    const xM = mobile ? 340 : 1200;
+
     const d = `
-        M 180 0
-        C 180 ${h*0.07}, 1260 ${h*0.10}, 1260 ${h*0.16}
-        C 1260 ${h*0.21}, 180  ${h*0.24}, 180  ${h*0.30}
-        C 180  ${h*0.35}, 1200 ${h*0.38}, 1200 ${h*0.43}
-        C 1200 ${h*0.48}, 180  ${h*0.51}, 180  ${h*0.57}
-        C 180  ${h*0.62}, 1200 ${h*0.65}, 1200 ${h*0.70}
-        C 1200 ${h*0.75}, 180  ${h*0.78}, 180  ${h*0.84}
-        C 180  ${h*0.89}, 1200 ${h*0.92}, 1200 ${h*0.97}
-        C 1200 ${h*0.99}, 720  ${h}, 720 ${h}
+        M ${xL} 0
+        C ${xL} ${h*0.07}, ${xR} ${h*0.10}, ${xR} ${h*0.16}
+        C ${xR} ${h*0.21}, ${xL} ${h*0.24}, ${xL} ${h*0.30}
+        C ${xL} ${h*0.35}, ${xM} ${h*0.38}, ${xM} ${h*0.43}
+        C ${xM} ${h*0.48}, ${xL} ${h*0.51}, ${xL} ${h*0.57}
+        C ${xL} ${h*0.62}, ${xM} ${h*0.65}, ${xM} ${h*0.70}
+        C ${xM} ${h*0.75}, ${xL} ${h*0.78}, ${xL} ${h*0.84}
+        C ${xL} ${h*0.89}, ${xM} ${h*0.92}, ${xM} ${h*0.97}
+        C ${xM} ${h*0.99}, ${(xL+xM)/2} ${h}, ${(xL+xM)/2} ${h}
     `;
 
     return (
         <div ref={containerRef} className="parallax-deco" aria-hidden="true">
             <svg
                 className="linha-svg"
-                viewBox={`0 0 1440 ${pageHeight}`}
+                viewBox={`0 0 ${mobile ? 480 : 1440} ${pageHeight}`}
                 preserveAspectRatio="xMidYMin slice"
                 xmlns="http://www.w3.org/2000/svg"
             >
