@@ -1,4 +1,3 @@
-// Localização: src/pages/login/Login.jsx
 import { useState } from 'react';
 import './login.css';
 import imagemLogin from '../../assets/images/login/imagemLogin.png';
@@ -17,51 +16,51 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setErro('');
+    e.preventDefault();
+    setErro('');
 
-  if (!usuario.trim() || !senha) { 
-    setErro('Preencha todos os campos.'); 
-    return; 
-  }
-
-  setCarregando(true);
-  try {
-  
-
-
-  const response = await fetch(`https://sopro-backend.azurewebsites.net/api/perfil?email=${emailLogado}`, {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
-  });
-
-    if (!response.ok) {
-      throw new Error('E-mail ou senha incorretos.');
+    if (!usuario.trim() || !senha) { 
+      setErro('Preencha todos os campos.'); 
+      return; 
     }
 
-    const dados = await response.json(); 
-    
-    localStorage.setItem('@Sopro:token', dados.token);
-    localStorage.setItem('@Sopro:email', dados.email);
+    setCarregando(true);
+    try {
+      // Agora dispara o POST correto para o endpoint de autenticação do seu AuthController
+      const response = await fetch('https://sopro-backend.azurewebsites.net/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: usuario.trim(), 
+          senha: senha           
+        })
+      });
 
-   
-    navigate('/minha-conta');
+      if (!response.ok) {
+        throw new Error('E-mail ou senha incorretos.');
+      }
 
-  } catch (err) {
-    setErro(err.message || 'Falha na conexão com o servidor do Azure.');
-  } finally {
-    setCarregando(false);
-  }
+      const dados = await response.json(); 
+      
+      localStorage.setItem('@Sopro:token', dados.token);
+      localStorage.setItem('@Sopro:email', dados.email);
 
-};
+      navigate('/minha-conta');
+
+    } catch (err) {
+      setErro(err.message || 'Falha na conexão com o servidor do Azure.');
+    } finally {
+      setCarregando(false);
+    }
+  };
+
   const handleGoogle = async () => {
     setErro('');
     setCarregando(true);
     try {
-      
       const resultado = await signInWithPopup(auth, googleProvider);
       if (resultado.user?.email) {
         localStorage.setItem('@Sopro:email', resultado.user.email);

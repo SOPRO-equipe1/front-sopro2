@@ -48,8 +48,7 @@ const Cadastro = () => {
       const respostaCadastro = await fetch('https://sopro-backend.azurewebsites.net/api/usuarios/cadastro', {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           nome: nome.trim(),  
@@ -68,12 +67,11 @@ const Cadastro = () => {
         }
       }
 
-      //  Faz o login automático para receber e guardar o Token JWT e o Email na sessão
+      // Faz o login automático para receber e guardar o Token JWT e o Email na sessão
       const respostaLogin = await fetch('https://sopro-backend.azurewebsites.net/api/auth/login', {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           email: email.trim(),
@@ -82,17 +80,14 @@ const Cadastro = () => {
       });
 
       if (!respostaLogin.ok) {
-        
         navigate('/login');
         return;
       }
 
       const dadosSessao = await respostaLogin.json(); 
 
-      
       localStorage.setItem('@Sopro:token', dadosSessao.token);
       localStorage.setItem('@Sopro:email', dadosSessao.email);
-
       
       navigate('/checkout');
 
