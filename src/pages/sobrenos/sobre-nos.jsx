@@ -203,7 +203,7 @@ return (
               <div className="fotoperfil"><img src={Joao} alt="João Victor Brito" /></div>
               <div className="conteudoperfil">
                 <h3>João Victor</h3>
-                <p>Desenvolvedor Front End</p>
+                <p>Desenvolvedor Front End & Marketing</p>
                 <div className="conteiner-icone">
                   <a href="https://github.com/araujobrito" target="_blank" rel="noreferrer" className="btn-suave-global"><img src={github} alt="icone do github" /></a> 
                   <a href="https://www.linkedin.com/in/araujobrito/" target="_blank" rel="noopener noreferrer" className="btn-suave-global"><img src={linkedin} alt="icone do linkedlin" /></a>
