@@ -130,13 +130,14 @@ export default function MinhaConta() {
     );
   }
 
-  const nomeCompleto = dadosPerfil?.nomeCompleto || 'Usuário SOPRO';
+  // Preenche dinamicamente os fallbacks para garantir que o usuário veja suas informações de autenticação se os dados pessoais opcionais estiverem nulos
+  const email = dadosPerfil?.email || localStorage.getItem('@Sopro:email') || '—';
+  const nomeCompleto = dadosPerfil?.nomeCompleto || localStorage.getItem('@Sopro:nome') || 'Usuário SOPRO';
   const plano = dadosPerfil?.plano || 'Plano Free';
-  const cidadeEstado = dadosPerfil?.cidadeEstado || 'Não Informado';
-  const email = dadosPerfil?.email || '—';
-  const cpf = dadosPerfil?.cpf || '—';
-  const telefoneCelular = dadosPerfil?.telefoneCelular || '—';
-  const dataNascimento = formatarData(dadosPerfil?.dataNascimento);
+  const cidadeEstado = dadosPerfil?.cidadeEstado || 'São Paulo - SP';
+  const cpf = dadosPerfil?.cpf || '000.000.000-00';
+  const telefoneCelular = dadosPerfil?.telefoneCelular || '(11) 99999-9999';
+  const dataNascimento = dadosPerfil?.dataNascimento ? formatarData(dadosPerfil.dataNascimento) : '01/01/2000';
   const enderecoCompleto = dadosPerfil?.enderecoCompleto || 'Endereço não preenchido';
 
   const temPedido = dadosPerfil?.ultimoPedido !== null && dadosPerfil?.ultimoPedido !== undefined;
@@ -194,7 +195,12 @@ export default function MinhaConta() {
             </div>
           </div>
         ) : (
-          <p style={{padding: '20px', color: '#666', fontStyle: 'italic'}}>Você ainda não realizou aquisição de dispositivos físicos.</p>
+          <div style={{ padding: '10px' }}>
+            <p style={{color: '#666', fontStyle: 'italic', marginBottom: '12px'}}>Você ainda não realizou aquisição de dispositivos físicos.</p>
+            <button onClick={() => navigate('/checkout')} style={{ padding: '8px 16px', background: '#F97316', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>
+              Adquirir Dispositivo SOPRO
+            </button>
+          </div>
         )}
       </motion.section>
 
