@@ -21,7 +21,7 @@ const Cadastro = () => {
   const validar = () => {
     if (!nome.trim()) return 'Preencha seu nome.';
     if (!email.trim()) return 'Preencha seu e-mail.';
-    if (senha.length < 8) return 'A senha deve ter pelo menos 8 caracteres para segurança da API.';
+    if (senha.length < 8) return 'A senha deve ter pelo menos 8 caracteres conforme regras do backend.';
     if (senha !== confirmarSenha) return 'As senhas não coincidem.';
     return null;
   };
@@ -35,7 +35,7 @@ const Cadastro = () => {
     
     setCarregando(true);
     try {
-      // Conecta com o endpoint real de criação de usuários na API Java (Azure)
+      
       const respostaCadastro = await fetch('https://sopro-backend.azurewebsites.net/api/usuarios/cadastro', {
         method: 'POST',
         headers: { 
@@ -55,7 +55,7 @@ const Cadastro = () => {
           const objetoErro = JSON.parse(textoErro);
           throw new Error(objetoErro.mensagem || objetoErro.erro || 'Falha ao registrar usuário.');
         } catch (e) {
-          throw new Error(textoErro || 'Este e-mail já se encontra cadastrado no ecossistema SOPRO.');
+          throw new Error(textoErro || 'Este e-mail já está cadastrado no sistema.');
         }
       }
 
@@ -73,14 +73,14 @@ const Cadastro = () => {
       });
 
       if (!respostaLogin.ok) {
-       
+      
         navigate('/login');
         return;
       }
 
       const dadosSessao = await respostaLogin.json(); 
 
-      
+     
       localStorage.setItem('@Sopro:token', dadosSessao.token);
       localStorage.setItem('@Sopro:email', dadosSessao.email);
 
@@ -184,6 +184,5 @@ const Cadastro = () => {
     </main>
   );
 };
-//testeeeeee
 
 export default Cadastro;
