@@ -380,7 +380,7 @@
 
 .botao-comprar-dispositivo {
 
-  font-family: 'poppins' sans-serif;
+  font-family: 'poppins', sans-serif;
 
   background: #f2741f;
 
@@ -412,7 +412,7 @@
 
   overflow: hidden;
 
-  font-family: 'poppins' sans-serif !important;
+  font-family: 'poppins', sans-serif !important;
 
 }
 
