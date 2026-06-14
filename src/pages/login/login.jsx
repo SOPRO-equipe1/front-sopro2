@@ -26,18 +26,18 @@ const Login = () => {
 
     setCarregando(true);
     try {
-      // Agora dispara o POST correto para o endpoint de autenticação do seu AuthController
-      const response = await fetch('https://sopro-backend.azurewebsites.net/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          email: usuario.trim(), 
-          senha: senha           
-        })
-      });
+      //  dispara o POST para o endpoint de autenticação do seu AuthController
+     const response = await fetch('https://sopro-backend.azurewebsites.net/api/auth/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  },
+  body: JSON.stringify({
+    email: usuario.trim().toLowerCase(), 
+    senha: senha 
+  })
+});
 
       if (!response.ok) {
         throw new Error('E-mail ou senha incorretos.');
