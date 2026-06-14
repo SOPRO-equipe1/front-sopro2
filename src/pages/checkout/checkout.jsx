@@ -10,21 +10,32 @@ import mais from "../../assets/icons/mais.svg";
 import menos from "../../assets/icons/menos.svg";
 import circuloSelecionado from "../../assets/icons/circuloSelecionadoLaranja.svg";
 import imgProduto from "../../assets/images/compra/imgCompra1.png";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 import { motion } from 'framer-motion';
 
 const Checkout = () => {
+  const navigate = useNavigate();
   const [planoSelecionado, setPlanoSelecionado] = useState("dispositivo");
   const [quantidade, setQuantidade] = useState(1);
   const [pagamento, setPagamento] = useState("pix");
+  const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState("");
 
-  // Formata número do cartão: 4 grupos de 4 dígitos
+  
+  const [cep, setCep] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [numero, setNumero] = useState("");
+  const [complemento, setComplemento] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
+
+  
   const formatCardNumber = (value) => {
     const digits = value.replace(/\D/g, '').slice(0, 16);
-    return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+    return digits.replace(/(\\d{4})(?=\\d)/g, '$1 ');
   };
 
-  // Opções de parcelamento
   const parcelaOpcoes = [
     { value: '1', label: '1x de R$ 200,97 sem juros' },
     { value: '2', label: '2x de R$ 100,49 sem juros' },
@@ -33,8 +44,6 @@ const Checkout = () => {
     { value: '12', label: '12x de R$ 16,75 com juros' },
   ];
   const [parcelas, setParcelas] = useState('1');
-
-
 
   const precoBase = 200.97;
   const planos = {
@@ -45,9 +54,8 @@ const Checkout = () => {
   };
 
   const precoPlano = planos[planoSelecionado].preco;
-  const total = (precoBase * quantidade + precoPlano)
-    .toFixed(2)
-    .replace(".", ",");
+  const valorTotalCalculado = (precoBase * quantidade + precoPlano);
+  const totalFormatado = valorTotalCalculado.toFixed(2).replace(".", ",");
 
   const pagamentos = [
     { id: "pix", label: "PIX", icon: qrCode },
@@ -55,6 +63,58 @@ const Checkout = () => {
     { id: "boleto", label: "Boleto Bancário", icon: codigoBarras },
     { id: "carteira", label: "Carteiras Digitais", icon: carteira },
   ];
+
+  
+  const handleFinalizarCompra = async () => {
+    setErro("");
+    if (!cep || !endereco || !numero || !bairro || !cidade || !estado) {
+      setErro("Por favor, preencha todos os campos obrigatórios do endereço de entrega.");
+      return;
+    }
+
+    setCarregando(true);
+    try {
+      const token = localStorage.getItem('@Sopro:token');
+      const emailLogado = localStorage.getItem('@Sopro:email');
+
+      
+      const response = await fetch(`https://sopro-backend.azurewebsites.net/api/assinaturas/checkout?email=${emailLogado}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          plano: planoSelecionado.toUpperCase(),
+          valorPlano: precoPlano,
+          incluiDispositivo: true,
+          valorDispositivo: precoBase * quantidade,
+          produtoDescricao: `${quantidade}x Dispositivo Sopro - Cor Branca`,
+          valor: valorTotalCalculado,
+          formaPagamento: pagamento.toUpperCase(),
+          transactionId: "TRX-" + Math.floor(Math.random() * 900000 + 100000), 
+          cep: cep,
+          numero: numero,
+          complemento: complemento,
+          bairro: bairro,
+          cidade: cidade,
+          estado: estado
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro de comunicação ao processar faturamento e logística da assinatura.");
+      }
+
+      
+      navigate("/pedidoconfirmado");
+    } catch (err) {
+      console.error(err);
+      setErro(err.message || "Não foi possível registrar o seu pedido.");
+    } finally {
+      setCarregando(false);
+    }
+  };
 
   return (
     <main className="checkout-page">
@@ -67,31 +127,36 @@ const Checkout = () => {
         >
           <article className="checkout-card">
             <h2 className="checkout-card-title">Endereço de entrega</h2>
-            <form className="checkout-form">
+            {erro && <p style={{ color: 'red', fontWeight: 'bold', marginBottom: '12px' }}>{erro}</p>}
+            <form className="checkout-form" onSubmit={(e) => e.preventDefault()}>
               <fieldset className="checkout-fieldset">
                 <div className="checkout-field">
-                  <label htmlFor="cep">CEP</label>
+                  <label htmlFor="cep">CEP *</label>
                   <input id="cep" type="text" className="checkout-input"
                       maxLength={8}
+                      value={cep}
                       inputMode="numeric"
-                      onChange={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
+                      onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))}
                     />
                 </div>
                 <div className="checkout-row">
                   <div className="checkout-field grow">
-                    <label htmlFor="endereco">Endereço</label>
+                    <label htmlFor="endereco">Endereço *</label>
                     <input
                       id="endereco"
                       type="text"
                       className="checkout-input"
+                      value={endereco}
+                      onChange={(e) => setEndereco(e.target.value)}
                     />
                   </div>
                   <div className="checkout-field small">
-                    <label htmlFor="numero">Número</label>
+                    <label htmlFor="numero">Número *</label>
                     <input id="numero" type="text" className="checkout-input"
                           maxLength={6}
+                          value={numero}
                           inputMode="numeric"
-                          onChange={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
+                          onChange={(e) => setNumero(e.target.value.replace(/\D/g, ''))}
                         />
                   </div>
                 </div>
@@ -102,21 +167,23 @@ const Checkout = () => {
                       id="complemento"
                       type="text"
                       className="checkout-input"
+                      value={complemento}
+                      onChange={(e) => setComplemento(e.target.value)}
                     />
                   </div>
                   <div className="checkout-field grow">
-                    <label htmlFor="bairro">Bairro</label>
-                    <input id="bairro" type="text" className="checkout-input" />
+                    <label htmlFor="bairro">Bairro *</label>
+                    <input id="bairro" type="text" className="checkout-input" value={bairro} onChange={(e) => setBairro(e.target.value)} />
                   </div>
                 </div>
                 <div className="checkout-row">
                   <div className="checkout-field grow">
-                    <label htmlFor="cidade">Cidade</label>
-                    <input id="cidade" type="text" className="checkout-input" />
+                    <label htmlFor="cidade">Cidade *</label>
+                    <input id="cidade" type="text" className="checkout-input" value={cidade} onChange={(e) => setCidade(e.target.value)} />
                   </div>
                   <div className="checkout-field grow">
-                    <label htmlFor="estado">Estado</label>
-                    <input id="estado" type="text" className="checkout-input" />
+                    <label htmlFor="estado">Estado *</label>
+                    <input id="estado" type="text" className="checkout-input" maxLength={2} value={estado} onChange={(e) => setEstado(e.target.value)} />
                   </div>
                 </div>
               </fieldset>
@@ -125,10 +192,7 @@ const Checkout = () => {
 
           <article className="checkout-card">
             <h2 className="checkout-card-title">Forma de pagamento</h2>
-            <nav
-              className="checkout-pagamento-options"
-              aria-label="Formas de pagamento"
-            >
+            <nav className="checkout-pagamento-options" aria-label="Formas de pagamento">
               {pagamentos.map((tipo) => (
                 <button
                   key={tipo.id}
@@ -136,24 +200,16 @@ const Checkout = () => {
                   onClick={() => setPagamento(tipo.id)}
                   aria-pressed={pagamento === tipo.id}
                 >
-                  <img
-                    src={tipo.icon}
-                    alt={tipo.label}
-                    className="checkout-pagamento-icon"
-                  />
+                  <img src={tipo.icon} alt={tipo.label} className="checkout-pagamento-icon" />
                   <span>{tipo.label}</span>
                 </button>
               ))}
             </nav>
-            <form className="checkout-form">
+            <form className="checkout-form" onSubmit={(e) => e.preventDefault()}>
               <fieldset className="checkout-fieldset">
                 <div className="checkout-field">
                   <label htmlFor="nome-cartao">Nome impresso no cartão</label>
-                  <input
-                    id="nome-cartao"
-                    type="text"
-                    className="checkout-input"
-                  />
+                  <input id="nome-cartao" type="text" className="checkout-input" />
                 </div>
                 <div className="checkout-field">
                   <label htmlFor="numero-cartao">Número do cartão</label>
@@ -210,7 +266,6 @@ const Checkout = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-
           <article className="checkout-card">
             <h2 className="checkout-card-title">Resumo do pedido</h2>
 
@@ -220,24 +275,16 @@ const Checkout = () => {
               </figure>
               <section className="checkout-produto-info">
                 <header className="checkout-produto-header">
-                  <span className="checkout-produto-nome">
-                    Dispositivo Sopro
-                  </span>
+                  <span className="checkout-produto-nome">Dispositivo Sopro</span>
                   <span className="checkout-produto-preco">R$ 200,97</span>
                 </header>
                 <span className="checkout-produto-cor">Cor: Branco</span>
                 <div className="checkout-quantidade">
-                  <button
-                    aria-label="Diminuir quantidade"
-                    onClick={() => setQuantidade(Math.max(1, quantidade - 1))}
-                  >
+                  <button aria-label="Diminuir quantidade" onClick={() => setQuantidade(Math.max(1, quantidade - 1))}>
                     <img src={menos} alt="Diminuir" />
                   </button>
                   <span>{quantidade}</span>
-                  <button
-                    aria-label="Aumentar quantidade"
-                    onClick={() => setQuantidade(quantidade + 1)}
-                  >
+                  <button aria-label="Aumentar quantidade" onClick={() => setQuantidade(quantidade + 1)}>
                     <img src={mais} alt="Aumentar" />
                   </button>
                 </div>
@@ -246,10 +293,7 @@ const Checkout = () => {
 
             <p className="checkout-plano-label">Adicionar plano de software</p>
 
-            <fieldset
-              className="checkout-planos"
-              aria-label="Planos de software"
-            >
+            <fieldset className="checkout-planos" aria-label="Planos de software">
               {Object.entries(planos).map(([key, plano]) => (
                 <button
                   key={key}
@@ -257,16 +301,10 @@ const Checkout = () => {
                   onClick={() => setPlanoSelecionado(key)}
                   aria-pressed={planoSelecionado === key}
                 >
-                  <img
-                    src={circuloSelecionado}
-                    alt=""
-                    className={`checkout-plano-radio ${planoSelecionado === key ? "visible" : ""}`}
-                  />
+                  <img src={circuloSelecionado} alt="" className={`checkout-plano-radio ${planoSelecionado === key ? "visible" : ""}`} />
                   <span className="checkout-plano-nome">{plano.label}</span>
                   <span className="checkout-plano-preco">
-                    {plano.preco === 0
-                      ? "Grátis"
-                      : `+ R$ ${plano.preco.toFixed(2).replace(".", ",")}/mês`}
+                    {plano.preco === 0 ? "Grátis" : `+ R$ ${plano.preco.toFixed(2).replace(".", ",")}/mês`}
                   </span>
                 </button>
               ))}
@@ -275,36 +313,32 @@ const Checkout = () => {
             <section className="checkout-resumo">
               <p className="checkout-resumo-linha">
                 <span>Dispositivo Sopro</span>
-                <span>
-                  R$ {(precoBase * quantidade).toFixed(2).replace(".", ",")}
-                </span>
+                <span>R$ {(precoBase * quantidade).toFixed(2).replace(".", ",")}</span>
               </p>
               {precoPlano > 0 && (
                 <p className="checkout-resumo-linha">
                   <span>{planos[planoSelecionado].label}</span>
-                  <span>
-                    + R$ {precoPlano.toFixed(2).replace(".", ",")}/mês
-                  </span>
+                  <span>+ R$ {precoPlano.toFixed(2).replace(".", ",Format")}/mês</span>
                 </p>
               )}
               <p className="checkout-resumo-linha">
-                <span className="checkout-frete">
-                  <img src={caminhaoAzul} alt="Frete" />
-                  Frete
-                </span>
+                <span className="checkout-frete"><img src={caminhaoAzul} alt="Frete" />Frete</span>
                 <span className="checkout-gratis">Grátis</span>
               </p>
               <p className="checkout-resumo-total">
                 <span>Total</span>
-                <span>R$ {total}</span>
+                <span>R$ {totalFormatado}</span>
               </p>
             </section>
-            <Link to="/pedidoconfirmado" style={{ textDecoration: 'none'}}>
-            <button className="checkout-finalizar">
+            
+            <button 
+              className="checkout-finalizar" 
+              onClick={handleFinalizarCompra}
+              disabled={carregando}
+            >
               <img src={carrinhoDeCompra} alt="" />
-              FINALIZAR COMPRA
+              {carregando ? "PROCESSANDO..." : "FINALIZAR COMPRA"}
             </button>
-            </Link>
           </article>
         </motion.aside>
       </section>
