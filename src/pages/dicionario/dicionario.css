@@ -3,6 +3,8 @@
   min-height: 80vh;
   padding: 32px 5%;
   background-color: var(--cor-branco, #fff);
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* ── Abas ─────────────────────────────────────────────────────────── */
@@ -73,6 +75,9 @@
   border: 1.5px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
+  overflow: hidden;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .dic-sopro-texto {
@@ -81,7 +86,8 @@
   font-weight: 700;
   color: var(--cor-preto, #111);
   white-space: nowrap;
-  min-width: 200px;
+  min-width: 0;
+  flex-shrink: 0;
 }
 
 .dic-sopro-progress {
@@ -532,4 +538,23 @@
 
 @media (max-width: 500px) {
   .dic-categorias { grid-template-columns: 1fr; }
+}
+/* ── Mobile: evita corte lateral pelo VLibras ─── */
+@media (max-width: 768px) {
+  .dic-page {
+    padding: 24px 16px 24px 16px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .dic-categoria-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .dic-categorias {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
