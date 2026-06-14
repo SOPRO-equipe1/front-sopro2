@@ -20,7 +20,6 @@ const Login = () => {
     
     setCarregando(true);
     try {
-      // Bate direto no AuthController do seu projeto Java no Azure
       const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
         method: 'POST',
         headers: {
@@ -34,19 +33,15 @@ const Login = () => {
       });
 
       if (!response.ok) {
-        const dadosErro = await response.json().catch(() => ({}));
-        throw new Error(dadosErro.mensagem || 'E-mail ou senha incorretos.');
+        throw new Error('E-mail ou senha incorretos.');
       }
 
       const dados = await response.json(); 
 
-      // Salva o Token JWT retornado pelo Spring Security e o e-mail do usuário logado
       localStorage.setItem('@Sopro:token', dados.token);
       localStorage.setItem('@Sopro:email', dados.email);
 
-      // Redireciona para o checkout ativo 
       navigate('/checkout');
-
     } catch (err) {
       setErro(err.message || 'Erro ao realizar login. Verifique seus dados.');
     } finally {

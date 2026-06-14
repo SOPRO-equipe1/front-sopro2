@@ -19,7 +19,7 @@ const Cadastro = () => {
   const validar = () => {
     if (!nome.trim()) return 'Preencha seu nome.';
     if (!email.trim()) return 'Preencha seu e-mail.';
-    if (senha.length < 6) return 'A senha deve ter pelo menos 6 caracteres.';
+    if (senha.length < 8) return 'A senha deve ter pelo menos 8 caracteres para proteção do servidor.';
     if (senha !== confirmarSenha) return 'As senhas não coincidem.';
     return null;
   };
@@ -32,7 +32,7 @@ const Cadastro = () => {
     
     setCarregando(true);
     try {
-      
+      //  Envia requisição pura de cadastro para o endpoint Java no Azure
       const respostaCadastro = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/usuarios/cadastro', {
         method: 'POST',
         headers: {
@@ -47,11 +47,10 @@ const Cadastro = () => {
       });
 
       if (!respostaCadastro.ok) {
-        const dadosErro = await respostaCadastro.json().catch(() => ({}));
-        throw new Error(dadosErro.mensagem || 'Este e-mail já está cadastrado ou o servidor falhou.');
+        throw new Error('Erro na estrutura de dados ou e-mail já existente no banco.');
       }
 
-    
+      //  Realiza o login automático imediatamente para capturar o JWT Token
       const respostaLogin = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
         method: 'POST',
         headers: {
@@ -68,20 +67,21 @@ const Cadastro = () => {
         const dadosLogin = await respostaLogin.json();
         localStorage.setItem('@Sopro:token', dadosLogin.token);
         localStorage.setItem('@Sopro:email', dadosLogin.email);
+        localStorage.setItem('@Sopro:nome', nome.trim());
+        
+        // Vai direto para o Checkout após estar autenticado na API
         navigate('/checkout');
       } else {
-        
         navigate('/login');
       }
 
     } catch (err) {
-      setErro(err.message || 'Ocorreu um erro técnico ao se conectar com o servidor.');
+      setErro(err.message || 'Erro ao realizar o cadastro no servidor.');
     } finally {
       setCarregando(false);
     }
   };
 
-  
   const handleGoogle = () => {
     setErro('Login social via Google não configurado no servidor Java ainda. Use o formulário padrão.');
   };

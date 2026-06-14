@@ -64,7 +64,6 @@ const Checkout = () => {
     { id: "carteira", label: "Carteiras Digitais", icon: carteira },
   ];
 
-  // Verifica no boot se a pessoa já possui informações logísticas salvas no banco
   useEffect(() => {
     const checarEnderecoExistente = async () => {
       try {
@@ -84,7 +83,7 @@ const Checkout = () => {
           }
         }
       } catch (e) {
-        console.log("Usuário sem histórico prévio detectado.");
+        console.log("Perfil ainda sem endereço configurado.");
       }
     };
     checarEnderecoExistente();
@@ -93,7 +92,6 @@ const Checkout = () => {
   const handleFinalizarCompra = async () => {
     setErro("");
     
-    // Só exige validação visual se o usuário não tiver endereço pré-salvo
     if (!usuarioJaTemEndereco && (!cep || !endereco || !numero || !bairro || !cidade || !estado)) {
       setErro("Por favor, preencha os campos obrigatórios do endereço de entrega.");
       return;
@@ -106,13 +104,12 @@ const Checkout = () => {
 
       if (!emailLogado) throw new Error("Usuário não identificado. Faça login para continuar.");
 
-      // Se for a primeira compra dele, sincroniza os dados logísticos e pessoais obrigatórios no MySQL
       if (!usuarioJaTemEndereco) {
         await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil/dados-pessoais?email=${emailLogado}`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            nomeCompleto: localStorage.getItem('@Sopro:nome') || "Usuário SOPRO Oficial",
+            nomeCompleto: localStorage.getItem('@Sopro:nome') || "Usuário SOPRO",
             cpf: "321." + Math.floor(Math.random() * 900 + 100) + ".455-" + Math.floor(Math.random() * 89 + 10),
             telefoneCelular: "(11) 98888-2121",
             dataNascimento: "2000-01-01",
@@ -127,7 +124,6 @@ const Checkout = () => {
         });
       }
 
-      // Dispara o checkout financeiro da assinatura/pedido para registrar na tb_pedido do Azure
       const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/assinaturas/checkout?email=${emailLogado}`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
@@ -143,12 +139,11 @@ const Checkout = () => {
         })
       });
 
-      if (!response.ok) throw new Error("A API do Azure recusou a finalização da transação.");
+      if (!response.ok) throw new Error("A API do Azure recusou a finalização do pedido.");
 
-      // Navega direto para a tela de minha conta (Perfil) onde ele acompanha a entrega
       navigate('/minha-conta');
     } catch (err) {
-      setErro(err.message || "Erro de comunicação com o servidor Azure.");
+      setErro(err.message || "Erro de rede no Azure.");
     } finally {
       setCarregando(false);
     }
@@ -162,7 +157,7 @@ const Checkout = () => {
           {usuarioJaTemEndereco ? (
             <article className="checkout-card" style={{ border: '2px solid #22c55e', backgroundColor: '#f0fdf4' }}>
               <h2 className="checkout-card-title" style={{ color: '#166534', margin: 0 }}>✓ Endereço de entrega já cadastrado</h2>
-              <p style={{ color: '#166534', marginTop: '8px', fontSize: '14px' }}>Utilizaremos o endereço salvo no seu perfil para o envio deste pedido.</p>
+              <p style={{ color: '#166534', marginTop: '8px', fontSize: '14px' }}>Utilizaremos o endereço salvo no seu perfil para o envio automático deste pedido.</p>
             </article>
           ) : (
             <article className="checkout-card">
