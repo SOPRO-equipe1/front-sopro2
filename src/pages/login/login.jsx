@@ -27,14 +27,16 @@ const Login = () => {
 
   setCarregando(true);
   try {
-    const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: usuario.trim(),
-        senha: senha
-      })
-    });
+  
+
+
+  const response = await fetch(`https://sopro-backend.azurewebsites.net/api/perfil?email=${emailLogado}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  });
 
     if (!response.ok) {
       throw new Error('E-mail ou senha incorretos.');
