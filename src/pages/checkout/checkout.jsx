@@ -66,55 +66,60 @@ const Checkout = () => {
 
   
   const handleFinalizarCompra = async () => {
-    setErro("");
-    if (!cep || !endereco || !numero || !bairro || !cidade || !estado) {
-      setErro("Por favor, preencha todos os campos obrigatórios do endereço de entrega.");
-      return;
+  setErro("");
+  if (!cep || !endereco || !numero || !bairro || !cidade || !estado) {
+    setErro("Por favor, preencha todos os campos obrigatórios do endereço de entrega.");
+    return;
+  }
+
+  setCarregando(true);
+  try {
+    const emailLogado = localStorage.getItem('@Sopro:email');
+
+    if (!emailLogado) {
+      throw new Error("Usuário não identificado. Por favor, refaça o login.");
     }
 
-    setCarregando(true);
-    try {
-      const token = localStorage.getItem('@Sopro:token');
-      const emailLogado = localStorage.getItem('@Sopro:email');
+    
+   
+    const response = await fetch(`https://sopro-backend.azurewebsites.net/api/assinaturas/checkout?email=${emailLogado}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        plano: planoSelecionado.toUpperCase(),
+        valorPlano: precoPlano,
+        incluiDispositivo: true,
+        valorDispositivo: precoBase * quantidade,
+        produtoDescricao: `${quantidade}x Dispositivo Sopro - Cor Branca`,
+        valor: valorTotalCalculado,
+        formaPagamento: pagamento.toUpperCase(),
+        transactionId: "TRX-" + Math.floor(Math.random() * 900000 + 100000),
+        cep: cep,
+        numero: numero,
+        complemento: complemento,
+        bairro: bairro,
+        cidade: city || cidade, 
+        estado: estado
+      })
+    });
 
+    if (!response.ok) {
       
-      const response = await fetch(`https://sopro-backend.azurewebsites.net/api/assinaturas/checkout?email=${emailLogado}`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          plano: planoSelecionado.toUpperCase(),
-          valorPlano: precoPlano,
-          incluiDispositivo: true,
-          valorDispositivo: precoBase * quantidade,
-          produtoDescricao: `${quantidade}x Dispositivo Sopro - Cor Branca`,
-          valor: valorTotalCalculado,
-          formaPagamento: pagamento.toUpperCase(),
-          transactionId: "TRX-" + Math.floor(Math.random() * 900000 + 100000), 
-          cep: cep,
-          numero: numero,
-          complemento: complemento,
-          bairro: bairro,
-          cidade: cidade,
-          estado: estado
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro de comunicação ao processar faturamento e logística da assinatura.");
-      }
-
-      
-      navigate("/pedidoconfirmado");
-    } catch (err) {
-      console.error(err);
-      setErro(err.message || "Não foi possível registrar o seu pedido.");
-    } finally {
-      setCarregando(false);
+      const textoErro = await response.text();
+      throw new Error(textoErro || "O servidor do Azure recusou o processamento do checkout.");
     }
-  };
+
+    
+    navigate("/pedidoconfirmado");
+  } catch (err) {
+    console.error("Erro de conexão do SOPRO:", err);
+    setErro(err.message || "Erro de rede: Não foi possível alcançar a API Java no Azure. Verifique se o backend está ligado.");
+  } finally {
+    setCarregando(false);
+  }
+};
 
   return (
     <main className="checkout-page">
