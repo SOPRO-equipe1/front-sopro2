@@ -172,3 +172,39 @@ html, body {
 }
 
  }
+/* Mensagem de sucesso após inscrição */
+.inscricao-sucesso {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f0fdf4;
+    border: 1.5px solid #30BD30;
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin: 8px auto;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.sucesso-icone {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.sucesso-titulo {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #166534;
+    margin-bottom: 4px;
+}
+
+.sucesso-sub {
+    font-size: 0.9rem;
+    color: #4b7a58;
+}
+
+.sucesso-sub strong {
+    color: #166534;
+}
