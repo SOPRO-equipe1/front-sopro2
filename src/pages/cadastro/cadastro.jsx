@@ -28,50 +28,48 @@ const Cadastro = () => {
     return erros[code] || 'Ocorreu um erro. Tente novamente.';
   };
 
-  const validar = () => {
-    if (!nome.trim()) return 'Preencha seu nome.';
-    if (!email.trim()) return 'Preencha seu e-mail.';
-    if (senha.length < 8) return 'A senha deve ter pelo menos 8 caracteres para validação do servidor.';
-    if (senha !== confirmarSenha) return 'As senhas não coincidem.';
-    return null;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErro('');
-    const erroValidacao = validar();
-    if (erroValidacao) { setErro(erroValidacao); return; }
+
+    if (!nome.trim() || !email.trim() || !senha || !confirmarSenha) {
+      setErro('Preencha todos os campos.');
+      return;
+    }
+
+    if (senha !== confirmarSenha) {
+      setErro('As senhas não coincidem.');
+      return;
+    }
+
     setCarregando(true);
-    
+
     try {
-      // 1Envia o cadastro para o endpoint do Azure usando as chaves exatas do DTO
+      // Envia a requisição de cadastro para o backend correto no Azure
       const respostaCadastro = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/usuarios/cadastro', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json'
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
-          nome: nome.trim(),  
-          email: email.trim(), 
-          senha: senha        
+          nome: nome.trim(),
+          email: email.trim(),
+          senha: senha
         })
       });
 
       if (!respostaCadastro.ok) {
-        const textoErro = await respostaCadastro.text();
-        try {
-          const objetoErro = JSON.parse(textoErro);
-          throw new Error(objetoErro.mensagem || objetoErro.erro || 'Falha ao registrar.');
-        } catch (e) {
-          throw new Error(textoErro || 'Este e-mail já está cadastrado.');
-        }
+        const dadosErro = await respostaCadastro.json().catch(() => ({}));
+        throw new Error(dadosErro.mensagem || 'Erro ao realizar o cadastro no servidor.');
       }
 
-      // Faz o login automático para receber e guardar o Token JWT e o Email na sessão
-      const respostaLogin = await fetch('https://sopro-backend.azurewebsites.net/api/auth/login', {
+      //  Realiza o login automático para coletar o Token JWT com a URL CORRIGIDA
+      const respostaLogin = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json'
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           email: email.trim(),
@@ -79,21 +77,20 @@ const Cadastro = () => {
         })
       });
 
-      if (!respostaLogin.ok) {
+      if (respostaLogin.ok) {
+        const dadosLogin = await respostaLogin.json();
+        localStorage.setItem('@Sopro:token', dadosLogin.token);
+        localStorage.setItem('@Sopro:email', dadosLogin.email);
+        
+        
+        navigate('/checkout');
+      } else {
+        
         navigate('/login');
-        return;
       }
 
-      const dadosSessao = await respostaLogin.json(); 
-
-      localStorage.setItem('@Sopro:token', dadosSessao.token);
-      localStorage.setItem('@Sopro:email', dadosSessao.email);
-      
-      navigate('/checkout');
-
     } catch (err) {
-      console.error(err);
-      setErro(err.message || 'Falha na comunicação com o servidor Azure.');
+      setErro(err.message || 'Ocorreu um erro técnico. Tente novamente.');
     } finally {
       setCarregando(false);
     }
@@ -104,50 +101,51 @@ const Cadastro = () => {
     setCarregando(true);
     try {
       const resultado = await signInWithPopup(auth, googleProvider);
-      if (resultado.user?.email) {
-        localStorage.setItem('@Sopro:email', resultado.user.email);
-        navigate('/checkout');
-      }
-    } catch (err) {
-      if (err.code !== 'auth/popup-closed-by-user') setErro(traduzirErro(err.code));
+      const token = await resultado.user.getIdToken();
+      localStorage.setItem('@Sopro:token', token);
+      localStorage.setItem('@Sopro:email', resultado.user.email);
+      navigate('/checkout');
+    } catch (error) {
+      setErro(traduzirErro(error.code));
     } finally {
       setCarregando(false);
     }
   };
 
   return (
-    <main className="cadastro-page">
+    <main className="cadastro-main">
       <section className="cadastro-container">
-         <motion.article
+        <motion.article 
           className="cadastro-form-col"
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
           <header className="cadastro-header">
-            <img src={logo} alt="Sopro Logo" className="cadastro-logo" />
-            <h1 className="cadastro-title">Crie sua conta</h1>
+            <img src={logo} alt="Sopro Logo" className="cadastro-logo-img" />
+            <h1 className="cadastro-titulo">Crie sua conta</h1>
+            <p className="cadastro-subtitulo">Preencha seus dados para começar</p>
           </header>
 
-          <form className="cadastro-form" onSubmit={handleSubmit} noValidate>
-            {erro && <p className="cadastro-erro" role="alert">{erro}</p>}
+          {erro && <p className="cadastro-erro-msg" role="alert">{erro}</p>}
 
-            <label htmlFor="nome" className="visually-hidden">Nome</label>
-            <input id="nome" type="text" className="cadastro-input"
-              placeholder="Insira seu nome" value={nome}
-              onChange={(e) => setNome(e.target.value)}
+          <form onSubmit={handleSubmit} className="cadastro-form">
+            <label htmlFor="nome" className="visually-hidden">Nome completo</label>
+            <input id="nome" type="text" className="cadastro-input" 
+              placeholder="Insira seu nome completo" value={nome} 
+              onChange={(e) => setNome(e.target.value)} 
               autoComplete="name" disabled={carregando} />
 
             <label htmlFor="email" className="visually-hidden">E-mail</label>
-            <input id="email" type="email" className="cadastro-input"
-              placeholder="Insira seu e-mail" value={email}
-              onChange={(e) => setEmail(e.target.value)}
+            <input id="email" type="email" className="cadastro-input" 
+              placeholder="Insira seu e-mail" value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
               autoComplete="email" disabled={carregando} />
 
             <label htmlFor="senha" className="visually-hidden">Senha</label>
-            <input id="senha" type="password" className="cadastro-input"
-              placeholder="Insira sua senha" value={senha}
-              onChange={(e) => setSenha(e.target.value)}
+            <input id="senha" type="password" className="cadastro-input" 
+              placeholder="Crie uma senha (mín. 6 caracteres)" value={senha} 
+              onChange={(e) => setSenha(e.target.value)} 
               autoComplete="new-password" disabled={carregando} />
 
             <label htmlFor="confirmarSenha" className="visually-hidden">Confirmar senha</label>
@@ -181,7 +179,7 @@ const Cadastro = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <img src={imagemCadastro} alt="Usuário do Sopro" className="cadastro-image" />
+          <img src={imagemCadastro} alt="Usuário interagindo com tecnologia assistiva" />
         </motion.figure>
       </section>
     </main>

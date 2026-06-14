@@ -26,32 +26,33 @@ const Login = () => {
 
     setCarregando(true);
     try {
-      //  dispara o POST para o endpoint de autenticação do seu AuthController
-     const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  },
-  body: JSON.stringify({
-    email: usuario.trim().toLowerCase(), 
-    senha: senha 
-  })
-});
+      const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: usuario.trim(),
+          senha: senha
+        })
+      });
 
       if (!response.ok) {
-        throw new Error('E-mail ou senha incorretos.');
+        const dadosErro = await response.json().catch(() => ({}));
+        throw new Error(dadosErro.mensagem || 'Credenciais inválidas ou erro no servidor.');
       }
 
       const dados = await response.json(); 
-      
+
       localStorage.setItem('@Sopro:token', dados.token);
       localStorage.setItem('@Sopro:email', dados.email);
 
-      navigate('/minha-conta');
+      // Redireciona para o checkout
+      navigate('/checkout');
 
     } catch (err) {
-      setErro(err.message || 'Falha na conexão com o servidor do Azure.');
+      setErro(err.message || 'Erro ao realizar login. Verifique seus dados.');
     } finally {
       setCarregando(false);
     }
@@ -62,40 +63,42 @@ const Login = () => {
     setCarregando(true);
     try {
       const resultado = await signInWithPopup(auth, googleProvider);
-      if (resultado.user?.email) {
-        localStorage.setItem('@Sopro:email', resultado.user.email);
-        navigate('/minha-conta');
-      }
-    } catch (err) {
-      if (err.code !== 'auth/popup-closed-by-user') setErro('Erro na autenticação externa.');
+      const token = await resultado.user.getIdToken();
+      localStorage.setItem('@Sopro:token', token);
+      localStorage.setItem('@Sopro:email', resultado.user.email);
+      
+      navigate('/checkout');
+    } catch (error) {
+      setErro('Falha na autenticação com o Google.');
     } finally {
       setCarregando(false);
     }
   };
 
   return (
-    <main className="login-page">
+    <main className="login-main">
       <section className="login-container">
-        <motion.article
+        <motion.article 
           className="login-form-col"
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
           <header className="login-header">
-            <img src={logo} alt="Sopro Logo" className="login-logo" />
-            <h1 className="login-title">Seja bem-vindo(a) de volta</h1>
+            <img src={logo} alt="Sopro Logo" className="login-logo-img" />
+            <h1 className="login-titulo">Entrar na Sopro</h1>
+            <p className="login-subtitulo">Acesse sua conta para continuar</p>
           </header>
 
-          <form className="login-form" onSubmit={handleSubmit}>
-            {erro && <p className="login-erro" style={{color: 'red', fontWeight: 'bold'}} role="alert">{erro}</p>}
+          {erro && <p className="login-erro-msg" role="alert">{erro}</p>}
 
-            <label htmlFor="usuario" className="visually-hidden">Usuário ou e-mail</label>
+          <form onSubmit={handleSubmit} className="login-form">
+            <label htmlFor="usuario" className="visually-hidden">E-mail</label>
             <input
-              id="usuario" type="text" className="login-input"
-              placeholder="Insira seu usuário ou e-mail"
+              id="usuario" type="email" className="login-input"
+              placeholder="Insira seu e-mail"
               value={usuario} onChange={(e) => setUsuario(e.target.value)}
-              autoComplete="username" disabled={carregando}
+              autoComplete="email" disabled={carregando}
             />
 
             <label htmlFor="senha" className="visually-hidden">Senha</label>
@@ -131,7 +134,7 @@ const Login = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <img src={imagemLogin} alt="Usuária do Sopro" className="login-image" />
+          <img src={imagemLogin} alt="Painel Sopro" />
         </motion.figure>
       </section>
     </main>
