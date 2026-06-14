@@ -27,7 +27,7 @@ const Login = () => {
     setCarregando(true);
     try {
       //  dispara o POST para o endpoint de autenticação do seu AuthController
-     const response = await fetch('https://sopro-backend.azurewebsites.net/api/auth/login', {
+     const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',

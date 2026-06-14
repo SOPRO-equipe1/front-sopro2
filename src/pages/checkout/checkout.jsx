@@ -82,7 +82,7 @@ const Checkout = () => {
 
     
    
-    const response = await fetch(`https://sopro-backend.azurewebsites.net/api/assinaturas/checkout?email=${emailLogado}`, {
+    const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/assinaturas/checkout?email=${emailLogado}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
