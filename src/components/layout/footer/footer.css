@@ -140,8 +140,14 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Linha mais discreta */
+    border-top: none;
+    background-image: linear-gradient(to right, #0FB3FF, #40D54F, #FF9900);
+    background-size: 100% 2px;
+    background-repeat: no-repeat;
+    background-position: top;
+  
 }
+
 
 .footer-copy {
     font-size: 13px;
