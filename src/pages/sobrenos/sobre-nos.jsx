@@ -14,7 +14,7 @@ import redessociais from "../../assets/images/sobre-nos/redessociais.png";
 import github from "../../assets/icons/icon_github.svg";
 import linkedin from "../../assets/icons/icon_linkedin.svg";
 /*Verde e Azul Parte da equipe*/
-import conhecaequipe from "../../assets/images/sobre-nos/conheçanossaequipe.svg"
+import conhecaequipe from "../../assets/images/sobre-nos/conhecanossaesquipe1.svg"
 /*Integrantes coluna 1*/
 import Jaiane from "../../assets/imagesReadme/Jaiane.png"
 import Iasmin from "../../assets/imagesReadme/Iasmin.png"
