@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 const STATUS_STEPS = ["Confirmado", "Preparando", "Em transporte", "Entregue"];
 
-
 const mapearStatusPedido = (statusString) => {
   if (!statusString) return 0;
   const statusFormatado = statusString.toUpperCase();
@@ -19,7 +18,6 @@ const mapearStatusPedido = (statusString) => {
   return 0;
 };
 
-// Formata datas locais vindas da API Java
 const formatarData = (dataStr) => {
   if (!dataStr) return '—';
   try {
@@ -74,54 +72,44 @@ export default function MinhaConta() {
   const navigate = useNavigate(); 
 
   useEffect(() => {
-  const obterDadosDoSqlServer = async () => {
-    try {
-      const token = localStorage.getItem('@Sopro:token');
-      const emailLogado = localStorage.getItem('@Sopro:email');
+    const obterDadosDoSqlServer = async () => {
+      try {
+        const token = localStorage.getItem('@Sopro:token');
+        const emailLogado = localStorage.getItem('@Sopro:email');
 
-      if (!token || !emailLogado) {
-        setErro('Sessão expirada ou não encontrada. Faça login novamente.');
+        if (!token || !emailLogado) {
+          setErro('Sessão expirada ou não encontrada. Faça login novamente.');
+          setCarregando(false);
+          return;
+        }
+
+        const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil?email=${emailLogado}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          if (response.status === 401 || response.status === 403) {
+            throw new Error('Sessão inválida. Por favor, refaça o login.');
+          }
+          throw new Error('Não foi possível recuperar os dados de perfil.');
+        }
+
+        const data = await response.json(); 
+        setDadosPerfil(data);
+      } catch (err) {
+        console.error(err);
+        setErro(err.message);
+      } finally {
         setCarregando(false);
-        return;
       }
+    };
 
-      // Requisição para o PerfilController usando os parâmetros corretos
-      const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil?email=${emailLogado}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (!response.ok) {
-        if (response.status === 401 || response.status === 403) {
-          throw new Error('Sessão inválida. Por favor, refaça o login.');
-        }
-        throw new Error('Não foi possível recuperar os dados de perfil.');
-      }
-
-      const data = await response.json(); 
-      
-      
-      
-      if (!data.enderecoCompleto || data.enderecoCompleto === "Endereço não preenchido") {
-        navigate('/checkout'); 
-        return;
-      }
-
-      
-      setDadosPerfil(data);
-    } catch (err) {
-      console.error(err);
-      setErro(err.message);
-    } finally {
-      setCarregando(false);
-    }
-  };
-
-  obterDadosDoSqlServer();
-}, [navigate]);
+    obterDadosDoSqlServer();
+  }, [navigate]);
 
   if (carregando) {
     return (
@@ -135,17 +123,13 @@ export default function MinhaConta() {
     return (
       <main className="page" style={{textAlign: 'center', paddingTop: '100px'}}>
         <p style={{color: 'red', fontSize: '18px', fontWeight: 'bold'}}>{erro}</p>
-        <button 
-          onClick={() => navigate('/login')}
-          style={{ marginTop: '16px', padding: '10px 20px', background: '#1A5AFF', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
-        >
+        <button onClick={() => navigate('/login')} style={{ marginTop: '16px', padding: '10px 20px', background: '#1A5AFF', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
           Ir para o Login
         </button>
       </main>
     );
   }
 
-  // Mapeamento limpo conforme o PerfilResponseDTO 
   const nomeCompleto = dadosPerfil?.nomeCompleto || 'Usuário SOPRO';
   const plano = dadosPerfil?.plano || 'Plano Free';
   const cidadeEstado = dadosPerfil?.cidadeEstado || 'Não Informado';
@@ -155,29 +139,17 @@ export default function MinhaConta() {
   const dataNascimento = formatarData(dadosPerfil?.dataNascimento);
   const enderecoCompleto = dadosPerfil?.enderecoCompleto || 'Endereço não preenchido';
 
-  
   const temPedido = dadosPerfil?.ultimoPedido !== null && dadosPerfil?.ultimoPedido !== undefined;
   const pedidoData = dadosPerfil?.ultimoPedido;
   const statusIndex = temPedido ? mapearStatusPedido(pedidoData.status) : 0;
 
   return (
     <main className="page">
-      <motion.h1
-        className="page-title"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >Minha Conta
+      <motion.h1 className="page-title" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
+        Minha Conta
       </motion.h1>
 
-      {/* Perfil */}
-      <motion.section
-        className="card profile-card"
-        aria-label="Informações do perfil"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
+      <motion.section className="card profile-card" aria-label="Informações do perfil" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
         <Avatar name={nomeCompleto} />
         <div className="profile-info">
           <p className="profile-name">{nomeCompleto}</p>
@@ -193,32 +165,21 @@ export default function MinhaConta() {
         </div>
       </motion.section>
 
-      {/* Último pedido */}
-      <motion.section
-        className="card"
-        aria-label="Último pedido"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
+      <motion.section className="card" aria-label="Último pedido" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
         <p className="section-heading">Último pedido</p>
         {temPedido ? (
           <div className="order-two-cols">
             <div className="order-left">
               <article className="order-row">
-                <div className="icone_caminhao" aria-hidden="true">
-                  <img src={Iconecaminhao} alt="" />
-                </div>
+                <div className="icone_caminhao" aria-hidden="true"><img src={Iconecaminhao} alt="" /></div>
                 <div>
                   <p className="order-code">Código do pedido: <strong>{pedidoData.codigoPedido}</strong></p>
-                  <p className="order-meta">{pedidoData.produtoDescription || pedidoData.produtoDescricao || 'Dispositivo SOPRO Wearable'}</p>
+                  <p className="order-meta">{pedidoData.produtoDescricao || 'Dispositivo SOPRO Wearable'}</p>
                 </div>
               </article>
 
               <article className="order-row">
-                <div className="icone_esclamacao" aria-hidden="true">
-                  <img src={Iconesclamacao} alt="" />
-                </div>
+                <div className="icone_esclamacao" aria-hidden="true"><img src={Iconesclamacao} alt="" /></div>
                 <div>
                   <p className="order-code">Rastreio: <strong>{pedidoData.codigoRastreio || 'Aguardando Emissão'}</strong></p>
                   <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{formatarData(pedidoData.dataEntregaPrevista)}</span></p>
@@ -229,9 +190,7 @@ export default function MinhaConta() {
 
             <div className="order-right">
               <OrderProgress statusIndex={statusIndex} />
-              <button className="track-btn">
-                Rastrear pedido
-              </button>
+              <button className="track-btn">Rastrear pedido</button>
             </div>
           </div>
         ) : (
@@ -239,22 +198,15 @@ export default function MinhaConta() {
         )}
       </motion.section>
 
-      {/* Informações pessoais vindas direto do SQL Server */}
-      <motion.section
-        className="card"
-        aria-label="Informações pessoais"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-      >
+      <motion.section className="card" aria-label="Informações pessoais" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
         <p className="section-heading">Informações pessoais</p>
         <div className="info-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
-          <InfoField label="Nome completo:"        value={nomeCompleto} />
-          <InfoField label="CPF:"                  value={cpf} />
-          <InfoField label="Telefone celular:"      value={telefoneCelular} />
-          <InfoField label="Endereço de e-mail:"   value={email} />
-          <InfoField label="Data de nascimento:"   value={dataNascimento} />
-          <InfoField label="Endereço Cadastrado:"  value={enderecoCompleto} />
+          <InfoField label="Nome completo:" value={nomeCompleto} />
+          <InfoField label="CPF:" value={cpf} />
+          <InfoField label="Telefone celular:" value={telefoneCelular} />
+          <InfoField label="Endereço de e-mail:" value={email} />
+          <InfoField label="Data de nascimento:" value={dataNascimento} />
+          <InfoField label="Endereço Cadastrado:" value={enderecoCompleto} />
         </div>
       </motion.section>
     </main>
