@@ -14,69 +14,82 @@ const Cadastro = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErro('');
+  e.preventDefault();
+  setErro('');
 
-    if (!nome.trim() || !email.trim() || !senha) {
-      setErro('Por favor, preencha todos os campos obrigatórios.');
-      return;
+  if (!nome.trim() || !email.trim() || !senha) {
+    setErro('Por favor, preencha todos os campos obrigatórios.');
+    return;
+  }
+
+  if (senha.length < 8) {
+    setErro('A senha deve conter pelo menos 8 caracteres.');
+    return;
+  }
+
+  setCarregando(true);
+  try {
+   
+    const respostaCadastro = await fetch('https://sopro-backend.azurewebsites.net/api/usuarios/cadastro', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        nome: nome.trim(),
+        email: email.trim(),
+        senha: senha
+      })
+    });
+
+    if (!respostaCadastro.ok) {
+      const dadosErro = await respostaCadastro.json().catch(() => ({}));
+      throw new Error(dadosErro.mensagem || 'Este e-mail já está cadastrado no ecossistema SOPRO.');
     }
 
-    if (senha.length < 8) {
-      setErro('A senha deve conter pelo menos 8 caracteres.');
-      return;
-    }
-
-    setCarregando(true);
-    try {
-      //  Efetua o cadastro na API Java do Azure (UsuarioController)
-      const respostaCadastro = await fetch('https://sopro-backend.azurewebsites.net/api/usuarios/cadastro', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nome: nome.trim(),
-          email: email.trim(),
-          senha: senha
-        })
-      });
-
-      if (!respostaCadastro.ok) {
-        const dadosErro = await respostaCadastro.json().catch(() => ({}));
-        throw new Error(dadosErro.mensagem || 'E-mail já cadastrado na base de dados do SOPRO.');
-      }
-
-      
     
-      const respostaLogin = await fetch('https://sopro-backend.azurewebsites.net/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email.trim(),
-          senha: senha
-        })
-      });
+    const respostaLogin = await fetch('https://sopro-backend.azurewebsites.net/api/auth/login', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email.trim(),
+        senha: senha
+      })
+    });
 
-      if (!respostaLogin.ok) {
-       
-        navigate('/login');
-        return;
-      }
-
-      const dadosSessao = await respostaLogin.json(); 
-
-     
-      localStorage.setItem('@Sopro:token', dadosSessao.token);
-      localStorage.setItem('@Sopro:email', dadosSessao.email);
-
+    if (!respostaLogin.ok) {
       
-      navigate('/checkout');
-
-    } catch (err) {
-      setErro(err.message || 'Falha de comunicação com o servidor Azure.');
-    } finally {
-      setCarregando(false);
+      navigate('/login');
+      return;
     }
-  };
+
+    const dadosSessao = await respostaLogin.json(); 
+
+    
+    localStorage.setItem('@Sopro:token', dadosSessao.token);
+    localStorage.setItem('@Sopro:email', dadosSessao.email);
+
+   
+    navigate('/checkout');
+
+  } catch (err) {
+    console.error("Erro de conexão capturado no Cadastro:", err);
+    
+   
+    localStorage.setItem('@Sopro:email', email.trim());
+    setErro("Conexão instável com a nuvem. Redirecionando para autenticação manual...");
+    
+    setTimeout(() => {
+      navigate('/login');
+    }, 2000);
+  } finally {
+    setCarregando(false);
+  }
+};
 
   return (
     <main className="cadastro-page">
