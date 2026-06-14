@@ -29,9 +29,7 @@ const Login = () => {
   try {
     const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: usuario.trim(),
         senha: senha
@@ -47,24 +45,15 @@ const Login = () => {
     localStorage.setItem('@Sopro:token', dados.token);
     localStorage.setItem('@Sopro:email', dados.email);
 
-    
-    
-    const temEndereco = dados.usuario?.endereco !== null && dados.usuario?.endereco !== undefined;
-    const temPerfilCompleto = dados.usuario?.nomeCompleto !== null && dados.usuario?.nomeCompleto !== "";
-
-    if (temEndereco && temPerfilCompleto) {
-      
-      navigate('/minha-conta');
-    } else {
-      
-      navigate('/checkout'); 
-    }
+   
+    navigate('/minha-conta');
 
   } catch (err) {
     setErro(err.message || 'Falha na conexão com o servidor do Azure.');
   } finally {
     setCarregando(false);
   }
+
 };
   const handleGoogle = async () => {
     setErro('');

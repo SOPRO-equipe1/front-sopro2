@@ -74,45 +74,54 @@ export default function MinhaConta() {
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    const obterDadosDoSqlServer = async () => {
-      try {
-        const token = localStorage.getItem('@Sopro:token');
-        const emailLogado = localStorage.getItem('@Sopro:email');
+  const obterDadosDoSqlServer = async () => {
+    try {
+      const token = localStorage.getItem('@Sopro:token');
+      const emailLogado = localStorage.getItem('@Sopro:email');
 
-        if (!token || !emailLogado) {
-          setErro('Sessão expirada ou não encontrada. Faça login novamente.');
-          setCarregando(false);
-          return;
-        }
-
-        // Faz a requisição autenticada com JWT batendo no PerfilController da API no Azure
-        const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil?email=${emailLogado}`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
-
-        if (!response.ok) {
-          if (response.status === 401 || response.status === 403) {
-            throw new Error('Token inválido ou sessão expirada no servidor.');
-          }
-          throw new Error('Não foi possível recuperar os dados de perfil da base relacional.');
-        }
-
-        const data = await response.json(); 
-        setDadosPerfil(data);
-      } catch (err) {
-        console.error(err);
-        setErro(err.message);
-      } finally {
+      if (!token || !emailLogado) {
+        setErro('Sessão expirada ou não encontrada. Faça login novamente.');
         setCarregando(false);
+        return;
       }
-    };
 
-    obterDadosDoSqlServer();
-  }, [navigate]);
+      // Requisição para o PerfilController usando os parâmetros corretos
+      const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil?email=${emailLogado}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+          throw new Error('Sessão inválida. Por favor, refaça o login.');
+        }
+        throw new Error('Não foi possível recuperar os dados de perfil.');
+      }
+
+      const data = await response.json(); 
+      
+      
+      
+      if (!data.enderecoCompleto || data.enderecoCompleto === "Endereço não preenchido") {
+        navigate('/checkout'); 
+        return;
+      }
+
+      
+      setDadosPerfil(data);
+    } catch (err) {
+      console.error(err);
+      setErro(err.message);
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  obterDadosDoSqlServer();
+}, [navigate]);
 
   if (carregando) {
     return (
