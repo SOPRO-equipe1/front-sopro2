@@ -18,10 +18,20 @@ const Cadastro = () => {
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
 
+  const traduzirErro = (code) => {
+    const erros = {
+      'auth/email-already-in-use': 'Este e-mail já está cadastrado.',
+      'auth/invalid-email': 'E-mail inválido.',
+      'auth/weak-password': 'A senha deve ter pelo menos 6 caracteres.',
+      'auth/too-many-requests': 'Muitas tentativas. Tente novamente mais tarde.',
+    };
+    return erros[code] || 'Ocorreu um erro. Tente novamente.';
+  };
+
   const validar = () => {
     if (!nome.trim()) return 'Preencha seu nome.';
     if (!email.trim()) return 'Preencha seu e-mail.';
-    if (senha.length < 8) return 'A senha deve ter pelo menos 8 caracteres conforme regras do backend.';
+    if (senha.length < 8) return 'A senha deve ter pelo menos 8 caracteres para validação do servidor.';
     if (senha !== confirmarSenha) return 'As senhas não coincidem.';
     return null;
   };
@@ -29,13 +39,12 @@ const Cadastro = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErro('');
-    
     const erroValidacao = validar();
     if (erroValidacao) { setErro(erroValidacao); return; }
-    
     setCarregando(true);
+    
     try {
-      
+      // 1Envia o cadastro para o endpoint do Azure usando as chaves exatas do DTO
       const respostaCadastro = await fetch('https://sopro-backend.azurewebsites.net/api/usuarios/cadastro', {
         method: 'POST',
         headers: { 
@@ -43,9 +52,9 @@ const Cadastro = () => {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          nome: nome.trim(), 
-          email: email.trim(),
-          senha: senha
+          nome: nome.trim(),  
+          email: email.trim(), 
+          senha: senha        
         })
       });
 
@@ -53,13 +62,13 @@ const Cadastro = () => {
         const textoErro = await respostaCadastro.text();
         try {
           const objetoErro = JSON.parse(textoErro);
-          throw new Error(objetoErro.mensagem || objetoErro.erro || 'Falha ao registrar usuário.');
+          throw new Error(objetoErro.mensagem || objetoErro.erro || 'Falha ao registrar.');
         } catch (e) {
-          throw new Error(textoErro || 'Este e-mail já está cadastrado no sistema.');
+          throw new Error(textoErro || 'Este e-mail já está cadastrado.');
         }
       }
 
-      
+      //  Faz o login automático para receber e guardar o Token JWT e o Email na sessão
       const respostaLogin = await fetch('https://sopro-backend.azurewebsites.net/api/auth/login', {
         method: 'POST',
         headers: { 
@@ -73,22 +82,23 @@ const Cadastro = () => {
       });
 
       if (!respostaLogin.ok) {
-      
+        
         navigate('/login');
         return;
       }
 
       const dadosSessao = await respostaLogin.json(); 
 
-     
+      
       localStorage.setItem('@Sopro:token', dadosSessao.token);
       localStorage.setItem('@Sopro:email', dadosSessao.email);
 
       
       navigate('/checkout');
+
     } catch (err) {
-      console.error("Erro capturado no fluxo de cadastro:", err);
-      setErro(err.message || 'Instabilidade detectada na comunicação com o servidor do Azure.');
+      console.error(err);
+      setErro(err.message || 'Falha na comunicação com o servidor Azure.');
     } finally {
       setCarregando(false);
     }
@@ -104,9 +114,7 @@ const Cadastro = () => {
         navigate('/checkout');
       }
     } catch (err) {
-      if (err.code !== 'auth/popup-closed-by-user') {
-        setErro('Ocorreu um erro na autenticação externa do Google.');
-      }
+      if (err.code !== 'auth/popup-closed-by-user') setErro(traduzirErro(err.code));
     } finally {
       setCarregando(false);
     }
@@ -154,7 +162,7 @@ const Cadastro = () => {
               autoComplete="new-password" disabled={carregando} />
 
             <button type="submit" className="cadastro-btn" disabled={carregando}>
-              {carregando ? 'Processando ecossistema...' : 'Cadastrar'}
+              {carregando ? 'Cadastrando...' : 'Cadastrar'}
             </button>
           </form>
 
