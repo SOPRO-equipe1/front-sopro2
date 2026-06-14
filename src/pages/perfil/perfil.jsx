@@ -1,44 +1,55 @@
+
+import { useState, useEffect } from 'react';
 import '../perfil/perfil.css';
 import SoprinhoImg from '../../assets/images/perfil/soprinho_perfil.svg';
 import Iconecaminhao from '../../assets/images/perfil/icone_caminhao_perfil.svg';
 import Iconesclamacao from '../../assets/images/perfil/icone_esclamacao_perfil.svg';
 import { motion } from 'framer-motion';
-import { useAuth } from '../../context/auth/authContext.jsx';
-
-const order = {
-  code: "#SP-2026-01",
-  product: "1x Dispositivo Sopro - Cor Preta",
-  tracking: "RU182121051419BR",
-  deliveryDate: "01 de setembro de 2026",
-  total: "R$ 200,97",
-  status: 2,
-};
 
 const STATUS_STEPS = ["Confirmado", "Preparando", "Em transporte", "Entregue"];
 
-function Avatar({ photoURL, name }) {
+// Converte a String de status que vem da sua classe Pedido.java em um índice numérico para a barra
+const mapearStatusPedido = (statusString) => {
+  if (!statusString) return 0;
+  const statusFormatado = statusString.toUpperCase();
+  if (statusFormatado === 'CONFIRMADO') return 0;
+  if (statusFormatado === 'PREPARANDO') return 1;
+  if (statusFormatado === 'EM_TRANSPORTE') return 2;
+  if (statusFormatado === 'ENTREGUE') return 3;
+  return 0;
+};
+
+// Formata datas locais vindas da API Java
+const formatarData = (dataStr) => {
+  if (!dataStr) return '—';
+  try {
+    const partes = dataStr.split('-'); // Espera yyyy-mm-dd
+    if (partes.length === 3) return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    return dataStr;
+  } catch (e) {
+    return dataStr;
+  }
+};
+
+function Avatar({ name }) {
   return (
     <figure className="avatar-perfil">
-      <img
-        src={photoURL || SoprinhoImg}
-        alt={`Foto de perfil de ${name}`}
-        onError={(e) => { e.currentTarget.src = SoprinhoImg; }}
-      />
+      <img src={SoprinhoImg} alt={`Foto de perfil de ${name}`} />
     </figure>
   );
 }
 
-function OrderProgress({ status }) {
-  const pct = (status / (STATUS_STEPS.length - 1)) * 100;
+function OrderProgress({ statusIndex }) {
+  const pct = (statusIndex / (STATUS_STEPS.length - 1)) * 100;
   return (
-    <div className="progress-wrap" role="progressbar" aria-valuenow={status} aria-valuemin={0} aria-valuemax={STATUS_STEPS.length - 1} aria-label="Status do pedido">
+    <div className="progress-wrap" role="progressbar" aria-valuenow={statusIndex} aria-valuemin={0} aria-valuemax={STATUS_STEPS.length - 1}>
       <div className="progress-track">
         <div className="progress-fill" style={{ width: `${pct}%` }} />
       </div>
       <div className="progress-steps">
         {STATUS_STEPS.map((label, i) => (
           <div key={label} className="progress-step">
-            <span className={`dot ${i <= status ? "active" : ""} ${i === status ? "current" : ""}`} />
+            <span className={`dot ${i <= statusIndex ? "active" : ""} ${i === statusIndex ? "current" : ""}`} />
             <span className="step-label">{label}</span>
           </div>
         ))}
@@ -51,18 +62,84 @@ function InfoField({ label, value }) {
   return (
     <dl className="info-field">
       <dt>{label}</dt>
-      <dd>{value}</dd>
+      <dd>{value || '—'}</dd>
     </dl>
   );
 }
 
 export default function MinhaConta() {
-  const { usuario } = useAuth();
+  const [dadosPerfil, setDadosPerfil] = useState(null);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState('');
 
-  // Dados reais do Firebase, com fallbacks
-  const nome      = usuario?.displayName || 'Usuário';
-  const foto      = usuario?.photoURL    || null;
-  const email     = usuario?.email       || '—';
+  useEffect(() => {
+    const obterDadosDoSqlServer = async () => {
+      try {
+        const token = localStorage.getItem('@Sopro:token');
+        const emailLogado = localStorage.getItem('@Sopro:email');
+
+        if (!token || !emailLogado) {
+          setErro('Sessão expirada. Faça login novamente.');
+          setCarregando(false);
+          return;
+        }
+
+        // Faz a requisição autenticada com JWT batendo no PerfilController da API
+        const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil?email=${emailLogado}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Não foi possível recuperar os dados de perfil da base relacional.');
+        }
+
+        const data = await response.json(); // Consome o PerfilResponseDTO estruturado do Java
+        setDadosPerfil(data);
+      } catch (err) {
+        console.error(err);
+        setErro(err.message);
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    obterDadosDoSqlServer();
+  }, []);
+
+  if (carregando) {
+    return (
+      <main className="page" style={{textAlign: 'center', paddingTop: '100px'}}>
+        <p style={{color: '#1D252A', fontSize: '20px', fontWeight: 600}}>Carregando ecossistema SOPRO do Azure...</p>
+      </main>
+    );
+  }
+
+  if (erro) {
+    return (
+      <main className="page" style={{textAlign: 'center', paddingTop: '100px'}}>
+        <p style={{color: 'red', fontSize: '18px', fontWeight: 'bold'}}>{erro}</p>
+      </main>
+    );
+  }
+
+  // Mapeamento limpo das chaves reais retornadas pelo PerfilResponseDTO do Java
+  const nomeCompleto = dadosPerfil?.nomeCompleto || 'Usuário SOPRO';
+  const plano = dadosPerfil?.plano || 'Plano Free';
+  const cidadeEstado = dadosPerfil?.cidadeEstado || 'Não Informado';
+  const email = dadosPerfil?.email || '—';
+  const cpf = dadosPerfil?.cpf || '—';
+  const telefoneCelular = dadosPerfil?.telefoneCelular || '—';
+  const dataNascimento = formatarData(dadosPerfil?.dataNascimento);
+  const enderecoCompleto = dadosPerfil?.enderecoCompleto || 'Endereço não preenchido';
+
+  // Extração do sub-DTO do Último Pedido vindo da sua classe Pedido.java
+  const temPedido = dadosPerfil?.ultimoPedido !== null;
+  const pedidoData = dadosPerfil?.ultimoPedido;
+  const statusIndex = temPedido ? mapearStatusPedido(pedidoData.status) : 0;
 
   return (
     <main className="page">
@@ -82,15 +159,17 @@ export default function MinhaConta() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Avatar photoURL={foto} name={nome} />
+        <Avatar name={nomeCompleto} />
         <div className="profile-info">
-          <p className="profile-name">{nome}</p>
-          <span className="badge-pro">Plano Pro</span>
+          <p className="profile-name">{nomeCompleto}</p>
+          <span className="badge-pro" style={{ backgroundColor: plano.includes('Premium') ? '#22c55e' : '#1A5AFF' }}>
+            {plano}
+          </span>
           <address className="profile-location">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
             </svg>
-            <strong>São Paulo, SP</strong>
+            <strong>{cidadeEstado}</strong>
           </address>
         </div>
       </motion.section>
@@ -104,40 +183,44 @@ export default function MinhaConta() {
         transition={{ duration: 0.5, delay: 0.3 }}
       >
         <p className="section-heading">Último pedido</p>
-        <div className="order-two-cols">
-          <div className="order-left">
-            <article className="order-row">
-              <div className="icone_caminhao" aria-hidden="true">
-                <img src={Iconecaminhao} alt="" />
-              </div>
-              <div>
-                <p className="order-code">Código do pedido: <strong>{order.code}</strong></p>
-                <p className="order-meta">{order.product}</p>
-              </div>
-            </article>
+        {temPedido ? (
+          <div className="order-two-cols">
+            <div className="order-left">
+              <article className="order-row">
+                <div className="icone_caminhao" aria-hidden="true">
+                  <img src={Iconecaminhao} alt="" />
+                </div>
+                <div>
+                  <p className="order-code">Código do pedido: <strong>{pedidoData.codigoPedido}</strong></p>
+                  <p className="order-meta">{pedidoData.produtoDescription || pedidoData.produtoDescricao || 'Dispositivo SOPRO Wearable'}</p>
+                </div>
+              </article>
 
-            <article className="order-row">
-              <div className="icone_esclamacao" aria-hidden="true">
-                <img src={Iconesclamacao} alt="" />
-              </div>
-              <div>
-                <p className="order-code">Rastreio: <strong>{order.tracking}</strong></p>
-                <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{order.deliveryDate}</span></p>
-                <p className="order-valor">Total: {order.total}</p>
-              </div>
-            </article>
-          </div>
+              <article className="order-row">
+                <div className="icone_esclamacao" aria-hidden="true">
+                  <img src={Iconesclamacao} alt="" />
+                </div>
+                <div>
+                  <p className="order-code">Rastreio: <strong>{pedidoData.codigoRastreio || 'Aguardando Emissão'}</strong></p>
+                  <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{formatarData(pedidoData.dataEntregaPrevista)}</span></p>
+                  <p className="order-valor">Total: R$ {pedidoData.valorTotal ? pedidoData.valorTotal.toFixed(2) : '0,00'}</p>
+                </div>
+              </article>
+            </div>
 
-          <div className="order-right">
-            <OrderProgress status={order.status} />
-            <button className="track-btn">
-              Rastrear pedido
-            </button>
+            <div className="order-right">
+              <OrderProgress statusIndex={statusIndex} />
+              <button className="track-btn">
+                Rastrear pedido
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <p style={{padding: '20px', color: '#666', fontStyle: 'italic'}}>Você ainda não realizou aquisição de dispositivos físicos.</p>
+        )}
       </motion.section>
 
-      {/* Informações pessoais */}
+      {/* Informações pessoais vindas direto do SQL Server */}
       <motion.section
         className="card"
         aria-label="Informações pessoais"
@@ -147,12 +230,12 @@ export default function MinhaConta() {
       >
         <p className="section-heading">Informações pessoais</p>
         <div className="info-grid">
-          <InfoField label="Nome completo:"        value={nome} />
-          <InfoField label="CPF:"                  value="000.000.000-00" />
-          <InfoField label="Telefone celular:"      value="(11) 94002-8922" />
+          <InfoField label="Nome completo:"        value={nomeCompleto} />
+          <InfoField label="CPF:"                  value={cpf} />
+          <InfoField label="Telefone celular:"      value={telefoneCellular || telefoneCelular} />
           <InfoField label="Endereço de e-mail:"   value={email} />
-          <InfoField label="Data de nascimento:"   value="03/03/2026" />
-          <InfoField label="Endereço:"             value="Rua do Suspiro Profundo, 42" />
+          <InfoField label="Data de nascimento:"   value={dataNascimento} />
+          <InfoField label="Endereço Cadastrado:"  value={enderecoCompleto} />
         </div>
       </motion.section>
     </main>

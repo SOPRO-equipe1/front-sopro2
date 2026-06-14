@@ -1,10 +1,11 @@
+// Localização: src/pages/login/Login.jsx
 import { useState } from 'react';
 import './login.css';
 import imagemLogin from '../../assets/images/login/imagemLogin.png';
 import logo from '../../assets/icons/logo.png';
 import logoGoogle from '../../assets/icons/logoGoogle.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../../context/auth/firebase';
 import { motion } from 'framer-motion';
 
@@ -15,40 +16,68 @@ const Login = () => {
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
 
-  const traduzirErro = (code) => {
-    const erros = {
-      'auth/user-not-found': 'Usuário não encontrado.',
-      'auth/wrong-password': 'Senha incorreta.',
-      'auth/invalid-email': 'E-mail inválido.',
-      'auth/invalid-credential': 'E-mail ou senha incorretos.',
-      'auth/too-many-requests': 'Muitas tentativas. Tente novamente mais tarde.',
-    };
-    return erros[code] || 'Ocorreu um erro. Tente novamente.';
-  };
-
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErro('');
-    if (!usuario.trim() || !senha) { setErro('Preencha todos os campos.'); return; }
-    setCarregando(true);
-    try {
-      await signInWithEmailAndPassword(auth, usuario.trim(), senha);
-      navigate('/checkout');
-    } catch (err) {
-      setErro(traduzirErro(err.code));
-    } finally {
-      setCarregando(false);
-    }
-  };
+  e.preventDefault();
+  setErro('');
 
+  if (!usuario.trim() || !senha) { 
+    setErro('Preencha todos os campos.'); 
+    return; 
+  }
+
+  setCarregando(true);
+  try {
+    const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: usuario.trim(),
+        senha: senha
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('E-mail ou senha incorretos.');
+    }
+
+    const dados = await response.json(); 
+    
+    localStorage.setItem('@Sopro:token', dados.token);
+    localStorage.setItem('@Sopro:email', dados.email);
+
+    
+    
+    const temEndereco = dados.usuario?.endereco !== null && dados.usuario?.endereco !== undefined;
+    const temPerfilCompleto = dados.usuario?.nomeCompleto !== null && dados.usuario?.nomeCompleto !== "";
+
+    if (temEndereco && temPerfilCompleto) {
+      
+      navigate('/minha-conta');
+    } else {
+      
+      navigate('/checkout'); 
+    }
+
+  } catch (err) {
+    setErro(err.message || 'Falha na conexão com o servidor do Azure.');
+  } finally {
+    setCarregando(false);
+  }
+};
   const handleGoogle = async () => {
     setErro('');
     setCarregando(true);
     try {
-      await signInWithPopup(auth, googleProvider);
-      navigate('/checkout');
+      
+      const resultado = await signInWithPopup(auth, googleProvider);
+      if (resultado.user?.email) {
+        localStorage.setItem('@Sopro:email', resultado.user.email);
+        navigate('/minha-conta');
+      }
     } catch (err) {
-      if (err.code !== 'auth/popup-closed-by-user') setErro(traduzirErro(err.code));
+      if (err.code !== 'auth/popup-closed-by-user') setErro('Erro na autenticação externa.');
     } finally {
       setCarregando(false);
     }
@@ -69,7 +98,7 @@ const Login = () => {
           </header>
 
           <form className="login-form" onSubmit={handleSubmit}>
-            {erro && <p className="login-erro" role="alert">{erro}</p>}
+            {erro && <p className="login-erro" style={{color: 'red', fontWeight: 'bold'}} role="alert">{erro}</p>}
 
             <label htmlFor="usuario" className="visually-hidden">Usuário ou e-mail</label>
             <input
