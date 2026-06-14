@@ -10,7 +10,7 @@ import mais from "../../assets/icons/mais.svg";
 import menos from "../../assets/icons/menos.svg";
 import circuloSelecionado from "../../assets/icons/circuloSelecionadoLaranja.svg";
 import imgProduto from "../../assets/images/compra/imgCompra1.png";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 
 const Checkout = () => {
@@ -21,7 +21,7 @@ const Checkout = () => {
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
 
-  
+  // States de Endereço capturando os valores dos inputs
   const [cep, setCep] = useState("");
   const [endereco, setEndereco] = useState("");
   const [numero, setNumero] = useState("");
@@ -30,10 +30,9 @@ const Checkout = () => {
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
 
-  
   const formatCardNumber = (value) => {
     const digits = value.replace(/\D/g, '').slice(0, 16);
-    return digits.replace(/(\\d{4})(?=\\d)/g, '$1 ');
+    return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
   };
 
   const parcelaOpcoes = [
@@ -64,62 +63,47 @@ const Checkout = () => {
     { id: "carteira", label: "Carteiras Digitais", icon: carteira },
   ];
 
-  
   const handleFinalizarCompra = async () => {
-  setErro("");
-  if (!cep || !endereco || !numero || !bairro || !cidade || !estado) {
-    setErro("Por favor, preencha todos os campos obrigatórios do endereço de entrega.");
-    return;
-  }
-
-  setCarregando(true);
-  try {
-    const emailLogado = localStorage.getItem('@Sopro:email');
-
-    if (!emailLogado) {
-      throw new Error("Usuário não identificado. Por favor, refaça o login.");
+    setErro("");
+    if (!cep || !endereco || !numero || !bairro || !cidade || !estado) {
+      setErro("Por favor, preencha todos os campos obrigatórios do endereço.");
+      return;
     }
 
-    
-   
-    const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/assinaturas/checkout?email=${emailLogado}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        plano: planoSelecionado.toUpperCase(),
-        valorPlano: precoPlano,
-        incluiDispositivo: true,
-        valorDispositivo: precoBase * quantidade,
-        produtoDescricao: `${quantidade}x Dispositivo Sopro - Cor Branca`,
-        valor: valorTotalCalculado,
-        formaPagamento: pagamento.toUpperCase(),
-        transactionId: "TRX-" + Math.floor(Math.random() * 900000 + 100000),
-        cep: cep,
-        numero: numero,
-        complemento: complemento,
-        bairro: bairro,
-        cidade: city || cidade, 
-        estado: estado
-      })
-    });
+    setCarregando(true);
+    try {
+      const emailLogado = localStorage.getItem('@Sopro:email');
+      if (!emailLogado) throw new Error("Usuário não identificado. Refaça o login.");
 
-    if (!response.ok) {
-      
-      const textoErro = await response.text();
-      throw new Error(textoErro || "O servidor do Azure recusou o processamento do checkout.");
+      const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/assinaturas/checkout?email=${emailLogado}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          plano: planoSelecionado.toUpperCase(),
+          valorPlano: precoPlano,
+          incluiDispositivo: true,
+          valorDispositivo: precoBase * quantidade,
+          produtoDescricao: `${quantidade}x Dispositivo Sopro`,
+          valor: valorTotalCalculado,
+          formaPagamento: pagamento.toUpperCase(),
+          transactionId: "TRX-" + Math.floor(Math.random() * 900000 + 100000),
+          cep: cep,
+          numero: numero,
+          complemento: complemento,
+          bairro: bairro,
+          cidade: cidade,
+          estado: estado
+        })
+      });
+
+      if (!response.ok) throw new Error("Erro ao processar pagamento na API Java.");
+      navigate("/pedidoconfirmado");
+    } catch (err) {
+      setErro(err.message || "Erro de rede no Azure.");
+    } finally {
+      setCarregando(false);
     }
-
-    
-    navigate("/pedidoconfirmado");
-  } catch (err) {
-    console.error("Erro de conexão do SOPRO:", err);
-    setErro(err.message || "Erro de rede: Não foi possível alcançar a API Java no Azure. Verifique se o backend está ligado.");
-  } finally {
-    setCarregando(false);
-  }
-};
+  };
 
   return (
     <main className="checkout-page">
@@ -132,63 +116,47 @@ const Checkout = () => {
         >
           <article className="checkout-card">
             <h2 className="checkout-card-title">Endereço de entrega</h2>
-            {erro && <p style={{ color: 'red', fontWeight: 'bold', marginBottom: '12px' }}>{erro}</p>}
+            {erro && <p style={{ color: 'red', fontWeight: 'bold', marginBottom: '10px' }}>{erro}</p>}
             <form className="checkout-form" onSubmit={(e) => e.preventDefault()}>
               <fieldset className="checkout-fieldset">
                 <div className="checkout-field">
-                  <label htmlFor="cep">CEP *</label>
+                  <label htmlFor="cep">CEP</label>
                   <input id="cep" type="text" className="checkout-input"
-                      maxLength={8}
-                      value={cep}
-                      inputMode="numeric"
-                      onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))}
-                    />
+                      maxLength={8} value={cep} inputMode="numeric"
+                      onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))} />
                 </div>
                 <div className="checkout-row">
                   <div className="checkout-field grow">
-                    <label htmlFor="endereco">Endereço *</label>
-                    <input
-                      id="endereco"
-                      type="text"
-                      className="checkout-input"
-                      value={endereco}
-                      onChange={(e) => setEndereco(e.target.value)}
-                    />
+                    <label htmlFor="endereco">Endereço</label>
+                    <input id="endereco" type="text" className="checkout-input"
+                      value={endereco} onChange={(e) => setEndereco(e.target.value)} />
                   </div>
                   <div className="checkout-field small">
-                    <label htmlFor="numero">Número *</label>
+                    <label htmlFor="numero">Número</label>
                     <input id="numero" type="text" className="checkout-input"
-                          maxLength={6}
-                          value={numero}
-                          inputMode="numeric"
-                          onChange={(e) => setNumero(e.target.value.replace(/\D/g, ''))}
-                        />
+                          maxLength={6} value={numero} inputMode="numeric"
+                          onChange={(e) => setNumero(e.target.value.replace(/\D/g, ''))} />
                   </div>
                 </div>
                 <div className="checkout-row">
                   <div className="checkout-field grow">
                     <label htmlFor="complemento">Complemento</label>
-                    <input
-                      id="complemento"
-                      type="text"
-                      className="checkout-input"
-                      value={complemento}
-                      onChange={(e) => setComplemento(e.target.value)}
-                    />
+                    <input id="complemento" type="text" className="checkout-input"
+                      value={complemento} onChange={(e) => setComplemento(e.target.value)} />
                   </div>
                   <div className="checkout-field grow">
-                    <label htmlFor="bairro">Bairro *</label>
+                    <label htmlFor="bairro">Bairro</label>
                     <input id="bairro" type="text" className="checkout-input" value={bairro} onChange={(e) => setBairro(e.target.value)} />
                   </div>
                 </div>
                 <div className="checkout-row">
                   <div className="checkout-field grow">
-                    <label htmlFor="cidade">Cidade *</label>
+                    <label htmlFor="cidade">Cidade</label>
                     <input id="cidade" type="text" className="checkout-input" value={cidade} onChange={(e) => setCidade(e.target.value)} />
                   </div>
                   <div className="checkout-field grow">
-                    <label htmlFor="estado">Estado *</label>
-                    <input id="estado" type="text" className="checkout-input" maxLength={2} value={estado} onChange={(e) => setEstado(e.target.value)} />
+                    <label htmlFor="estado">Estado</label>
+                    <input id="estado" type="text" className="checkout-input" value={estado} onChange={(e) => setEstado(e.target.value)} />
                   </div>
                 </div>
               </fieldset>
@@ -199,18 +167,13 @@ const Checkout = () => {
             <h2 className="checkout-card-title">Forma de pagamento</h2>
             <nav className="checkout-pagamento-options" aria-label="Formas de pagamento">
               {pagamentos.map((tipo) => (
-                <button
-                  key={tipo.id}
-                  className={`checkout-pagamento-btn ${pagamento === tipo.id ? "active" : ""}`}
-                  onClick={() => setPagamento(tipo.id)}
-                  aria-pressed={pagamento === tipo.id}
-                >
+                <button key={tipo.id} className={`checkout-pagamento-btn ${pagamento === tipo.id ? "active" : ""}`} onClick={() => setPagamento(tipo.id)}>
                   <img src={tipo.icon} alt={tipo.label} className="checkout-pagamento-icon" />
                   <span>{tipo.label}</span>
                 </button>
               ))}
             </nav>
-            <form className="checkout-form" onSubmit={(e) => e.preventDefault()}>
+            <form className="checkout-form">
               <fieldset className="checkout-fieldset">
                 <div className="checkout-field">
                   <label htmlFor="nome-cartao">Nome impresso no cartão</label>
@@ -218,22 +181,14 @@ const Checkout = () => {
                 </div>
                 <div className="checkout-field">
                   <label htmlFor="numero-cartao">Número do cartão</label>
-               <input id="numero-cartao" type="text" className="checkout-input"
-                    maxLength={19}
-                    inputMode="numeric"
-                    placeholder="0000 0000 0000 0000"
-                    onChange={(e) => { e.target.value = formatCardNumber(e.target.value); }}
-                  />
+                  <input id="numero-cartao" type="text" className="checkout-input"
+                    maxLength={19} inputMode="numeric" placeholder="0000 0000 0000 0000"
+                    onChange={(e) => { e.target.value = formatCardNumber(e.target.value); }} />
                 </div>
                 <div className="checkout-row">
                   <div className="checkout-field grow">
                     <label htmlFor="parcelamento">Parcelamento</label>
-                    <select
-                      id="parcelamento"
-                      className="checkout-input checkout-select"
-                      value={parcelas}
-                      onChange={(e) => setParcelas(e.target.value)}
-                    >
+                    <select id="parcelamento" className="checkout-input checkout-select" value={parcelas} onChange={(e) => setParcelas(e.target.value)}>
                       {parcelaOpcoes.map(op => (
                         <option key={op.value} value={op.value}>{op.label}</option>
                       ))}
@@ -241,23 +196,17 @@ const Checkout = () => {
                   </div>
                   <div className="checkout-field medium">
                     <label htmlFor="validade">Validade</label>
-                    <input id="validade" type="text" className="checkout-input"
-                            maxLength={5}
-                            placeholder="MM/AA"
-                            onChange={(e) => {
-                              let val = e.target.value.replace(/\D/g, '');
-                              if (val.length >= 2) val = val.slice(0,2) + '/' + val.slice(2);
-                              e.target.value = val;
-                            }}
-                          />
+                    <input id="validade" type="text" className="checkout-input" maxLength={5} placeholder="MM/AA"
+                        onChange={(e) => {
+                          let val = e.target.value.replace(/\D/g, '');
+                          if (val.length >= 2) val = val.slice(0,2) + '/' + val.slice(2);
+                          e.target.value = val;
+                        }} />
                   </div>
                   <div className="checkout-field small">
                     <label htmlFor="cvv">CVV</label>
-                    <input id="cvv" type="text" className="checkout-input"
-                        maxLength={3}
-                        inputMode="numeric"
-                        onChange={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
-                      />
+                    <input id="cvv" type="text" className="checkout-input" maxLength={3} inputMode="numeric"
+                        onChange={(e) => e.target.value = e.target.value.replace(/\D/g, '')} />
                   </div>
                 </div>
               </fieldset>
@@ -265,15 +214,9 @@ const Checkout = () => {
           </article>
         </motion.section>
 
-        <motion.aside
-          className="checkout-right"
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <motion.aside className="checkout-right" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
           <article className="checkout-card">
             <h2 className="checkout-card-title">Resumo do pedido</h2>
-
             <article className="checkout-produto">
               <figure className="checkout-produto-img">
                 <img src={imgProduto} alt="Dispositivo Sopro" />
@@ -285,27 +228,17 @@ const Checkout = () => {
                 </header>
                 <span className="checkout-produto-cor">Cor: Branco</span>
                 <div className="checkout-quantidade">
-                  <button aria-label="Diminuir quantidade" onClick={() => setQuantidade(Math.max(1, quantidade - 1))}>
-                    <img src={menos} alt="Diminuir" />
-                  </button>
+                  <button onClick={() => setQuantidade(Math.max(1, quantidade - 1))}><img src={menos} alt="Diminuir" /></button>
                   <span>{quantidade}</span>
-                  <button aria-label="Aumentar quantidade" onClick={() => setQuantidade(quantidade + 1)}>
-                    <img src={mais} alt="Aumentar" />
-                  </button>
+                  <button onClick={() => setQuantidade(quantidade + 1)}><img src={mais} alt="Aumentar" /></button>
                 </div>
               </section>
             </article>
 
             <p className="checkout-plano-label">Adicionar plano de software</p>
-
             <fieldset className="checkout-planos" aria-label="Planos de software">
               {Object.entries(planos).map(([key, plano]) => (
-                <button
-                  key={key}
-                  className={`checkout-plano-btn ${planoSelecionado === key ? "active" : ""}`}
-                  onClick={() => setPlanoSelecionado(key)}
-                  aria-pressed={planoSelecionado === key}
-                >
+                <button key={key} className={`checkout-plano-btn ${planoSelecionado === key ? "active" : ""}`} onClick={() => setPlanoSelecionado(key)}>
                   <img src={circuloSelecionado} alt="" className={`checkout-plano-radio ${planoSelecionado === key ? "visible" : ""}`} />
                   <span className="checkout-plano-nome">{plano.label}</span>
                   <span className="checkout-plano-preco">
@@ -323,7 +256,7 @@ const Checkout = () => {
               {precoPlano > 0 && (
                 <p className="checkout-resumo-linha">
                   <span>{planos[planoSelecionado].label}</span>
-                  <span>+ R$ {precoPlano.toFixed(2).replace(".", ",Format")}/mês</span>
+                  <span>+ R$ {precoPlano.toFixed(2).replace(".", ",")}/mês</span>
                 </p>
               )}
               <p className="checkout-resumo-linha">
@@ -335,12 +268,7 @@ const Checkout = () => {
                 <span>R$ {totalFormatado}</span>
               </p>
             </section>
-            
-            <button 
-              className="checkout-finalizar" 
-              onClick={handleFinalizarCompra}
-              disabled={carregando}
-            >
+            <button className="checkout-finalizar" onClick={handleFinalizarCompra} disabled={carregando}>
               <img src={carrinhoDeCompra} alt="" />
               {carregando ? "PROCESSANDO..." : "FINALIZAR COMPRA"}
             </button>
