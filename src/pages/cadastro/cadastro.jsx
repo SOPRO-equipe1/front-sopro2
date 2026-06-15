@@ -8,27 +8,81 @@ import imagemCadastro from '../../assets/images/cadastro/imgCadastre-se.png';
 import { motion } from 'framer-motion';
 
 const Cadastro = () => {
+  const navigate = useNavigate();
+  const [carregando, setCarregando] = useState(false);
+  const [erroGeral, setErroGeral] = useState('');
+
+  // Estados dos campos
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
-  const [erro, setErro] = useState('');
-  const [carregando, setCarregando] = useState(false);
-  const navigate = useNavigate();
 
-  const validar = () => {
-    if (!nome.trim()) return 'Preencha seu nome.';
-    if (!email.trim()) return 'Preencha seu e-mail.';
-    if (senha.length < 8) return 'A senha deve ter pelo menos 8 caracteres para o servidor.';
-    if (senha !== confirmarSenha) return 'As senhas não coincidem.';
-    return null;
+
+  const [errosCampos, setErrosCampos] = useState({
+    nome: '',
+    email: '',
+    senha: '',
+    confirmarSenha: ''
+  });
+
+  
+  const validarCampoAoSair = (nomeCampo, valor) => {
+    let mensagemErro = '';
+
+    if (nomeCampo === 'nome') {
+      if (!valor.trim()) mensagemErro = 'O nome é obrigatório.';
+    }
+
+    if (nomeCampo === 'email') {
+      if (!valor.trim()) {
+        mensagemErro = 'O e-mail é obrigatório.';
+      } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(valor.trim())) {
+          mensagemErro = 'Por favor, insira um e-mail válido contendo @ e um domínio.';
+        }
+      }
+    }
+
+    if (nomeCampo === 'senha') {
+      if (!valor) {
+        mensagemErro = 'A senha é obrigatória.';
+      } else {
+       
+        const senhaForteRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!_\-*&%#@])(?=\S+$).{8,}$/;
+        if (!senhaForteRegex.test(valor)) {
+          mensagemErro = 'Senha fraca: Mínimo de 8 caracteres, incluindo 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial.';
+        }
+      }
+    }
+
+    if (nomeCampo === 'confirmarSenha') {
+      if (valor !== senha) {
+        mensagemErro = 'As senhas não coincidem.';
+      }
+    }
+
+    setErrosCampos(prev => ({ ...prev, [nomeCampo]: mensagemErro }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErro('');
-    const erroValidacao = validar();
-    if (erroValidacao) { setErro(erroValidacao); return; }
+    setErroGeral('');
+
+   
+    validarCampoAoSair('nome', nome);
+    validarCampoAoSair('email', email);
+    validarCampoAoSair('senha', senha);
+    validarCampoAoSair('confirmarSenha', confirmarSenha);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const senhaForteRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!_\-*&%#@])(?=\S+$).{8,}$/;
+
+    if (!nome.trim() || !emailRegex.test(email.trim()) || !senhaForteRegex.test(senha) || senha !== confirmarSenha) {
+      setErroGeral('Por favor, corrija os erros nos campos destacados antes de prosseguir.');
+      return;
+    }
     
     setCarregando(true);
     try {
@@ -46,16 +100,14 @@ const Cadastro = () => {
       });
 
       if (!respostaCadastro.ok) {
-        throw new Error('Falha no cadastro. Verifique os dados ou mude o e-mail.');
+        throw new Error('Falha no cadastro. Verifique os dados ou certifique-se de que o e-mail é único.');
       }
 
       localStorage.setItem('@Sopro:nome', nome.trim());
-      
-     
       navigate('/login');
 
     } catch (err) {
-      setErro(err.message || 'Erro ao conectar-se com a API do Azure.');
+      setErroGeral(err.message || 'Erro ao conectar-se com a API do Azure.');
     } finally {
       setCarregando(false);
     }
@@ -71,28 +123,76 @@ const Cadastro = () => {
           </header>
 
           <form className="cadastro-form" onSubmit={handleSubmit} noValidate>
-            {erro && <p className="cadastro-erro" role="alert">{erro}</p>}
+            {erroGeral && <p className="cadastro-erro" role="alert" style={{ marginBottom: '15px' }}>{erroGeral}</p>}
 
+            {/* Campo Nome */}
             <label htmlFor="nome" className="visually-hidden">Nome</label>
-            <input id="nome" type="text" className="cadastro-input" placeholder="Insira seu nome" value={nome} onChange={(e) => setNome(e.target.value)} autoComplete="name" disabled={carregando} />
+            <input 
+              id="nome" 
+              type="text" 
+              className={`cadastro-input ${errosCampos.nome ? 'input-erro-visual' : ''}`} 
+              placeholder="Insira seu nome" 
+              value={nome} 
+              onChange={(e) => setNome(e.target.value)} 
+              onBlur={() => validarCampoAoSair('nome', nome)}
+              autoComplete="name" 
+              disabled={carregando} 
+            />
+            {errosCampos.nome && <span className="feedback-erro-campo">{errosCampos.nome}</span>}
 
+            {/* Campo E-mail */}
             <label htmlFor="email" className="visually-hidden">E-mail</label>
-            <input id="email" type="email" className="cadastro-input" placeholder="Insira seu e-mail" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" disabled={carregando} />
+            <input 
+              id="email" 
+              type="email" 
+              className={`cadastro-input ${errosCampos.email ? 'input-erro-visual' : ''}`} 
+              placeholder="Insira seu e-mail" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              onBlur={() => validarCampoAoSair('email', email)}
+              autoComplete="email" 
+              disabled={carregando} 
+            />
+            {errosCampos.email && <span className="feedback-erro-campo">{errosCampos.email}</span>}
 
+            {/* Campo senha */}
             <label htmlFor="senha" className="visually-hidden">Senha</label>
-            <input id="senha" type="password" className="cadastro-input" placeholder="Insira sua senha" value={senha} onChange={(e) => setSenha(e.target.value)} autoComplete="new-password" disabled={carregando} />
+            <input 
+              id="senha" 
+              type="password" 
+              className={`cadastro-input ${errosCampos.senha ? 'input-erro-visual' : ''}`} 
+              placeholder="Insira sua senha" 
+              value={senha} 
+              onChange={(e) => setSenha(e.target.value)} 
+              onBlur={() => validarCampoAoSair('senha', senha)}
+              autoComplete="new-password" 
+              disabled={carregando} 
+            />
+            {errosCampos.senha && <span className="feedback-erro-campo">{errosCampos.senha}</span>}
 
+            {/* Campo confirmar Senha */}
             <label htmlFor="confirmarSenha" className="visually-hidden">Confirmar senha</label>
-            <input id="confirmarSenha" type="password" className="cadastro-input" placeholder="Confirme sua senha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} autoComplete="new-password" disabled={carregando} />
+            <input 
+              id="confirmarSenha" 
+              type="password" 
+              className={`cadastro-input ${errosCampos.confirmarSenha ? 'input-erro-visual' : ''}`} 
+              placeholder="Confirme sua senha" 
+              value={confirmarSenha} 
+              onChange={(e) => setConfirmarSenha(e.target.value)} 
+              onBlur={() => validarCampoAoSair('confirmarSenha', confirmarSenha)}
+              autoComplete="new-password" 
+              disabled={carregando} 
+            />
+            {errosCampos.confirmarSenha && <span className="feedback-erro-campo">{errosCampos.confirmarSenha}</span>}
 
-            <button type="submit" className="cadastro-btn" disabled={carregando}>
+            <button type="submit" className="cadastro-btn" style={{ marginTop: '15px' }} disabled={carregando}>
               {carregando ? 'Cadastrando...' : 'Cadastrar'}
             </button>
           </form>
 
           <p className="login-divider-label">Cadastrar com</p>
           <nav className="login-social" aria-label="Cadastro social">
-            <button type="button" className="social-btn social-btn--google" onClick={() => setErro('Use o formulário padrão.')} disabled={carregando}>
+            <button type="button" className="social-btn social-btn--google" onClick={() => setErroGeral('Use o formulário padrão.')} disabled={carregando}>
               <img src={logoGoogle} alt="" aria-hidden="true" /> Continuar com Google
             </button>
           </nav>
