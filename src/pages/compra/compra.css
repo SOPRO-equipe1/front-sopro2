@@ -1,79 +1,105 @@
-/*body {
-  background-color: #FAFCFF;
-  font-family: 'Poppins', sans-serif;
-  box-sizing: border-box;
-  padding: 0; 
-  margin: 0;
-} */
+/* ────────────────────────────────────────────────
+   PÁGINA DE COMPRA — compra.css
+   ──────────────────────────────────────────────── */
 
-.Voltar { 
-  font-size: 155%;
-  font-weight: bold;
-  margin-bottom: 5px; 
+.Voltar {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
   margin-top: 30px;
   cursor: pointer;
   width: 100%;
   padding-left: 0 !important;
+  color: inherit;
 }
 
+/* ── Layout principal ── */
 .Produto-Container {
   display: flex;
-  flex-direction: column; 
-  gap: 3rem; 
-  max-width: 1200px;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1100px;
   margin: 0 auto;
-  height: auto;
+  padding: 0 20px;
 }
 
+/* ── Coluna de fotos ── */
 .Coluna-Fotos {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 25px;
-  width: 100%; 
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
 }
 
-.Coluna-Fotos a{
-  text-decoration: none !important; 
-  color: inherit !important;          
-  display: inline-block;             
+.Coluna-Fotos a {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: inline-block;
   width: 100%;
-  max-width: 500px;
+}
+
+/* Wrapper da foto principal */
+.Foto-Principal-Wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 500px;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 
 .Foto-Principal {
   width: 100%;
-  max-width: 500px;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-  image-rendering: -webkit-optimize-contrast; 
-  image-rendering: crisp-edges;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity 0.3s ease;
 }
 
-.Produto2 { 
+/* Imagens de cor com fundo transparente */
+.Foto-Principal.foto-cor {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+}
+
+
+
+/* Miniaturas */
+.Produto2 {
   display: flex;
-  flex-wrap: wrap; 
-  justify-content: center;
-  gap: 15px;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 12px;
   width: 100%;
 }
 
 .Produto2 img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.2s ease;
-  border: none;
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
- 
 
-/*Descrição*/
+.Produto2 img:hover { border-color: #1A53FF; transform: scale(1.04); }
 
+.Produto2 img.thumb-ativa {
+  border-color: #1A53FF;
+  box-shadow: 0 0 0 2px #c7d4ff;
+}
+
+/* ── Coluna de detalhes ── */
 .Coluna-Detalhes {
   flex: 1;
   display: flex;
@@ -81,303 +107,266 @@
   align-items: center;
   text-align: center;
   width: 100%;
-  margin-top: 0;
 }
 
-.description {
-  width: 100%;
-}
+.description { width: 100%; }
 
 .Titulo {
-    font-size: clamp(1.5rem, 5vw, 2.4rem); 
-    font-weight: 700;
-    margin: 0 0 20px 0;
-    text-align: center;
-    margin-top: 140px;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  text-align: center;
+  margin-top: 60px;
 }
 
 .Descrição {
-  font-size: 105%;
-  color: #000000;
-  line-height: 1.5;
-  max-width: 700px;
-  margin: 0 auto 25px auto;
+  font-size: 1rem;
+  color: #222;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
   text-align: center;
 }
 
 .Preço {
-  font-size: 260%;
+  font-size: 2.8rem;
   font-weight: 800;
   margin: 0 0 20px 0;
   text-align: center;
 }
 
 .linha1 {
-  width: 70%;
+  width: 100%;
   background-color: #250fe2;
   height: 3px;
   border: none;
   margin: 0 auto 25px auto !important;
-
 }
 
-/* Paleta de cores */
+/* ── Paleta de cores ── */
 .Name {
-  font-size: 180%;
-  font-weight: 700; 
-  margin: 0 0 15px 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 14px 0;
   align-self: flex-start;
-  font-size: 190%;
+  text-align: left;
 }
 
 .Paletadecores {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
-  margin-bottom: 35px;
-  gap: 2px !important;
-  align-self: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 30px;
   width: 100%;
-  max-width: 550px;
 }
 
 .card-cor {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 100%;
-  font-weight: 500;
-  gap: 8px;
-  margin-left: 0;
+  gap: 6px;
   cursor: pointer;
-  border: none !important; 
+  border: none !important;
   outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 4px;
+  transition: transform 0.15s ease;
+}
+
+.card-cor:hover { transform: translateY(-2px); }
+
+.card-cor > div {
+  width: 100%;
+  height: 36px;
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.card-cor:hover > div { box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+
+.card-cor p { margin: 0; font-size: 0.82rem; font-weight: 500; }
+
+/* Cor ativa */
+.card-cor.cor-ativa > div {
+  outline: 3px solid #1A53FF;
+  outline-offset: 3px;
+  transform: scale(1.08);
+}
+.card-cor.cor-ativa p { color: #1A53FF; font-weight: 700; }
+
+/* Swatches */
+.Branco   { background-color: #ffffff; border: 1.5px solid #aaa !important; }
+.Preto    { background-color: #1e293b; }
+.Vermelho { background-color: #FF0000; }
+.Roxo     { background-color: #9333EA; }
+.Laranja  { background-color: #F97316; }
+.Azul     { background-color: #1545D8; }
+.Rosa     { background-color: #FF0099; }
+.Verde    { background-color: #00C44F; }
+
+/* Label cor selecionada */
+.cor-escolhida-label {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #1A53FF;
+  background: #EEF2FF;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* ── Quantidade (inline: label + pill na mesma linha) ── */
+.card-quantidade {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin: 0 0 28px 0;
+  border: none;
   background: transparent !important;
   box-shadow: none !important;
 }
 
-.card-cor p {
-  margin: 0;
-  font-size: 0.9rem;
-  padding: 0 
-}
-
- .card-cor > div {
-  width: 100%; 
-  height: 30px;        
-  border-radius: 8px;   
-  cursor: pointer;
-  transition: box-shadow 0.3s ease, filter 0.3s ease; 
-  padding: 5px;
-  box-sizing: border-box;
-}
-
-.card-cor:hover > div {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.30);
-  filter: brightness(1.03);
-}
-
-.Branco   { background-color: #ffffff; border: 1px solid #484848; }
-.Preto    { background-color: #1e293b; border: 1px solid #484848; }
-.Vermelho { background-color: #FF0000; border: 1px solid #484848; }
-.Roxo     { background-color: #9333EA; border: 1px solid #484848; }
-.Laranja  { background-color: #F97316; border: 1px solid #484848; }
-.Azul     { background-color: #1545D8; border: 1px solid #484848; }
-.Rosa     { background-color: #FF0099; border: 1px solid #484848; }
-.Verde    { background-color: #00FF09; border: 1px solid #484848; }
-
-/* Quantidade */
-.card-quantidade {
-  display: flex;
-  flex-direction: column; /* Empilha o título e o seletor no mobile */
-  align-items: center;    /* Centraliza tudo no mobile */
-  width: 100%;
-  margin: 0 0 35px 0;   
-  border: none;  
-  background: transparent !important;
-  box-shadow: none !important;        
-}
-
-.container-quantidade {
-  margin: 0;
-}
-
 .NameQ {
   font-weight: 700;
-  font-size: 180%;
-  margin: 0 0 15px 0; /* Remove a margem negativa e adiciona espaçamento abaixo */
-  text-align: center;
+  font-size: 1.6rem;
+  margin: 0;
+  white-space: nowrap;
 }
 
 .seletorempílula {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 190px;        
-  height: 45px;        
-  border: 4px solid #cbd5e1; 
-  background-color: #ffffff;
-  border-radius: 100px; 
-  padding: 0 25px;
-  margin-right: 0; /* Remove a margem negativa */
+  width: 160px;
+  height: 48px;
+  border: 3px solid #cbd5e1;
+  background-color: #fff;
+  border-radius: 100px;
+  padding: 0 20px;
 }
 
 .botao-menos, .botao-mais {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   cursor: pointer;
   color: #64748b;
+  line-height: 1;
 }
 
-.numero-whitespace, .numero-quantidade {
-  font-weight: 600;
-  font-size: 1.1rem;
-}
+.numero-quantidade { font-weight: 600; font-size: 1.1rem; }
 
-/* Pagamento */
+/* ── Pagamento ── */
 .FormasDePagamento {
   display: flex;
   flex-direction: column;
-  align-self: center !important;
-  align-items: center !important;
-  gap: 30px;
+  align-items: center;
+  gap: 20px;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
-.FormasDePagamento a {
-  text-decoration: none !important;
-}
+.FormasDePagamento a { text-decoration: none !important; width: 100%; display: block; }
 
 .Bandeiras {
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 20px; 
+  gap: 20px;
 }
 
-.FormasDePagamento img {
-  height: 50px;
-  width: auto;
-}
+.FormasDePagamento img { height: 44px; width: auto; }
 
+/* Botão COMPRAR — grande, largura total */
 .botao-comprar-compra {
   width: 100%;
-  max-width: 240px;
-  background: linear-gradient(135deg, #ff7a00 0%, #ff5500 100%);
+  max-width: 100%;
+  background: #F97316;
   color: white;
   border: none;
-  border-radius: 25px !important;
-  padding: 16px 0;
+  border-radius: 16px !important;
+  padding: 22px 0;
   font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
-  letter-spacing: 1px;
-  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
-  transition: transform 0.2s;
-  margin-bottom: 70px !important;
+  letter-spacing: 2px;
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35);
+  transition: filter 0.2s, transform 0.2s;
   font-family: "Montserrat", sans-serif !important;
+  margin-bottom: 60px !important;
 }
 
-.botao-comprar:hover {
-  filter: brightness(1.06);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+.botao-comprar-compra:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
 }
 
-/* MEDIA QUERY (DESKTOP) */
+/* ────────────────────────────────────────────────
+   DESKTOP (≥ 900px)
+   ──────────────────────────────────────────────── */
 @media (min-width: 900px) {
-  body {
-    padding: 0px 0px;
-  }
-
-  .Voltar {
-      padding-left: 0;
-      text-align: left;
-  }
-
   .Produto-Container {
-    flex-direction: row; 
+    flex-direction: row;
     align-items: flex-start;
-    gap: 10rem;
+    gap: 4rem;
   }
+
+  .Coluna-Fotos { max-width: 500px; }
 
   .Coluna-Detalhes {
-    margin-top: -50px;
+    margin-top: 0;
     align-items: flex-start;
     text-align: left;
   }
 
-  .Descrição {
-    margin: 0 0 25px 0;
-  }
+  .Titulo { text-align: left; margin-top: 0; }
 
-  .linha1 {
-    margin: 0 0 25px 0;
-  }
+  .Descrição { margin: 0 0 20px 0; text-align: left; }
 
-  .Paletadecores {
-    align-self: flex-start;
-    gap: 8px; 
-  }
+  .linha1 { margin: 0 0 22px 0 !important; width: 100%; }
 
-  .card-quantidade {
-    align-self: flex-start;
-  }
+  .Paletadecores { align-self: flex-start; }
 
-  .FormasDePagamento{
-    align-items: flex-start;
-  }
+  .card-quantidade { align-self: flex-start; }
 
-  .botao-comprar-compra {
-    align-self: flex-end;
-    margin-left: 130px;
-  }
+  .FormasDePagamento { align-items: flex-start; }
 
-/*Adicionei a responsividade do botão comprar no JSX. Porque por força ele a ficar no tamanho ideal da responsividade.*/
+  .Name { align-self: flex-start; }
+
+  .botao-comprar-compra { max-width: 100%; border-radius: 16px !important; }
 }
 
-
+/* ────────────────────────────────────────────────
+   MOBILE (≤ 480px)
+   ──────────────────────────────────────────────── */
 @media (max-width: 480px) {
+  .Voltar { padding-left: 0 !important; }
 
-  .Voltar{
-    padding-left: 20px !important;
-  }
-  .card-quantidade {
-    flex-direction: column; 
-    align-items: center;    
-    gap: 15px;              
-    width: 100%;            
-    margin: 0 0 25px 0 !important; /* Força a remoção de margens externas */
-  }
+  .Produto2 { flex-wrap: wrap; }
+  .Produto2 img { width: 88px; height: 88px; }
 
-  .NameQ {
-    font-size: 1.5rem;             /* Reduz levemente para não quebrar linha */
-    text-align: center;
-  }
+  .Titulo { margin: 10px 0 12px 0; font-size: 1.8rem; }
 
   .Descrição {
-      margin-top: 20px;
-      margin-bottom: 20px;;
-      padding: 0 50px !important;
-      text-align: justify;
+    padding: 0 10px !important;
+    text-align: justify;
   }
 
-  .Name{
+  .Name { align-self: center !important; text-align: center !important; }
 
-    align-self: center !important;
-    text-align: center !important;
-}
-  
-
-  .seletorempílula {
-    margin-right: 0 !important;    /* Remove o deslocamento lateral */
-    width: 170px;                  /* Ajuste fino para caber em telas pequenas */
-    height: 40px;                  /* Leve redução na altura para ganhar espaço */
-    padding: 0 15px;
+  .card-quantidade {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
 
-  .Titulo{
-    margin: 0px;
-  } 
+  .seletorempílula { width: 155px; height: 42px; padding: 0 16px; }
+
+  .NameQ { font-size: 1.4rem; text-align: center; }
 }
