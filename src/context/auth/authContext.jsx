@@ -1,49 +1,56 @@
-/* eslint-disable react-refresh/only-export-components */
-// src/context/Auth/AuthContext.jsx
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import {
-  onAuthStateChanged,
-  signOut as firebaseSignOut,
-} from 'firebase/auth';
-import { auth } from './firebase';
-
-const AuthContext = createContext(null);
-
-export const useAuth = () => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth deve ser usado dentro de <AuthProvider>');
-  return ctx;
-};
+const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+  const [estaLogado, setEstaLogado] = useState(false);
   const [usuario, setUsuario] = useState(null);
-  const [carregando, setCarregando] = useState(true);
+  const [carregandoContexto, setCarregandoContexto] = useState(true);
 
+  // No boot do app, verifica se já existe um Token válido do Azure salvo no navegador
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUsuario(user);
-      setCarregando(false);
-    });
-    return unsubscribe;
+    const token = localStorage.getItem('@Sopro:token');
+    const email = localStorage.getItem('@Sopro:email');
+    const nome = localStorage.getItem('@Sopro:nome');
+
+    if (token && email) {
+      setEstaLogado(true);
+      setUsuario({
+        email: email,
+        displayName: nome || email.split('@')[0],
+        photoURL: null
+      });
+    }
+    setCarregandoContexto(false);
   }, []);
 
-  const logout = async () => {
-    await firebaseSignOut(auth);
+  // Função de Login pura que o teu Header e as tuas páginas chamam
+  const login = async (email, nomeDoAzure) => {
+    setEstaLogado(true);
+    setUsuario({
+      email: email,
+      displayName: nomeDoAzure || email.split('@')[0],
+      photoURL: null
+    });
   };
 
-  const value = {
-    usuario,
-    carregando,
-    logout,
-    estaLogado: !!usuario,
+  // Função de Logout limpa
+  const logout = async () => {
+    localStorage.clear();
+    setEstaLogado(false);
+    setUsuario(null);
+    window.location.href = '/';
   };
+
+  if (carregandoContexto) {
+    return null; // Evita piscar a tela enquanto checa o localStorage
+  }
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{ estaLogado, usuario, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export default AuthContext;
+export const useAuth = () => useContext(AuthContext);

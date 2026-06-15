@@ -8,6 +8,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 function PedidoConfirmado() {
+  // CORREÇÃO: Resgata os valores calculados na tela de checkout anterior dinamicamente
+  const totalGasto = localStorage.getItem('@Sopro:ultimo_gasto') || "200,97";
+  const quantidadeDispositivos = localStorage.getItem('@Sopro:ultimo_qtd') || "1";
+
   return (
     <motion.div
       className="sucesso-container"
@@ -53,14 +57,17 @@ function PedidoConfirmado() {
             <div className="icone-azul-bg">
               <img src={dispositivoAzul} alt="" />
             </div>
-            <span>1x Dispositivo Sopro</span>
+            {/* CORREÇÃO: Substituído o texto estático pela quantidade real */}
+            <span>{quantidadeDispositivos}x Dispositivo Sopro</span>
           </div>
-          <span className="valor">R$ 200,97</span>
+          {/* CORREÇÃO: Substituído o valor estático pelo total real */}
+          <span className="valor">R$ {totalGasto}</span>
         </div>
 
         <div className="total-pedido">
           <span>Total do pedido</span>
-          <strong>R$ 200,97</strong>
+          {/* CORREÇÃO: Substituído o total estático */}
+          <strong>R$ {totalGasto}</strong>
         </div>
       </motion.div>
 
