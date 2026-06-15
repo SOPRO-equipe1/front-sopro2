@@ -1,12 +1,55 @@
 import './planos.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import heroImage from '../../assets/images/planos/imgPlanos.png';
 import verificadoAzul from './../../assets/icons/verificadoAzul.svg'
 import verificadoLaranja from './../../assets/icons/verificadoLaranja.svg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PageTransition from '../../components/PageTransition/PageTransition';
 import { motion } from 'framer-motion';
+
 function Planos() {
+  const navigate = useNavigate();
+  const [jaComprou, setJaComprou] = useState(false);
+
+  useEffect(() => {
+    const checarStatusUsuario = async () => {
+      const token = localStorage.getItem('@Sopro:token');
+      const email = localStorage.getItem('@Sopro:email');
+      if (!token || !email) return;
+
+      try {
+        const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil?email=${email}`, {
+          method: 'GET',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) {
+          const dados = await response.json();
+          if (dados?.ultimoPedido && dados.ultimoPedido.status !== "CANCELADO") {
+            setJaComprou(true);
+          }
+        }
+      } catch (e) {}
+    };
+    checarStatusUsuario();
+  }, []);
+
+  // CORREÇÃO DO FURO 1: Direciona de acordo com o estado real de login
+  const handleAcaoPlanos = () => {
+    if (jaComprou) {
+      navigate('/perfil');
+      return;
+    }
+
+    localStorage.setItem('@Sopro:intencao_compra', 'true');
+    const estaLogado = !!localStorage.getItem('@Sopro:token');
+    
+    if (estaLogado) {
+      navigate('/checkout'); 
+    } else {
+      navigate('/cadastro'); 
+    }
+  };
+
   return (
 
 <PageTransition>
@@ -53,7 +96,9 @@ function Planos() {
               <li><span className="marcador azul"><img src={verificadoAzul} alt="" /></span> Calibração de sensibilidade e feedback visual em tempo real.</li>
               <li><span className="marcador azul"><img src={verificadoAzul} alt="" /></span> Relatórios de uso simplificados para acompanhamento terapêutico.</li>
             </ul>
-            <button className="botao-assinar azul">Assine Agora ↗</button>
+            <button className="botao-assinar azul" onClick={handleAcaoPlanos}>
+              {jaComprou ? "Ver no Meu Perfil" : "Assine Agora ↗"}
+            </button>
              </motion.div>
       
      
@@ -74,7 +119,9 @@ function Planos() {
               <li><span className="marcador laranja"><img src={verificadoLaranja} alt="" /></span> IA que aprende o vocabulário do usuário. </li>
               <li><span className="marcador laranja"><img src={verificadoLaranja} alt="" /></span> Integração com WhatsApp e redes sociais. </li>
             </ul>
-            <button className="botao-assinar laranja">Assine Agora ↗</button>
+            <button className="botao-assinar laranja" onClick={handleAcaoPlanos}>
+              {jaComprou ? "Ver no Meu Perfil" : "Assine Agora ↗"}
+            </button>
           </motion.div>
 
           {/* Card Plus */}
@@ -93,23 +140,23 @@ function Planos() {
               <li><span className="marcador azul"><img src={verificadoAzul} alt="" /></span> IA preditiva para detecção de fadiga e prevenção de crises.</li>
               <li><span className="marcador azul"><img src={verificadoAzul} alt="" /></span> Portal de telemetria para acompanhamento clínico à distância.</li>
             </ul>
-            <button className="botao-assinar azul">Assine Agora ↗</button>
+            <button className="botao-assinar azul" onClick={handleAcaoPlanos}>
+              {jaComprou ? "Ver no Meu Perfil" : "Assine Agora ↗"}
+            </button>
            </motion.div>
 
         </div>
 
         {/* Rodapé da seção de preços */}
         <div className="rodape-dispositivo">
-        <Link to="/compra">
-          <button className="botao-comprar-dispositivo">
-            COMPRAR APENAS O DISPOSITIVO
+          <button className="botao-comprar-dispositivo" onClick={jaComprou ? () => navigate('/perfil') : () => navigate('/compra')}>
+            {jaComprou ? "VER MEU DISPOSITIVO ADQUIRIDO" : "COMPRAR APENAS O DISPOSITIVO"}
           </button>
-          </Link>
         </div>
       </section>
     </div>
 </PageTransition>
   );
-};
+}
 
 export default Planos;

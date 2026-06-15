@@ -10,7 +10,7 @@ import mais from "../../assets/icons/mais.svg";
 import menos from "../../assets/icons/menos.svg";
 import circuloSelecionado from "../../assets/icons/circuloSelecionadoLaranja.svg";
 import imgProduto from "../../assets/images/compra/imgCompra1.png";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
 
 const Checkout = () => {
@@ -22,7 +22,6 @@ const Checkout = () => {
   const [erro, setErro] = useState("");
   const [usuarioJaTemEndereco, setUsuarioJaTemEndereco] = useState(false);
 
-  // States de Endereço
   const [cep, setCep] = useState("");
   const [endereco, setEndereco] = useState("");
   const [numero, setNumero] = useState("");
@@ -55,7 +54,7 @@ const Checkout = () => {
 
   const precoPlano = planos[planoSelecionado].preco;
   const valorTotalCalculado = (precoBase * quantidade + precoPlano);
-  const totalFormatado = valorTotalCalculado.toFixed(2).replace(".", ",");
+  const total = valorTotalCalculado.toFixed(2).replace(".", ",");
 
   const pagamentos = [
     { id: "pix", label: "PIX", icon: qrCode },
@@ -64,6 +63,7 @@ const Checkout = () => {
     { id: "carteira", label: "Carteiras Digitais", icon: carteira },
   ];
 
+  
   useEffect(() => {
     const checarEnderecoExistente = async () => {
       try {
@@ -78,22 +78,30 @@ const Checkout = () => {
 
         if (response.ok) {
           const dados = await response.json();
+          
+          l
+          if (dados?.ultimoPedido && dados.ultimoPedido.status !== "CANCELADO") {
+            navigate('/perfil');
+            return;
+          }
+
           if (dados.enderecoCompleto && dados.enderecoCompleto !== "Endereço não preenchido") {
             setUsuarioJaTemEndereco(true);
           }
         }
       } catch (e) {
-        console.log("Perfil ainda sem endereço configurado.");
+        console.log("Usuário sem histórico logístico prévio.");
       }
     };
     checarEnderecoExistente();
-  }, []);
+  }, [navigate]);
 
-  const handleFinalizarCompra = async () => {
+  const handleFinalizarCompraSubmit = async (e) => {
+    e.preventDefault();
     setErro("");
     
     if (!usuarioJaTemEndereco && (!cep || !endereco || !numero || !bairro || !cidade || !estado)) {
-      setErro("Por favor, preencha os campos obrigatórios do endereço de entrega.");
+      setErro("Por favor, preencha os campos obrigatórios do endereço.");
       return;
     }
 
@@ -101,6 +109,7 @@ const Checkout = () => {
     try {
       const token = localStorage.getItem('@Sopro:token');
       const emailLogado = localStorage.getItem('@Sopro:email');
+      const nomeRealForm = localStorage.getItem('@Sopro:nome') || "Usuário SOPRO";
 
       if (!emailLogado) throw new Error("Usuário não identificado. Faça login para continuar.");
 
@@ -109,11 +118,11 @@ const Checkout = () => {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            nomeCompleto: localStorage.getItem('@Sopro:nome') || "Usuário SOPRO",
+            nomeCompleto: nomeRealForm,
             cpf: "321." + Math.floor(Math.random() * 900 + 100) + ".455-" + Math.floor(Math.random() * 89 + 10),
-            telefoneCelular: "(11) 98888-2121",
-            dataNascimento: "2000-01-01",
-            cidadeEstado: `${cidade} - ${estado}`
+            telefoneCelular: "(11) 94002-8922",
+            dataNascimento: "2026-03-03",
+            cidadeEstado: `${cidade}, ${estado}`
           })
         });
 
@@ -132,18 +141,21 @@ const Checkout = () => {
           valorPlano: precoPlano,
           incluiDispositivo: true,
           valorDispositivo: precoBase * quantidade,
-          produtoDescricao: `${quantidade}x Dispositivo Sopro - Cor Branca`,
+          produtoDescricao: `${quantidade}x Dispositivo Sopro`,
           valor: valorTotalCalculado,
           formaPagamento: pagamento.toUpperCase(),
-          transactionId: "TRX-" + Math.floor(Math.random() * 900000 + 100000)
+          transactionId: "SP-2026-01"
         })
       });
 
-      if (!response.ok) throw new Error("A API do Azure recusou a finalização do pedido.");
+      if (!response.ok) throw new Error("Erro no processamento do checkout do Azure.");
 
-      navigate('/minha-conta');
+      localStorage.setItem('@Sopro:ultimo_gasto', total);
+      localStorage.setItem('@Sopro:ultimo_qtd', quantidade);
+
+      navigate('/pedidoconfirmado');
     } catch (err) {
-      setErro(err.message || "Erro de rede no Azure.");
+      setErro(err.message || "Erro de rede.");
     } finally {
       setCarregando(false);
     }
@@ -166,16 +178,16 @@ const Checkout = () => {
               <form className="checkout-form" onSubmit={(e) => e.preventDefault()}>
                 <fieldset className="checkout-fieldset">
                   <div className="checkout-field">
-                    <label htmlFor="cep">CEP *</label>
+                    <label htmlFor="cep">CEP</label>
                     <input id="cep" type="text" className="checkout-input" maxLength={8} value={cep} inputMode="numeric" onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))} />
                   </div>
                   <div className="checkout-row">
                     <div className="checkout-field grow">
-                      <label htmlFor="endereco">Endereço *</label>
+                      <label htmlFor="endereco">Endereço</label>
                       <input id="endereco" type="text" className="checkout-input" value={endereco} onChange={(e) => setEndereco(e.target.value)} />
                     </div>
                     <div className="checkout-field small">
-                      <label htmlFor="numero">Número *</label>
+                      <label htmlFor="numero">Número</label>
                       <input id="numero" type="text" className="checkout-input" maxLength={6} value={numero} inputMode="numeric" onChange={(e) => setNumero(e.target.value.replace(/\D/g, ''))} />
                     </div>
                   </div>
@@ -185,18 +197,18 @@ const Checkout = () => {
                       <input id="complemento" type="text" className="checkout-input" value={complemento} onChange={(e) => setComplemento(e.target.value)} />
                     </div>
                     <div className="checkout-field grow">
-                      <label htmlFor="bairro">Bairro *</label>
+                      <label htmlFor="bairro">Bairro</label>
                       <input id="bairro" type="text" className="checkout-input" value={bairro} onChange={(e) => setBairro(e.target.value)} />
                     </div>
                   </div>
                   <div className="checkout-row">
                     <div className="checkout-field grow">
-                      <label htmlFor="cidade">Cidade *</label>
+                      <label htmlFor="cidade">Cidade</label>
                       <input id="cidade" type="text" className="checkout-input" value={cidade} onChange={(e) => setCidade(e.target.value)} />
                     </div>
                     <div className="checkout-field grow">
-                      <label htmlFor="estado">Estado *</label>
-                      <input id="estado" type="text" className="checkout-input" maxLength={2} value={estado} onChange={(e) => setEstado(e.target.value)} />
+                      <label htmlFor="estado">Estado</label>
+                      <input id="estado" type="text" className="checkout-input" value={estado} onChange={(e) => setEstado(e.target.value)} />
                     </div>
                   </div>
                 </fieldset>
@@ -270,7 +282,7 @@ const Checkout = () => {
                 <button key={key} className={`checkout-plano-btn ${planoSelecionado === key ? "active" : ""}`} onClick={() => setPlanoSelecionado(key)}>
                   <img src={circuloSelecionado} alt="" className={`checkout-plano-radio ${planoSelecionado === key ? "visible" : ""}`} />
                   <span className="checkout-plano-nome">{plano.label}</span>
-                  <span className="checkout-plano-preco">{plano.preco === 0 ? "Grátis" : `+ R$ ${plano.preco.toFixed(2).replace(".", ",")}/mês`}</span>
+                  <span className="checkout-plano-preco">{plano.preco === 0 ? "Grátis" : `+ R$ ${plano.preco.toFixed(2).replace(".", ",")} / mês`}</span>
                 </button>
               ))}
             </fieldset>
@@ -280,14 +292,14 @@ const Checkout = () => {
               {precoPlano > 0 && (
                 <p className="checkout-resumo-linha">
                   <span>{planos[planoSelecionado].label}</span>
-                  <span>+ R$ {precoPlano.toFixed(2).replace(".", ",")}/mês</span>
+                  <span>+ R$ {precoPlano.toFixed(2).replace(".", ",")} / mês</span>
                 </p>
               )}
               <p className="checkout-resumo-linha"><span className="checkout-frete"><img src={caminhaoAzul} alt="Frete" />Frete</span><span className="checkout-gratis">Grátis</span></p>
-              <p className="checkout-resumo-total"><span>Total</span><span>R$ {totalFormatado}</span></p>
+              <p className="checkout-resumo-total"><span>Total</span><span>R$ {total}</span></p>
             </section>
             
-            <button className="checkout-finalizar" onClick={handleFinalizarCompra} disabled={carregando}>
+            <button className="checkout-finalizar" onClick={handleFinalizarCompraSubmit} disabled={carregando}>
               <img src={carrinhoDeCompra} alt="" />
               {carregando ? "PROCESSANDO..." : "FINALIZAR COMPRA"}
             </button>

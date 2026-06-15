@@ -10,19 +10,65 @@ import iconMasterCard from "../../assets/images/compra/iconMasterCard.svg"
 import iconPix from "../../assets/images/compra/iconPix.svg"
 import iconPayPal from "../../assets/images/compra/iconPayPal.svg"
 import iconVisa from "../../assets/images/compra/iconVisa.svg"
-import { Link } from 'react-router-dom';
-import React , { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import React , { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 function Compra() {
+  const navigate = useNavigate();
   const [quantidade, setQuantidade] = useState(1);
   const [imagemPrincipal, setImagemPrincipal] = useState(imgCompra1);
+  const [jaComprou, setJaComprou] = useState(false);
 
   const aumentar = () => setQuantidade(quantidade + 1);
   const diminuir = () => {
-  if (quantidade > 1) setQuantidade(quantidade - 1);
+    if (quantidade > 1) setQuantidade(quantidade - 1);
   }
-    return (
+
+  // Verifica se o usuário já possui o produto para bloquear compras repetidas involuntárias
+  useEffect(() => {
+    const checarHistoricoCompra = async () => {
+      const token = localStorage.getItem('@Sopro:token');
+      const email = localStorage.getItem('@Sopro:email');
+      if (!token || !email) return;
+
+      try {
+        const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil?email=${email}`, {
+          method: 'GET',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) {
+          const dados = await response.json();
+          if (dados?.ultimoPedido && dados.ultimoPedido.status !== "CANCELADO") {
+            setJaComprou(true);
+          }
+        }
+      } catch (e) {
+        console.log("Erro ao checar propriedade do dispositivo.");
+      }
+    };
+    checarHistoricoCompra();
+  }, []);
+
+
+  const handleBotaoComprarClique = () => {
+    if (jaComprou) {
+      navigate('/perfil'); 
+      return;
+    }
+
+    localStorage.setItem('@Sopro:intencao_compra', 'true');
+    localStorage.setItem('@Sopro:ultimo_qtd', quantidade);
+
+    const estaLogado = !!localStorage.getItem('@Sopro:token');
+    if (estaLogado) {
+      navigate('/checkout'); 
+    } else {
+      navigate('/cadastro'); 
+    }
+  };
+
+  return (
 <>
 
 <section className="Produto-Container">
@@ -115,14 +161,15 @@ function Compra() {
         <img src={iconPayPal} alt="PayPal" className="iconPayPal" />
         <img src={iconVisa} alt="Visa" />
       </div>
-        <Link to="/cadastro" style={{ width: '100%', display: 'block'}}>
-          <button className="botao-comprar-compra btn-suave-global">COMPRAR</button>
-      </Link>
+      {/* Botão com execução lógica e design original mantido */}
+      <button className="botao-comprar-compra btn-suave-global" onClick={handleBotaoComprarClique}>
+        {jaComprou ? "VER MEU PEDIDO" : "COMPRAR"}
+      </button>
     </div>
   </motion.div>
 </section>
 </>
-    )
+  )
 }
 
-export default Compra
+export default Compra;
