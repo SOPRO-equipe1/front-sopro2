@@ -11,7 +11,7 @@ import menos from "../../assets/icons/menos.svg";
 import circuloSelecionado from "../../assets/icons/circuloSelecionadoLaranja.svg";
 import imgProduto from "../../assets/images/compra/imgCompra1.png";
 import { useNavigate } from "react-router-dom";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const Checkout = () => {
   const [erro, setErro] = useState("");
   const [usuarioJaTemEndereco, setUsuarioJaTemEndereco] = useState(false);
 
+  // Estados Logística
   const [cep, setCep] = useState("");
   const [endereco, setEndereco] = useState("");
   const [numero, setNumero] = useState("");
@@ -29,6 +30,13 @@ const Checkout = () => {
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
+
+  // Estados Cartão de Crédito
+  const [nomeCartao, setNomeCartao] = useState("");
+  const [numeroCartao, setNumeroCartao] = useState("");
+  const [parcelas, setParcelas] = useState('1');
+  const [validade, setValidade] = useState("");
+  const [cvv, setCvv] = useState("");
 
   const formatCardNumber = (value) => {
     const digits = value.replace(/\D/g, '').slice(0, 16);
@@ -42,7 +50,6 @@ const Checkout = () => {
     { value: '6', label: '6x de R$ 33,50 sem juros' },
     { value: '12', label: '12x de R$ 16,75 com juros' },
   ];
-  const [parcelas, setParcelas] = useState('1');
 
   const precoBase = 200.97;
   const planos = {
@@ -63,7 +70,8 @@ const Checkout = () => {
     { id: "carteira", label: "Carteiras Digitais", icon: carteira },
   ];
 
-  
+const [nomeCompletoUsuario, setNomeCompletoUsuario] = useState("");
+
   useEffect(() => {
     const checarEnderecoExistente = async () => {
       try {
@@ -79,10 +87,14 @@ const Checkout = () => {
         if (response.ok) {
           const dados = await response.json();
           
-          l
           if (dados?.ultimoPedido && dados.ultimoPedido.status !== "CANCELADO") {
             navigate('/perfil');
             return;
+          }
+
+          // INTEGRAÇÃO INTELIGENTE: Salva o nome real cadastrado no banco do Azure
+          if (dados?.nomeCompleto) {
+            setNomeCompletoUsuario(dados.nomeCompleto);
           }
 
           if (dados.enderecoCompleto && dados.enderecoCompleto !== "Endereço não preenchido") {
@@ -100,25 +112,39 @@ const Checkout = () => {
     e.preventDefault();
     setErro("");
     
+    // 1. Validação de Endereço (Apenas se ele não tiver um salvo)
     if (!usuarioJaTemEndereco && (!cep || !endereco || !numero || !bairro || !cidade || !estado)) {
       setErro("Por favor, preencha os campos obrigatórios do endereço.");
       return;
+    }
+
+    // 2. Validação de Cartão
+    if (pagamento === "cartao") {
+      const erroCartao = validarCartaoDeCredito();
+      if (erroCartao) {
+        setErro(erroCartao);
+        return;
+      }
     }
 
     setCarregando(true);
     try {
       const token = localStorage.getItem('@Sopro:token');
       const emailLogado = localStorage.getItem('@Sopro:email');
-      const nomeRealForm = localStorage.getItem('@Sopro:nome') || "Usuário SOPRO";
+      
+      // Usa prioritariamente o nome vindo do banco, senão busca o fallback limpo do localStorage
+      const nomeFinalParaEnvio = nomeCompletoUsuario || localStorage.getItem('@Sopro:nome') || "Usuário SOPRO";
 
       if (!emailLogado) throw new Error("Usuário não identificado. Faça login para continuar.");
 
+     
       if (!usuarioJaTemEndereco) {
+        
         await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil/dados-pessoais?email=${emailLogado}`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            nomeCompleto: nomeRealForm,
+            nomeCompleto: nomeFinalParaEnvio,
             cpf: "321." + Math.floor(Math.random() * 900 + 100) + ".455-" + Math.floor(Math.random() * 89 + 10),
             telefoneCelular: "(11) 94002-8922",
             dataNascimento: "2026-03-03",
@@ -126,13 +152,15 @@ const Checkout = () => {
           })
         });
 
+        
         await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil/endereco?email=${emailLogado}`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cep, logradouro: endereco, numero, complemento, bairro, cidade, estado })
+          body: JSON.stringify({ cep, logradouro: endereco, numero, complemento, bairro, city: cidade, estado })
         });
       }
 
+      //  Processa o fechamento do pedido na API de Assinaturas (Azure)
       const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/assinaturas/checkout?email=${emailLogado}`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
@@ -166,6 +194,12 @@ const Checkout = () => {
       <section className="checkout-container">
          <motion.section className="checkout-left" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
           
+          {erro && (
+            <div style={{ color: '#ef4444', backgroundColor: '#fef2f2', border: '1px solid #fca5a5', padding: '12px', borderRadius: '8px', marginBottom: '16px', fontWeight: '500', fontSize: '14px' }}>
+              ⚠️ {erro}
+            </div>
+          )}
+
           {usuarioJaTemEndereco ? (
             <article className="checkout-card" style={{ border: '2px solid #22c55e', backgroundColor: '#f0fdf4' }}>
               <h2 className="checkout-card-title" style={{ color: '#166534', margin: 0 }}>✓ Endereço de entrega já cadastrado</h2>
@@ -174,7 +208,6 @@ const Checkout = () => {
           ) : (
             <article className="checkout-card">
               <h2 className="checkout-card-title">Endereço de entrega</h2>
-              {erro && <p style={{ color: 'red', fontWeight: 'bold', marginBottom: '12px' }}>{erro}</p>}
               <form className="checkout-form" onSubmit={(e) => e.preventDefault()}>
                 <fieldset className="checkout-fieldset">
                   <div className="checkout-field">
@@ -220,40 +253,54 @@ const Checkout = () => {
             <h2 className="checkout-card-title">Forma de pagamento</h2>
             <nav className="checkout-pagamento-options" aria-label="Formas de pagamento">
               {pagamentos.map((tipo) => (
-                <button key={tipo.id} className={`checkout-pagamento-btn ${pagamento === tipo.id ? "active" : ""}`} onClick={() => setPagamento(tipo.id)}>
+                <button key={tipo.id} type="button" className={`checkout-pagamento-btn ${pagamento === tipo.id ? "active" : ""}`} onClick={() => setPagamento(tipo.id)}>
                   <img src={tipo.icon} alt={tipo.label} className="checkout-pagamento-icon" />
                   <span>{tipo.label}</span>
                 </button>
               ))}
             </nav>
-            <form className="checkout-form" onSubmit={(e) => e.preventDefault()}>
-              <fieldset className="checkout-fieldset">
-                <div className="checkout-field">
-                  <label htmlFor="nome-cartao">Nome impresso no cartão</label>
-                  <input id="nome-cartao" type="text" className="checkout-input" />
-                </div>
-                <div className="checkout-field">
-                  <label htmlFor="numero-cartao">Número do cartão</label>
-                  <input id="numero-cartao" type="text" className="checkout-input" maxLength={19} inputMode="numeric" placeholder="0000 0000 0000 0000" onChange={(e) => { e.target.value = formatCardNumber(e.target.value); }} />
-                </div>
-                <div className="checkout-row">
-                  <div className="checkout-field grow">
-                    <label htmlFor="parcelamento">Parcelamento</label>
-                    <select id="parcelamento" className="checkout-input checkout-select" value={parcelas} onChange={(e) => setParcelas(e.target.value)}>
-                      {parcelaOpcoes.map(op => <option key={op.value} value={op.value}>{op.label}</option>)}
-                    </select>
-                  </div>
-                  <div className="checkout-field medium">
-                    <label htmlFor="validade">Validade</label>
-                    <input id="validade" type="text" className="checkout-input" maxLength={5} placeholder="MM/AA" onChange={(e) => { let val = e.target.value.replace(/\D/g, ''); if (val.length >= 2) val = val.slice(0,2) + '/' + val.slice(2); e.target.value = val; }} />
-                  </div>
-                  <div className="checkout-field small">
-                    <label htmlFor="cvv">CVV</label>
-                    <input id="cvv" type="text" className="checkout-input" maxLength={3} inputMode="numeric" onChange={(e) => e.target.value = e.target.value.replace(/\D/g, '')} />
-                  </div>
-                </div>
-              </fieldset>
-            </form>
+
+            {/* Só renderiza o form de cartão de crédito se ele estiver ativo */}
+            <AnimatePresence mode="wait">
+              {pagamento === "cartao" ? (
+                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }}>
+                  <form className="checkout-form" style={{ marginTop: '20px' }} onSubmit={(e) => e.preventDefault()}>
+                    <fieldset className="checkout-fieldset">
+                      <div className="checkout-field">
+                        <label htmlFor="nome-cartao">Nome impresso no cartão</label>
+                        <input id="nome-cartao" type="text" className="checkout-input" value={nomeCartao} onChange={(e) => setNomeCartao(e.target.value.replace(/[^a-zA-Z\s]/g, ''))} placeholder="JOÃO P SILVA" />
+                      </div>
+                      <div className="checkout-field">
+                        <label htmlFor="numero-cartao">Número do cartão</label>
+                        <input id="numero-cartao" type="text" className="checkout-input" maxLength={19} inputMode="numeric" placeholder="0000 0000 0000 0000" value={numeroCartao} onChange={(e) => { setNumeroCartao(formatCardNumber(e.target.value)); }} />
+                      </div>
+                      <div className="checkout-row">
+                        <div className="checkout-field grow">
+                          <label htmlFor="parcelamento">Parcelamento</label>
+                          <select id="parcelamento" className="checkout-input checkout-select" value={parcelas} onChange={(e) => setParcelas(e.target.value)}>
+                            {parcelaOpcoes.map(op => <option key={op.value} value={op.value}>{op.label}</option>)}
+                          </select>
+                        </div>
+                        <div className="checkout-field medium">
+                          <label htmlFor="validade">Validade</label>
+                          <input id="validade" type="text" className="checkout-input" maxLength={5} placeholder="MM/AA" value={validade} onChange={(e) => { let val = e.target.value.replace(/\D/g, ''); if (val.length >= 2) val = val.slice(0,2) + '/' + val.slice(2); setValidade(val); }} />
+                        </div>
+                        <div className="checkout-field small">
+                          <label htmlFor="cvv">CVV</label>
+                          <input id="cvv" type="text" className="checkout-input" maxLength={3} value={cvv} inputMode="numeric" placeholder="000" onChange={(e) => setCvv(e.target.value.replace(/\D/g, ''))} />
+                        </div>
+                      </div>
+                    </fieldset>
+                  </form>
+                </motion.div>
+              ) : (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="checkout-info-pagamento-alternativo" style={{ marginTop: '20px', padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '14px', color: '#475569' }}>
+                  {pagamento === "pix" && "⚡ O código copia e cola e o QR Code do PIX serão gerados instantaneamente assim que você finalizar o pedido."}
+                  {pagamento === "boleto" && "📄 O boleto bancário será gerado para download automático com vencimento para daqui a 3 dias úteis."}
+                  {pagamento === "carteira" && "📱 Você será redirecionado com segurança para o ambiente da sua carteira digital parceira para concluir."}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </article>
         </motion.section>
 
@@ -269,9 +316,9 @@ const Checkout = () => {
                 </header>
                 <span className="checkout-produto-cor">Cor: Branco</span>
                 <div className="checkout-quantidade">
-                  <button onClick={() => setQuantidade(Math.max(1, quantidade - 1))}><img src={menos} alt="Diminuir" /></button>
+                  <button type="button" onClick={() => setQuantidade(Math.max(1, quantidade - 1))}><img src={menos} alt="Diminuir" /></button>
                   <span>{quantidade}</span>
-                  <button onClick={() => setQuantidade(quantidade + 1)}><img src={mais} alt="Aumentar" /></button>
+                  <button type="button" onClick={() => setQuantidade(quantidade + 1)}><img src={mais} alt="Aumentar" /></button>
                 </div>
               </section>
             </article>
@@ -279,7 +326,7 @@ const Checkout = () => {
             <p className="checkout-plano-label">Adicionar plano de software</p>
             <fieldset className="checkout-planos" aria-label="Planos de software">
               {Object.entries(planos).map(([key, plano]) => (
-                <button key={key} className={`checkout-plano-btn ${planoSelecionado === key ? "active" : ""}`} onClick={() => setPlanoSelecionado(key)}>
+                <button key={key} type="button" className={`checkout-plano-btn ${planoSelecionado === key ? "active" : ""}`} onClick={() => setPlanoSelecionado(key)}>
                   <img src={circuloSelecionado} alt="" className={`checkout-plano-radio ${planoSelecionado === key ? "visible" : ""}`} />
                   <span className="checkout-plano-nome">{plano.label}</span>
                   <span className="checkout-plano-preco">{plano.preco === 0 ? "Grátis" : `+ R$ ${plano.preco.toFixed(2).replace(".", ",")} / mês`}</span>
@@ -299,7 +346,7 @@ const Checkout = () => {
               <p className="checkout-resumo-total"><span>Total</span><span>R$ {total}</span></p>
             </section>
             
-            <button className="checkout-finalizar" onClick={handleFinalizarCompraSubmit} disabled={carregando}>
+            <button type="button" className="checkout-finalizar" onClick={handleFinalizarCompraSubmit} disabled={carregando}>
               <img src={carrinhoDeCompra} alt="" />
               {carregando ? "PROCESSANDO..." : "FINALIZAR COMPRA"}
             </button>
