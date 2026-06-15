@@ -49,7 +49,7 @@ const Checkout = () => {
     dispositivo: { label: "Só o dispositivo", preco: 0 },
     basico: { label: "Sopro Autonomia - Básico", preco: 49.9 },
     pro: { label: "Voz Ativa - Pro", preco: 89.9 },
-    elite: { label: "Cuidado Total - Elite", preco: 149.9 },
+    elite: { label: "Cuidado Total - Plus", preco: 149.9 },
   };
 
   const precoPlano = planos[planoSelecionado].preco;

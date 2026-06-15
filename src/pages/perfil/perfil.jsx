@@ -24,7 +24,7 @@ const formatarData = (dataStr) => {
     const partes = dataStr.split('-'); 
     if (partes.length === 3) return `${partes[2]}/${partes[1]}/${partes[0]}`;
     return dataStr;
-  } catch (e) {
+  } catch {
     return dataStr;
   }
 };

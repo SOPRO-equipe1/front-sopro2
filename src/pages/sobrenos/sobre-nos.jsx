@@ -14,7 +14,7 @@ import redessociais from "../../assets/images/sobre-nos/redessociais.png";
 import github from "../../assets/icons/icon_github.svg";
 import linkedin from "../../assets/icons/icon_linkedin.svg";
 /*Verde e Azul Parte da equipe*/
-import conhecaequipe from "../../assets/images/sobre-nos/conheçanossaequipe.svg"
+import conhecaequipe from "../../assets/images/sobre-nos/conhecanossaesquipe1.svg"
 /*Integrantes coluna 1*/
 import Jaiane from "../../assets/imagesReadme/Jaiane.png"
 import Iasmin from "../../assets/imagesReadme/Iasmin.png"
@@ -203,7 +203,7 @@ return (
               <div className="fotoperfil"><img src={Joao} alt="João Victor Brito" /></div>
               <div className="conteudoperfil">
                 <h3>João Victor</h3>
-                <p>Desenvolvedor Front End</p>
+                <p>Desenvolvedor Front End & Marketing</p>
                 <div className="conteiner-icone">
                   <a href="https://github.com/araujobrito" target="_blank" rel="noreferrer" className="btn-suave-global"><img src={github} alt="icone do github" /></a> 
                   <a href="https://www.linkedin.com/in/araujobrito/" target="_blank" rel="noopener noreferrer" className="btn-suave-global"><img src={linkedin} alt="icone do linkedlin" /></a>
