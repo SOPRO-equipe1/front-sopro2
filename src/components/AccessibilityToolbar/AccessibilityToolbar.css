@@ -175,6 +175,6 @@ body.high-contrast .a11y-menu h3 {
 /* Mobile: garante que não sobrepõe conteúdo */
 @media (max-width: 480px) {
   .a11y-container {
-    bottom: 10px !important;
+    bottom: 20px !important;
   }
 }

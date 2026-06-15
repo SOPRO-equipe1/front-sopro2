@@ -13,3 +13,7 @@ p, span, a, li, input, button:not(.btn-font,.btn-reset,.btn-contrast,.btn-voice)
 .app-container { z-index: 0; overflow-x: clip; width: 100%; }
 .app-container > main { padding-top: 0; scroll-margin-top: var(--header-height); }
 .home-main { position: relative; overflow: hidden; }
+
+.app-container > main {
+  margin-top: 0 !important;
+}

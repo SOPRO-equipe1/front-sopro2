@@ -1,6 +1,4 @@
 /* --- Header Principal --- */
-
-
 .main-header {
     position: fixed;
     top: 0;
@@ -140,9 +138,6 @@
     cursor: pointer;
     margin-bottom: 15px;
 }
-
-
-
 
 /* --- MEDIA QUERIES (Responsividade) --- */
 
