@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './login.css';
 import imagemLogin from '../../assets/images/login/imagemLogin.png';
 import logo from '../../assets/icons/logo.png';
+import logoGoogle from '../../assets/icons/logoGoogle.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../context/auth/authContext.jsx'; 
@@ -14,6 +15,9 @@ const LoginContent = () => {
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth(); 
+  
+  // Referência para mapear o container oculto do componente nativo do Google
+  const googleRef = useRef(null);
 
   const processarSessaoAposLogin = async (token, email, nome) => {
     localStorage.setItem('@Sopro:token', token);
@@ -86,29 +90,48 @@ const LoginContent = () => {
 
           <p className="login-divider-label">Entrar com outros</p>
 
-          <nav className="login-social" aria-label="Login social" style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-            <GoogleLogin
-              onSuccess={async (credentialResponse) => {
-                setCarregando(true);
-                try {
-                  const res = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ token: credentialResponse.credential })
-                  });
-
-                  if (!res.ok) throw new Error('Falha na validação do Google com o Azure.');
-                  const dados = await res.json();
-
-                  await processarSessaoAposLogin(dados.token, dados.email, dados.nome);
-                } catch (err) {
-                  setErro('Erro na autenticação com o Google.');
-                } finally {
-                  setCarregando(false);
+          <nav className="login-social" aria-label="Login social">
+            
+            <button 
+              type="button" 
+              className="social-btn social-btn--google" 
+              onClick={() => {
+                const btnNativo = googleRef.current?.querySelector('button') || googleRef.current?.querySelector('[role="button"]');
+                if (btnNativo) {
+                  btnNativo.click();
                 }
-              }}
-              onError={() => setErro('Login com o Google falhou.')}
-            />
+              }} 
+              disabled={carregando}
+            >
+              <img src={logoGoogle} alt="" aria-hidden="true" />
+              Entrar com Google
+            </button>
+
+          
+            <div style={{ display: 'none' }} ref={googleRef}>
+              <GoogleLogin
+                onSuccess={async (credentialResponse) => {
+                  setCarregando(true);
+                  try {
+                    const res = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ token: credentialResponse.credential })
+                    });
+
+                    if (!res.ok) throw new Error('Falha na validação do Google com o Azure.');
+                    const dados = await res.json();
+
+                    await processarSessaoAposLogin(dados.token, dados.email, dados.nome);
+                  } catch (err) {
+                    setErro('Erro na autenticação com o Google.');
+                  } finally {
+                    setCarregando(false);
+                  }
+                }}
+                onError={() => setErro('Login com o Google falhou.')}
+              />
+            </div>
           </nav>
         </motion.article>
 

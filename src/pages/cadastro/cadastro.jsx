@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './cadastro.css';
 import '../../context/auth/auth-extras.css';
@@ -6,8 +6,9 @@ import logo from '../../assets/icons/logo.png';
 import logoGoogle from '../../assets/icons/logoGoogle.png';
 import imagemCadastro from '../../assets/images/cadastro/imgCadastre-se.png';
 import { motion } from 'framer-motion';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 
-const Cadastro = () => {
+const CadastroContent = () => {
   const navigate = useNavigate();
   const [carregando, setCarregando] = useState(false);
   const [erroGeral, setErroGeral] = useState('');
@@ -18,7 +19,6 @@ const Cadastro = () => {
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
 
-
   const [errosCampos, setErrosCampos] = useState({
     nome: '',
     email: '',
@@ -26,7 +26,9 @@ const Cadastro = () => {
     confirmarSenha: ''
   });
 
-  
+  // Referência para controlar o container do botão oculto do Google
+  const googleCadastroRef = useRef(null);
+
   const validarCampoAoSair = (nomeCampo, valor) => {
     let mensagemErro = '';
 
@@ -49,7 +51,6 @@ const Cadastro = () => {
       if (!valor) {
         mensagemErro = 'A senha é obrigatória.';
       } else {
-       
         const senhaForteRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!_\-*&%#@])(?=\S+$).{8,}$/;
         if (!senhaForteRegex.test(valor)) {
           mensagemErro = 'Senha fraca: Mínimo de 8 caracteres, incluindo 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial.';
@@ -70,7 +71,6 @@ const Cadastro = () => {
     e.preventDefault();
     setErroGeral('');
 
-   
     validarCampoAoSair('nome', nome);
     validarCampoAoSair('email', email);
     validarCampoAoSair('senha', senha);
@@ -127,62 +127,22 @@ const Cadastro = () => {
 
             {/* Campo Nome */}
             <label htmlFor="nome" className="visually-hidden">Nome</label>
-            <input 
-              id="nome" 
-              type="text" 
-              className={`cadastro-input ${errosCampos.nome ? 'input-erro-visual' : ''}`} 
-              placeholder="Insira seu nome" 
-              value={nome} 
-              onChange={(e) => setNome(e.target.value)} 
-              onBlur={() => validarCampoAoSair('nome', nome)}
-              autoComplete="name" 
-              disabled={carregando} 
-            />
+            <input id="nome" type="text" className={`cadastro-input ${errosCampos.nome ? 'input-erro-visual' : ''}`} placeholder="Insira seu nome" value={nome} onChange={(e) => setNome(e.target.value)} onBlur={() => validarCampoAoSair('nome', nome)} autoComplete="name" disabled={carregando} />
             {errosCampos.nome && <span className="feedback-erro-campo">{errosCampos.nome}</span>}
 
             {/* Campo E-mail */}
             <label htmlFor="email" className="visually-hidden">E-mail</label>
-            <input 
-              id="email" 
-              type="email" 
-              className={`cadastro-input ${errosCampos.email ? 'input-erro-visual' : ''}`} 
-              placeholder="Insira seu e-mail" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              onBlur={() => validarCampoAoSair('email', email)}
-              autoComplete="email" 
-              disabled={carregando} 
-            />
+            <input id="email" type="email" className={`cadastro-input ${errosCampos.email ? 'input-erro-visual' : ''}`} placeholder="Insira seu e-mail" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={() => validarCampoAoSair('email', email)} autoComplete="email" disabled={carregando} />
             {errosCampos.email && <span className="feedback-erro-campo">{errosCampos.email}</span>}
 
             {/* Campo senha */}
             <label htmlFor="senha" className="visually-hidden">Senha</label>
-            <input 
-              id="senha" 
-              type="password" 
-              className={`cadastro-input ${errosCampos.senha ? 'input-erro-visual' : ''}`} 
-              placeholder="Insira sua senha" 
-              value={senha} 
-              onChange={(e) => setSenha(e.target.value)} 
-              onBlur={() => validarCampoAoSair('senha', senha)}
-              autoComplete="new-password" 
-              disabled={carregando} 
-            />
+            <input id="senha" type="password" className={`cadastro-input ${errosCampos.senha ? 'input-erro-visual' : ''}`} placeholder="Insira sua senha" value={senha} onChange={(e) => setSenha(e.target.value)} onBlur={() => validarCampoAoSair('senha', senha)} autoComplete="new-password" disabled={carregando} />
             {errosCampos.senha && <span className="feedback-erro-campo">{errosCampos.senha}</span>}
 
             {/* Campo confirmar Senha */}
             <label htmlFor="confirmarSenha" className="visually-hidden">Confirmar senha</label>
-            <input 
-              id="confirmarSenha" 
-              type="password" 
-              className={`cadastro-input ${errosCampos.confirmarSenha ? 'input-erro-visual' : ''}`} 
-              placeholder="Confirme sua senha" 
-              value={confirmarSenha} 
-              onChange={(e) => setConfirmarSenha(e.target.value)} 
-              onBlur={() => validarCampoAoSair('confirmarSenha', confirmarSenha)}
-              autoComplete="new-password" 
-              disabled={carregando} 
-            />
+            <input id="confirmarSenha" type="password" className={`cadastro-input ${errosCampos.confirmarSenha ? 'input-erro-visual' : ''}`} placeholder="Confirme sua senha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} onBlur={() => validarCampoAoSair('confirmarSenha', confirmarSenha)} autoComplete="new-password" disabled={carregando} />
             {errosCampos.confirmarSenha && <span className="feedback-erro-campo">{errosCampos.confirmarSenha}</span>}
 
             <button type="submit" className="cadastro-btn" style={{ marginTop: '15px' }} disabled={carregando}>
@@ -191,10 +151,53 @@ const Cadastro = () => {
           </form>
 
           <p className="login-divider-label">Cadastrar com</p>
+          
           <nav className="login-social" aria-label="Cadastro social">
-            <button type="button" className="social-btn social-btn--google" onClick={() => setErroGeral('Use o formulário padrão.')} disabled={carregando}>
-              <img src={logoGoogle} alt="" aria-hidden="true" /> Continuar com Google
+           
+            <button 
+              type="button" 
+              className="social-btn social-btn--google" 
+              onClick={() => {
+                const btnNativo = googleCadastroRef.current?.querySelector('button') || googleCadastroRef.current?.querySelector('[role="button"]');
+                if (btnNativo) {
+                  btnNativo.click();
+                }
+              }} 
+              disabled={carregando}
+            >
+              <img src={logoGoogle} alt="" aria-hidden="true" /> 
+              Continuar com Google
             </button>
+
+            
+            <div style={{ display: 'none' }} ref={googleCadastroRef}>
+              <GoogleLogin
+                onSuccess={async (credentialResponse) => {
+                  setCarregando(true);
+                  try {
+                    const res = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ token: credentialResponse.credential })
+                    });
+
+                    if (!res.ok) throw new Error('Falha na validação do Google com o Azure.');
+                    const dados = await res.json();
+
+                    localStorage.setItem('@Sopro:token', dados.token);
+                    localStorage.setItem('@Sopro:email', dados.email);
+                    localStorage.setItem('@Sopro:nome', dados.nome);
+
+                    navigate('/perfil');
+                  } catch (err) {
+                    setErroGeral('Erro na autenticação e gravação com o Google.');
+                  } finally {
+                    setCarregando(false);
+                  }
+                }}
+                onError={() => setErroGeral('Cadastro com o Google falhou.')}
+              />
+            </div>
           </nav>
 
           <p className="cadastro-login">
@@ -209,5 +212,11 @@ const Cadastro = () => {
     </main>
   );
 };
+
+const Cadastro = () => (
+  <GoogleOAuthProvider clientId="668261340880-j3djh4lugbo1kb0hs3if8g9734q1u7kl.apps.googleusercontent.com">
+    <CadastroContent />
+  </GoogleOAuthProvider>
+);
 
 export default Cadastro;
