@@ -25,34 +25,74 @@
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
 
-    // Aguarda o VLibras montar e sobrescreve o z-index
-    function rebaixarVLibras() {
-      const alvos = [
+    function aplicarZIndexVLibras(ativo) {
+      const valor = ativo ? '99999' : '5';
+
+      const seletoresEstaticos = [
         'div[vw]',
         'div[vw-access-button]',
         'div[vw-plugin-wrapper]',
         '.vw-plugin-top-wrapper'
       ];
 
-      alvos.forEach(seletor => {
+      seletoresEstaticos.forEach(seletor => {
         document.querySelectorAll(seletor).forEach(el => {
-          el.style.setProperty('z-index', '5', 'important');
+          el.style.setProperty('z-index', valor, 'important');
         });
       });
 
-      // Tenta também o iframe que o VLibras injeta
+      // iframe do boneco animado
       document.querySelectorAll('iframe').forEach(el => {
         if (el.src && el.src.includes('vlibras')) {
-          el.style.setProperty('z-index', '5', 'important');
+          el.style.setProperty('z-index', valor, 'important');
         }
       });
     }
 
-    // Roda após carregamento e após um delay para garantir que o plugin montou
+    function observarVLibras() {
+      // Rebaixa tudo na inicialização
+      aplicarZIndexVLibras(false);
+
+      // Observa o botão de acesso para detectar ativação
+      const botao = document.querySelector('[vw-access-button]');
+      if (botao) {
+        botao.addEventListener('click', () => {
+          // Pequeno delay para o VLibras montar o painel
+          setTimeout(() => {
+            // Se o plugin-wrapper estiver visível/expandido, eleva
+            const wrapper = document.querySelector('[vw-plugin-wrapper]');
+            const estaAtivo = wrapper && 
+              (wrapper.classList.contains('active') || 
+              wrapper.style.display !== 'none' ||
+              wrapper.offsetHeight > 0);
+            aplicarZIndexVLibras(estaAtivo);
+          }, 100);
+        });
+      }
+
+      // MutationObserver como fallback: detecta quando o VLibras 
+      // adiciona/remove classes ou exibe o boneco
+      const observer = new MutationObserver(() => {
+        const wrapper = document.querySelector('[vw-plugin-wrapper]');
+        const iframe = document.querySelector('iframe[src*="vlibras"]');
+
+        const wrapperAtivo = wrapper && wrapper.offsetHeight > 50;
+        const iframeAtivo  = iframe  && iframe.offsetHeight  > 0;
+
+        aplicarZIndexVLibras(wrapperAtivo || iframeAtivo);
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class', 'style']
+      });
+    }
+
     window.addEventListener('load', () => {
-      rebaixarVLibras();
-      setTimeout(rebaixarVLibras, 1000);
-      setTimeout(rebaixarVLibras, 3000);
+      aplicarZIndexVLibras(false);
+      setTimeout(observarVLibras, 1500); // aguarda o plugin montar
     });
   </script>
 
