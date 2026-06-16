@@ -68,7 +68,7 @@ body.high-contrast .Verde    { background-color: #00FF09 !important; }
 }
 .container-liberado { overflow: visible !important; padding-bottom: 20px !important; }
 
-/* VLibras inativo: fica abaixo do chatbot e do header */
+
 div[vw],
 div[vw-access-button],
 div[vw-plugin-wrapper],
@@ -76,7 +76,6 @@ div[vw-plugin-wrapper],
     z-index: 5 !important;
 }
 
-/* VLibras ativo: sobe acima de tudo */
 div[vw].vlibras-ativo,
 div[vw].vlibras-ativo [vw-access-button],
 div[vw].vlibras-ativo [vw-plugin-wrapper],
