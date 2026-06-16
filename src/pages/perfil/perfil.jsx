@@ -4,7 +4,7 @@ import '../perfil/perfil.css';
 import SoprinhoImg from '../../assets/images/perfil/soprinho_perfil.svg';
 import Iconecaminhao from '../../assets/images/perfil/icone_caminhao_perfil.svg';
 import Iconesclamacao from '../../assets/images/perfil/icone_esclamacao_perfil.svg';
-import IconeEditar from '../../assets/icons/ic_baseline-mode-edit.svg'; // <-- Seu ícone oficial importado aqui!
+import IconeEditar from '../../assets/icons/ic_baseline-mode-edit.svg'; 
 import { motion } from 'framer-motion';
 
 const STATUS_STEPS = ["Confirmado", "Preparando", "Em transporte", "Entregue"];
@@ -38,15 +38,12 @@ function OrderProgress({ status }) {
   );
 }
 
-
 function InfoField({ label, value }) {
   return (
-    <div style={{ textHighlight: 'none', margin: 0, paddingLeft: '30px', textAlign: 'left' }}>
-     
+    <div style={{ margin: 0, paddingLeft: '30px', textAlign: 'left' }}>
       <dt className="order-code" style={{ marginBottom: '2px', display: 'block' }}>
         {label}
       </dt>
-    
       <dd className="order-valor" style={{ margin: 0 }}>
         {value || "—"}
       </dd>
@@ -58,7 +55,6 @@ export default function MinhaConta() {
   const navigate = useNavigate();
   const [carregando, setCarregando] = useState(true);
   const [dadosPerfil, setDadosPerfil] = useState(null);
-  const [pedidoLocalFallback, setPedidoLocalFallback] = useState(null);
 
   useEffect(() => {
     const buscarDadosDoAzure = async () => {
@@ -70,23 +66,8 @@ export default function MinhaConta() {
         return;
       }
 
-  
-      const teveCompraLocal = localStorage.getItem('@Sopro:ultimo_gasto');
-      const qtdLocal = localStorage.getItem('@Sopro:ultimo_qtd') || 1;
-      
-      if (teveCompraLocal) {
-        setPedidoLocalFallback({
-          transactionId: "#SP-2026-01",
-          produtoDescricao: `${qtdLocal}x Dispositivo Sopro - Cor Preta`, 
-          trackingCode: "RU182121051419BR",
-          formaPagamento: "CARTÃO DE CRÉDITO",
-          valorTotal: teveCompraLocal, 
-          status: "EM_TRANSPORTE",
-          deliveryDate: "01 de setembro de 2026"
-        });
-      }
-
       try {
+        
         const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil?email=${emailLogado}`, {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` }
@@ -97,7 +78,7 @@ export default function MinhaConta() {
           setDadosPerfil(dados);
         }
       } catch (error) {
-        console.error("Modo demonstração ativo.");
+        console.error("Erro ao conectar com a API do Azure.", error);
       } finally {
         setCarregando(false);
       }
@@ -123,8 +104,9 @@ export default function MinhaConta() {
     );
   }
 
- 
-  const pedidoAtivo = dadosPerfil?.ultimoPedido || pedidoLocalFallback;
+  
+  const pedidoAtivo = dadosPerfil?.ultimoPedido; 
+  const temPedido = !!pedidoAtivo;
 
   const obterStatusIndex = (statusString) => {
     if (!statusString) return 2;
@@ -140,13 +122,17 @@ export default function MinhaConta() {
 
   const statusAtualIndex = obterStatusIndex(pedidoAtivo?.status);
 
+ 
+  const enderecoCompletoBruto = dadosPerfil?.enderecoCompleto || "";
   
-  const logradouroReal = dadosPerfil?.logradouro || "Rua do Suspiro Profundo";
-  const numeroReal = dadosPerfil?.numero || "42";
-  const complementoReal = dadosPerfil?.complemento || "Ao lado da Suspiro News";
-  const bairroReal = dadosPerfil?.bairro || "Ventos Leves";
-  const cidadeEstadoReal = dadosPerfil?.cidadeEstado || "São Paulo - SP";
-  const cepReal = dadosPerfil?.cep ? dadosPerfil.cep.replace(/^(\d{5})(\d{3})$/, "$1-$2") : "00000-00";
+  
+  let logradouro = "—";
+  let complemento = "—";
+  if (enderecoCompletoBruto && enderecoCompletoBruto !== "Endereço não preenchido") {
+    const partes = enderecoCompletoBruto.split(" - ");
+    logradouro = partes[0] || enderecoCompletoBruto;
+    complemento = partes[1] || "—";
+  }
 
   return (
     <main className="page">
@@ -169,13 +155,15 @@ export default function MinhaConta() {
       >
         <Avatar />
         <div className="profile-info">
-          <p className="profile-name">{dadosPerfil?.nomeCompleto || localStorage.getItem('@Sopro:nome') || "Soprinho da Silva"}</p>
-          <span className="badge-pro">{dadosPerfil?.planoAtivo || "Plano Pro"}</span>
+          <p className="profile-name">{dadosPerfil?.nomeCompleto || "Nome não cadastrado"}</p>
+          <span className="badge-pro">
+            {dadosPerfil?.plano === "Plano Premium" ? "Plano Pro" : (dadosPerfil?.plano || "Plano Free")}
+          </span>
           <address className="profile-location">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
             </svg>
-            <strong>{dadosPerfil?.cidadeEstado?.split(',')[0] || "São Paulo"}, SP</strong>
+            <strong>{dadosPerfil?.cidadeEstado || "São Paulo, SP"}</strong>
           </address>
         </div>
       </motion.section>
@@ -188,9 +176,9 @@ export default function MinhaConta() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
-        <p className="section-heading">Último pedido</p>
+        <p className="section-heading" style={{ color: '#1D252A' }}>Último pedido</p>
         
-        {pedidoAtivo ? (
+        {temPedido ? (
           <div className="order-two-cols">
             <div className="order-left">
               <article className="order-row">
@@ -198,7 +186,7 @@ export default function MinhaConta() {
                   <img src={Iconecaminhao} alt="" />
                 </div>
                 <div>
-                  <p className="order-code">Código do pedido: <strong>{pedidoAtivo.transactionId || "#SP-2026-01"}</strong></p>
+                  <p className="order-code">Código do pedido: <strong>{pedidoAtivo.codigoPedido}</strong></p>
                   <p className="order-meta">{pedidoAtivo.produtoDescricao}</p>
                 </div>
               </article>
@@ -208,9 +196,9 @@ export default function MinhaConta() {
                   <img src={Iconesclamacao} alt="Ícone de rastreio" />
                 </div>
                 <div>
-                  <p className="order-code">Rastreio: <strong>{pedidoAtivo.trackingCode || "RU182121051419BR"}</strong></p>
-                  <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{pedidoAtivo.deliveryDate || "01 de setembro de 2026"}</span></p>                
-                  <p className="order-valor">Total: {pedidoAtivo.valorTotal.toString().includes("R$") ? pedidoAtivo.valorTotal : `R$ ${pedidoAtivo.valorTotal}`}</p>
+                  <p className="order-code">Rastreio: <strong>{pedidoAtivo.codigoRastreio || "Sem código gerado"}</strong></p>
+                  <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{formatarDataBR(pedidoAtivo.dataEntregaPrevista) || "01 de setembro de 2026"}</span></p>                
+                  <p className="order-valor">Total: R$ {pedidoAtivo.valorTotal ? pedidoAtivo.valorTotal.toFixed(2).replace('.', ',') : "200,97"}</p>
                 </div>
               </article>
             </div>
@@ -243,22 +231,22 @@ export default function MinhaConta() {
         style={{ position: 'relative' }}
       >
         <div style={{ display: 'flex', justifyContent: 'between', alignItems: 'center', borderBottom: '0.5px solid #e5e5e5', marginBottom: '1rem' }}>
-          <p className="section-heading" style={{ borderBottom: 'none', marginBottom: 0 }}>Meus dados</p>
+          <p className="section-heading" style={{ borderBottom: 'none', marginBottom: 0, color: '#1D252A' }}>Meus dados</p>
           <button type="button" className="btn-editar-perfil-mock" style={{ position: 'absolute', right: '20px', top: '15px', backgroundColor: '#1A5AFF', color: '#fff', border: 'none', padding: '6px 16px', borderRadius: '6px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <img src={IconeEditar} alt="" style={{ width: '14px', height: '14px', filter: 'brightness(0) invert(1)' }} /> Editar
           </button>
         </div>
         
         <div className="info-grid" style={{ paddingTop: '0.5rem' }}>
-          <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto || localStorage.getItem('@Sopro:nome') || "Soprinho da Silva"} />
-          <InfoField label="CPF:" value={dadosPerfil?.cpf || "000.000.000-00"} />
-          <InfoField label="Telefone celular:" value={dadosPerfil?.telefoneCelular || "(11) 94002-8922"} />
-          <InfoField label="Endereço de e-mail:" value={localStorage.getItem('@Sopro:email') || "soprinhosilva@gmail.com"} />
-          <InfoField label="Data de nascimento:" value={formatarDataBR(dadosPerfil?.dataNascimento) || "03/03/2026"} />
+          <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto} />
+          <InfoField label="CPF:" value={dadosPerfil?.cpf} />
+          <InfoField label="Telefone celular:" value={dadosPerfil?.telefoneCelular} />
+          <InfoField label="Endereço de e-mail:" value={dadosPerfil?.email || localStorage.getItem('@Sopro:email')} />
+          <InfoField label="Data de nascimento:" value={formatarDataBR(dadosPerfil?.dataNascimento)} />
         </div>
       </motion.section>
 
-      {/*: Endereço ── */}
+     
       <motion.section 
         className="card" 
         aria-label="Endereço"
@@ -268,18 +256,18 @@ export default function MinhaConta() {
         style={{ position: 'relative' }}
       >
         <div style={{ display: 'flex', justifyContent: 'between', alignItems: 'center', borderBottom: '0.5px solid #e5e5e5', marginBottom: '1rem' }}>
-          <p className="section-heading" style={{ borderBottom: 'none', marginBottom: 0 }}>Endereço</p>
+          <p className="section-heading" style={{ borderBottom: 'none', marginBottom: 0, color: '#1D252A' }}>Endereço</p>
           <button type="button" className="btn-editar-perfil-mock" style={{ position: 'absolute', right: '20px', top: '15px', backgroundColor: '#1A5AFF', color: '#fff', border: 'none', padding: '6px 16px', borderRadius: '6px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <img src={IconeEditar} alt="" style={{ width: '14px', height: '14px', filter: 'brightness(0) invert(1)' }} /> Editar
           </button>
         </div>
         
         <div className="info-grid" style={{ paddingTop: '0.5rem' }}>
-          <InfoField label="Logradouro:" value={`${logradouroReal}, ${numeroReal}`} />
-          <InfoField label="Complemento:" value={complementoReal} />
-          <InfoField label="Bairro:" value={bairroReal} />
-          <InfoField label="Cidade/UF:" value={cidadeEstadoReal} />
-          <InfoField label="CEP:" value={cepReal} />
+          <InfoField label="Logradouro:" value={logradouro} />
+          <InfoField label="Complemento:" value={complemento} />
+          <InfoField label="Bairro:" value={dadosPerfil?.bairro || "—"} />
+          <InfoField label="Cidade/UF:" value={dadosPerfil?.cidadeEstado || "—"} />
+          <InfoField label="CEP:" value={dadosPerfil?.cep || "—"} />
         </div>
       </motion.section>
     </main>
