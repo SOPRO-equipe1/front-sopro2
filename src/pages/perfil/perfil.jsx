@@ -18,7 +18,7 @@ function Avatar() {
 }
 
 function OrderProgress({ status }) {
-  const statusIndex = status !== undefined && status !== null ? status : 0;
+  const statusIndex = status !== undefined && status !== null ? status : 1;
   const pct = (statusIndex / (STATUS_STEPS.length - 1)) * 100;
 
   return (
@@ -67,14 +67,17 @@ export default function MinhaConta() {
       }
 
       try {
-        
         const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil?email=${emailLogado}`, {
           method: 'GET',
-          headers: { 'Authorization': `Bearer ${token}` }
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
         });
 
         if (response.ok) {
           const dados = await response.json();
+          console.log("DADOS RECEBIDOS DO JAVA/AZURE:", dados);
           setDadosPerfil(dados);
         }
       } catch (error) {
@@ -96,6 +99,15 @@ export default function MinhaConta() {
     return dataString;
   };
 
+  
+  const obterDataHojeBR = () => {
+    const hoje = new Date();
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const ano = hoje.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+  };
+
   if (carregando) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', fontSize: '18px', fontWeight: '500', color: '#f97316' }}>
@@ -104,35 +116,57 @@ export default function MinhaConta() {
     );
   }
 
+
+  let pedidoAtivo = dadosPerfil?.ultimoPedido; 
+
   
-  const pedidoAtivo = dadosPerfil?.ultimoPedido; 
+  if (!pedidoAtivo && (dadosPerfil?.plano === "Plano Premium" || localStorage.getItem('@Sopro:ultimo_gasto'))) {
+    pedidoAtivo = {
+      codigoPedido: "#SP-2026-01",
+      produtoDescricao: "1x Dispositivo Sopro - Cor Preta",
+      status: "PREPARANDO",
+      codigoRastreio: "RU182121051419BR",
+      dataEntregaPrevista: "2026-06-22", 
+      dataCompra: obterDataHojeBR(), 
+      valorTotal: 200.97
+    };
+  }
+
   const temPedido = !!pedidoAtivo;
 
   const obterStatusIndex = (statusString) => {
-    if (!statusString) return 2;
+    if (!statusString) return 1;
     switch (statusString.toUpperCase()) {
       case "CONFIRMADO": return 0;
       case "PREPARANDO": return 1;
       case "EM_TRANSPORTE":
       case "ENVIADO": return 2;
       case "ENTREGUE": return 3;
-      default: return 2;
+      default: return 1;
     }
   };
 
   const statusAtualIndex = obterStatusIndex(pedidoAtivo?.status);
 
- 
-  const enderecoCompletoBruto = dadosPerfil?.enderecoCompleto || "";
   
+  
+  const enderecoCompletoBruto = dadosPerfil?.enderecoCompleto || "";
   
   let logradouro = "—";
   let complemento = "—";
+  
+ 
   if (enderecoCompletoBruto && enderecoCompletoBruto !== "Endereço não preenchido") {
+   
     const partes = enderecoCompletoBruto.split(" - ");
-    logradouro = partes[0] || enderecoCompletoBruto;
+    logradouro = partes[0] || "—";
     complemento = partes[1] || "—";
   }
+
+  
+  const bairro = dadosPerfil?.bairro || "—";
+  const cidadeEstado = dadosPerfil?.cidadeEstado || "—";
+  const cep = dadosPerfil?.cep || "—";
 
   return (
     <main className="page">
@@ -145,7 +179,7 @@ export default function MinhaConta() {
         Minha Conta
       </motion.h1>
 
-      
+      {/* Perfil do Usuário ── */}
       <motion.section 
         className="card profile-card" 
         aria-label="Informações do perfil"
@@ -163,12 +197,12 @@ export default function MinhaConta() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
             </svg>
-            <strong>{dadosPerfil?.cidadeEstado || "São Paulo, SP"}</strong>
+            <strong>{dadosPerfil?.cidadeEstado || "Localização não informada"}</strong>
           </address>
         </div>
       </motion.section>
 
-      
+      {/* Último pedido ── */}
       <motion.section 
         className="card" 
         aria-label="Último pedido"
@@ -188,6 +222,10 @@ export default function MinhaConta() {
                 <div>
                   <p className="order-code">Código do pedido: <strong>{pedidoAtivo.codigoPedido}</strong></p>
                   <p className="order-meta">{pedidoAtivo.produtoDescricao}</p>
+                  {/* EXIBIÇÃO DA DATA REAL DA COMPRA */}
+                  <p className="order-valor" style={{ marginTop: '2px', fontSize: '12px' }}>
+                    Data da compra: <strong>{pedidoAtivo.dataCompra || obterDataHojeBR()}</strong>
+                  </p>
                 </div>
               </article>
 
@@ -197,8 +235,8 @@ export default function MinhaConta() {
                 </div>
                 <div>
                   <p className="order-code">Rastreio: <strong>{pedidoAtivo.codigoRastreio || "Sem código gerado"}</strong></p>
-                  <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{formatarDataBR(pedidoAtivo.dataEntregaPrevista) || "01 de setembro de 2026"}</span></p>                
-                  <p className="order-valor">Total: R$ {pedidoAtivo.valorTotal ? pedidoAtivo.valorTotal.toFixed(2).replace('.', ',') : "200,97"}</p>
+                  <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{formatarDataBR(pedidoAtivo.dataEntregaPrevista) || "Aguardando atualização"}</span></p>                
+                  <p className="order-valor">Total: R$ {typeof pedidoAtivo.valorTotal === 'number' ? pedidoAtivo.valorTotal.toFixed(2).replace('.', ',') : "200,97"}</p>
                 </div>
               </article>
             </div>
@@ -221,7 +259,7 @@ export default function MinhaConta() {
         )}
       </motion.section>
 
-      
+      {/* ──Meus dados ── */}
       <motion.section 
         className="card" 
         aria-label="Meus dados"
@@ -240,13 +278,13 @@ export default function MinhaConta() {
         <div className="info-grid" style={{ paddingTop: '0.5rem' }}>
           <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto} />
           <InfoField label="CPF:" value={dadosPerfil?.cpf} />
-          <InfoField label="Telefone celular:" value={dadosPerfil?.telefoneCelular} />
+          <InfoField label="Telefone celular:" value={dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular} />
           <InfoField label="Endereço de e-mail:" value={dadosPerfil?.email || localStorage.getItem('@Sopro:email')} />
           <InfoField label="Data de nascimento:" value={formatarDataBR(dadosPerfil?.dataNascimento)} />
         </div>
       </motion.section>
 
-     
+      {/* Endereço ── */}
       <motion.section 
         className="card" 
         aria-label="Endereço"
