@@ -33,7 +33,7 @@ import React from 'react';
 function SobreNos () {
 return (
 
-<main>
+<main className="mainSobreNos">
 <motion.section 
         className="Seção1"
         style={{ 
