@@ -116,7 +116,7 @@ Nossa interface foi construída para ser leve. O frontend consome os dados do **
 ---
 
 <div align="center">
-Desenvolvido com 💙 e muito café pela equipe do Front-end
+Desenvolvido com 💙 e muito café pela equipe do Front-end - Instituto PROA, 2026
 </div>
 
 
