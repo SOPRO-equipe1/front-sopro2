@@ -5,9 +5,15 @@ import SoprinhoImg from '../../assets/images/perfil/soprinho_perfil.svg';
 import Iconecaminhao from '../../assets/images/perfil/icone_caminhao_perfil.svg';
 import Iconesclamacao from '../../assets/images/perfil/icone_esclamacao_perfil.svg';
 import IconeEditar from '../../assets/icons/ic_baseline-mode-edit.svg';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const STATUS_STEPS = ["Confirmado", "Preparando", "Em transporte", "Entregue"];
+
+const ESTADOS_BR = [
+  "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO",
+  "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI",
+  "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
+];
 
 function Avatar() {
   return (
@@ -38,26 +44,345 @@ function OrderProgress({ status }) {
   );
 }
 
-/* Campo de informação — modo leitura ou edição inline */
-function InfoField({ label, value, editando, onChange, type = "text" }) {
+function InfoField({ label, value }) {
   return (
     <div style={{ margin: 0, paddingLeft: '30px', textAlign: 'left' }}>
-      <dt className="order-code" style={{ marginBottom: '4px', display: 'block' }}>
+      <dt className="order-code" style={{ marginBottom: '2px', display: 'block' }}>
         {label}
       </dt>
-      {editando ? (
-        <input
-          type={type}
-          className="input-editar-perfil"
-          value={value ?? ""}
-          onChange={(e) => onChange(e.target.value)}
-        />
-      ) : (
-        <dd className="order-valor" style={{ margin: 0 }}>
-          {value || "—"}
-        </dd>
-      )}
+      <dd className="order-valor" style={{ margin: 0 }}>
+        {value || "—"}
+      </dd>
     </div>
+  );
+}
+
+/* ── Wrapper genérico de modal ── */
+function ModalOverlay({ children, onClose }) {
+  return (
+    <motion.div
+      className="modal-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="modal-box"
+        initial={{ opacity: 0, y: 20, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 20, scale: 0.97 }}
+        transition={{ duration: 0.2 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ── Modal: Editando meus dados ── */
+function ModalMeusDados({ form, setForm, onClose, onSalvar, onAbrirAlterarEmail, onAbrirAlterarSenha, onAbrirExcluirConta }) {
+  return (
+    <ModalOverlay onClose={onClose}>
+      <div className="modal-header">
+        <h2 className="modal-title">Editando meus dados</h2>
+        <button type="button" className="modal-close" onClick={onClose} aria-label="Fechar">×</button>
+      </div>
+
+      <div className="modal-field">
+        <label>E-mail:</label>
+        <input type="email" value={form.email} disabled className="modal-input modal-input-disabled" />
+      </div>
+
+      <div className="modal-field">
+        <label>Nome completo:</label>
+        <input
+          type="text"
+          value={form.nomeCompleto}
+          onChange={(e) => setForm((f) => ({ ...f, nomeCompleto: e.target.value }))}
+          className="modal-input"
+        />
+      </div>
+
+      <div className="modal-row">
+        <div className="modal-field">
+          <label>CPF:</label>
+          <input
+            type="text"
+            value={form.cpf}
+            onChange={(e) => setForm((f) => ({ ...f, cpf: e.target.value }))}
+            className="modal-input"
+          />
+        </div>
+        <div className="modal-field">
+          <label>Data de nascimento:</label>
+          <input
+            type="date"
+            value={form.dataNascimento}
+            onChange={(e) => setForm((f) => ({ ...f, dataNascimento: e.target.value }))}
+            className="modal-input"
+          />
+        </div>
+      </div>
+
+      <div className="modal-row">
+        <div className="modal-field">
+          <label>Telefone celular:</label>
+          <input
+            type="tel"
+            value={form.telefoneCelular}
+            onChange={(e) => setForm((f) => ({ ...f, telefoneCelular: e.target.value }))}
+            className="modal-input"
+          />
+        </div>
+        <div className="modal-field">
+          <label>Nome social:</label>
+          <input
+            type="text"
+            value={form.nomeSocial}
+            onChange={(e) => setForm((f) => ({ ...f, nomeSocial: e.target.value }))}
+            className="modal-input"
+          />
+        </div>
+      </div>
+
+      <div className="modal-row">
+        <button type="button" className="btn-outline-laranja" onClick={onAbrirAlterarEmail}>
+          Alterar e-mail
+        </button>
+        <button type="button" className="btn-outline-laranja" onClick={onAbrirAlterarSenha}>
+          Alterar senha
+        </button>
+      </div>
+
+      <button type="button" className="btn-salvar-modal" onClick={onSalvar}>
+        ✓ Salvar alterações
+      </button>
+
+      <button type="button" className="btn-excluir-conta" onClick={onAbrirExcluirConta}>
+        🗑 Excluir minha conta
+      </button>
+    </ModalOverlay>
+  );
+}
+
+/* ── Modal: Alterar e-mail ── */
+function ModalAlterarEmail({ onClose, onConfirmar }) {
+  const [novoEmail, setNovoEmail] = useState('');
+  const [senhaAtual, setSenhaAtual] = useState('');
+
+  return (
+    <ModalOverlay onClose={onClose}>
+      <div className="modal-header">
+        <h2 className="modal-title">Alterar e-mail</h2>
+        <button type="button" className="modal-close" onClick={onClose} aria-label="Fechar">×</button>
+      </div>
+
+      <div className="modal-field">
+        <label>Novo e-mail:</label>
+        <input type="email" value={novoEmail} onChange={(e) => setNovoEmail(e.target.value)} className="modal-input" />
+      </div>
+
+      <div className="modal-field">
+        <label>Confirme sua senha atual:</label>
+        <input type="password" value={senhaAtual} onChange={(e) => setSenhaAtual(e.target.value)} className="modal-input" />
+      </div>
+
+      <button
+        type="button"
+        className="btn-salvar-modal"
+        onClick={() => onConfirmar(novoEmail)}
+      >
+        ✓ Confirmar alteração
+      </button>
+    </ModalOverlay>
+  );
+}
+
+/* ── Modal: Alterar senha ── */
+function ModalAlterarSenha({ onClose, onConfirmar }) {
+  const [senhaAtual, setSenhaAtual] = useState('');
+  const [novaSenha, setNovaSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [erro, setErro] = useState('');
+
+  const handleConfirmar = () => {
+    if (!senhaAtual || !novaSenha || !confirmarSenha) {
+      setErro('Preencha todos os campos.');
+      return;
+    }
+    if (novaSenha !== confirmarSenha) {
+      setErro('As senhas não coincidem.');
+      return;
+    }
+    setErro('');
+    onConfirmar();
+  };
+
+  return (
+    <ModalOverlay onClose={onClose}>
+      <div className="modal-header">
+        <h2 className="modal-title">Alterar senha</h2>
+        <button type="button" className="modal-close" onClick={onClose} aria-label="Fechar">×</button>
+      </div>
+
+      <div className="modal-field">
+        <label>Senha atual:</label>
+        <input type="password" value={senhaAtual} onChange={(e) => setSenhaAtual(e.target.value)} className="modal-input" />
+      </div>
+
+      <div className="modal-field">
+        <label>Nova senha:</label>
+        <input type="password" value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)} className="modal-input" />
+      </div>
+
+      <div className="modal-field">
+        <label>Confirme a nova senha:</label>
+        <input type="password" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} className="modal-input" />
+      </div>
+
+      {erro && <p className="modal-erro">{erro}</p>}
+
+      <button type="button" className="btn-salvar-modal" onClick={handleConfirmar}>
+        ✓ Confirmar alteração
+      </button>
+    </ModalOverlay>
+  );
+}
+
+/* ── Modal: Excluir conta ── */
+function ModalExcluirConta({ onClose, onConfirmar }) {
+  return (
+    <ModalOverlay onClose={onClose}>
+      <div className="modal-header">
+        <h2 className="modal-title">Excluir minha conta</h2>
+        <button type="button" className="modal-close" onClick={onClose} aria-label="Fechar">×</button>
+      </div>
+
+      <p style={{ color: '#444', fontSize: '14px', lineHeight: 1.6, marginBottom: '20px' }}>
+        Essa ação é <strong>permanente</strong> e não pode ser desfeita. Todos os seus dados,
+        pedidos e histórico serão removidos da plataforma SOPRO.
+      </p>
+
+      <div className="modal-row">
+        <button type="button" className="btn-cancelar-perfil" style={{ flex: 1 }} onClick={onClose}>
+          Cancelar
+        </button>
+        <button type="button" className="btn-excluir-conta-confirmar" style={{ flex: 1 }} onClick={onConfirmar}>
+          Sim, excluir conta
+        </button>
+      </div>
+    </ModalOverlay>
+  );
+}
+
+/* ── Modal: Editando endereço ── */
+function ModalEndereco({ form, setForm, onClose, onSalvar, buscandoCep }) {
+  const handleCepChange = (e) => {
+    const cep = e.target.value.replace(/\D/g, '').slice(0, 8);
+    setForm((f) => ({ ...f, cep }));
+  };
+
+  return (
+    <ModalOverlay onClose={onClose}>
+      <div className="modal-header">
+        <h2 className="modal-title">Editando endereço</h2>
+        <button type="button" className="modal-close" onClick={onClose} aria-label="Fechar">×</button>
+      </div>
+
+      <div className="modal-field">
+        <div className="modal-label-row">
+          <label>CEP:</label>
+          <a
+            href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+            target="_blank"
+            rel="noreferrer"
+            className="modal-link-laranja"
+          >
+            Não sei meu CEP
+          </a>
+        </div>
+        <input
+          type="text"
+          value={form.cep}
+          onChange={handleCepChange}
+          placeholder="00000-000"
+          className="modal-input"
+          maxLength={8}
+        />
+        {buscandoCep && <span className="modal-hint">Buscando endereço…</span>}
+      </div>
+
+      <div className="modal-field">
+        <label>Endereço:</label>
+        <input
+          type="text"
+          value={form.logradouro}
+          onChange={(e) => setForm((f) => ({ ...f, logradouro: e.target.value }))}
+          className="modal-input"
+        />
+      </div>
+
+      <div className="modal-row modal-row-3">
+        <div className="modal-field">
+          <label>Bairro:</label>
+          <input
+            type="text"
+            value={form.bairro}
+            onChange={(e) => setForm((f) => ({ ...f, bairro: e.target.value }))}
+            className="modal-input"
+          />
+        </div>
+        <div className="modal-field">
+          <label>Cidade:</label>
+          <input
+            type="text"
+            value={form.cidade}
+            onChange={(e) => setForm((f) => ({ ...f, cidade: e.target.value }))}
+            className="modal-input"
+          />
+        </div>
+        <div className="modal-field">
+          <label>Estado:</label>
+          <select
+            value={form.estado}
+            onChange={(e) => setForm((f) => ({ ...f, estado: e.target.value }))}
+            className="modal-input modal-select"
+          >
+            <option value="">UF</option>
+            {ESTADOS_BR.map((uf) => (
+              <option key={uf} value={uf}>{uf}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="modal-row">
+        <div className="modal-field">
+          <label>Número:</label>
+          <input
+            type="text"
+            value={form.numero}
+            onChange={(e) => setForm((f) => ({ ...f, numero: e.target.value }))}
+            className="modal-input"
+          />
+        </div>
+        <div className="modal-field">
+          <label>Complemento:</label>
+          <input
+            type="text"
+            value={form.complemento}
+            onChange={(e) => setForm((f) => ({ ...f, complemento: e.target.value }))}
+            className="modal-input"
+          />
+        </div>
+      </div>
+
+      <button type="button" className="btn-salvar-modal" onClick={onSalvar}>
+        ✓ Salvar alterações
+      </button>
+    </ModalOverlay>
   );
 }
 
@@ -66,24 +391,29 @@ export default function MinhaConta() {
   const [carregando, setCarregando] = useState(true);
   const [dadosPerfil, setDadosPerfil] = useState(null);
 
-  /* ── Edição inline: "Meus dados" ── */
-  const [editandoDados, setEditandoDados] = useState(false);
+  /* ── Controle de modais ── */
+  const [modalAberto, setModalAberto] = useState(null);
+  // valores possíveis: null | 'dados' | 'email' | 'senha' | 'excluir' | 'endereco'
+
+  const [buscandoCep, setBuscandoCep] = useState(false);
+
   const [formDados, setFormDados] = useState({
+    email: '',
     nomeCompleto: '',
     cpf: '',
-    telefoneCelular: '',
-    email: '',
     dataNascimento: '',
+    telefoneCelular: '',
+    nomeSocial: '',
   });
 
-  /* ── Edição inline: "Endereço" ── */
-  const [editandoEndereco, setEditandoEndereco] = useState(false);
   const [formEndereco, setFormEndereco] = useState({
-    logradouro: '',
-    complemento: '',
-    bairro: '',
-    cidadeEstado: '',
     cep: '',
+    logradouro: '',
+    bairro: '',
+    cidade: '',
+    estado: '',
+    numero: '',
+    complemento: '',
   });
 
   useEffect(() => {
@@ -119,6 +449,38 @@ export default function MinhaConta() {
 
     buscarDadosDoAzure();
   }, [navigate]);
+
+  /* ── Busca automática de CEP via ViaCEP ── */
+  useEffect(() => {
+    const cepLimpo = formEndereco.cep.replace(/\D/g, '');
+    if (cepLimpo.length !== 8) return;
+
+    let cancelado = false;
+
+    const buscarCep = async () => {
+      setBuscandoCep(true);
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+        const data = await res.json();
+        if (!cancelado && !data.erro) {
+          setFormEndereco((f) => ({
+            ...f,
+            logradouro: data.logradouro || f.logradouro,
+            bairro: data.bairro || f.bairro,
+            cidade: data.localidade || f.cidade,
+            estado: data.uf || f.estado,
+          }));
+        }
+      } catch (err) {
+        console.error('Erro ao buscar CEP:', err);
+      } finally {
+        if (!cancelado) setBuscandoCep(false);
+      }
+    };
+
+    buscarCep();
+    return () => { cancelado = true; };
+  }, [formEndereco.cep]);
 
   const formatarDataBR = (dataString) => {
     if (!dataString) return "";
@@ -190,58 +552,76 @@ export default function MinhaConta() {
   const cidadeEstado = dadosPerfil?.cidadeEstado || "—";
   const cep = dadosPerfil?.cep || "—";
 
-  /* ── Handlers: "Meus dados" ── */
-  const iniciarEdicaoDados = () => {
+  /* ── Abertura dos modais ── */
+  const abrirModalDados = () => {
     setFormDados({
+      email: dadosPerfil?.email || localStorage.getItem('@Sopro:email') || '',
       nomeCompleto: dadosPerfil?.nomeCompleto || '',
       cpf: dadosPerfil?.cpf || '',
-      telefoneCelular: dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular || '',
-      email: dadosPerfil?.email || localStorage.getItem('@Sopro:email') || '',
       dataNascimento: dadosPerfil?.dataNascimento || '',
+      telefoneCelular: dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular || '',
+      nomeSocial: dadosPerfil?.nomeSocial || '',
     });
-    setEditandoDados(true);
+    setModalAberto('dados');
   };
 
-  const cancelarEdicaoDados = () => setEditandoDados(false);
+  const abrirModalEndereco = () => {
+    setFormEndereco({
+      cep: cep !== "—" ? cep.replace(/\D/g, '') : '',
+      logradouro: logradouro !== "—" ? logradouro : '',
+      bairro: bairro !== "—" ? bairro : '',
+      cidade: cidadeEstado !== "—" ? cidadeEstado.split(' - ')[0] || '' : '',
+      estado: cidadeEstado !== "—" ? cidadeEstado.split(' - ')[1] || '' : '',
+      numero: dadosPerfil?.numero || '',
+      complemento: complemento !== "—" ? complemento : '',
+    });
+    setModalAberto('endereco');
+  };
 
-  const salvarEdicaoDados = () => {
-    // TODO: substituir por chamada PUT/PATCH quando o endpoint existir no backend
+  /* ── Salvar (local apenas — sem chamada de API por enquanto) ── */
+  const salvarDados = () => {
+    // TODO: integrar com endpoint PUT/PATCH do backend quando estiver disponível
     setDadosPerfil((prev) => ({
       ...prev,
       nomeCompleto: formDados.nomeCompleto,
       cpf: formDados.cpf,
+      dataNascimento: formDados.dataNascimento,
       telefoneCelular: formDados.telefoneCelular,
       telefoneCellular: formDados.telefoneCelular,
-      email: formDados.email,
-      dataNascimento: formDados.dataNascimento,
+      nomeSocial: formDados.nomeSocial,
     }));
-    setEditandoDados(false);
+    setModalAberto(null);
   };
 
-  /* ── Handlers: "Endereço" ── */
-  const iniciarEdicaoEndereco = () => {
-    setFormEndereco({
-      logradouro: logradouro !== "—" ? logradouro : '',
-      complemento: complemento !== "—" ? complemento : '',
-      bairro: bairro !== "—" ? bairro : '',
-      cidadeEstado: cidadeEstado !== "—" ? cidadeEstado : '',
-      cep: cep !== "—" ? cep : '',
-    });
-    setEditandoEndereco(true);
-  };
-
-  const cancelarEdicaoEndereco = () => setEditandoEndereco(false);
-
-  const salvarEdicaoEndereco = () => {
-    // TODO: substituir por chamada PUT/PATCH quando o endpoint existir no backend
+  const salvarEndereco = () => {
+    // TODO: integrar com endpoint PUT/PATCH do backend quando estiver disponível
     setDadosPerfil((prev) => ({
       ...prev,
-      enderecoCompleto: `${formEndereco.logradouro} - ${formEndereco.complemento}`,
+      enderecoCompleto: `${formEndereco.logradouro}, ${formEndereco.numero} - ${formEndereco.complemento}`,
       bairro: formEndereco.bairro,
-      cidadeEstado: formEndereco.cidadeEstado,
+      cidadeEstado: `${formEndereco.cidade} - ${formEndereco.estado}`,
       cep: formEndereco.cep,
+      numero: formEndereco.numero,
     }));
-    setEditandoEndereco(false);
+    setModalAberto(null);
+  };
+
+  const confirmarAlterarEmail = (novoEmail) => {
+    // TODO: integrar com endpoint de alteração de e-mail quando disponível
+    setFormDados((f) => ({ ...f, email: novoEmail }));
+    setModalAberto('dados');
+  };
+
+  const confirmarAlterarSenha = () => {
+    // TODO: integrar com endpoint de alteração de senha quando disponível
+    setModalAberto('dados');
+  };
+
+  const confirmarExcluirConta = () => {
+    // TODO: integrar com endpoint de exclusão de conta quando disponível
+    localStorage.removeItem('@Sopro:token');
+    localStorage.removeItem('@Sopro:email');
+    navigate('/login');
   };
 
   return (
@@ -345,56 +725,17 @@ export default function MinhaConta() {
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '0.5px solid #e5e5e5', marginBottom: '1rem' }}>
           <p className="section-heading" style={{ borderBottom: 'none', marginBottom: 0, color: '#1D252A' }}>Meus dados</p>
-
-          {editandoDados ? (
-            <div style={{ position: 'absolute', right: '20px', top: '15px', display: 'flex', gap: '8px' }}>
-              <button type="button" className="btn-cancelar-perfil" onClick={cancelarEdicaoDados}>
-                Cancelar
-              </button>
-              <button type="button" className="btn-salvar-perfil" onClick={salvarEdicaoDados}>
-                Salvar
-              </button>
-            </div>
-          ) : (
-            <button type="button" className="btn-editar-perfil-mock" style={{ position: 'absolute', right: '20px', top: '15px' }} onClick={iniciarEdicaoDados}>
-              <img src={IconeEditar} alt="" style={{ width: '14px', height: '14px', filter: 'brightness(0) invert(1)' }} /> Editar
-            </button>
-          )}
+          <button type="button" className="btn-editar-perfil-mock" style={{ position: 'absolute', right: '20px', top: '15px' }} onClick={abrirModalDados}>
+            <img src={IconeEditar} alt="" style={{ width: '14px', height: '14px', filter: 'brightness(0) invert(1)' }} /> Editar
+          </button>
         </div>
 
         <div className="info-grid" style={{ paddingTop: '0.5rem' }}>
-          <InfoField
-            label="Nome completo:"
-            value={editandoDados ? formDados.nomeCompleto : dadosPerfil?.nomeCompleto}
-            editando={editandoDados}
-            onChange={(v) => setFormDados((f) => ({ ...f, nomeCompleto: v }))}
-          />
-          <InfoField
-            label="CPF:"
-            value={editandoDados ? formDados.cpf : dadosPerfil?.cpf}
-            editando={editandoDados}
-            onChange={(v) => setFormDados((f) => ({ ...f, cpf: v }))}
-          />
-          <InfoField
-            label="Telefone celular:"
-            value={editandoDados ? formDados.telefoneCelular : (dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular)}
-            editando={editandoDados}
-            onChange={(v) => setFormDados((f) => ({ ...f, telefoneCelular: v }))}
-          />
-          <InfoField
-            label="Endereço de e-mail:"
-            value={editandoDados ? formDados.email : (dadosPerfil?.email || localStorage.getItem('@Sopro:email'))}
-            editando={editandoDados}
-            type="email"
-            onChange={(v) => setFormDados((f) => ({ ...f, email: v }))}
-          />
-          <InfoField
-            label="Data de nascimento:"
-            value={editandoDados ? formDados.dataNascimento : formatarDataBR(dadosPerfil?.dataNascimento)}
-            editando={editandoDados}
-            type={editandoDados ? "date" : "text"}
-            onChange={(v) => setFormDados((f) => ({ ...f, dataNascimento: v }))}
-          />
+          <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto} />
+          <InfoField label="CPF:" value={dadosPerfil?.cpf} />
+          <InfoField label="Telefone celular:" value={dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular} />
+          <InfoField label="Endereço de e-mail:" value={dadosPerfil?.email || localStorage.getItem('@Sopro:email')} />
+          <InfoField label="Data de nascimento:" value={formatarDataBR(dadosPerfil?.dataNascimento)} />
         </div>
       </motion.section>
 
@@ -409,56 +750,65 @@ export default function MinhaConta() {
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '0.5px solid #e5e5e5', marginBottom: '1rem' }}>
           <p className="section-heading" style={{ borderBottom: 'none', marginBottom: 0, color: '#1D252A' }}>Endereço</p>
-
-          {editandoEndereco ? (
-            <div style={{ position: 'absolute', right: '20px', top: '15px', display: 'flex', gap: '8px' }}>
-              <button type="button" className="btn-cancelar-perfil" onClick={cancelarEdicaoEndereco}>
-                Cancelar
-              </button>
-              <button type="button" className="btn-salvar-perfil" onClick={salvarEdicaoEndereco}>
-                Salvar
-              </button>
-            </div>
-          ) : (
-            <button type="button" className="btn-editar-perfil-mock" style={{ position: 'absolute', right: '20px', top: '15px' }} onClick={iniciarEdicaoEndereco}>
-              <img src={IconeEditar} alt="" style={{ width: '14px', height: '14px', filter: 'brightness(0) invert(1)' }} /> Editar
-            </button>
-          )}
+          <button type="button" className="btn-editar-perfil-mock" style={{ position: 'absolute', right: '20px', top: '15px' }} onClick={abrirModalEndereco}>
+            <img src={IconeEditar} alt="" style={{ width: '14px', height: '14px', filter: 'brightness(0) invert(1)' }} /> Editar
+          </button>
         </div>
 
         <div className="info-grid" style={{ paddingTop: '0.5rem' }}>
-          <InfoField
-            label="Logradouro:"
-            value={editandoEndereco ? formEndereco.logradouro : logradouro}
-            editando={editandoEndereco}
-            onChange={(v) => setFormEndereco((f) => ({ ...f, logradouro: v }))}
-          />
-          <InfoField
-            label="Complemento:"
-            value={editandoEndereco ? formEndereco.complemento : complemento}
-            editando={editandoEndereco}
-            onChange={(v) => setFormEndereco((f) => ({ ...f, complemento: v }))}
-          />
-          <InfoField
-            label="Bairro:"
-            value={editandoEndereco ? formEndereco.bairro : bairro}
-            editando={editandoEndereco}
-            onChange={(v) => setFormEndereco((f) => ({ ...f, bairro: v }))}
-          />
-          <InfoField
-            label="Cidade/UF:"
-            value={editandoEndereco ? formEndereco.cidadeEstado : cidadeEstado}
-            editando={editandoEndereco}
-            onChange={(v) => setFormEndereco((f) => ({ ...f, cidadeEstado: v }))}
-          />
-          <InfoField
-            label="CEP:"
-            value={editandoEndereco ? formEndereco.cep : cep}
-            editando={editandoEndereco}
-            onChange={(v) => setFormEndereco((f) => ({ ...f, cep: v }))}
-          />
+          <InfoField label="Logradouro:" value={logradouro} />
+          <InfoField label="Complemento:" value={complemento} />
+          <InfoField label="Bairro:" value={bairro} />
+          <InfoField label="Cidade/UF:" value={cidadeEstado} />
+          <InfoField label="CEP:" value={cep} />
         </div>
       </motion.section>
+
+      {/* ── Modais ── */}
+      <AnimatePresence>
+        {modalAberto === 'dados' && (
+          <ModalMeusDados
+            form={formDados}
+            setForm={setFormDados}
+            onClose={() => setModalAberto(null)}
+            onSalvar={salvarDados}
+            onAbrirAlterarEmail={() => setModalAberto('email')}
+            onAbrirAlterarSenha={() => setModalAberto('senha')}
+            onAbrirExcluirConta={() => setModalAberto('excluir')}
+          />
+        )}
+
+        {modalAberto === 'email' && (
+          <ModalAlterarEmail
+            onClose={() => setModalAberto('dados')}
+            onConfirmar={confirmarAlterarEmail}
+          />
+        )}
+
+        {modalAberto === 'senha' && (
+          <ModalAlterarSenha
+            onClose={() => setModalAberto('dados')}
+            onConfirmar={confirmarAlterarSenha}
+          />
+        )}
+
+        {modalAberto === 'excluir' && (
+          <ModalExcluirConta
+            onClose={() => setModalAberto('dados')}
+            onConfirmar={confirmarExcluirConta}
+          />
+        )}
+
+        {modalAberto === 'endereco' && (
+          <ModalEndereco
+            form={formEndereco}
+            setForm={setFormEndereco}
+            onClose={() => setModalAberto(null)}
+            onSalvar={salvarEndereco}
+            buscandoCep={buscandoCep}
+          />
+        )}
+      </AnimatePresence>
     </main>
   );
 }

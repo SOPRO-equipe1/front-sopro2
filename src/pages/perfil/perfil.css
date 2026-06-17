@@ -770,65 +770,222 @@ body {
 }
 
 /* ══════════════════════════════════════
-   ── Edição inline de campos ──
+   ── Modais (Editar dados / Endereço) ──
    ══════════════════════════════════════ */
-.input-editar-perfil {
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
   width: 100%;
-  max-width: 220px;
+  max-width: 620px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1D252A;
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  color: #f97316;
+  cursor: pointer;
+  padding: 0;
+}
+
+.modal-field {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.modal-field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1D252A;
+  margin-bottom: 6px;
+}
+
+.modal-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.modal-link-laranja {
+  font-size: 13px;
+  color: #f97316;
+  text-decoration: underline;
+}
+
+.modal-input {
+  width: 100%;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 14px;
   font-size: 14px;
   color: #1D252A;
-  border: 1.5px solid #1A5AFF;
-  border-radius: 6px;
-  padding: 6px 10px;
-  outline: none;
-  background: #F5F8FF;
+  background: #fff;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
-.input-editar-perfil:focus {
-  border-color: #0040D6;
-  box-shadow: 0 0 0 3px rgba(26, 90, 255, 0.15);
+.modal-input:focus {
+  outline: none;
+  border-color: #1A5AFF;
+  box-shadow: 0 0 0 3px rgba(26, 90, 255, 0.12);
 }
 
-.btn-salvar-perfil {
-  background-color: #22c55e;
+.modal-input-disabled {
+  background: #f1f5f9;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.modal-select {
+  cursor: pointer;
+}
+
+.modal-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 4px;
+}
+
+.modal-row .modal-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-row-3 .modal-field:last-child {
+  flex: 0 0 90px;
+}
+
+.modal-hint {
+  display: block;
+  font-size: 12px;
+  color: #1A5AFF;
+  margin-top: 6px;
+}
+
+.modal-erro {
+  color: #dc2626;
+  font-size: 13px;
+  margin: -6px 0 16px 0;
+}
+
+.btn-outline-laranja {
+  flex: 1;
+  background: #fff;
+  color: #1D252A;
+  border: 1.5px solid #f97316;
+  border-radius: 10px;
+  padding: 12px 0;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  transition: background 0.15s ease;
+}
+
+.btn-outline-laranja:hover {
+  background: #fff7ed;
+}
+
+.btn-salvar-modal {
+  width: 100%;
+  background: #f97316;
   color: #fff;
   border: none;
-  padding: 6px 16px;
-  border-radius: 6px;
+  border-radius: 10px;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-salvar-modal:hover {
+  background: #ea660a;
+}
+
+.btn-excluir-conta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+  width: 100%;
+  background: none;
+  border: none;
+  color: #1D252A;
   font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.btn-excluir-conta:hover {
+  color: #dc2626;
+}
+
+.btn-excluir-conta-confirmar {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 0;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
 }
 
-.btn-salvar-perfil:hover {
-  background-color: #16a34a;
+.btn-excluir-conta-confirmar:hover {
+  background: #b91c1c;
 }
 
-.btn-cancelar-perfil {
-  background-color: #fff;
-  color: #555;
-  border: 1.5px solid #cbd5e1;
-  padding: 6px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.btn-cancelar-perfil:hover {
-  background-color: #f1f5f9;
-}
-
-@media (max-width: 480px) {
-  .input-editar-perfil {
-    max-width: 100%;
-    font-size: 13px;
+@media (max-width: 560px) {
+  .modal-box {
+    padding: 22px;
+    border-radius: 14px;
   }
 
-  .btn-salvar-perfil,
-  .btn-cancelar-perfil {
-    font-size: 12px;
-    padding: 5px 10px;
+  .modal-title {
+    font-size: 20px;
+  }
+
+  .modal-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .modal-row-3 .modal-field:last-child {
+    flex: 1;
   }
 }
