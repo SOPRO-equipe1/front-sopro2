@@ -293,6 +293,7 @@ body {
 
 .progress-steps {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   margin-top: -8px;
   position: relative;
@@ -301,7 +302,8 @@ body {
 
 .progress-step {
   display: flex;
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
   flex-direction: column;
   align-items: center;
   gap: 6px;
@@ -339,6 +341,7 @@ body {
 
 .progress-wrap {
   padding-top: 20px;
+  width: 100%;
 }
 
 .progress-labels {
