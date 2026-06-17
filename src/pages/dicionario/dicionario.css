@@ -1,7 +1,7 @@
 .dic-page {
   width: 100%;
   min-height: 80vh;
-  padding: 32px 5%;
+  padding: 110px 5% 32px 5%;
   background-color: var(--cor-branco, #fff);
   overflow-x: hidden;
   box-sizing: border-box;

@@ -52,7 +52,7 @@ const Checkout = () => {
     { value: '12', label: '12x de R$ 16,75 com juros' },
   ];
 
-  const precoBase = 200.97;
+  const precoBase = 350.50;
   const planos = {
     dispositivo: { label: "Só o dispositivo", preco: 0 },
     basico: { label: "Sopro Autonomia - Básico", preco: 49.9 },
@@ -319,7 +319,7 @@ const Checkout = () => {
               <section className="checkout-produto-info">
                 <header className="checkout-produto-header">
                   <span className="checkout-produto-nome">Dispositivo Sopro</span>
-                  <span className="checkout-produto-preco">R$ 200,97</span>
+                  <span className="checkout-produto-preco">R$ 350,50</span>
                 </header>
                 <span className="checkout-produto-cor">Cor: Selecionada</span>
                 <div className="checkout-quantidade">

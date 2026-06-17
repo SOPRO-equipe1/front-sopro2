@@ -117,6 +117,7 @@
   margin: 0 0 16px 0;
   text-align: center;
   margin-top: 60px;
+  padding: 100px 20px 0 20px;
 }
 
 .Descrição {
@@ -331,7 +332,7 @@
     text-align: left;
   }
 
-  .Titulo { text-align: left; margin-top: 0; }
+  .Titulo { text-align: center; margin-top: 0; }
 
   .Descrição { margin: 0 0 20px 0; text-align: left; }
 
@@ -341,7 +342,7 @@
 
   .card-quantidade { align-self: flex-start; }
 
-  .FormasDePagamento { align-items: flex-start; }
+  .FormasDePagamento { align-items: center; }
 
   .Name { align-self: flex-start; }
 
