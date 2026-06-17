@@ -76,7 +76,7 @@ function Compra() {
     }
 
     localStorage.setItem('@Sopro:intencao_compra', 'true');
-    localStorage.setItem('@Sopro:ultimo_qtd', quantitative);
+    localStorage.setItem('@Sopro:ultimo_qtd', quantidade);
     if (corSelecionada) {
       localStorage.setItem('@Sopro:ultima_cor', corSelecionada);
     }
