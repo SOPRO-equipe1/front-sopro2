@@ -768,3 +768,67 @@ body {
 
   
 }
+
+/* ══════════════════════════════════════
+   ── Edição inline de campos ──
+   ══════════════════════════════════════ */
+.input-editar-perfil {
+  width: 100%;
+  max-width: 220px;
+  font-size: 14px;
+  color: #1D252A;
+  border: 1.5px solid #1A5AFF;
+  border-radius: 6px;
+  padding: 6px 10px;
+  outline: none;
+  background: #F5F8FF;
+  font-family: inherit;
+}
+
+.input-editar-perfil:focus {
+  border-color: #0040D6;
+  box-shadow: 0 0 0 3px rgba(26, 90, 255, 0.15);
+}
+
+.btn-salvar-perfil {
+  background-color: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-salvar-perfil:hover {
+  background-color: #16a34a;
+}
+
+.btn-cancelar-perfil {
+  background-color: #fff;
+  color: #555;
+  border: 1.5px solid #cbd5e1;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancelar-perfil:hover {
+  background-color: #f1f5f9;
+}
+
+@media (max-width: 480px) {
+  .input-editar-perfil {
+    max-width: 100%;
+    font-size: 13px;
+  }
+
+  .btn-salvar-perfil,
+  .btn-cancelar-perfil {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}

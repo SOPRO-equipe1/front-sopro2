@@ -4,7 +4,7 @@ import '../perfil/perfil.css';
 import SoprinhoImg from '../../assets/images/perfil/soprinho_perfil.svg';
 import Iconecaminhao from '../../assets/images/perfil/icone_caminhao_perfil.svg';
 import Iconesclamacao from '../../assets/images/perfil/icone_esclamacao_perfil.svg';
-import IconeEditar from '../../assets/icons/ic_baseline-mode-edit.svg'; 
+import IconeEditar from '../../assets/icons/ic_baseline-mode-edit.svg';
 import { motion } from 'framer-motion';
 
 const STATUS_STEPS = ["Confirmado", "Preparando", "Em transporte", "Entregue"];
@@ -38,15 +38,25 @@ function OrderProgress({ status }) {
   );
 }
 
-function InfoField({ label, value }) {
+/* Campo de informação — modo leitura ou edição inline */
+function InfoField({ label, value, editando, onChange, type = "text" }) {
   return (
     <div style={{ margin: 0, paddingLeft: '30px', textAlign: 'left' }}>
-      <dt className="order-code" style={{ marginBottom: '2px', display: 'block' }}>
+      <dt className="order-code" style={{ marginBottom: '4px', display: 'block' }}>
         {label}
       </dt>
-      <dd className="order-valor" style={{ margin: 0 }}>
-        {value || "—"}
-      </dd>
+      {editando ? (
+        <input
+          type={type}
+          className="input-editar-perfil"
+          value={value ?? ""}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      ) : (
+        <dd className="order-valor" style={{ margin: 0 }}>
+          {value || "—"}
+        </dd>
+      )}
     </div>
   );
 }
@@ -55,6 +65,26 @@ export default function MinhaConta() {
   const navigate = useNavigate();
   const [carregando, setCarregando] = useState(true);
   const [dadosPerfil, setDadosPerfil] = useState(null);
+
+  /* ── Edição inline: "Meus dados" ── */
+  const [editandoDados, setEditandoDados] = useState(false);
+  const [formDados, setFormDados] = useState({
+    nomeCompleto: '',
+    cpf: '',
+    telefoneCelular: '',
+    email: '',
+    dataNascimento: '',
+  });
+
+  /* ── Edição inline: "Endereço" ── */
+  const [editandoEndereco, setEditandoEndereco] = useState(false);
+  const [formEndereco, setFormEndereco] = useState({
+    logradouro: '',
+    complemento: '',
+    bairro: '',
+    cidadeEstado: '',
+    cep: '',
+  });
 
   useEffect(() => {
     const buscarDadosDoAzure = async () => {
@@ -69,7 +99,7 @@ export default function MinhaConta() {
       try {
         const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil?email=${emailLogado}`, {
           method: 'GET',
-          headers: { 
+          headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
@@ -99,7 +129,6 @@ export default function MinhaConta() {
     return dataString;
   };
 
-  
   const obterDataHojeBR = () => {
     const hoje = new Date();
     const dia = String(hoje.getDate()).padStart(2, '0');
@@ -116,18 +145,16 @@ export default function MinhaConta() {
     );
   }
 
+  let pedidoAtivo = dadosPerfil?.ultimoPedido;
 
-  let pedidoAtivo = dadosPerfil?.ultimoPedido; 
-
-  
   if (!pedidoAtivo && (dadosPerfil?.plano === "Plano Premium" || localStorage.getItem('@Sopro:ultimo_gasto'))) {
     pedidoAtivo = {
       codigoPedido: "#SP-2026-01",
       produtoDescricao: "1x Dispositivo Sopro - Cor Preta",
       status: "PREPARANDO",
       codigoRastreio: "RU182121051419BR",
-      dataEntregaPrevista: "2026-06-22", 
-      dataCompra: obterDataHojeBR(), 
+      dataEntregaPrevista: "2026-06-22",
+      dataCompra: obterDataHojeBR(),
       valorTotal: 200.97
     };
   }
@@ -148,29 +175,78 @@ export default function MinhaConta() {
 
   const statusAtualIndex = obterStatusIndex(pedidoAtivo?.status);
 
-  
-  
   const enderecoCompletoBruto = dadosPerfil?.enderecoCompleto || "";
-  
+
   let logradouro = "—";
   let complemento = "—";
-  
- 
+
   if (enderecoCompletoBruto && enderecoCompletoBruto !== "Endereço não preenchido") {
-   
     const partes = enderecoCompletoBruto.split(" - ");
     logradouro = partes[0] || "—";
     complemento = partes[1] || "—";
   }
 
-  
   const bairro = dadosPerfil?.bairro || "—";
   const cidadeEstado = dadosPerfil?.cidadeEstado || "—";
   const cep = dadosPerfil?.cep || "—";
 
+  /* ── Handlers: "Meus dados" ── */
+  const iniciarEdicaoDados = () => {
+    setFormDados({
+      nomeCompleto: dadosPerfil?.nomeCompleto || '',
+      cpf: dadosPerfil?.cpf || '',
+      telefoneCelular: dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular || '',
+      email: dadosPerfil?.email || localStorage.getItem('@Sopro:email') || '',
+      dataNascimento: dadosPerfil?.dataNascimento || '',
+    });
+    setEditandoDados(true);
+  };
+
+  const cancelarEdicaoDados = () => setEditandoDados(false);
+
+  const salvarEdicaoDados = () => {
+    // TODO: substituir por chamada PUT/PATCH quando o endpoint existir no backend
+    setDadosPerfil((prev) => ({
+      ...prev,
+      nomeCompleto: formDados.nomeCompleto,
+      cpf: formDados.cpf,
+      telefoneCelular: formDados.telefoneCelular,
+      telefoneCellular: formDados.telefoneCelular,
+      email: formDados.email,
+      dataNascimento: formDados.dataNascimento,
+    }));
+    setEditandoDados(false);
+  };
+
+  /* ── Handlers: "Endereço" ── */
+  const iniciarEdicaoEndereco = () => {
+    setFormEndereco({
+      logradouro: logradouro !== "—" ? logradouro : '',
+      complemento: complemento !== "—" ? complemento : '',
+      bairro: bairro !== "—" ? bairro : '',
+      cidadeEstado: cidadeEstado !== "—" ? cidadeEstado : '',
+      cep: cep !== "—" ? cep : '',
+    });
+    setEditandoEndereco(true);
+  };
+
+  const cancelarEdicaoEndereco = () => setEditandoEndereco(false);
+
+  const salvarEdicaoEndereco = () => {
+    // TODO: substituir por chamada PUT/PATCH quando o endpoint existir no backend
+    setDadosPerfil((prev) => ({
+      ...prev,
+      enderecoCompleto: `${formEndereco.logradouro} - ${formEndereco.complemento}`,
+      bairro: formEndereco.bairro,
+      cidadeEstado: formEndereco.cidadeEstado,
+      cep: formEndereco.cep,
+    }));
+    setEditandoEndereco(false);
+  };
+
   return (
     <main className="page">
-      <motion.h1 
+      <motion.h1
         className="page-title"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -180,8 +256,8 @@ export default function MinhaConta() {
       </motion.h1>
 
       {/* Perfil do Usuário ── */}
-      <motion.section 
-        className="card profile-card" 
+      <motion.section
+        className="card profile-card"
         aria-label="Informações do perfil"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -203,15 +279,15 @@ export default function MinhaConta() {
       </motion.section>
 
       {/* Último pedido ── */}
-      <motion.section 
-        className="card" 
+      <motion.section
+        className="card"
         aria-label="Último pedido"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
         <p className="section-heading" style={{ color: '#1D252A' }}>Último pedido</p>
-        
+
         {temPedido ? (
           <div className="order-two-cols">
             <div className="order-left">
@@ -222,7 +298,6 @@ export default function MinhaConta() {
                 <div>
                   <p className="order-code">Código do pedido: <strong>{pedidoAtivo.codigoPedido}</strong></p>
                   <p className="order-meta">{pedidoAtivo.produtoDescricao}</p>
-                  {/* EXIBIÇÃO DA DATA REAL DA COMPRA */}
                   <p className="order-valor" style={{ marginTop: '2px', fontSize: '12px' }}>
                     Data da compra: <strong>{pedidoAtivo.dataCompra || obterDataHojeBR()}</strong>
                   </p>
@@ -235,7 +310,7 @@ export default function MinhaConta() {
                 </div>
                 <div>
                   <p className="order-code">Rastreio: <strong>{pedidoAtivo.codigoRastreio || "Sem código gerado"}</strong></p>
-                  <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{formatarDataBR(pedidoAtivo.dataEntregaPrevista) || "Aguardando atualização"}</span></p>                
+                  <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{formatarDataBR(pedidoAtivo.dataEntregaPrevista) || "Aguardando atualização"}</span></p>
                   <p className="order-valor">Total: R$ {typeof pedidoAtivo.valorTotal === 'number' ? pedidoAtivo.valorTotal.toFixed(2).replace('.', ',') : "200,97"}</p>
                 </div>
               </article>
@@ -243,8 +318,8 @@ export default function MinhaConta() {
 
             <div className="order-right">
               <OrderProgress status={statusAtualIndex} />
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="track-btn"
                 onClick={() => window.open(`https://rastreamento.correios.com.br/app/index.php`, '_blank')}
               >
@@ -259,53 +334,129 @@ export default function MinhaConta() {
         )}
       </motion.section>
 
-      {/* ──Meus dados ── */}
-      <motion.section 
-        className="card" 
+      {/* ── Meus dados ── */}
+      <motion.section
+        className="card"
         aria-label="Meus dados"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
         style={{ position: 'relative' }}
       >
-        <div style={{ display: 'flex', justifyContent: 'between', alignItems: 'center', borderBottom: '0.5px solid #e5e5e5', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '0.5px solid #e5e5e5', marginBottom: '1rem' }}>
           <p className="section-heading" style={{ borderBottom: 'none', marginBottom: 0, color: '#1D252A' }}>Meus dados</p>
-          <button type="button" className="btn-editar-perfil-mock" style={{ position: 'absolute', right: '20px', top: '15px', backgroundColor: '#1A5AFF', color: '#fff', border: 'none', padding: '6px 16px', borderRadius: '6px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <img src={IconeEditar} alt="" style={{ width: '14px', height: '14px', filter: 'brightness(0) invert(1)' }} /> Editar
-          </button>
+
+          {editandoDados ? (
+            <div style={{ position: 'absolute', right: '20px', top: '15px', display: 'flex', gap: '8px' }}>
+              <button type="button" className="btn-cancelar-perfil" onClick={cancelarEdicaoDados}>
+                Cancelar
+              </button>
+              <button type="button" className="btn-salvar-perfil" onClick={salvarEdicaoDados}>
+                Salvar
+              </button>
+            </div>
+          ) : (
+            <button type="button" className="btn-editar-perfil-mock" style={{ position: 'absolute', right: '20px', top: '15px' }} onClick={iniciarEdicaoDados}>
+              <img src={IconeEditar} alt="" style={{ width: '14px', height: '14px', filter: 'brightness(0) invert(1)' }} /> Editar
+            </button>
+          )}
         </div>
-        
+
         <div className="info-grid" style={{ paddingTop: '0.5rem' }}>
-          <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto} />
-          <InfoField label="CPF:" value={dadosPerfil?.cpf} />
-          <InfoField label="Telefone celular:" value={dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular} />
-          <InfoField label="Endereço de e-mail:" value={dadosPerfil?.email || localStorage.getItem('@Sopro:email')} />
-          <InfoField label="Data de nascimento:" value={formatarDataBR(dadosPerfil?.dataNascimento)} />
+          <InfoField
+            label="Nome completo:"
+            value={editandoDados ? formDados.nomeCompleto : dadosPerfil?.nomeCompleto}
+            editando={editandoDados}
+            onChange={(v) => setFormDados((f) => ({ ...f, nomeCompleto: v }))}
+          />
+          <InfoField
+            label="CPF:"
+            value={editandoDados ? formDados.cpf : dadosPerfil?.cpf}
+            editando={editandoDados}
+            onChange={(v) => setFormDados((f) => ({ ...f, cpf: v }))}
+          />
+          <InfoField
+            label="Telefone celular:"
+            value={editandoDados ? formDados.telefoneCelular : (dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular)}
+            editando={editandoDados}
+            onChange={(v) => setFormDados((f) => ({ ...f, telefoneCelular: v }))}
+          />
+          <InfoField
+            label="Endereço de e-mail:"
+            value={editandoDados ? formDados.email : (dadosPerfil?.email || localStorage.getItem('@Sopro:email'))}
+            editando={editandoDados}
+            type="email"
+            onChange={(v) => setFormDados((f) => ({ ...f, email: v }))}
+          />
+          <InfoField
+            label="Data de nascimento:"
+            value={editandoDados ? formDados.dataNascimento : formatarDataBR(dadosPerfil?.dataNascimento)}
+            editando={editandoDados}
+            type={editandoDados ? "date" : "text"}
+            onChange={(v) => setFormDados((f) => ({ ...f, dataNascimento: v }))}
+          />
         </div>
       </motion.section>
 
       {/* Endereço ── */}
-      <motion.section 
-        className="card" 
+      <motion.section
+        className="card"
         aria-label="Endereço"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
         style={{ position: 'relative' }}
       >
-        <div style={{ display: 'flex', justifyContent: 'between', alignItems: 'center', borderBottom: '0.5px solid #e5e5e5', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '0.5px solid #e5e5e5', marginBottom: '1rem' }}>
           <p className="section-heading" style={{ borderBottom: 'none', marginBottom: 0, color: '#1D252A' }}>Endereço</p>
-          <button type="button" className="btn-editar-perfil-mock" style={{ position: 'absolute', right: '20px', top: '15px', backgroundColor: '#1A5AFF', color: '#fff', border: 'none', padding: '6px 16px', borderRadius: '6px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <img src={IconeEditar} alt="" style={{ width: '14px', height: '14px', filter: 'brightness(0) invert(1)' }} /> Editar
-          </button>
+
+          {editandoEndereco ? (
+            <div style={{ position: 'absolute', right: '20px', top: '15px', display: 'flex', gap: '8px' }}>
+              <button type="button" className="btn-cancelar-perfil" onClick={cancelarEdicaoEndereco}>
+                Cancelar
+              </button>
+              <button type="button" className="btn-salvar-perfil" onClick={salvarEdicaoEndereco}>
+                Salvar
+              </button>
+            </div>
+          ) : (
+            <button type="button" className="btn-editar-perfil-mock" style={{ position: 'absolute', right: '20px', top: '15px' }} onClick={iniciarEdicaoEndereco}>
+              <img src={IconeEditar} alt="" style={{ width: '14px', height: '14px', filter: 'brightness(0) invert(1)' }} /> Editar
+            </button>
+          )}
         </div>
-        
+
         <div className="info-grid" style={{ paddingTop: '0.5rem' }}>
-          <InfoField label="Logradouro:" value={logradouro} />
-          <InfoField label="Complemento:" value={complemento} />
-          <InfoField label="Bairro:" value={dadosPerfil?.bairro || "—"} />
-          <InfoField label="Cidade/UF:" value={dadosPerfil?.cidadeEstado || "—"} />
-          <InfoField label="CEP:" value={dadosPerfil?.cep || "—"} />
+          <InfoField
+            label="Logradouro:"
+            value={editandoEndereco ? formEndereco.logradouro : logradouro}
+            editando={editandoEndereco}
+            onChange={(v) => setFormEndereco((f) => ({ ...f, logradouro: v }))}
+          />
+          <InfoField
+            label="Complemento:"
+            value={editandoEndereco ? formEndereco.complemento : complemento}
+            editando={editandoEndereco}
+            onChange={(v) => setFormEndereco((f) => ({ ...f, complemento: v }))}
+          />
+          <InfoField
+            label="Bairro:"
+            value={editandoEndereco ? formEndereco.bairro : bairro}
+            editando={editandoEndereco}
+            onChange={(v) => setFormEndereco((f) => ({ ...f, bairro: v }))}
+          />
+          <InfoField
+            label="Cidade/UF:"
+            value={editandoEndereco ? formEndereco.cidadeEstado : cidadeEstado}
+            editando={editandoEndereco}
+            onChange={(v) => setFormEndereco((f) => ({ ...f, cidadeEstado: v }))}
+          />
+          <InfoField
+            label="CEP:"
+            value={editandoEndereco ? formEndereco.cep : cep}
+            editando={editandoEndereco}
+            onChange={(v) => setFormEndereco((f) => ({ ...f, cep: v }))}
+          />
         </div>
       </motion.section>
     </main>
