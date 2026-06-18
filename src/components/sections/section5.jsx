@@ -16,7 +16,7 @@ const Section5 = () =>{
                     viewport={{ once: true }}
                 >
                     <img src={playRoxo} className="playRoxo"/>
-                    <h2>Pronto pra começar?</h2>
+                    <h2>Pronto para começar?</h2>
                     <p>Descubra como a Sopro pode transformar sua relação com a tecnologia hoje.</p>
                     <div className="botoes">
                     <Link to="/suporte" style={{ textDecoration: 'none'}}>
