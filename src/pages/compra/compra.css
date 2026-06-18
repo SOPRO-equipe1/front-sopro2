@@ -3,10 +3,10 @@
    ──────────────────────────────────────────────── */
 
 .Voltar {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 12px;
-  margin-top: 30px;
+  margin-top: 100px;
   cursor: pointer;
   width: 100%;
   padding-left: 0 !important;
@@ -177,6 +177,14 @@
 
 .card-cor:hover { transform: translateY(-2px); }
 
+
+.card-cor p{
+  font-family: "poppins", sans-serif;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+}
+
+
 .card-cor > div {
   width: 100%;
   height: 36px;
@@ -199,13 +207,13 @@
 
 /* Swatches */
 .Branco   { background-color: #ffffff; border: 1.5px solid #aaa !important; }
-.Preto    { background-color: #1e293b; }
-.Vermelho { background-color: #FF0000; }
-.Roxo     { background-color: #9333EA; }
-.Laranja  { background-color: #F97316; }
-.Azul     { background-color: #1545D8; }
-.Rosa     { background-color: #FF0099; }
-.Verde    { background-color: #00C44F; }
+.Preto    { background-color: #1e293b; border: 1px solid black}
+.Vermelho { background-color: #FF0000; border: 1px solid black }
+.Roxo     { background-color: #9333EA; border: 1px solid black}
+.Laranja  { background-color: #F97316; border: 1px solid black}
+.Azul     { background-color: #1545D8; border: 1px solid black}
+.Rosa     { background-color: #FF0099; border: 1px solid black}
+.Verde    { background-color: #00C44F; border: 1px solid black}
 
 /* Label cor selecionada */
 .cor-escolhida-label {
@@ -295,7 +303,7 @@
   border-radius: 16px !important;
   padding: 22px 0;
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   letter-spacing: 2px;
   box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
@@ -353,10 +361,26 @@
    MOBILE (≤ 480px)
    ──────────────────────────────────────────────── */
 @media (max-width: 480px) {
-  .Voltar { padding-left: 0 !important; }
+  .Voltar { 
+    font-size: 1.4rem;
+    padding-left: 0 !important; 
+  }
 
-  .Produto2 { flex-wrap: wrap; }
-  .Produto2 img { width: 88px; height: 88px; }
+
+  .Titulo{
+    padding: 0 20px;
+  }
+  .Produto2 { 
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  .Produto2 img { 
+    width: 80px; 
+    height: 80px; 
+  }
 
   .Titulo { margin: 10px 0 12px 0; font-size: 1.8rem; }
 
