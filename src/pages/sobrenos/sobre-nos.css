@@ -115,7 +115,10 @@ hr {
 
 @media (max-width: 480px) {
   .Seção1 {
+    min-height: 320px !important; 
     background-position: center 60% !important; /* foca no produto */
+    background-size: cover;
+
   }
 
   .QuadradoVerde1 {
