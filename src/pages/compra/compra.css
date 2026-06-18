@@ -344,7 +344,10 @@
 
   .Descrição { margin: 0 0 20px 0; text-align: left; }
 
-  .linha1 { margin: 0 0 22px 0 !important; width: 100%; }
+  .linha1 { margin: 0 0 22px 0 !important; 
+    width: 65%; 
+    align-self: center;
+  }
 
   .Paletadecores { align-self: flex-start; }
 
@@ -366,10 +369,10 @@
     padding-left: 0 !important; 
   }
 
-
   .Titulo{
     padding: 0 20px;
   }
+
   .Produto2 { 
     display: flex;
     flex-wrap: nowrap;
