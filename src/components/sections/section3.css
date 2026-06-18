@@ -21,6 +21,8 @@ body {
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
+    color: var(--cor-preto) !important;
+    line-height: 1;
 }
 
 .section3 .saibaMaisLaranja{
@@ -35,10 +37,15 @@ body {
     width: 100%;
     font-weight: 500;
     overflow: hidden;
-    gap: 50px;
+    gap: 32px;
     font-size: 2rem;
     font-weight: 500;
     font-family: "Poppins", sans-serif;
+}
+
+.section3 .saibaMaisLaranja {
+    margin-top: -8px !important;
+    
 }
 
 .textos_section3 h2 {
@@ -106,8 +113,39 @@ body {
     gap: 16px;
 
 }
+
+.produtoTitulo{
+    gap: 46px;
+}
+
+
+.produtoTitulo h2{
+    font-size: 40px;
+    letter-spacing: -2px;
+}
+
 .produtoeicone{
     gap: 0;
+
+    & h3{
+        font-family: "Poppins", sans-serif;
+        font-size: 24px;
+        color: #394852;
+        letter-spacing: -2px;
+    }
+}
+.sensiveleaprende .arAzul{
+    margin: 0;
+}
+
+.text{
+    font-size: 20px !important;
+    color: #1D252A;
+}
+
+.sensiveleaprende p{
+    font-size: 20px;
+    max-width: 402px;
 }
 
 .produtoeicone, .sensivel, .aprende { flex-direction: row; align-items: center; }
@@ -120,8 +158,6 @@ body {
     flex-shrink: 0;
     
 }
-
-.sensivel p, .aprende p { font-size: 25px; max-width: 280px; }
 
 .imgSection3 { width: 100%; max-width: 580px; height: auto; object-fit: contain; display: block; }
 
