@@ -1,4 +1,4 @@
-import icone from '../../../assets/images/chatbot/soprinho2.svg';
+import icone from '../../../assets/images/chatbot/iconeSoprinhovs2.svg';
 import logo from '../../../assets/images/chatbot/logo_sopro.svg';
 import fechar from '../../../assets/images/chatbot/botao_fechar.svg';
 import './soprinho.css';
@@ -60,7 +60,7 @@ function Soprinho() {
                                 <main className={"container_chatbot"}>
                                     <div className="area_de_perguntas">
                                         <img src={icone} alt='Icone do soprinho na area do chatbot' className='icone_area_de_perguntas'/>
-                                        <h2> Oi, eu sou o soprinho!💙 <br /> Como posso te ajudar?</h2>
+                                        <h2> Oi, eu sou o soprinho!🧡 <br /> Como posso te ajudar?</h2>
                                     </div>
                                     <div className='sugestoes'>
                                         <button 

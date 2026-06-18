@@ -119,7 +119,7 @@ function Produto() { // 2. Cria a função (Componente)
             >
               <div className="compra-card">
                   <img src={fotoCompra} alt="Sopro na mão" className="foto-compra" />
-                  <h2 className="preco">R$ 200,97 </h2>
+                  <h2 className="preco">R$ 350,50 </h2>
                   <Link to="/compra">
                       <button className="botao-comprar btn-suave-global">COMPRAR</button>
                   </Link>
