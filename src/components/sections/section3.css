@@ -150,16 +150,47 @@ body {
 
 .produtoeicone, .sensivel, .aprende { flex-direction: row; align-items: center; }
 
-.produtoeicone img, .sensivel img, .aprende img {
+.sensivel img, .aprende img {
+    width: 40px; 
+    min-width: 40px; 
+    height: auto; 
+    object-fit: contain; 
+    flex-shrink: 0;   
+}
+
+.produtoeicone img{
     width: 48px; 
     min-width: 48px; 
     height: auto; 
     object-fit: contain; 
-    flex-shrink: 0;
-    
+    flex-shrink: 0; 
 }
 
-.imgSection3 { width: 100%; max-width: 580px; height: auto; object-fit: contain; display: block; }
+.imgSection3 { 
+    width: 100%; 
+    max-width: 720px; 
+    height: auto; 
+    object-fit: contain; 
+    display: block; 
+}
+
+@media (min-width: 769px) and (max-width: 2000px) {
+    .section3{
+        width: 100%;
+        max-width: 2000px;
+    }
+    .textos_section3{
+        margin-left: 4%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1053px) {
+    .imgSection3{
+        width: 460px;
+        height: auto;
+    }
+}
+
 
 @media (max-width: 768px) {
 
