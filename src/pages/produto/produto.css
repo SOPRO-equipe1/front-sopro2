@@ -382,6 +382,9 @@ h1 {
     height: auto;
     border-radius: 15px;
     margin-bottom: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .preco {
@@ -438,6 +441,7 @@ h1 {
     max-width: 400px;
     height: auto;
     border-radius: 20px;
+    align-self: center !important;
 }
 
 }
@@ -580,6 +584,23 @@ h1 {
     }
     
 }
+
+@media (min-width: 760px) and (max-width: 1180px) {
+
+    .produto-content {
+        min-height: auto;
+        padding: 40px 0;
+        align-items: center;
+    }
+
+    .fotoHero {
+    max-width: 45%;
+    align-self: center !important;
+    margin: 20px auto !important;
+  }
+}
+
+
 /* Espaço para o botão VLibras + margem de segurança */
 @media (max-width: 768px) {
   .conheca-produto,
@@ -601,4 +622,5 @@ h1 {
     width: 100% !important;
     max-width: 100% !important;
   }
+
 }
