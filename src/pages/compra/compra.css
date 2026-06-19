@@ -73,17 +73,16 @@
 
 /* Miniaturas */
 .Produto2 {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
   width: 100%;
 }
 
 .Produto2 img {
-  
-  width: 110px;
-  height: 110px;
+  flex: 1 1 0;  
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 12px;
   border: 2px solid #e2e8f0;
@@ -367,15 +366,65 @@
    Tablet (≥ 769px)
    ──────────────────────────────────────────────── */
 
-@media (min-width: 769px) and (max-width: 1180px) {
+@media (min-width: 500px) and (max-width: 899px) {
   
+
+   .Produto-Container {
+    align-items: center;
+  }
+
+   .Coluna-Fotos {
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+
+  .Foto-Principal-Wrapper{
+    max-width: 600px;
+  }
+
   .Produto2 img {
-    max-width: 200px;
+    width: 100%;
+    height: 100%;
   }
 
     .Produto2 {
+    max-width: 600px;
+    margin: 0 auto;
     gap: clamp(8px, 3vw, 24px);
+    justify-content: center;
+    margin: 0 auto;
+
   }
+
+    .Titulo {
+  padding: 20px 20px 0 20px;
+  margin-top: 0;
+}
+
+.Descrição {
+  max-width: 500px;
+}
+
+  .Name {
+  align-self: center;
+  text-align: center;
+}
+
+  .Paletadecores {
+  max-width: 600px;
+}
+
+.card-quantidade {
+  justify-content: center;
+  align-self: center;
+}
+
+  .linha1 {
+  max-width: 500px;
+  margin: 0 auto 25px auto !important;
+}
 
 }
 
