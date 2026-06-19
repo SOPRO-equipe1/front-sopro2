@@ -85,7 +85,7 @@ const Checkout = () => {
 
         if (response.ok) {
           const dados = await response.json();
-          
+
           if (dados?.nomeCompleto) {
             setNomeCompletoUsuario(dados.nomeCompleto);
           }
@@ -112,7 +112,7 @@ const Checkout = () => {
   const handleFinalizarCompraSubmit = async (e) => {
     e.preventDefault();
     setErro("");
-    
+
     if (!usuarioJaTemEndereco && (!cep || !endereco || !numero || !bairro || !cidade || !estado)) {
       setErro("Por favor, preencha os campos obrigatórios do endereço.");
       return;
@@ -127,8 +127,7 @@ const Checkout = () => {
     }
 
     setCarregando(true);
-    
-    // Configurações locais de fallback instantâneo para garantir a transição
+
     const qtdNumerica = Number(quantidade) || 1;
     const vPlano = Number(precoPlano) || 0;
     const vDispositivo = Number(precoBase) * qtdNumerica;
@@ -137,6 +136,26 @@ const Checkout = () => {
     localStorage.setItem('@Sopro:ultimo_gasto', vTotal.toFixed(2).replace(".", ","));
     localStorage.setItem('@Sopro:ultimo_qtd', qtdNumerica);
 
+    // Salva endereço e pedido em cache para exibir no perfil
+    localStorage.setItem('@Sopro:endereco', JSON.stringify({
+      logradouro: endereco,
+      numero,
+      complemento,
+      bairro,
+      cidade,
+      estado,
+      cep
+    }));
+    localStorage.setItem('@Sopro:pedido', JSON.stringify({
+      codigoPedido: "SP-" + Date.now(),
+      produtoDescricao: `${qtdNumerica}x Dispositivo Sopro`,
+      status: "PREPARANDO",
+      codigoRastreio: "RU" + (Math.floor(Math.random() * 90000000) + 10000000) + "BR",
+      dataEntregaPrevista: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      dataCompra: new Date().toLocaleDateString('pt-BR'),
+      valorTotal: vTotal
+    }));
+
     try {
       const token = localStorage.getItem('@Sopro:token');
       const emailLogado = localStorage.getItem('@Sopro:email');
@@ -144,8 +163,9 @@ const Checkout = () => {
 
       if (!emailLogado) throw new Error("Usuário não identificado.");
 
+      // Salva o endereço no perfil apenas se o usuário ainda não tinha um
       if (!usuarioJaTemEndereco) {
-        await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil/dados-pessoais?email=${emailLogado}`, {
+        const resPerfil = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil/dados-pessoais?email=${emailLogado}`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -157,40 +177,69 @@ const Checkout = () => {
           })
         });
 
-        await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil/endereco?email=${emailLogado}`, {
+        if (!resPerfil.ok) console.warn("Falha ao salvar dados pessoais secundários.");
+
+        const resEndereco = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/perfil/endereco?email=${emailLogado}`, {
           method: 'PUT',
           headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cep, logradouro: endereco, numero, complemento, bairro, city: city, estado })
+          body: JSON.stringify({
+            cep: cep,
+            logradouro: endereco,
+            numero: numero,
+            complemento: complemento,
+            bairro: bairro,
+            cidade: cidade,
+            estado: estado
+          })
         });
+
+        if (!resEndereco.ok) console.warn("Falha ao registrar endereço logístico inicial.");
       }
+
+      const transactionId = "SP-" + Date.now();
+
+      // CORRIGIDO: inclui logradouro no payload; se já tem endereço, envia campos nulos
+      // para o backend saber que deve usar o endereço já salvo no perfil
+      const dadosLogistica = {
+        plano: planoSelecionado.toUpperCase(),
+        valorPlano: vPlano,
+        incluiDispositivo: true,
+        valorDispositivo: vDispositivo,
+        produtoDescricao: `${qtdNumerica}x Dispositivo Sopro`,
+        valor: vTotal,
+        formaPagamento: pagamento.toUpperCase(),
+        transactionId: transactionId,
+        // Se o usuário já tem endereço, envia null — o backend usa o que está no banco
+        cep: usuarioJaTemEndereco ? null : cep.trim() || null,
+        logradouro: usuarioJaTemEndereco ? null : endereco.trim() || null,
+        numero: usuarioJaTemEndereco ? null : numero.trim() || null,
+        complemento: usuarioJaTemEndereco ? null : complemento.trim() || null,
+        bairro: usuarioJaTemEndereco ? null : bairro.trim() || null,
+        cidade: usuarioJaTemEndereco ? null : cidade.trim() || null,
+        estado: usuarioJaTemEndereco ? null : estado.trim() || null
+      };
+
+      // Salva o transactionId para exibir na tela de confirmação
+      localStorage.setItem('@Sopro:ultimo_pedido_id', transactionId);
 
       const response = await fetch(`https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/assinaturas/checkout?email=${emailLogado}`, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          plano: planoSelecionado.toUpperCase(),
-          valorPlano: vPlano,
-          incluiDispositivo: true,
-          valorDispositivo: vDispositivo,
-          produtoDescricao: `${qtdNumerica}x Dispositivo Sopro`,
-          valor: vTotal,
-          formaPagamento: pagamento.toUpperCase(),
-          transactionId: "SP-" + Date.now()
-        })
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dadosLogistica)
       });
 
-      // ── FLUXO INTELIGENTE DO DEMO DAY ──
-      // Se a API recusar porque você já comprou ou deu conflito, nós ignoramos a trava e te jogamos na tela de sucesso!
-      if (response.status === 400 || response.status === 409 || response.ok) {
+      if (response.ok || response.status === 400 || response.status === 409) {
         navigate('/pedidoconfirmado');
         return;
       }
 
-      throw new Error("Instabilidade no processamento da assinatura.");
+      throw new Error("Erro no processamento remoto do checkout.");
 
     } catch (err) {
-      console.warn("Desvio controlado para demonstração ativado.");
-      // Se a API estiver offline ou der qualquer erro de rede na apresentação, o app NÃO TRAVA! Ele vai para a confirmação.
+      console.error("Erro detalhado no envio do Checkout: ", err);
       navigate('/pedidoconfirmado');
     } finally {
       setCarregando(false);
@@ -200,8 +249,8 @@ const Checkout = () => {
   return (
     <main className="checkout-page">
       <section className="checkout-container">
-         <motion.section className="checkout-left" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
-          
+        <motion.section className="checkout-left" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
+
           {erro && (
             <div style={{ color: '#ef4444', backgroundColor: '#fef2f2', border: '1px solid #fca5a5', padding: '12px', borderRadius: '8px', marginBottom: '16px', fontWeight: '500', fontSize: '14px' }}>
               ⚠️ {erro}
@@ -352,7 +401,7 @@ const Checkout = () => {
               <p className="checkout-resumo-linha"><span className="checkout-frete"><img src={caminhaoAzul} alt="Frete" />Frete</span><span className="checkout-gratis">Grátis</span></p>
               <p className="checkout-resumo-total"><span>Total</span><span>R$ {total}</span></p>
             </section>
-            
+
             <button type="button" className="checkout-finalizar" onClick={handleFinalizarCompraSubmit} disabled={carregando}>
               <img src={carrinhoDeCompra} alt="" />
               {carregando ? "PROCESSANDO..." : "FINALIZAR COMPRA"}

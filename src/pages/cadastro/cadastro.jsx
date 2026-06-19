@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './cadastro.css';
 import '../../context/auth/auth-extras.css';
@@ -25,9 +25,6 @@ const CadastroContent = () => {
     senha: '',
     confirmarSenha: ''
   });
-
-  // Referência para controlar o container do botão oculto do Google
-  const googleCadastroRef = useRef(null);
 
   const validarCampoAoSair = (nomeCampo, valor) => {
     let mensagemErro = '';
@@ -113,6 +110,32 @@ const CadastroContent = () => {
     }
   };
 
+  // Processa o credential (ID Token) retornado pelo componente GoogleLogin
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setCarregando(true);
+    setErroGeral('');
+    try {
+      const res = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: credentialResponse.credential })
+      });
+
+      if (!res.ok) throw new Error('Falha no cadastro/login com o Google.');
+
+      const dadosAPI = await res.json();
+      localStorage.setItem('@Sopro:token', dadosAPI.token);
+      localStorage.setItem('@Sopro:email', dadosAPI.email);
+      localStorage.setItem('@Sopro:nome', dadosAPI.nome);
+
+      navigate('/perfil');
+    } catch (err) {
+      setErroGeral('Erro na autenticação com o Google.');
+    } finally {
+      setCarregando(false);
+    }
+  };
+
   return (
     <main className="cadastro-page">
       <section className="cadastro-container">
@@ -153,51 +176,13 @@ const CadastroContent = () => {
           <p className="login-divider-label">Cadastrar com</p>
           
           <nav className="login-social" aria-label="Cadastro social">
-           
-            <button 
-              type="button" 
-              className="social-btn social-btn--google" 
-              onClick={() => {
-                const btnNativo = googleCadastroRef.current?.querySelector('button') || googleCadastroRef.current?.querySelector('[role="button"]');
-                if (btnNativo) {
-                  btnNativo.click();
-                }
-              }} 
-              disabled={carregando}
-            >
-              <img src={logoGoogle} alt="" aria-hidden="true" /> 
-              Continuar com Google
-            </button>
-
-            
-            <div style={{ display: 'none' }} ref={googleCadastroRef}>
-              <GoogleLogin
-                onSuccess={async (credentialResponse) => {
-                  setCarregando(true);
-                  try {
-                    const res = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ token: credentialResponse.credential })
-                    });
-
-                    if (!res.ok) throw new Error('Falha na validação do Google com o Azure.');
-                    const dados = await res.json();
-
-                    localStorage.setItem('@Sopro:token', dados.token);
-                    localStorage.setItem('@Sopro:email', dados.email);
-                    localStorage.setItem('@Sopro:nome', dados.nome);
-
-                    navigate('/perfil');
-                  } catch (err) {
-                    setErroGeral('Erro na autenticação e gravação com o Google.');
-                  } finally {
-                    setCarregando(false);
-                  }
-                }}
-                onError={() => setErroGeral('Cadastro com o Google falhou.')}
-              />
-            </div>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => setErroGeral('Cadastro com o Google falhou.')}
+              text="signup_with"
+              shape="rectangular"
+              locale="pt-BR"
+            />
           </nav>
 
           <p className="cadastro-login">

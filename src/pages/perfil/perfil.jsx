@@ -117,21 +117,9 @@ export default function MinhaConta() {
   }
 
 
-  let pedidoAtivo = dadosPerfil?.ultimoPedido; 
-
-  
-  if (!pedidoAtivo && (dadosPerfil?.plano === "Plano Premium" || localStorage.getItem('@Sopro:ultimo_gasto'))) {
-    pedidoAtivo = {
-      codigoPedido: "#SP-2026-01",
-      produtoDescricao: "1x Dispositivo Sopro - Cor Preta",
-      status: "PREPARANDO",
-      codigoRastreio: "RU182121051419BR",
-      dataEntregaPrevista: "2026-06-22", 
-      dataCompra: obterDataHojeBR(), 
-      valorTotal: 200.97
-    };
-  }
-
+  // Pedido: prioriza o cache salvo no checkout, depois tenta o banco
+  const pedidoCache = JSON.parse(localStorage.getItem('@Sopro:pedido') || 'null');
+  const pedidoAtivo = dadosPerfil?.ultimoPedido || pedidoCache || null;
   const temPedido = !!pedidoAtivo;
 
   const obterStatusIndex = (statusString) => {
@@ -148,25 +136,15 @@ export default function MinhaConta() {
 
   const statusAtualIndex = obterStatusIndex(pedidoAtivo?.status);
 
-  
-  
-  const enderecoCompletoBruto = dadosPerfil?.enderecoCompleto || "";
-  
-  let logradouro = "—";
-  let complemento = "—";
-  
- 
-  if (enderecoCompletoBruto && enderecoCompletoBruto !== "Endereço não preenchido") {
-   
-    const partes = enderecoCompletoBruto.split(" - ");
-    logradouro = partes[0] || "—";
-    complemento = partes[1] || "—";
-  }
-
-  
-  const bairro = dadosPerfil?.bairro || "—";
-  const cidadeEstado = dadosPerfil?.cidadeEstado || "—";
-  const cep = dadosPerfil?.cep || "—";
+  // Endereço: lê do cache salvo no checkout
+  const enderecoCache = JSON.parse(localStorage.getItem('@Sopro:endereco') || 'null');
+  const logradouro = enderecoCache?.logradouro || "—";
+  const complemento = enderecoCache?.complemento || "—";
+  const bairro = enderecoCache?.bairro || "—";
+  const cidadeEstado = enderecoCache?.cidade && enderecoCache?.estado
+    ? `${enderecoCache.cidade}, ${enderecoCache.estado}`
+    : (dadosPerfil?.cidadeEstado || "—");
+  const cep = enderecoCache?.cep || "—";
 
   return (
     <main className="page">
