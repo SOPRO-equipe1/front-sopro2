@@ -497,7 +497,7 @@ export default function MinhaConta() {
     return dataString;
   };
 
-  const obtenerDataHojeBR = () => {
+  const obterDataHojeBR = () => {
     const hoje = new Date();
     const dia = String(hoje.getDate()).padStart(2, '0');
     const mes = String(hoje.getMonth() + 1).padStart(2, '0');
@@ -524,7 +524,7 @@ export default function MinhaConta() {
       status: "PREPARANDO",
       codigoRastreio: "RU182121051419BR",
       dataEntregaPrevista: "2026-06-22",
-      dataCompra: obtenerDataHojeBR(),
+      dataCompra: obterDataHojeBR(),
       valorTotal: 200.97
     };
   }
