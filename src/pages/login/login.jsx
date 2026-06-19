@@ -5,16 +5,17 @@ import logo from '../../assets/icons/logo.png';
 import logoGoogle from '../../assets/icons/logoGoogle.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useAuth } from '../../context/auth/authContext.jsx'; 
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { useAuth } from '../../context/auth/authContext.jsx';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../../context/auth/firebase.js';
 
-const LoginContent = () => {
+const Login = () => {
   const [usuarioInput, setUsuarioInput] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth(); 
+  const { login } = useAuth();
 
   const processarSessaoAposLogin = async (token, email, nome) => {
     localStorage.setItem('@Sopro:token', token);
@@ -38,7 +39,7 @@ const LoginContent = () => {
     e.preventDefault();
     setErro('');
     if (!usuarioInput.trim() || !senha) { setErro('Preencha todos os campos.'); return; }
-    
+
     setCarregando(true);
     try {
       const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
@@ -48,7 +49,7 @@ const LoginContent = () => {
       });
 
       if (!response.ok) throw new Error('E-mail ou senha incorretos.');
-      const dados = await response.json(); 
+      const dados = await response.json();
 
       await processarSessaoAposLogin(dados.token, dados.email, dados.email.split('@')[0]);
     } catch (err) {
@@ -58,23 +59,29 @@ const LoginContent = () => {
     }
   };
 
-  
-  const handleGoogleSuccess = async (credentialResponse) => {
-    setCarregando(true);
+  /* Login com Google via Firebase Auth (popup) — não depende do backend Java/Azure */
+  const handleGoogleLogin = async () => {
     setErro('');
+    setCarregando(true);
     try {
-      const res = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: credentialResponse.credential })
-      });
+      const resultado = await signInWithPopup(auth, googleProvider);
+      const usuarioGoogle = resultado.user;
+      const tokenFirebase = await usuarioGoogle.getIdToken();
 
-      if (!res.ok) throw new Error('Falha na autenticação com o Google.');
-
-      const dadosAPI = await res.json();
-      await processarSessaoAposLogin(dadosAPI.token, dadosAPI.email, dadosAPI.nome);
+      await processarSessaoAposLogin(
+        tokenFirebase,
+        usuarioGoogle.email,
+        usuarioGoogle.displayName || usuarioGoogle.email.split('@')[0]
+      );
     } catch (err) {
-      setErro('Erro na autenticação com o Google.');
+      if (err.code === 'auth/popup-closed-by-user') {
+        // usuário cancelou; não exibe erro
+      } else if (err.code === 'auth/unauthorized-domain') {
+        setErro('Este domínio não está autorizado no Firebase. Avise o time técnico.');
+      } else {
+        setErro('Erro na autenticação com o Google.');
+        console.error('Erro no login com Google:', err);
+      }
     } finally {
       setCarregando(false);
     }
@@ -110,13 +117,10 @@ const LoginContent = () => {
           <p className="login-divider-label">Entrar com outros</p>
 
           <nav className="login-social" aria-label="Login social">
-            <GoogleLogin
-              onSuccess={handleGoogleSuccess}
-              onError={() => setErro('Login com o Google falhou.')}
-              text="signin_with"
-              shape="rectangular"
-              locale="pt-BR"
-            />
+            <button type="button" className="social-btn social-btn--google" onClick={handleGoogleLogin} disabled={carregando}>
+              <img src={logoGoogle} alt="" aria-hidden="true" />
+              {carregando ? 'Entrando...' : 'Entrar com Google'}
+            </button>
           </nav>
         </motion.article>
 
@@ -127,11 +131,5 @@ const LoginContent = () => {
     </main>
   );
 };
-
-const Login = () => (
-  <GoogleOAuthProvider clientId="668261340880-j3djh4lugbo1kb0hs3if8g9734q1u7kl.apps.googleusercontent.com">
-    <LoginContent />
-  </GoogleOAuthProvider>
-);
 
 export default Login;
