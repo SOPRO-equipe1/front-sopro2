@@ -17,13 +17,13 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const processarSessaoAposLogin = async (token, email, nome) => {
+  const processarSessaoAposLogin = async (token, email, nome, foto = null) => {
     localStorage.setItem('@Sopro:token', token);
     localStorage.setItem('@Sopro:email', email);
     localStorage.setItem('@Sopro:nome', nome);
 
     if (login) {
-      await login(email, nome);
+      await login(email, nome, foto);
     }
 
     const temIntencaoCompra = localStorage.getItem('@Sopro:intencao_compra') === 'true';
@@ -71,7 +71,8 @@ const Login = () => {
       await processarSessaoAposLogin(
         tokenFirebase,
         usuarioGoogle.email,
-        usuarioGoogle.displayName || usuarioGoogle.email.split('@')[0]
+        usuarioGoogle.displayName || usuarioGoogle.email.split('@')[0],
+        usuarioGoogle.photoURL
       );
     } catch (err) {
       if (err.code === 'auth/popup-closed-by-user') {

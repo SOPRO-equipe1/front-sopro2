@@ -6,6 +6,7 @@ import Iconecaminhao from '../../assets/images/perfil/icone_caminhao_perfil.svg'
 import Iconesclamacao from '../../assets/images/perfil/icone_esclamacao_perfil.svg';
 import IconeEditar from '../../assets/icons/ic_baseline-mode-edit.svg';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../context/auth/authContext.jsx';
 
 const STATUS_STEPS = ["Confirmado", "Preparando", "Em transporte", "Entregue"];
 
@@ -15,10 +16,14 @@ const ESTADOS_BR = [
   "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
 ];
 
-function Avatar() {
+function Avatar({ photoURL, name }) {
   return (
     <figure className="avatar-perfil">
-      <img src={SoprinhoImg} alt="Avatar do usuário" />
+      <img
+        src={photoURL || SoprinhoImg}
+        alt={`Foto de perfil de ${name || 'usuário'}`}
+        onError={(e) => { e.currentTarget.src = SoprinhoImg; }}
+      />
     </figure>
   );
 }
@@ -388,6 +393,7 @@ function ModalEndereco({ form, setForm, onClose, onSalvar, buscandoCep }) {
 
 export default function MinhaConta() {
   const navigate = useNavigate();
+  const { usuario } = useAuth();
   const [carregando, setCarregando] = useState(true);
   const [dadosPerfil, setDadosPerfil] = useState(null);
 
@@ -562,8 +568,8 @@ export default function MinhaConta() {
   /* ── Abertura dos modais ── */
   const abrirModalDados = () => {
     setFormDados({
-      email: dadosPerfil?.email || localStorage.getItem('@Sopro:email') || '',
-      nomeCompleto: dadosPerfil?.nomeCompleto || '',
+      email: dadosPerfil?.email || usuario?.email || localStorage.getItem('@Sopro:email') || '',
+      nomeCompleto: dadosPerfil?.nomeCompleto || usuario?.displayName || '',
       cpf: dadosPerfil?.cpf || '',
       dataNascimento: dadosPerfil?.dataNascimento || '',
       telefoneCelular: dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular || '',
@@ -645,9 +651,9 @@ export default function MinhaConta() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Avatar />
+        <Avatar photoURL={usuario?.photoURL} name={dadosPerfil?.nomeCompleto || usuario?.displayName} />
         <div className="profile-info">
-          <p className="profile-name">{dadosPerfil?.nomeCompleto || "Nome não cadastrado"}</p>
+          <p className="profile-name">{dadosPerfil?.nomeCompleto || usuario?.displayName || "Nome não cadastrado"}</p>
           <span className="badge-pro">
             {dadosPerfil?.plano === "Plano Premium" ? "Plano Pro" : (dadosPerfil?.plano || "Plano Free")}
           </span>
@@ -733,10 +739,10 @@ export default function MinhaConta() {
         </div>
 
         <div className="info-grid" style={{ paddingTop: '0.5rem' }}>
-          <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto} />
+          <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto || usuario?.displayName} />
           <InfoField label="CPF:" value={dadosPerfil?.cpf} />
           <InfoField label="Telefone celular:" value={dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular} />
-          <InfoField label="Endereço de e-mail:" value={dadosPerfil?.email || localStorage.getItem('@Sopro:email')} />
+          <InfoField label="Endereço de e-mail:" value={dadosPerfil?.email || usuario?.email || localStorage.getItem('@Sopro:email')} />
           <InfoField label="Data de nascimento:" value={formatarDataBR(dadosPerfil?.dataNascimento)} />
         </div>
       </motion.section>
