@@ -68,11 +68,21 @@ const Login = () => {
       const usuarioGoogle = resultado.user;
       const tokenFirebase = await usuarioGoogle.getIdToken();
 
+      // O photoURL no nível raiz às vezes vem vazio; o providerData do Google é mais confiável
+      const fotoGoogle =
+        usuarioGoogle.photoURL ||
+        usuarioGoogle.providerData?.find((p) => p.providerId === 'google.com')?.photoURL ||
+        null;
+
+      console.log('[DEBUG login Google] photoURL raiz:', usuarioGoogle.photoURL);
+      console.log('[DEBUG login Google] providerData:', usuarioGoogle.providerData);
+      console.log('[DEBUG login Google] foto escolhida:', fotoGoogle);
+
       await processarSessaoAposLogin(
         tokenFirebase,
         usuarioGoogle.email,
         usuarioGoogle.displayName || usuarioGoogle.email.split('@')[0],
-        usuarioGoogle.photoURL
+        fotoGoogle
       );
     } catch (err) {
       if (err.code === 'auth/popup-closed-by-user') {
