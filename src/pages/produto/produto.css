@@ -594,9 +594,24 @@ h1 {
     }
 
     .fotoHero {
-    max-width: 45%;
+    max-width: 70%;
     align-self: center !important;
     margin: 20px auto !important;
+  }
+
+  .galeria-fotos {
+    max-width: 700px;
+  }
+
+  .galeria-fotos img:nth-child(1),
+  .galeria-fotos img:nth-child(2),
+  .galeria-fotos img:nth-child(3),
+  .galeria-fotos img:nth-child(4) {
+    height: 16rem;
+  }
+
+  .texto2{
+    font-size: 1.4rem;
   }
 }
 
