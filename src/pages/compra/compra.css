@@ -81,6 +81,7 @@
 }
 
 .Produto2 img {
+  
   width: 110px;
   height: 110px;
   object-fit: cover;
@@ -322,6 +323,8 @@
   transform: translateY(-1px);
 }
 
+
+
 /* ────────────────────────────────────────────────
    DESKTOP (≥ 900px)
    ──────────────────────────────────────────────── */
@@ -361,6 +364,22 @@
 }
 
 /* ────────────────────────────────────────────────
+   Tablet (≥ 769px)
+   ──────────────────────────────────────────────── */
+
+@media (min-width: 769px) and (max-width: 1180px) {
+  
+  .Produto2 img {
+    max-width: 200px;
+  }
+
+    .Produto2 {
+    gap: clamp(8px, 3vw, 24px);
+  }
+
+}
+
+/* ────────────────────────────────────────────────
    MOBILE (≤ 480px)
    ──────────────────────────────────────────────── */
 @media (max-width: 480px) {
@@ -376,7 +395,7 @@
   .Produto2 { 
     display: flex;
     flex-wrap: nowrap;
-    gap: 8px;
+    gap: clamp(8px, 2vw, 16px);
     justify-content: space-between;
   }
 
