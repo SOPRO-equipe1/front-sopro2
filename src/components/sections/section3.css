@@ -21,6 +21,8 @@ body {
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
+    color: var(--cor-preto) !important;
+    line-height: 1;
 }
 
 .section3 .saibaMaisLaranja{
@@ -35,10 +37,15 @@ body {
     width: 100%;
     font-weight: 500;
     overflow: hidden;
-    gap: 50px;
+    gap: 32px;
     font-size: 2rem;
     font-weight: 500;
     font-family: "Poppins", sans-serif;
+}
+
+.section3 .saibaMaisLaranja {
+    margin-top: -8px !important;
+    
 }
 
 .textos_section3 h2 {
@@ -64,10 +71,10 @@ body {
     text-decoration: none !important;
     width: 100%;
     align-self: flex-start !important;
-    max-width: 230px;
+    max-width: 231px;
     text-align: center;
     font-family: "Poppins", sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     padding: 12px 32px;
     border-radius: 16px;
     transition: box-shadow 0.2s ease, filter 0.2s ease;
@@ -106,24 +113,84 @@ body {
     gap: 16px;
 
 }
+
+.produtoTitulo{
+    gap: 46px;
+}
+
+
+.produtoTitulo h2{
+    font-size: 40px;
+    letter-spacing: -2px;
+}
+
 .produtoeicone{
     gap: 0;
+
+    & h3{
+        font-family: "Poppins", sans-serif;
+        font-size: 24px;
+        color: #394852;
+        letter-spacing: -2px;
+    }
+}
+.sensiveleaprende .arAzul{
+    margin: 0;
+}
+
+.text{
+    font-size: 20px !important;
+    color: #1D252A;
+}
+
+.sensiveleaprende p{
+    font-size: 20px;
+    max-width: 402px;
 }
 
 .produtoeicone, .sensivel, .aprende { flex-direction: row; align-items: center; }
 
-.produtoeicone img, .sensivel img, .aprende img {
+.sensivel img, .aprende img {
+    width: 40px; 
+    min-width: 40px; 
+    height: auto; 
+    object-fit: contain; 
+    flex-shrink: 0;   
+}
+
+.produtoeicone img{
     width: 48px; 
     min-width: 48px; 
     height: auto; 
     object-fit: contain; 
-    flex-shrink: 0;
-    
+    flex-shrink: 0; 
 }
 
-.sensivel p, .aprende p { font-size: 25px; max-width: 280px; }
+.imgSection3 { 
+    width: 100%; 
+    max-width: 720px; 
+    height: auto; 
+    object-fit: contain; 
+    display: block; 
+}
 
-.imgSection3 { width: 100%; max-width: 580px; height: auto; object-fit: contain; display: block; }
+@media (min-width: 769px) and (max-width: 2000px) {
+    .section3{
+        width: 100%;
+        max-width: 2000px;
+    }
+    .textos_section3{
+        margin-left: 4%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1053px) {
+    .imgSection3{
+        width: 460px;
+        height: auto;
+    }
+}
+
 
 @media (max-width: 768px) {
 
@@ -152,7 +219,7 @@ body {
 
 
      .textos_section3 h2{
-            font-size: 1.8rem;
+            font-size: 30px;
             
      }
 

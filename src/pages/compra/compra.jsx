@@ -76,7 +76,7 @@ function Compra() {
     }
 
     localStorage.setItem('@Sopro:intencao_compra', 'true');
-    localStorage.setItem('@Sopro:ultimo_qtd', quantitative);
+    localStorage.setItem('@Sopro:ultimo_qtd', quantidade);
     if (corSelecionada) {
       localStorage.setItem('@Sopro:ultima_cor', corSelecionada);
     }
@@ -138,7 +138,7 @@ function Compra() {
               Dispositivo inteligente com processamento ESP32 que capta a pressão do ar
               e converte diferentes intensidades de sopro em comandos e frases audíveis.
             </p>
-            <p className="Preço">R$ 200,97</p>
+            <p className="Preço">R$ 350,50</p>
           </div>
 
           <hr className="linha1" />

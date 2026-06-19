@@ -3,10 +3,10 @@
    ──────────────────────────────────────────────── */
 
 .Voltar {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 12px;
-  margin-top: 30px;
+  margin-top: 100px;
   cursor: pointer;
   width: 100%;
   padding-left: 0 !important;
@@ -81,6 +81,7 @@
 }
 
 .Produto2 img {
+  
   width: 110px;
   height: 110px;
   object-fit: cover;
@@ -117,6 +118,7 @@
   margin: 0 0 16px 0;
   text-align: center;
   margin-top: 60px;
+  padding: 100px 20px 0 20px;
 }
 
 .Descrição {
@@ -176,6 +178,14 @@
 
 .card-cor:hover { transform: translateY(-2px); }
 
+
+.card-cor p{
+  font-family: "poppins", sans-serif;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+}
+
+
 .card-cor > div {
   width: 100%;
   height: 36px;
@@ -198,13 +208,13 @@
 
 /* Swatches */
 .Branco   { background-color: #ffffff; border: 1.5px solid #aaa !important; }
-.Preto    { background-color: #1e293b; }
-.Vermelho { background-color: #FF0000; }
-.Roxo     { background-color: #9333EA; }
-.Laranja  { background-color: #F97316; }
-.Azul     { background-color: #1545D8; }
-.Rosa     { background-color: #FF0099; }
-.Verde    { background-color: #00C44F; }
+.Preto    { background-color: #1e293b; border: 1px solid black}
+.Vermelho { background-color: #FF0000; border: 1px solid black }
+.Roxo     { background-color: #9333EA; border: 1px solid black}
+.Laranja  { background-color: #F97316; border: 1px solid black}
+.Azul     { background-color: #1545D8; border: 1px solid black}
+.Rosa     { background-color: #FF0099; border: 1px solid black}
+.Verde    { background-color: #00C44F; border: 1px solid black}
 
 /* Label cor selecionada */
 .cor-escolhida-label {
@@ -276,17 +286,18 @@
 .Bandeiras {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
 }
 
 .FormasDePagamento img { height: 44px; width: auto; }
 
 /* Botão COMPRAR — grande, largura total */
 .botao-comprar-compra {
-  width: 100%;
-  max-width: 100%;
+  width: 50%;
+  max-width: 50%;
   background: #F97316;
   color: white;
   border: none;
@@ -296,16 +307,23 @@
   font-weight: 700;
   cursor: pointer;
   letter-spacing: 2px;
-  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
   transition: filter 0.2s, transform 0.2s;
   font-family: "Montserrat", sans-serif !important;
   margin-bottom: 60px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .botao-comprar-compra:hover {
   filter: brightness(1.07);
   transform: translateY(-1px);
 }
+
+
 
 /* ────────────────────────────────────────────────
    DESKTOP (≥ 900px)
@@ -325,17 +343,20 @@
     text-align: left;
   }
 
-  .Titulo { text-align: left; margin-top: 0; }
+  .Titulo { text-align: center; margin-top: 0; }
 
   .Descrição { margin: 0 0 20px 0; text-align: left; }
 
-  .linha1 { margin: 0 0 22px 0 !important; width: 100%; }
+  .linha1 { margin: 0 0 22px 0 !important; 
+    width: 65%; 
+    align-self: center;
+  }
 
   .Paletadecores { align-self: flex-start; }
 
   .card-quantidade { align-self: flex-start; }
 
-  .FormasDePagamento { align-items: flex-start; }
+  .FormasDePagamento { align-items: center; }
 
   .Name { align-self: flex-start; }
 
@@ -343,13 +364,45 @@
 }
 
 /* ────────────────────────────────────────────────
+   Tablet (≥ 769px)
+   ──────────────────────────────────────────────── */
+
+@media (min-width: 769px) and (max-width: 1180px) {
+  
+  .Produto2 img {
+    max-width: 200px;
+  }
+
+    .Produto2 {
+    gap: clamp(8px, 3vw, 24px);
+  }
+
+}
+
+/* ────────────────────────────────────────────────
    MOBILE (≤ 480px)
    ──────────────────────────────────────────────── */
 @media (max-width: 480px) {
-  .Voltar { padding-left: 0 !important; }
+  .Voltar { 
+    font-size: 1.4rem;
+    padding-left: 0 !important; 
+  }
 
-  .Produto2 { flex-wrap: wrap; }
-  .Produto2 img { width: 88px; height: 88px; }
+  .Titulo{
+    padding: 0 20px;
+  }
+
+  .Produto2 { 
+    display: flex;
+    flex-wrap: nowrap;
+    gap: clamp(8px, 2vw, 16px);
+    justify-content: space-between;
+  }
+
+  .Produto2 img { 
+    width: 80px; 
+    height: 80px; 
+  }
 
   .Titulo { margin: 10px 0 12px 0; font-size: 1.8rem; }
 

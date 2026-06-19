@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import icone2 from '../../../assets/images/chatbot/soprinho2.svg';
+import icone2 from '../../../assets/images/chatbot/iconeSoprinhovs2.svg';
 import './soprinho2.css';
 import enviar from '../../../assets/images/chatbot/icone_enviar.svg';
 
