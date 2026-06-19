@@ -22,6 +22,7 @@ function Avatar({ photoURL, name }) {
       <img
         src={photoURL || SoprinhoImg}
         alt={`Foto de perfil de ${name || 'usuário'}`}
+        referrerPolicy="no-referrer"
         onError={(e) => { e.currentTarget.src = SoprinhoImg; }}
       />
     </figure>

@@ -52,6 +52,7 @@ const Header = () => {
                 <img 
                   src={usuario?.photoURL || SoprinhoImg} 
                   alt="Foto de perfil"
+                  referrerPolicy="no-referrer"
                   onError={(e) => { e.currentTarget.src = SoprinhoImg; }}
                   onPointerDown={() => {
                   console.log('clicou!');

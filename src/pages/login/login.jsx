@@ -74,10 +74,6 @@ const Login = () => {
         usuarioGoogle.providerData?.find((p) => p.providerId === 'google.com')?.photoURL ||
         null;
 
-      console.log('[DEBUG login Google] photoURL raiz:', usuarioGoogle.photoURL);
-      console.log('[DEBUG login Google] providerData:', usuarioGoogle.providerData);
-      console.log('[DEBUG login Google] foto escolhida:', fotoGoogle);
-
       await processarSessaoAposLogin(
         tokenFirebase,
         usuarioGoogle.email,
