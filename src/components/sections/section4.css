@@ -158,14 +158,9 @@ html, body {
     .section4{
         flex-direction: column-reverse; 
         gap: 40px;
-        text-align: center;
+        
     }
-    .autonomiaTitulo, .inclusaoTitulo, .inovacaoTitulo {
-        justify-content: center;
-        & h3{
-            font-size: 25px;
-        }
-    }
+    
 }
 
 /* --- RESPONSIVIDADE PARA CELULARES --- */
