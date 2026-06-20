@@ -189,6 +189,9 @@ body {
         width: 460px;
         height: auto;
     }
+    .section3{
+        gap: 10px
+    }
 }
 
 
