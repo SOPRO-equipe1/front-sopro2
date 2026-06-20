@@ -7,30 +7,34 @@ export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
   const [carregandoContexto, setCarregandoContexto] = useState(true);
 
-  // No boot do app, verifica se já existe um Token válido do Azure salvo no navegador
+  // No boot do app, verifica se já existe um Token válido salvo no navegador
   useEffect(() => {
     const token = localStorage.getItem('@Sopro:token');
     const email = localStorage.getItem('@Sopro:email');
     const nome = localStorage.getItem('@Sopro:nome');
+    const foto = localStorage.getItem('@Sopro:foto');
 
     if (token && email) {
       setEstaLogado(true);
       setUsuario({
         email: email,
         displayName: nome || email.split('@')[0],
-        photoURL: null
+        photoURL: foto || null
       });
     }
     setCarregandoContexto(false);
   }, []);
 
-  // Função de Login pura que o teu Header e as tuas páginas chamam
-  const login = async (email, nomeDoAzure) => {
+  // Função de Login pura que o Header e as páginas chamam
+  const login = async (email, nomeDoProvedor, fotoDoProvedor = null) => {
+    if (fotoDoProvedor) {
+      localStorage.setItem('@Sopro:foto', fotoDoProvedor);
+    }
     setEstaLogado(true);
     setUsuario({
       email: email,
-      displayName: nomeDoAzure || email.split('@')[0],
-      photoURL: null
+      displayName: nomeDoProvedor || email.split('@')[0],
+      photoURL: fotoDoProvedor || null
     });
   };
 

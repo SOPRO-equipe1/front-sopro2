@@ -9,6 +9,7 @@ import botaofechar from '../../../assets/images/chatbot/botao_fechar.svg'
 import { createPortal } from 'react-dom';
 import { useAuth } from '../../../context/auth/authContext.jsx'
 import { useA11y } from '../../../context/AccessibilityContext.jsx'
+import SoprinhoImg from '../../../assets/images/perfil/soprinho_perfil.svg'
 
 import { AnimatePresence } from 'framer-motion';
 
@@ -49,8 +50,10 @@ const Header = () => {
            {estaLogado ? (
               <li className="user-menu-item" style={{ position: 'relative' }}>
                 <img 
-                  src={usuario?.photoURL || 'https://ui-avatars.com/api/?name=' + usuario?.displayName} 
+                  src={usuario?.photoURL || SoprinhoImg} 
                   alt="Foto de perfil"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => { e.currentTarget.src = SoprinhoImg; }}
                   onPointerDown={() => {
                   console.log('clicou!');
                   setDropdownAberto(!dropdownAberto);

@@ -1,31 +1,29 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import './login.css';
 import imagemLogin from '../../assets/images/login/imagemLogin.png';
 import logo from '../../assets/icons/logo.png';
 import logoGoogle from '../../assets/icons/logoGoogle.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useAuth } from '../../context/auth/authContext.jsx'; 
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { useAuth } from '../../context/auth/authContext.jsx';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../../context/auth/firebase.js';
 
-const LoginContent = () => {
+const Login = () => {
   const [usuarioInput, setUsuarioInput] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth(); 
-  
-  // Referência para mapear o container oculto do componente nativo do Google
-  const googleRef = useRef(null);
+  const { login } = useAuth();
 
-  const processarSessaoAposLogin = async (token, email, nome) => {
+  const processarSessaoAposLogin = async (token, email, nome, foto = null) => {
     localStorage.setItem('@Sopro:token', token);
     localStorage.setItem('@Sopro:email', email);
     localStorage.setItem('@Sopro:nome', nome);
 
     if (login) {
-      await login(email, nome);
+      await login(email, nome, foto);
     }
 
     const temIntencaoCompra = localStorage.getItem('@Sopro:intencao_compra') === 'true';
@@ -41,7 +39,7 @@ const LoginContent = () => {
     e.preventDefault();
     setErro('');
     if (!usuarioInput.trim() || !senha) { setErro('Preencha todos os campos.'); return; }
-    
+
     setCarregando(true);
     try {
       const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
@@ -51,11 +49,46 @@ const LoginContent = () => {
       });
 
       if (!response.ok) throw new Error('E-mail ou senha incorretos.');
-      const dados = await response.json(); 
+      const dados = await response.json();
 
       await processarSessaoAposLogin(dados.token, dados.email, dados.email.split('@')[0]);
     } catch (err) {
       setErro(err.message || 'Erro ao realizar login.');
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  /* Login com Google via Firebase Auth (popup) — não depende do backend Java/Azure */
+  const handleGoogleLogin = async () => {
+    setErro('');
+    setCarregando(true);
+    try {
+      const resultado = await signInWithPopup(auth, googleProvider);
+      const usuarioGoogle = resultado.user;
+      const tokenFirebase = await usuarioGoogle.getIdToken();
+
+      // O photoURL no nível raiz às vezes vem vazio; o providerData do Google é mais confiável
+      const fotoGoogle =
+        usuarioGoogle.photoURL ||
+        usuarioGoogle.providerData?.find((p) => p.providerId === 'google.com')?.photoURL ||
+        null;
+
+      await processarSessaoAposLogin(
+        tokenFirebase,
+        usuarioGoogle.email,
+        usuarioGoogle.displayName || usuarioGoogle.email.split('@')[0],
+        fotoGoogle
+      );
+    } catch (err) {
+      if (err.code === 'auth/popup-closed-by-user') {
+        // usuário cancelou; não exibe erro
+      } else if (err.code === 'auth/unauthorized-domain') {
+        setErro('Este domínio não está autorizado no Firebase. Avise o time técnico.');
+      } else {
+        setErro('Erro na autenticação com o Google.');
+        console.error('Erro no login com Google:', err);
+      }
     } finally {
       setCarregando(false);
     }
@@ -91,47 +124,10 @@ const LoginContent = () => {
           <p className="login-divider-label">Entrar com outros</p>
 
           <nav className="login-social" aria-label="Login social">
-            
-            <button 
-              type="button" 
-              className="social-btn social-btn--google" 
-              onClick={() => {
-                const btnNativo = googleRef.current?.querySelector('button') || googleRef.current?.querySelector('[role="button"]');
-                if (btnNativo) {
-                  btnNativo.click();
-                }
-              }} 
-              disabled={carregando}
-            >
+            <button type="button" className="social-btn social-btn--google" onClick={handleGoogleLogin} disabled={carregando}>
               <img src={logoGoogle} alt="" aria-hidden="true" />
-              Entrar com Google
+              {carregando ? 'Entrando...' : 'Entrar com Google'}
             </button>
-
-          
-            <div style={{ display: 'none' }} ref={googleRef}>
-              <GoogleLogin
-                onSuccess={async (credentialResponse) => {
-                  setCarregando(true);
-                  try {
-                    const res = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ token: credentialResponse.credential })
-                    });
-
-                    if (!res.ok) throw new Error('Falha na validação do Google com o Azure.');
-                    const dados = await res.json();
-
-                    await processarSessaoAposLogin(dados.token, dados.email, dados.nome);
-                  } catch (err) {
-                    setErro('Erro na autenticação com o Google.');
-                  } finally {
-                    setCarregando(false);
-                  }
-                }}
-                onError={() => setErro('Login com o Google falhou.')}
-              />
-            </div>
           </nav>
         </motion.article>
 
@@ -142,11 +138,5 @@ const LoginContent = () => {
     </main>
   );
 };
-
-const Login = () => (
-  <GoogleOAuthProvider clientId="668261340880-j3djh4lugbo1kb0hs3if8g9734q1u7kl.apps.googleusercontent.com">
-    <LoginContent />
-  </GoogleOAuthProvider>
-);
 
 export default Login;

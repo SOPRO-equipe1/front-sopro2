@@ -131,6 +131,7 @@ return (
 </section>
 
         <section className="ParteEquipe">
+          <h4>Conheça nossa equipe</h4>
           <div className="FotoEquipe">
           <img src={conhecaequipe} alt="Foto da equipe SOPRO" />
           </div>

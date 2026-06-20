@@ -6,6 +6,7 @@ import Iconecaminhao from '../../assets/images/perfil/icone_caminhao_perfil.svg'
 import Iconesclamacao from '../../assets/images/perfil/icone_esclamacao_perfil.svg';
 import IconeEditar from '../../assets/icons/ic_baseline-mode-edit.svg';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../context/auth/authContext.jsx';
 
 const STATUS_STEPS = ["Confirmado", "Preparando", "Em transporte", "Entregue"];
 
@@ -15,10 +16,15 @@ const ESTADOS_BR = [
   "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
 ];
 
-function Avatar() {
+function Avatar({ photoURL, name }) {
   return (
     <figure className="avatar-perfil">
-      <img src={SoprinhoImg} alt="Avatar do usuário" />
+      <img
+        src={photoURL || SoprinhoImg}
+        alt={`Foto de perfil de ${name || 'usuário'}`}
+        referrerPolicy="no-referrer"
+        onError={(e) => { e.currentTarget.src = SoprinhoImg; }}
+      />
     </figure>
   );
 }
@@ -388,6 +394,7 @@ function ModalEndereco({ form, setForm, onClose, onSalvar, buscandoCep }) {
 
 export default function MinhaConta() {
   const navigate = useNavigate();
+  const { usuario } = useAuth();
   const [carregando, setCarregando] = useState(true);
   const [dadosPerfil, setDadosPerfil] = useState(null);
 
@@ -507,7 +514,9 @@ export default function MinhaConta() {
     );
   }
 
-  let pedidoAtivo = dadosPerfil?.ultimoPedido;
+  // Resolução do Conflito de Pedidos (HEAD vs Hash)
+  const pedidoCache = JSON.parse(localStorage.getItem('@Sopro:pedido') || 'null');
+  let pedidoAtivo = dadosPerfil?.ultimoPedido || pedidoCache || null;
 
   if (!pedidoAtivo && (dadosPerfil?.plano === "Plano Premium" || localStorage.getItem('@Sopro:ultimo_gasto'))) {
     pedidoAtivo = {
@@ -537,26 +546,31 @@ export default function MinhaConta() {
 
   const statusAtualIndex = obterStatusIndex(pedidoAtivo?.status);
 
+  // Resolução do Conflito de Endereço (HEAD vs Hash)
+  const enderecoCache = JSON.parse(localStorage.getItem('@Sopro:endereco') || 'null');
   const enderecoCompletoBruto = dadosPerfil?.enderecoCompleto || "";
 
-  let logradouro = "—";
-  let complemento = "—";
+  let logradouro = enderecoCache?.logradouro || "—";
+  let complemento = enderecoCache?.complemento || "—";
 
-  if (enderecoCompletoBruto && enderecoCompletoBruto !== "Endereço não preenchido") {
+  if (logradouro === "—" && enderecoCompletoBruto && enderecoCompletoBruto !== "Endereço não preenchido") {
     const partes = enderecoCompletoBruto.split(" - ");
     logradouro = partes[0] || "—";
     complemento = partes[1] || "—";
   }
 
-  const bairro = dadosPerfil?.bairro || "—";
-  const cidadeEstado = dadosPerfil?.cidadeEstado || "—";
-  const cep = dadosPerfil?.cep || "—";
+  const bairro = enderecoCache?.bairro || dadosPerfil?.bairro || "—";
+  const cep = enderecoCache?.cep || dadosPerfil?.cep || "—";
+  
+  const cidadeEstado = enderecoCache?.cidade && enderecoCache?.estado
+    ? `${enderecoCache.cidade}, ${enderecoCache.estado}`
+    : (dadosPerfil?.cidadeEstado || "—");
 
   /* ── Abertura dos modais ── */
   const abrirModalDados = () => {
     setFormDados({
-      email: dadosPerfil?.email || localStorage.getItem('@Sopro:email') || '',
-      nomeCompleto: dadosPerfil?.nomeCompleto || '',
+      email: dadosPerfil?.email || usuario?.email || localStorage.getItem('@Sopro:email') || '',
+      nomeCompleto: dadosPerfil?.nomeCompleto || usuario?.displayName || '',
       cpf: dadosPerfil?.cpf || '',
       dataNascimento: dadosPerfil?.dataNascimento || '',
       telefoneCelular: dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular || '',
@@ -570,8 +584,8 @@ export default function MinhaConta() {
       cep: cep !== "—" ? cep.replace(/\D/g, '') : '',
       logradouro: logradouro !== "—" ? logradouro : '',
       bairro: bairro !== "—" ? bairro : '',
-      cidade: cidadeEstado !== "—" ? cidadeEstado.split(' - ')[0] || '' : '',
-      estado: cidadeEstado !== "—" ? cidadeEstado.split(' - ')[1] || '' : '',
+      cidade: cidadeEstado !== "—" ? cidadeEstado.split(', ')[0] || cidadeEstado.split(' - ')[0] || '' : '',
+      estado: cidadeEstado !== "—" ? cidadeEstado.split(', ')[1] || cidadeEstado.split(' - ')[1] || '' : '',
       numero: dadosPerfil?.numero || '',
       complemento: complemento !== "—" ? complemento : '',
     });
@@ -580,7 +594,6 @@ export default function MinhaConta() {
 
   /* ── Salvar (local apenas — sem chamada de API por enquanto) ── */
   const salvarDados = () => {
-    // TODO: integrar com endpoint PUT/PATCH do backend quando estiver disponível
     setDadosPerfil((prev) => ({
       ...prev,
       nomeCompleto: formDados.nomeCompleto,
@@ -594,7 +607,6 @@ export default function MinhaConta() {
   };
 
   const salvarEndereco = () => {
-    // TODO: integrar com endpoint PUT/PATCH do backend quando estiver disponível
     setDadosPerfil((prev) => ({
       ...prev,
       enderecoCompleto: `${formEndereco.logradouro}, ${formEndereco.numero} - ${formEndereco.complemento}`,
@@ -607,18 +619,15 @@ export default function MinhaConta() {
   };
 
   const confirmarAlterarEmail = (novoEmail) => {
-    // TODO: integrar com endpoint de alteração de e-mail quando disponível
     setFormDados((f) => ({ ...f, email: novoEmail }));
     setModalAberto('dados');
   };
 
   const confirmarAlterarSenha = () => {
-    // TODO: integrar com endpoint de alteração de senha quando disponível
     setModalAberto('dados');
   };
 
   const confirmarExcluirConta = () => {
-    // TODO: integrar com endpoint de exclusão de conta quando disponível
     localStorage.removeItem('@Sopro:token');
     localStorage.removeItem('@Sopro:email');
     navigate('/login');
@@ -643,9 +652,9 @@ export default function MinhaConta() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Avatar />
+        <Avatar photoURL={usuario?.photoURL} name={dadosPerfil?.nomeCompleto || usuario?.displayName} />
         <div className="profile-info">
-          <p className="profile-name">{dadosPerfil?.nomeCompleto || "Nome não cadastrado"}</p>
+          <p className="profile-name">{dadosPerfil?.nomeCompleto || usuario?.displayName || "Nome não cadastrado"}</p>
           <span className="badge-pro">
             {dadosPerfil?.plano === "Plano Premium" ? "Plano Pro" : (dadosPerfil?.plano || "Plano Free")}
           </span>
@@ -653,7 +662,7 @@ export default function MinhaConta() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
             </svg>
-            <strong>{dadosPerfil?.cidadeEstado || "Localização não informada"}</strong>
+            <strong>{cidadeEstado !== "—" ? cidadeEstado : "Localização não informada"}</strong>
           </address>
         </div>
       </motion.section>
@@ -731,10 +740,10 @@ export default function MinhaConta() {
         </div>
 
         <div className="info-grid" style={{ paddingTop: '0.5rem' }}>
-          <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto} />
+          <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto || usuario?.displayName} />
           <InfoField label="CPF:" value={dadosPerfil?.cpf} />
           <InfoField label="Telefone celular:" value={dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular} />
-          <InfoField label="Endereço de e-mail:" value={dadosPerfil?.email || localStorage.getItem('@Sopro:email')} />
+          <InfoField label="Endereço de e-mail:" value={dadosPerfil?.email || usuario?.email || localStorage.getItem('@Sopro:email')} />
           <InfoField label="Data de nascimento:" value={formatarDataBR(dadosPerfil?.dataNascimento)} />
         </div>
       </motion.section>
