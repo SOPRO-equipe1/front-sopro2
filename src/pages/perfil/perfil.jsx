@@ -53,7 +53,7 @@ function OrderProgress({ status }) {
 function InfoField({ label, value }) {
   return (
     <div style={{ margin: 0, paddingLeft: '30px', textAlign: 'left' }}>
-      <dt className="order-code" style={{ marginBottom: '2px', display: 'block' }}>
+      <dt className="info-label" style={{ marginBottom: '2px', display: 'block' }}>
         {label}
       </dt>
       <dd className="order-valor" style={{ margin: 0 }}>
@@ -526,7 +526,7 @@ export default function MinhaConta() {
       codigoRastreio: "RU182121051419BR",
       dataEntregaPrevista: "2026-06-22",
       dataCompra: obterDataHojeBR(),
-      valorTotal: 200.97
+      valorTotal: 350.50
     };
   }
 
@@ -646,7 +646,7 @@ export default function MinhaConta() {
 
       {/* Perfil do Usuário ── */}
       <motion.section
-        className="card profile-card"
+        className="perfil-card-box profile-card"
         aria-label="Informações do perfil"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -669,7 +669,7 @@ export default function MinhaConta() {
 
       {/* Último pedido ── */}
       <motion.section
-        className="card"
+        className="perfil-card-box"
         aria-label="Último pedido"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -698,9 +698,9 @@ export default function MinhaConta() {
                   <img src={Iconesclamacao} alt="Ícone de rastreio" />
                 </div>
                 <div>
-                  <p className="order-code">Rastreio: <strong>{pedidoAtivo.codigoRastreio || "Sem código gerado"}</strong></p>
-                  <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{formatarDataBR(pedidoAtivo.dataEntregaPrevista) || "Aguardando atualização"}</span></p>
-                  <p className="order-valor">Total: R$ {typeof pedidoAtivo.valorTotal === 'number' ? pedidoAtivo.valorTotal.toFixed(2).replace('.', ',') : "200,97"}</p>
+                  <p className="order-code"> <span className='order-codeRastreio'> Rastreio: </span> <strong>{pedidoAtivo.codigoRastreio || "Sem código gerado"}</strong></p>
+                  <p className="order-meta"> <strong> Data de entrega prevista: </strong> <span className="order-valor-data">{formatarDataBR(pedidoAtivo.dataEntregaPrevista) || "Aguardando atualização"}</span></p>
+                  <p className="order-valor"> <strong> Total: </strong>R$ {typeof pedidoAtivo.valorTotal === 'number' ? pedidoAtivo.valorTotal.toFixed(2).replace('.', ',') : "350,50"}</p>
                 </div>
               </article>
             </div>
@@ -725,7 +725,7 @@ export default function MinhaConta() {
 
       {/* ── Meus dados ── */}
       <motion.section
-        className="card"
+        className="perfil-card-box"
         aria-label="Meus dados"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -750,7 +750,7 @@ export default function MinhaConta() {
 
       {/* Endereço ── */}
       <motion.section
-        className="card"
+        className="perfil-card-box"
         aria-label="Endereço"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

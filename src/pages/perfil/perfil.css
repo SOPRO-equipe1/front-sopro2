@@ -48,18 +48,17 @@ body {
 }
 
 /* ── Card ── */
-.card {
+.perfil-card-box {
   background: #fff;
   width: 100%;
-  border: 1.2px solid #B9C1C5;
+  border: 1.8px solid #B9C1C5;
   border-radius: 12px;
   padding: 1.25rem 1.25rem 1.5rem 1.25rem;
   margin-bottom: 3rem;
-  text-align: left !important;
   overflow: visible;
 }
 
-.card {
+.perfil-card-box {
   overflow: visible;
 }
 
@@ -105,15 +104,16 @@ body {
 
 /* ── Perfil ── */
 .profile-card {
-  display: flex;
+  display: flex !important;
   gap: 16px;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   overflow: visible;
+
 }.profile-name {
   font-size: 30px !important;
-  font-weight: 500;
+  font-weight: 700;
   color: #1D252A !important;
   margin-bottom: 6px;
 }
@@ -149,12 +149,16 @@ body {
 .order-two-cols {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 40px;
+  padding-left: 1rem ;
+  font-weight: 500;
+  columns: #1D252A;
 }
 
 .order-left * {
   text-align: left !important; /*Tive que sobrescrever o código para fazer o*/
+  font-size: 13px;
 }
 
 .order-left{
@@ -172,7 +176,7 @@ body {
 
   display: flex;
   flex-direction: column;
-
+  justify-content: space-between;
   padding-top: 18px;
 }
 
@@ -191,6 +195,7 @@ body {
 
 .order-row > div {
   text-align: left;
+  min-width: fit-content;
 }
 
 .icone_caminhao{
@@ -240,16 +245,23 @@ body {
 
 .order-code {
   font-size: 13px;
-  color: #555;
+  color: #1D252A;
   margin-bottom: 2px;
   font-weight: 700 !important; 
 }
 
-.order-valor {
+.order-codeRastreio{
   font-size: 13px;
-  color: #777;
+  color: #1D252A;
   margin-bottom: 2px;
-  font-weight: 400 !important;
+  font-weight: 600 !important; 
+}
+
+.order-valor {
+  font-size: 14px !important;
+  color: #1D252A;
+  margin-bottom: 2px;
+  font-weight: 500 !important;
 }
 
 .order-valor-data {
@@ -268,9 +280,9 @@ body {
   background: #5a3000;
   border-radius: 99px;
   margin-top: 8px;
-  width: calc(100% - 40px);
-  margin-left: 20px;
-  margin-right: 20px;
+  width: calc(100% - 100px);
+  margin-left: 10.5%;
+  margin-right: 10.5%;
 }
 
 .progress-fill {
@@ -294,7 +306,7 @@ body {
 .progress-steps {
   display: flex;
   width: 100%;
-  gap: 8px;
+  gap: 50px;
   justify-content: space-between;
   margin-top: -8px;
   position: relative;
@@ -312,7 +324,7 @@ body {
 
 .step-label {
   font-size: 11px;
-  color: #888;
+  color: #1D252A;
   text-align: center;
   white-space: normal;
   word-break: normal;
@@ -346,8 +358,8 @@ body {
 }
 
 .progress-wrap {
-  padding-top: 20px;
   width: 100%;
+  padding-left: 180px;
 }
 
 .progress-labels {
@@ -356,17 +368,20 @@ body {
   margin-top: 10px;
   list-style: none;
   padding: 0;
+  
 }
 
 .progress-labels li {
   font-size: 13px;
-  color: #888;
-  text-align: left !important;   
+  color: #1D252A;
+  text-align: left !important; 
 }
 
 .progress-labels span {
   font-size: 13px;
-  color: #888;
+  color: #1D252A;
+  font-weight: 700 !important;  
+
 }
 
 .progress-labels li:first-child {
@@ -379,21 +394,22 @@ body {
 
 /* ── Botão ── */
 .track-btn {
-  background: #22c55e;
+  background: #30BD30;
   color: #fff;
   border: none;
   border-radius: 8px;
   padding: 10px 24px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 400;
   cursor: pointer;
   margin-top: 24px;
-  align-self: stretch;
-  width: 100%;
+  align-self: flex-end;
+  margin-right: 2%; 
+  font-family: "poppins", sans-serif;
 }
 
 .track-btn:hover {
-  background: #16a34a;
+  background: #30BD30;
 }
 
 /* ── Tracking box ── */
@@ -434,6 +450,12 @@ body {
   text-align: left !important;
 }
 
+.info-label {
+  font-size: 13px;
+  color: #1D252A;
+  margin-bottom: 2px;
+  font-weight: 700 !important;
+}
 .info-field span {
   font-size: 20px;
   color: #666;
@@ -494,7 +516,7 @@ body {
   }
 
   /* Card */
-  .card {
+  .perfil-card-box {
     padding: 1rem;
     margin-bottom: 1.5rem;
     border-radius: 10px;
@@ -781,13 +803,13 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #1A5AFF;
+  background-color: #1545D8;
   color: #fff;
   border: none;
   padding: 8px 18px;
   border-radius: 8px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   font-family: inherit;
   cursor: pointer;
   white-space: nowrap;
@@ -796,7 +818,7 @@ body {
 }
 
 .btn-editar-perfil-mock:hover {
-  background-color: #0040D6;
+  background-color: #1545D8;
 }
 
 .btn-editar-perfil-mock img {
@@ -871,6 +893,7 @@ body {
   text-align: left;
 }
 
+
 .modal-field label {
   display: block;
   font-size: 14px;
@@ -883,12 +906,15 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  font-family: "poppins", sans-serif;
+
 }
 
 .modal-link-laranja {
   font-size: 13px;
   color: #f97316;
   text-decoration: underline;
+  font-family: "poppins", sans-serif;
 }
 
 .modal-input {
@@ -901,6 +927,10 @@ body {
   background: #fff;
   font-family: inherit;
   box-sizing: border-box;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
 }
 
 .modal-input:focus {
