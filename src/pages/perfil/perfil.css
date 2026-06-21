@@ -918,7 +918,7 @@ body {
   inset: 0;
   background: rgba(15, 23, 42, 0.45);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   z-index: 1000;
   padding: 24px 20px;
@@ -931,10 +931,17 @@ body {
   padding: 32px;
   width: 100%;
   max-width: 620px;
-  max-height: calc(100vh - 48px);
+
+  /*max-height: calc(100dvh - 48px);*/
+
+  margin-top: 75px; 
+  margin-bottom: 40px;
+
+  max-height: calc(110dvh - 180px);
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  margin: auto;
+
+  /*margin: auto;*/
 }
 
 .modal-header {
