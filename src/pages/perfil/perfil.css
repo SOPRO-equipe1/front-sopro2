@@ -611,6 +611,8 @@ body {
 
   .order-valor {
     font-size: 12px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   /* Progress */
@@ -1149,14 +1151,17 @@ button, input, select, textarea {
 
   
   .step-label {
-    font-size: 10px !important;
-    white-space: normal;
-    word-break: normal;
-    overflow-wrap: normal;
-    text-align: center;
-    max-width: 50px !important;
-    font-weight: 500 !important;
-    line-height: 1.2;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+    font-size: 9px !important;
+    line-height: 1.2 !important;
   }
 
+ .progress-track {
+    width: 80% !important;
+    margin-left: 10% !important;
+    margin-right: 20% !important;
+  }
 }
