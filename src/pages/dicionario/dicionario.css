@@ -532,7 +532,7 @@
 
 /* ── Responsivo ───────────────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .dic-layout { flex-direction: column; }
+  .dic-layout { flex-direction: column; align-items: stretch;}
   .dic-col-lateral { width: 100%; }
 }
 
