@@ -497,6 +497,16 @@ body {
   .info-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .step-label {
+    font-size: 10px;
+    white-space: normal;
+    text-align: center;
+    max-width: 65px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
 }
 
 /* ══════════════════════════════════════
@@ -609,12 +619,12 @@ body {
   }
 
   .step-label {
-    font-size: 11px;
+    font-size: 10px;
     white-space: normal;
     text-align: center;
-    max-width: 56px;
+    max-width: 65px;
     font-weight: 600;
-    line-height: 1.25;
+    line-height: 1.2;
   }
 
   .progress-labels li {
@@ -628,6 +638,7 @@ body {
   .dot {
     width: 12px;
     height: 12px;
+    margin-top: 0.2%;
   }
 
   /* Botão */
@@ -709,6 +720,7 @@ body {
     width: calc(88% - 2px);
     margin-left: 28px;
   }
+  
 }
 
 /* ── Fix: labels do progress cortados no mobile ── */
@@ -730,6 +742,17 @@ body {
   .a11y-container {
     bottom: 80px !important;
   }
+
+  
+  .step-label {
+    font-size: 10px;
+    white-space: normal;
+    text-align: center;
+    max-width: 65px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
 }
 
 @media (max-width: 380px) {
@@ -794,7 +817,57 @@ body {
     align-self: stretch !important;
   }
 
-  
+}
+
+/* ══════════════════════════════════════
+   ── Responsivo Tablet (Ajustado para 992px) ──
+   ══════════════════════════════════════ */
+@media (max-width: 992px) {
+  .page {
+    padding: 1.5rem 1rem;
+  }
+
+  /* Faz as colunas do pedido empilharem antes de esmagar */
+  .order-two-cols {
+    flex-direction: column;
+    gap: 1.5rem; /* Dei um espacinho a mais para respirar */
+  }
+
+  .order-left {
+    width: 100%;
+  }
+
+  .order-right {
+    width: 100%;
+    min-width: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+
+  .track-btn {
+    width: 30%;
+    margin-top: 1.5rem;
+    align-self: stretch;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .progress-wrap {
+    padding-left: 0; 
+    max-width: 500px; 
+    margin: 0 auto; 
+  }
+
+  .progress-track {
+    width: calc(100% - 70px);
+    margin: 0 auto !important;
+  }
 }
 
 /* ── Botão Editar (cards Meus dados / Endereço) ── */
@@ -1066,4 +1139,17 @@ button, input, select, textarea {
   .modal-row-3 .modal-field:last-child {
     flex: 1;
   }
+
+  
+  .step-label {
+    font-size: 10px !important;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: normal;
+    text-align: center;
+    max-width: 50px !important;
+    font-weight: 500 !important;
+    line-height: 1.2;
+  }
+
 }
