@@ -6,9 +6,12 @@ import logoGoogle from '../../assets/icons/logoGoogle.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../context/auth/authContext.jsx'; 
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 
-const LoginContent = () => {
+
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from "../../context/auth/firebase";
+
+const Login = () => {
   const [usuarioInput, setUsuarioInput] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
@@ -58,23 +61,32 @@ const LoginContent = () => {
     }
   };
 
-  
-  const handleGoogleSuccess = async (credentialResponse) => {
+ 
+  const handleGoogleLoginFirebase = async () => {
     setCarregando(true);
     setErro('');
+    const provider = new GoogleAuthProvider();
+
     try {
+      
+      const resultadoFirebase = await signInWithPopup(auth, provider);
+      
+      
+      const idToken = await resultadoFirebase.user.getIdToken();
+
       const res = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: credentialResponse.credential })
+        body: JSON.stringify({ token: idToken })
       });
 
-      if (!res.ok) throw new Error('Falha na autenticação com o Google.');
+      if (!res.ok) throw new Error('Falha na autenticação com o servidor backend.');
 
       const dadosAPI = await res.json();
       await processarSessaoAposLogin(dadosAPI.token, dadosAPI.email, dadosAPI.nome);
     } catch (err) {
-      setErro('Erro na autenticação com o Google.');
+      console.error(err);
+      setErro('Erro na autenticação com o Google via Firebase.');
     } finally {
       setCarregando(false);
     }
@@ -110,13 +122,28 @@ const LoginContent = () => {
           <p className="login-divider-label">Entrar com outros</p>
 
           <nav className="login-social" aria-label="Login social">
-            <GoogleLogin
-              onSuccess={handleGoogleSuccess}
-              onError={() => setErro('Login com o Google falhou.')}
-              text="signin_with"
-              shape="rectangular"
-              locale="pt-BR"
-            />
+            <button 
+              type="button" 
+              className="login-google-btn-custom" 
+              onClick={handleGoogleLoginFirebase}
+              disabled={carregando}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                width: '100%',
+                padding: '10px',
+                border: '1px solid #ddd',
+                borderRadius: '4px',
+                background: '#fff',
+                cursor: 'pointer',
+                fontWeight: '500'
+              }}
+            >
+              <img src={logoGoogle} alt="Google" style={{ width: '20px', height: '20px' }} />
+              Sign in with Google
+            </button>
           </nav>
         </motion.article>
 
@@ -127,11 +154,5 @@ const LoginContent = () => {
     </main>
   );
 };
-
-const Login = () => (
-  <GoogleOAuthProvider clientId="668261340880-j3djh4lugbo1kb0hs3if8g9734q1u7kl.apps.googleusercontent.com">
-    <LoginContent />
-  </GoogleOAuthProvider>
-);
 
 export default Login;

@@ -56,7 +56,7 @@ function Soprinho2({ perguntaInicial }) {
 
         try {
             const response = await axios.post(
-                `https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/conhecimento/chat?email=${emailUsuarioLogado}`, 
+                `sopro-backend-a6h6e5a9bydzd2dd.eastus-01.azurewebsites.net/api/conhecimento/chat?email=${emailUsuarioLogado}`, 
                 { mensagem: textoMensagem },
                 { headers: { 'Content-Type': 'application/json' } }
             );

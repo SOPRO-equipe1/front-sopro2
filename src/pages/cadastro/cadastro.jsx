@@ -13,7 +13,7 @@ const CadastroContent = () => {
   const [carregando, setCarregando] = useState(false);
   const [erroGeral, setErroGeral] = useState('');
 
-  // Estados dos campos
+  
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
