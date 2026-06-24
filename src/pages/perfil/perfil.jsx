@@ -6,6 +6,7 @@ import Iconecaminhao from '../../assets/images/perfil/icone_caminhao_perfil.svg'
 import Iconesclamacao from '../../assets/images/perfil/icone_esclamacao_perfil.svg';
 import IconeEditar from '../../assets/icons/ic_baseline-mode-edit.svg';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../context/auth/authContext.jsx';
 
 const STATUS_STEPS = ["Confirmado", "Preparando", "Em transporte", "Entregue"];
 
@@ -15,10 +16,15 @@ const ESTADOS_BR = [
   "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
 ];
 
-function Avatar() {
+function Avatar({ photoURL, name }) {
   return (
     <figure className="avatar-perfil">
-      <img src={SoprinhoImg} alt="Avatar do usuário" />
+      <img
+        src={photoURL || SoprinhoImg}
+        alt={`Foto de perfil de ${name || 'usuário'}`}
+        referrerPolicy="no-referrer"
+        onError={(e) => { e.currentTarget.src = SoprinhoImg; }}
+      />
     </figure>
   );
 }
@@ -47,7 +53,7 @@ function OrderProgress({ status }) {
 function InfoField({ label, value }) {
   return (
     <div style={{ margin: 0, paddingLeft: '30px', textAlign: 'left' }}>
-      <dt className="order-code" style={{ marginBottom: '2px', display: 'block' }}>
+      <dt className="info-label" style={{ marginBottom: '2px', display: 'block' }}>
         {label}
       </dt>
       <dd className="order-valor" style={{ margin: 0 }}>
@@ -388,6 +394,7 @@ function ModalEndereco({ form, setForm, onClose, onSalvar, buscandoCep }) {
 
 export default function MinhaConta() {
   const navigate = useNavigate();
+  const { usuario } = useAuth();
   const [carregando, setCarregando] = useState(true);
   const [dadosPerfil, setDadosPerfil] = useState(null);
 
@@ -491,7 +498,7 @@ export default function MinhaConta() {
     return dataString;
   };
 
-  const obtenerDataHojeBR = () => {
+  const obterDataHojeBR = () => {
     const hoje = new Date();
     const dia = String(hoje.getDate()).padStart(2, '0');
     const mes = String(hoje.getMonth() + 1).padStart(2, '0');
@@ -518,8 +525,8 @@ export default function MinhaConta() {
       status: "PREPARANDO",
       codigoRastreio: "RU182121051419BR",
       dataEntregaPrevista: "2026-06-22",
-      dataCompra: obtenerDataHojeBR(),
-      valorTotal: 200.97
+      dataCompra: obterDataHojeBR(),
+      valorTotal: 350.50
     };
   }
 
@@ -562,8 +569,8 @@ export default function MinhaConta() {
   /* ── Abertura dos modais ── */
   const abrirModalDados = () => {
     setFormDados({
-      email: dadosPerfil?.email || localStorage.getItem('@Sopro:email') || '',
-      nomeCompleto: dadosPerfil?.nomeCompleto || '',
+      email: dadosPerfil?.email || usuario?.email || localStorage.getItem('@Sopro:email') || '',
+      nomeCompleto: dadosPerfil?.nomeCompleto || usuario?.displayName || '',
       cpf: dadosPerfil?.cpf || '',
       dataNascimento: dadosPerfil?.dataNascimento || '',
       telefoneCelular: dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular || '',
@@ -639,15 +646,15 @@ export default function MinhaConta() {
 
       {/* Perfil do Usuário ── */}
       <motion.section
-        className="card profile-card"
+        className="perfil-card-box profile-card"
         aria-label="Informações do perfil"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Avatar />
+        <Avatar photoURL={usuario?.photoURL} name={dadosPerfil?.nomeCompleto || usuario?.displayName} />
         <div className="profile-info">
-          <p className="profile-name">{dadosPerfil?.nomeCompleto || "Nome não cadastrado"}</p>
+          <p className="profile-name">{dadosPerfil?.nomeCompleto || usuario?.displayName || "Nome não cadastrado"}</p>
           <span className="badge-pro">
             {dadosPerfil?.plano === "Plano Premium" ? "Plano Pro" : (dadosPerfil?.plano || "Plano Free")}
           </span>
@@ -662,7 +669,7 @@ export default function MinhaConta() {
 
       {/* Último pedido ── */}
       <motion.section
-        className="card"
+        className="perfil-card-box"
         aria-label="Último pedido"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -691,9 +698,9 @@ export default function MinhaConta() {
                   <img src={Iconesclamacao} alt="Ícone de rastreio" />
                 </div>
                 <div>
-                  <p className="order-code">Rastreio: <strong>{pedidoAtivo.codigoRastreio || "Sem código gerado"}</strong></p>
-                  <p className="order-meta">Data de entrega prevista: <span className="order-valor-data">{formatarDataBR(pedidoAtivo.dataEntregaPrevista) || "Aguardando atualização"}</span></p>
-                  <p className="order-valor">Total: R$ {typeof pedidoAtivo.valorTotal === 'number' ? pedidoAtivo.valorTotal.toFixed(2).replace('.', ',') : "200,97"}</p>
+                  <p className="order-code"> <span className='order-codeRastreio'> Rastreio: </span> <strong>{pedidoAtivo.codigoRastreio || "Sem código gerado"}</strong></p>
+                  <p className="order-meta"> <strong> Data de entrega prevista: </strong> <span className="order-valor-data">{formatarDataBR(pedidoAtivo.dataEntregaPrevista) || "Aguardando atualização"}</span></p>
+                  <p className="order-valor"> <strong> Total: </strong>R$ {typeof pedidoAtivo.valorTotal === 'number' ? pedidoAtivo.valorTotal.toFixed(2).replace('.', ',') : "350,50"}</p>
                 </div>
               </article>
             </div>
@@ -718,7 +725,7 @@ export default function MinhaConta() {
 
       {/* ── Meus dados ── */}
       <motion.section
-        className="card"
+        className="perfil-card-box"
         aria-label="Meus dados"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -733,17 +740,17 @@ export default function MinhaConta() {
         </div>
 
         <div className="info-grid" style={{ paddingTop: '0.5rem' }}>
-          <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto} />
+          <InfoField label="Nome completo:" value={dadosPerfil?.nomeCompleto || usuario?.displayName} />
           <InfoField label="CPF:" value={dadosPerfil?.cpf} />
           <InfoField label="Telefone celular:" value={dadosPerfil?.telefoneCellular || dadosPerfil?.telefoneCelular} />
-          <InfoField label="Endereço de e-mail:" value={dadosPerfil?.email || localStorage.getItem('@Sopro:email')} />
+          <InfoField label="Endereço de e-mail:" value={dadosPerfil?.email || usuario?.email || localStorage.getItem('@Sopro:email')} />
           <InfoField label="Data de nascimento:" value={formatarDataBR(dadosPerfil?.dataNascimento)} />
         </div>
       </motion.section>
 
       {/* Endereço ── */}
       <motion.section
-        className="card"
+        className="perfil-card-box"
         aria-label="Endereço"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

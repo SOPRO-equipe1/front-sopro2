@@ -155,6 +155,12 @@ html, body {
         width: 460px;
         height: auto;
     }
+    .section4{
+        flex-direction: column-reverse; 
+        gap: 40px;
+        
+    }
+    
 }
 
 /* --- RESPONSIVIDADE PARA CELULARES --- */

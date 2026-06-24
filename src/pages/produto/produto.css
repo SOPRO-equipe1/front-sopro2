@@ -49,7 +49,7 @@ h1 {
 
 .fotoHero {
     width: auto;
-    max-width: 60%;
+    max-width: 55%;
     height: auto;
     margin-top: 20px;
     border-radius: 20px;
@@ -259,7 +259,7 @@ h1 {
     gap: 30px;
     padding: 60px 40px;
     max-width: 1200px;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 
 .titulo-beneficios{

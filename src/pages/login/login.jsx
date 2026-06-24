@@ -5,11 +5,9 @@ import logo from '../../assets/icons/logo.png';
 import logoGoogle from '../../assets/icons/logoGoogle.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useAuth } from '../../context/auth/authContext.jsx'; 
-
-
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from "../../context/auth/firebase";
+import { useAuth } from '../../context/auth/authContext.jsx';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../../context/auth/firebase.js';
 
 const Login = () => {
   const [usuarioInput, setUsuarioInput] = useState('');
@@ -17,15 +15,15 @@ const Login = () => {
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth(); 
+  const { login } = useAuth();
 
-  const processarSessaoAposLogin = async (token, email, nome) => {
+  const processarSessaoAposLogin = async (token, email, nome, foto = null) => {
     localStorage.setItem('@Sopro:token', token);
     localStorage.setItem('@Sopro:email', email);
     localStorage.setItem('@Sopro:nome', nome);
 
     if (login) {
-      await login(email, nome);
+      await login(email, nome, foto);
     }
 
     const temIntencaoCompra = localStorage.getItem('@Sopro:intencao_compra') === 'true';
@@ -41,7 +39,7 @@ const Login = () => {
     e.preventDefault();
     setErro('');
     if (!usuarioInput.trim() || !senha) { setErro('Preencha todos os campos.'); return; }
-    
+
     setCarregando(true);
     try {
       const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
@@ -51,7 +49,7 @@ const Login = () => {
       });
 
       if (!response.ok) throw new Error('E-mail ou senha incorretos.');
-      const dados = await response.json(); 
+      const dados = await response.json();
 
       await processarSessaoAposLogin(dados.token, dados.email, dados.email.split('@')[0]);
     } catch (err) {
@@ -61,32 +59,36 @@ const Login = () => {
     }
   };
 
- 
-  const handleGoogleLoginFirebase = async () => {
-    setCarregando(true);
+  /* Login com Google via Firebase Auth (popup) — não depende do backend Java/Azure */
+  const handleGoogleLogin = async () => {
     setErro('');
-    const provider = new GoogleAuthProvider();
-
+    setCarregando(true);
     try {
-      
-      const resultadoFirebase = await signInWithPopup(auth, provider);
-      
-      
-      const idToken = await resultadoFirebase.user.getIdToken();
+      const resultado = await signInWithPopup(auth, googleProvider);
+      const usuarioGoogle = resultado.user;
+      const tokenFirebase = await usuarioGoogle.getIdToken();
 
-      const res = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: idToken })
-      });
+      // O photoURL no nível raiz às vezes vem vazio; o providerData do Google é mais confiável
+      const fotoGoogle =
+        usuarioGoogle.photoURL ||
+        usuarioGoogle.providerData?.find((p) => p.providerId === 'google.com')?.photoURL ||
+        null;
 
-      if (!res.ok) throw new Error('Falha na autenticação com o servidor backend.');
-
-      const dadosAPI = await res.json();
-      await processarSessaoAposLogin(dadosAPI.token, dadosAPI.email, dadosAPI.nome);
+      await processarSessaoAposLogin(
+        tokenFirebase,
+        usuarioGoogle.email,
+        usuarioGoogle.displayName || usuarioGoogle.email.split('@')[0],
+        fotoGoogle
+      );
     } catch (err) {
-      console.error(err);
-      setErro('Erro na autenticação com o Google via Firebase.');
+      if (err.code === 'auth/popup-closed-by-user') {
+        // usuário cancelou; não exibe erro
+      } else if (err.code === 'auth/unauthorized-domain') {
+        setErro('Este domínio não está autorizado no Firebase. Avise o time técnico.');
+      } else {
+        setErro('Erro na autenticação com o Google.');
+        console.error('Erro no login com Google:', err);
+      }
     } finally {
       setCarregando(false);
     }
@@ -122,27 +124,9 @@ const Login = () => {
           <p className="login-divider-label">Entrar com outros</p>
 
           <nav className="login-social" aria-label="Login social">
-            <button 
-              type="button" 
-              className="login-google-btn-custom" 
-              onClick={handleGoogleLoginFirebase}
-              disabled={carregando}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '10px',
-                width: '100%',
-                padding: '10px',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                background: '#fff',
-                cursor: 'pointer',
-                fontWeight: '500'
-              }}
-            >
-              <img src={logoGoogle} alt="Google" style={{ width: '20px', height: '20px' }} />
-              Sign in with Google
+            <button type="button" className="social-btn social-btn--google" onClick={handleGoogleLogin} disabled={carregando}>
+              <img src={logoGoogle} alt="" aria-hidden="true" />
+              {carregando ? 'Entrando...' : 'Entrar com Google'}
             </button>
           </nav>
         </motion.article>

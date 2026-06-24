@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, use } from "react";
 import "./checkout.css";
 import carrinhoDeCompra from "../../assets/icons/carrinhoDeCompra.svg";
 import cartaoCredito from "../../assets/icons/cartaoCredito.svg";
@@ -45,11 +45,11 @@ const Checkout = () => {
   };
 
   const parcelaOpcoes = [
-    { value: '1', label: '1x de R$ 200,97 sem juros' },
-    { value: '2', label: '2x de R$ 100,49 sem juros' },
-    { value: '3', label: '3x de R$ 66,99 sem juros' },
-    { value: '6', label: '6x de R$ 33,50 sem juros' },
-    { value: '12', label: '12x de R$ 16,75 com juros' },
+    { value: '1', label: '1x de R$ 350,50 sem juros' },
+    { value: '2', label: '2x de R$ 175,25 sem juros' },
+    { value: '3', label: '3x de R$ 116,83 sem juros' },
+    { value: '6', label: '6x de R$ 58,41 sem juros' },
+    { value: '12', label: '12x de R$ 29,20 com juros' },
   ];
 
   const precoBase = 350.50;
@@ -59,6 +59,49 @@ const Checkout = () => {
     pro: { label: "Voz Ativa - Pro", preco: 89.9 },
     elite: { label: "Cuidado Total - Plus", preco: 149.9 },
   };
+
+  const estadosBrasileiros = [
+    {sigla: "AC", nome: "Acre"},
+    {sigla: "AL", nome: "Alagoas"},
+    {sigla: "AP", nome: "Amapá"},
+    {sigla: "AM", nome: "Amazonas"},
+    { sigla: "BA", nome: "Bahia" },
+    { sigla: "CE", nome: "Ceará" },
+    { sigla: "DF", nome: "Distrito Federal" },
+    { sigla: "ES", nome: "Espírito Santo" },
+    { sigla: "GO", nome: "Goiás" },
+    { sigla: "MA", nome: "Maranhão" },
+    { sigla: "MT", nome: "Mato Grosso" },
+    { sigla: "MS", nome: "Mato Grosso do Sul" },
+    { sigla: "MG", nome: "Minas Gerais" },
+    { sigla: "PA", nome: "Pará" },
+    { sigla: "PB", nome: "Paraíba" },
+    { sigla: "PR", nome: "Paraná" },
+    { sigla: "PE", nome: "Pernambuco" },
+    { sigla: "PI", nome: "Piauí" },
+    { sigla: "RJ", nome: "Rio de Janeiro" },
+    { sigla: "RN", nome: "Rio Grande do Norte" },
+    { sigla: "RS", nome: "Rio Grande do Sul" },
+    { sigla: "RO", nome: "Rondônia" },
+    { sigla: "RR", nome: "Roraima" },
+    { sigla: "SC", nome: "Santa Catarina" },
+    { sigla: "SP", nome: "São Paulo" },
+    { sigla: "SE", nome: "Sergipe" },
+    { sigla: "TO", nome: "Tocantins" },
+  ];
+
+  const [estadoAberto, setEstadoAberto] = useState(false);
+  const estadoRef = useRef(null); 
+
+ useEffect(() => {
+  function fecharAoClicarFora(e) {
+    if (estadoRef.current && !estadoRef.current.contains(e.target)) {
+      setEstadoAberto(false);
+    }
+  }
+  document.addEventListener("mousedown", fecharAoClicarFora);
+  return () => document.removeEventListener("mousedown", fecharAoClicarFora);
+}, []);
 
   const precoPlano = planos[planoSelecionado].preco;
   const valorTotalCalculado = (precoBase * quantidade + precoPlano);
@@ -298,7 +341,12 @@ const Checkout = () => {
                     </div>
                     <div className="checkout-field grow">
                       <label htmlFor="estado">Estado</label>
-                      <input id="estado" type="text" className="checkout-input" value={estado} onChange={(e) => setEstado(e.target.value)} />
+                      <select id="estado" className="checkout-input checkout-select" value={estado} onChange={(e) => setEstado(e.target.value)}>
+                      <option value="">Selecione</option>
+                      {estadosBrasileiros.map((uf) => (
+                      <option key={uf.sigla} value={uf.sigla}>{uf.sigla} - {uf.nome}</option>
+                    ))}
+                    </select>
                     </div>
                   </div>
                 </fieldset>
