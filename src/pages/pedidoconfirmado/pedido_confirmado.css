@@ -187,4 +187,14 @@
     padding-left: 16px !important;
     box-sizing: border-box !important;
   }
+
+  .bloco-header {
+    width: 100%;
+}
+
+ .sucesso-container {
+    padding: 100px 16px 20px;
+    box-sizing: border-box;
+  }
+
 }
