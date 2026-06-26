@@ -74,7 +74,7 @@ graph LR
       <h3>🤖 Chatbot de suporte</h3>
       <p>Auxílio imediato para familiares e cuidadores configurarem o dispositivo.</p>
       <br>
-      <img src="https://github.com/SOPRO-equipe1/front-sopro/blob/main/imagesReadme/Chatbot.png?raw=true" alt="Preview Chatbot" width="300">
+      <img src="https://github.com/SOPRO-equipe1/front-sopro2/blob/main/src/assets/imagesReadme/Chatbott.png?raw=true" alt="Preview Chatbot" width="300">
       <br><br>
       
   </td>
