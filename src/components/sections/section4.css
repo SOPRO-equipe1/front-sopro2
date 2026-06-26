@@ -26,10 +26,11 @@ html, body {
 
 .section4 {
     position: relative;
-    width: 90%;
+    width: 100%;
+    padding: 0 40px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     margin-top: 80px;
     align-items: center;
     color: #1D252A;
