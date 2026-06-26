@@ -2,8 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* ✅ REMOVIDO overflow-x: hidden do * — causa scroll em imagens com 100vw.
-       O controle correto fica em html e body no index.css */
 }
 
 .section5 {
@@ -57,16 +55,14 @@
     margin-bottom: 10px;
 }
 
-/* ✅ CORREÇÃO SCROLL HORIZONTAL: imgSection5 usava 100vw que causava scroll.
-   Trocado por width: 100% que respeita o contexto do pai. */
 .imgSection5 {
-    width: 100% !important;      /* ← era 100vw, agora 100% do pai */
+    width: 100% !important;
     max-width: 100% !important;
     margin-top: 40px !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
     margin-bottom: 0 !important;
-    height: auto !important;
+    height: 980px !important;
     display: block !important;
     object-fit: cover !important;
     border-radius: 0px !important;
