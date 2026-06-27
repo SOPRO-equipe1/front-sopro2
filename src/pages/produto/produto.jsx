@@ -1,5 +1,4 @@
-import './produto.css'; // 1. Conecta o CSS
-import fotoHero from '../../assets/images/produto/fotoHero.png';
+import './produto.css';
 import estrelasLaranjas from '../../assets/icons/estrelasLaranjas.svg';
 import section2Produto1 from '../../assets/images/produto/section2Produto1.png';
 import section2Produto2 from '../../assets/images/produto/section2Produto2.png';
@@ -19,18 +18,25 @@ import escudoSauderoxo from '../../assets/icons/escudoSaudeRoxo.svg';
 import wifiLaranja from '../../assets/icons/wifiLaranja.svg';
 import bateriaAzul from '../../assets/icons/bateriaAzul.svg';
 import hardware3d  from '../../assets/images/produto/hardwaregirandoOtimizado.gif'
+import background from '../../assets/videos/backgroundProduto.mp4'
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-function Produto() { // 2. Cria a função (Componente)
+function Produto() {
   return (
 
     
     <div className="container-produto"> 
       <main className="produto-content">
-        <h1 className="titulo1">SOPRO</h1>
-        <p className="texto1">Transformando seu fôlego em voz</p>
-        <img className="fotoHero" src={hardware3d} alt="Sopro"/>
+        <video className="video-bg-produto" autoPlay loop muted playsInline>
+          <source src={background} type="video/mp4" />
+        </video>
+
+        <div className="video-overlay" />
+          <div className="tituloHero">
+            <h1 className="titulo1">SOPRO</h1>
+            <p className="texto1">Transformando seu fôlego em voz</p>
+          </div>
       </main>
 
       <motion.section 
@@ -46,7 +52,6 @@ function Produto() { // 2. Cria a função (Componente)
             Nossa tecnologia assistiva inteligente converte padrões de sopro <br /> em comunicação fluida
           </p>
 
-          {/* Novo container para o mosaico de fotos */}
           <div className="galeria-fotos">
             <img src={section2Produto1} alt="Sopro lateral" className="foto-item foto-grande" />
             <img src={section2Produto2} alt="Sopro vertical" className="foto-item" />
@@ -54,7 +59,6 @@ function Produto() { // 2. Cria a função (Componente)
             <img src={section2Produto4} alt="Sopro detalhe logo" className="foto-item foto-longa" />
           </div>
       </motion.section>
-
 
        <section className="beneficios-container">
             <img src={arAzul} alt="icone de sopro" className="ar-azul"></img>
@@ -67,7 +71,7 @@ function Produto() { // 2. Cria a função (Componente)
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-              <span className="icon"><img src={bateriaVerde} alt="" /></span> {/* Você pode trocar por SVGs depois */}
+              <span className="icon"><img src={bateriaVerde} alt="" /></span>
               <h3>Autonomia</h3>
               <p>Bateria otimizada para acompanhar o seu ritmo o dia todo, sem interrupções.</p>
             </motion.div>
@@ -128,8 +132,6 @@ function Produto() { // 2. Cria a função (Componente)
 
 
        <section className="especificacoes-container">
-        
-          {/*<img src={linhaAzul} alt="" className="divisor-azul" />*/}
 
           <hr className="divisor-azul" />
 
@@ -185,4 +187,4 @@ function Produto() { // 2. Cria a função (Componente)
   );
 }
 
-export default Produto; // 3. Exporta para o resto do app
+export default Produto;

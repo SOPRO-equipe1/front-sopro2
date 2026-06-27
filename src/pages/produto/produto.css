@@ -7,43 +7,65 @@
     box-sizing: border-box;
 }
 
-.poppins-medium {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-style: normal;
+.container-produto {
+    position: relative;
+    width: 100%;
 }
-
-.fonte-montserrat-bold {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 800; 
-  font-style: normal;
-}
-
 
 .produto-content {
+    position: relative;
     display: flex;
     flex-direction: column;
-    padding: 60px 0px; 
+    padding: 100px 0px 60px 0px; 
     gap: 10px;
-    min-height: 80vh;
+    min-height: 95vh; 
     width: 100%; 
     margin: 0 auto;
-    overflow-x: hidden; 
+    overflow: hidden; 
     text-align: center;
- 
+    justify-content: center;
 }
 
-h1 {
-    font-family: "Montserrat";
-    padding: 0 20px;  
+.titulo1, .texto1, .fotoHero {
+    position: relative;
+    z-index: 3;
+    color: #FAFCFF; 
+}
+
+.video-bg-produto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1; 
+    pointer-events: none;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45); 
+    z-index: 2; 
+    pointer-events: none;
+}
+
+.tituloHero {
+    padding: 0 0 650px 0;
+}
+
+.titulo1 {
+    font-family: "Montserrat"; 
     font-weight: 800;      
 }
 
 .texto1 {
     font-family: "Montserrat";
     font-size: 2rem;
-    padding: 0 20px;  
     font-weight: 700; 
 }
 
@@ -54,65 +76,6 @@ h1 {
     margin-top: 20px;
     border-radius: 20px;
     align-self: center;
-    position: relative; 
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-
-    .produto-content {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 40px 0 !important;
-        overflow-x: hidden !important; 
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center;
-
-    }
-
-    h1 {
-        font-size: 2.5rem;
-    }
-    p {
-        font-size: 1.1rem;
-    }
-
-       .fotoHero {
-        width: 100% !important;
-        max-width: 400px !important;        
-        height: auto !important;
-        border-radius: 20px;
-        margin-top: 20px;
-        position: static !important;
-        align-self: flex-start !important; 
-        margin-left: 0px !important;
-        margin-right: 0 !important;
-        margin-bottom: 0 !important;
-    }
-
-    .titulo2 {
-    font-family: "Montserrat";
-    margin-bottom: 30px;
-    color: #3C3C3C;
-    }
-
-    .texto2{
-        font-family: "Poppins";
-        font-size: 1rem;
-        padding: 0 20px;  
-        font-weight: 500;
-        color: #3C3C3C;
-        text-align: center;   
-    }
-
-       .beneficios-container h2 {
-            font-size: 1.8rem;
-       }
-
-        .beneficios-container p {
-            font-size: 1.3rem;
-       }
 }
 
 .conheca-produto {
@@ -140,6 +103,7 @@ h1 {
     font-size: 2.5rem;
     color: #3C3C3C;
     font-weight: 700;
+    letter-spacing: -2px;
 }
 
 .texto2{
@@ -152,7 +116,6 @@ h1 {
     text-align: center !important;
 }
 
-/* Container da Galeria */
 .galeria-fotos {
     display: grid;
     grid-template-columns: 1.5fr 1fr; 
@@ -163,7 +126,6 @@ h1 {
     padding: 20px;
 }
 
-/* Resetamos as larguras fixas para usar porcentagem e manter a fluidez */
 .galeria-fotos img {
     width: 100%;
     height: auto; 
@@ -171,58 +133,10 @@ h1 {
     object-fit: cover;
 }
 
-/* Ajustes específicos que você tinha, mas agora usando max-width */
 .galeria-fotos img:nth-child(1) { max-width: 100%; height: 25rem; }
 .galeria-fotos img:nth-child(2) { max-width: 100%; height: 25rem; }
 .galeria-fotos img:nth-child(3) { max-width: 100%; height: 25rem; }
 .galeria-fotos img:nth-child(4) { max-width: 100%; height: 25rem; }
-
-/* --- RESPONSIVIDADE (Mobile) --- */
-@media (max-width: 768px) {
-
-    .fotoHero{
-        display: flex;
-        text-align: center !important;
-    }
-    
-    .conheca-produto {
-        margin-left: 0; 
-    }
-
-    .titulo2 {
-        font-size: 2rem;
-        text-align: center;
-        color: #3C3C3C;
-    }
-
-    .texto2 {
-        font-size: 1.2rem;
-        text-align: center;
-        line-height: 1.4;
-        color: #3C3C3C;
-    }
-
-    .galeria-fotos {
-        grid-template-columns: 1fr; /* Vira uma única coluna */
-        gap: 15px;
-        padding: 15px;
-    }
-
-    /* CRITICAL: Removemos os tamanhos fixos de 40rem/25rem aqui */
-    .galeria-fotos img:nth-child(1),
-    .galeria-fotos img:nth-child(2),
-    .galeria-fotos img:nth-child(3),
-    .galeria-fotos img:nth-child(4) {
-        width: 100%;     
-        height: auto;    
-        max-width: none;
-        margin-top: 0;   
-    }
-
-    .produto-content {
-    min-height: auto;
-}
-}
 
 .sua-voz {
     display: flex;
@@ -234,7 +148,6 @@ h1 {
 }
 
 .arAzul {
-    
     width: 4rem;
     max-width: 80%;         
     height: auto;
@@ -243,7 +156,6 @@ h1 {
 
 .titulo3 {
     font-family: "Montserrat";
-    
 }
 
 .texto3{
@@ -270,7 +182,7 @@ h1 {
     color: #3C3C3C;
     font-weight: 700;
     margin-bottom: 10px;
-
+    letter-spacing: -2px;
 }
 
 .ar-azul{
@@ -280,7 +192,6 @@ h1 {
     height: auto;
     margin-bottom: 10px; 
     display: block;
-
 }
 
 .subtitulo-beneficios{
@@ -304,7 +215,6 @@ h1 {
     border: none; 
     background-color: #fff;
     transition: box-shadow 0.3s ease, filter 0.3s ease;
-    
 }
 
 .card:hover {
@@ -331,10 +241,9 @@ h1 {
     font-size: 1rem;
     color: #444;
     line-height: 1.5;
-    padding: 0; /* Reseta o padding global que você tinha para o P */
+    padding: 0; 
     text-align: center;
 }
-
 
 .card.verde { 
     border: 3px solid #34c759; 
@@ -350,15 +259,6 @@ h1 {
 
 .card.roxo { 
     border: 3px solid #af52de; 
-}
-
-/* Responsividade: 1 coluna no celular */
-@media (max-width: 768px) {
-
-    .beneficios-container {
-        grid-template-columns: 1fr;
-        padding: 20px;
-    }  
 }
 
 .compra-container {
@@ -419,33 +319,6 @@ h1 {
     box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Ajuste Responsivo */
-@media (max-width: 768px) {
-    .preco {
-        font-size: 2rem;
-    }
-    .botao-comprar {
-        width: 100%; 
-        padding: 15px 20px;
-    }
-    .foto-compra {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    border-radius: 15px;
-    margin-bottom: 30px;
-}
-
-.fotoHero {
-    width: 90%;
-    max-width: 400px;
-    height: auto;
-    border-radius: 20px;
-    align-self: center !important;
-}
-
-}
-
 .especificacoes-container {
     width: 100%;
     max-width: 1200px;
@@ -485,6 +358,7 @@ h1 {
     font-size: 2.2rem;
     margin-bottom: 30px;
     color: #333;
+    letter-spacing: -2px;
 }
 
 .lista-specs {
@@ -501,7 +375,6 @@ h1 {
 
 .icon-spec {
     font-size: 1.2rem;
-    /* Se usar imagens pros ícones, defina width: 24px aqui */
 }
 
 .lista-specs p {
@@ -509,7 +382,7 @@ h1 {
     font-weight: 500;
     font-size: 1.1rem;
     color: #000;
-    padding: 0; /* Reseta o padding do seletor global */
+    padding: 0; 
 }
 
 .botao-comprar-specs {
@@ -522,11 +395,6 @@ h1 {
     font-weight: 800;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: box-shadow 0.2s ease, filter 0.2s ease, background-color 0.3s ease;
-
-}
-
-.botao-comprar-specs {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -547,9 +415,7 @@ h1 {
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsividade */
 @media (max-width: 900px) {
-    
     .especificacoes-content {
         flex-direction: column;
         text-align: center;
@@ -564,29 +430,159 @@ h1 {
     }
 
     .specs-imagem {
-        order: -1; /* Imagem aparece antes do texto no celular */
+        order: -1; 
         margin-bottom: 30px;
     }
-    .titulo2{
 
-        margin-bottom:15px;
+    .titulo2 {
+        margin-bottom: 15px;
     }
 
-    .texto2{
-    font-family: "Poppins", sans-serif;
-    font-weight: 400; 
+    .texto2 {
+        font-family: "Poppins", sans-serif;
+        font-weight: 400; 
     }
 
-   .lista-specs p {
+    .lista-specs p {
         text-align: left;      
         font-size: 0.90rem;         
         line-height: 1.4;
     }
+}
+
+@media (max-width: 768px) {
+    .produto-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 100px 0 40px 0 !important; 
+        overflow-x: hidden !important; 
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .titulo1 {
+        font-size: 2.5rem;
+        color: #FAFCFF !important; 
+    }
     
+    .texto1 {
+        font-size: 1.4rem;
+        color: #FAFCFF !important; 
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
+
+    .fotoHero {
+        width: 100% !important;
+        max-width: 400px !important;        
+        height: auto !important;
+        border-radius: 20px;
+        margin-top: 20px;
+        position: static !important;
+        align-self: flex-start !important; 
+        margin-left: 0px !important;
+        margin-right: 0 !important;
+        margin-bottom: 0 !important;
+        display: flex;
+        text-align: center !important;
+    }
+
+    .titulo2 {
+        font-family: "Montserrat";
+        margin-bottom: 30px;
+        color: #3C3C3C;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .texto2 {
+        font-family: "Poppins";
+        font-size: 1.2rem;
+        padding: 0 20px;  
+        font-weight: 500;
+        color: #3C3C3C;
+        text-align: center;   
+        line-height: 1.4;
+    }
+
+    .galeria-fotos {
+        grid-template-columns: 1fr; 
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .galeria-fotos img:nth-child(1),
+    .galeria-fotos img:nth-child(2),
+    .galeria-fotos img:nth-child(3),
+    .galeria-fotos img:nth-child(4) {
+        width: 100%;     
+        height: auto;    
+        max-width: none;
+        margin-top: 0;   
+    }
+
+    .beneficios-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    } 
+
+    .beneficios-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .beneficios-container p {
+        font-size: 1.3rem;
+    }
+
+    .preco {
+        font-size: 2rem;
+    }
+
+    .botao-comprar {
+        width: 100%; 
+        padding: 15px 20px;
+    }
+
+    .foto-compra {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        border-radius: 15px;
+        margin-bottom: 30px;
+    }
+
+    .conheca-produto {
+        margin-left: 0; 
+    }
+
+    .conheca-produto,
+    .beneficios-container,
+    .container-produto {
+        padding-right: 20px !important;
+        padding-left: 20px !important;
+        box-sizing: border-box !important;
+    }
+
+    .titulo1,
+    .titulo2,
+    .texto1,
+    .texto2 {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 }
 
 @media (min-width: 760px) and (max-width: 1180px) {
-
     .produto-content {
         min-height: auto;
         padding: 40px 0;
@@ -594,48 +590,23 @@ h1 {
     }
 
     .fotoHero {
-    max-width: 70%;
-    align-self: center !important;
-    margin: 20px auto !important;
-  }
+        max-width: 70%;
+        align-self: center !important;
+        margin: 20px auto !important;
+    }
 
-  .galeria-fotos {
-    max-width: 700px;
-  }
+    .galeria-fotos {
+        max-width: 700px;
+    }
 
-  .galeria-fotos img:nth-child(1),
-  .galeria-fotos img:nth-child(2),
-  .galeria-fotos img:nth-child(3),
-  .galeria-fotos img:nth-child(4) {
-    height: 16rem;
-  }
+    .galeria-fotos img:nth-child(1),
+    .galeria-fotos img:nth-child(2),
+    .galeria-fotos img:nth-child(3),
+    .galeria-fotos img:nth-child(4) {
+        height: 16rem;
+    }
 
-  .texto2{
-    font-size: 1.4rem;
-  }
-}
-
-
-/* Espaço para o botão VLibras + margem de segurança */
-@media (max-width: 768px) {
-  .conheca-produto,
-  .beneficios-container,
-  .container-produto {
-    padding-right: 20px !important;
-    padding-left: 20px !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Textos com padding garantido para não serem cortados */
-  .titulo1,
-  .titulo2,
-  .texto1,
-  .texto2 {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
+    .texto2 {
+        font-size: 1.4rem;
+    }
 }
