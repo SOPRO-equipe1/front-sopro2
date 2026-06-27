@@ -1,612 +1,466 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .container-produto {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .produto-content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 100px 0px 60px 0px; 
-    gap: 10px;
-    min-height: 95vh; 
-    width: 100%; 
-    margin: 0 auto;
-    overflow: hidden; 
-    text-align: center;
-    justify-content: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 0px 60px 0px;
+  gap: 10px;
+  min-height: 95vh;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  text-align: center;
+  justify-content: center;
 }
 
 .titulo1, .texto1, .fotoHero {
-    position: relative;
-    z-index: 3;
-    color: #FAFCFF; 
+  position: relative;
+  z-index: 3;
+  color: #fafcff;
 }
 
 .video-bg-produto {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1; 
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.45); 
-    z-index: 2; 
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 2;
+  pointer-events: none;
 }
 
 .tituloHero {
-    padding: 0 0 650px 0;
+  padding: 0 0 650px 0;
 }
 
 .titulo1 {
-    font-family: "Montserrat"; 
-    font-weight: 800;      
+  font-family: "Montserrat";
+  font-weight: 800;
 }
 
 .texto1 {
-    font-family: "Montserrat";
-    font-size: 2rem;
-    font-weight: 700; 
-}
-
-.fotoHero {
-    width: auto;
-    max-width: 55%;
-    height: auto;
-    margin-top: 20px;
-    border-radius: 20px;
-    align-self: center;
+  font-family: "Montserrat";
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .conheca-produto {
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-    min-height: auto;
-    padding: 40px 0;
-    width: 100%;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding: 40px 0;
+  width: 100%;
 }
 
 .estrelas {
-    width: 4rem;
-    max-width: 80%;         
-    height: auto;
-    margin-top: 20px;
+  width: 4rem;
+  max-width: 80%;
+  height: auto;
+  margin-top: 20px;
 }
 
 .titulo2 {
-    font-family: "Montserrat";
-    margin-bottom: 25px;
-    font-size: 2.5rem;
-    color: #3C3C3C;
-    font-weight: 700;
-    letter-spacing: -2px;
+  font-family: "Montserrat";
+  margin-bottom: 25px;
+  font-size: 2.5rem;
+  color: #3c3c3c;
+  font-weight: 700;
+  letter-spacing: -2px;
 }
 
-.texto2{
-    font-family: "Poppins";
-    font-size: 1.5rem;
-    padding: 0 20px;  
-    font-weight: 500; 
-    margin-bottom: 15px;
-    color: #3C3C3C;
-    text-align: center !important;
+.texto2 {
+  font-family: "Poppins";
+  font-size: 1.5rem;
+  padding: 0 20px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #3c3c3c;
+  text-align: center !important;
 }
 
-.galeria-fotos {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr; 
-    gap: 20px;
-    align-items: end; 
-    max-width: 1100px; 
-    width: 100%;
-    padding: 20px;
+.galeria-vertical-container {
+  display: block;
+  width: 100%;
+  max-width: 1300px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fafcff;
+  border-radius: 20px;
 }
 
-.galeria-fotos img {
-    width: 100%;
-    height: auto; 
-    border-radius: 20px;
-    object-fit: cover;
+.galeria-midia-destaque {
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto 25px auto;
+  height: 700px;
+  background: transparent;
+  margin-bottom: 25px;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.02);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
 }
 
-.galeria-fotos img:nth-child(1) { max-width: 100%; height: 25rem; }
-.galeria-fotos img:nth-child(2) { max-width: 100%; height: 25rem; }
-.galeria-fotos img:nth-child(3) { max-width: 100%; height: 25rem; }
-.galeria-fotos img:nth-child(4) { max-width: 100%; height: 25rem; }
-
-.sua-voz {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 80vh;
-    width: 100%; 
-    overflow-x: hidden; 
+.galeria-midia-destaque model-viewer {
+  width: 100%;
+  height: 100%;
+  background-color: transparent !important;
+  outline: none;
 }
 
-.arAzul {
-    width: 4rem;
-    max-width: 80%;         
-    height: auto;
-    margin-top: 20px;
+.wrapper-midia {
+  width: 100%;
+  height: 100%;
 }
 
-.titulo3 {
-    font-family: "Montserrat";
+.imagem-galeria-ativa {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.texto3{
-    font-family: "Poppins";
-    font-size: 2rem;
-    padding: 0 20px;  
-    font-weight: 200; 
+.galeria-cards-linha {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 12px 0;
+  position: relative;
+  z-index: 10; 
+  margin-top: -60px;
+  padding-top: 25px;
+}
+
+.galeria-card-item {
+  display: table-cell;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  text-align: left;
+  vertical-align: bottom;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+}
+
+.galeria-card-item:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-2px); /* Efeito opcional bem premium ao passar o mouse */
+}
+
+.galeria-card-item h4 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #3c3c3c;
+  margin: 0;
+}
+
+.galeria-card-item p {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.4;
+  margin-top: 8px;
+}
+
+.galeria-card-item.ativo {
+  border-color: #f27420;
+  background-color: #fffaf7;
+  transform: translateY(-20px); 
+  box-shadow: 0 12px 24px rgba(242, 116, 32, 0.15), 0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+.card-3d-seletor.ativo h4 {
+  color: #f27420;
 }
 
 .beneficios-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 30px;
-    padding: 60px 40px;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.titulo-beneficios{
-    grid-column: 1 / -1; 
-    font-family: "Montserrat", sans-serif; 
-    text-align: center;
-    font-size: 2.5rem;
-    color: #3C3C3C;
-    font-weight: 700;
-    margin-bottom: 10px;
-    letter-spacing: -2px;
+.titulo-beneficios {
+  grid-column: 1 / -1;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  font-size: 2.5rem;
+  color: #3c3c3c;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -2px;
 }
 
-.ar-azul{
-    grid-column: 1 / -1; 
-    justify-self: center; 
-    width: 4rem;        
-    height: auto;
-    margin-bottom: 10px; 
-    display: block;
+.ar-azul {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 4rem;
+  height: auto;
+  margin-bottom: 10px;
+  display: block;
 }
 
-.subtitulo-beneficios{
-    grid-column: 1 / -1; 
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-size: 1.5rem;
-    text-align: center;
-    color: #3C3C3C;       
-    margin: 0 auto 40px;
-    line-height: 1.6;
+.subtitulo-beneficios {
+  grid-column: 1 / -1;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #3c3c3c;
+  margin: 0 auto 40px;
+  line-height: 1.6;
 }
 
 .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 40px 30px;
-    border-radius: 20px;
-    border: none; 
-    background-color: #fff;
-    transition: box-shadow 0.3s ease, filter 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 30px;
+  border-radius: 20px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease, filter 0.3s ease;
 }
 
 .card:hover {
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
-    filter: brightness(1.01);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
+  filter: brightness(1.01);
 }
 
 .card .icon {
-    font-size: 2rem;
-    margin-bottom: 15px;
+  font-size: 2rem;
+  margin-bottom: 15px;
 }
 
 .card h3 {
-    font-family: "Poppins", sans-serif;
-    font-weight: 800;
-    font-size: 1.5rem;
-    color: #1D252A;
-    margin-bottom: 15px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #1d252a;
+  margin-bottom: 15px;
 }
 
 .card p {
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: #444;
-    line-height: 1.5;
-    padding: 0; 
-    text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.5;
+  text-align: center;
 }
 
-.card.verde { 
-    border: 3px solid #34c759; 
-}
-
-.card.laranja { 
-    border: 3px solid #ff9500; 
-}
-
-.card.azul { 
-    border: 3px solid #007aff; 
-}
-
-.card.roxo { 
-    border: 3px solid #af52de; 
-}
+.card.verde { border: 3px solid #34c759; }
+.card.laranja { border: 3px solid #ff9500; }
+.card.azul { border: 3px solid #007aff; }
+.card.roxo { border: 3px solid #af52de; }
 
 .compra-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px 10px 20px;
 }
 
 .compra-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 800px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
 }
 
 .foto-compra {
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    border-radius: 15px;
-    margin-bottom: 30px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .preco {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-    font-size: 2.5rem;
-    color: #000;
-    margin-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .botao-comprar {
-    background-color: #f27420; 
-    color: #fff;
-    border: none;
-    padding: 15px 50px;
-    border-radius: 10px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: box-shadow 0.2s ease, filter 0.2s ease, background-color 0.2s ease;
+  background-color: #f27420;
+  color: #fff;
+  border: none;
+  padding: 15px 50px;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, filter 0.2s ease, background-color 0.2s ease;
 }
 
 .botao-comprar:hover {
-    background: #e66310;
-    filter: brightness(1.05);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
-}
-
-.botao-comprar:active {
-    filter: brightness(0.9);
-    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background: #e66310;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
 }
 
 .especificacoes-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .divisor-azul {
-    width: 65%;
-    border: none;
-    border-top: 5px solid #1545D8;
-    margin-bottom: 50px;
-    border-radius: 20px;
+  width: 65%;
+  border: none;
+  border-top: 5px solid #1545d8;
+  margin-bottom: 50px;
+  border-radius: 20px;
 }
 
 .especificacoes-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 40px;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
 }
 
 .specs-texto {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .titulo-specs {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-    font-size: 2.2rem;
-    margin-bottom: 30px;
-    color: #333;
-    letter-spacing: -2px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  color: #3c3c3c;
+  letter-spacing: -2px;
 }
 
 .lista-specs {
-    list-style: none;
-    margin-bottom: 40px;
+  list-style: none;
+  margin-bottom: 40px;
 }
 
 .lista-specs li {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 18px;
-}
-
-.icon-spec {
-    font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 18px;
 }
 
 .lista-specs p {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-size: 1.1rem;
-    color: #000;
-    padding: 0; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #3c3c3c;
 }
 
 .botao-comprar-specs {
-    background-color: #f27420;
-    color: #fff;
-    border: none;
-    padding: 12px 45px;
-    border-radius: 12px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  background-color: #f27420;
+  color: #fff;
+  border: none;
+  padding: 12px 45px;
+  border-radius: 12px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .botao-comprar-specs:hover {
-    background-color: #e66310;
-    filter: brightness(1.05);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+  background-color: #e66310;
 }
 
-.specs-imagem {
-    flex: 1;
-}
-
+.specs-imagem { flex: 1; }
 .specs-imagem img {
-    width: 100%;
-    height: auto;
-    border-radius: 20px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* RESPONSIVIDADE E ADAPTAÇÃO MOBILE */
 @media (max-width: 900px) {
-    .especificacoes-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .specs-texto {
-        align-items: center;
-    }
-
-    .divisor-azul {
-        width: 90%;
-    }
-
-    .specs-imagem {
-        order: -1; 
-        margin-bottom: 30px;
-    }
-
-    .titulo2 {
-        margin-bottom: 15px;
-    }
-
-    .texto2 {
-        font-family: "Poppins", sans-serif;
-        font-weight: 400; 
-    }
-
-    .lista-specs p {
-        text-align: left;      
-        font-size: 0.90rem;         
-        line-height: 1.4;
-    }
+  .galeria-vertical-container {
+    padding: 10px;
+  }
+  .galeria-midia-destaque {
+    height: 350px;
+  }
+  .galeria-cards-linha {
+    display: block; 
+    border-spacing: 0;
+    margin-top: -20px; /* Reduz a sobreposição no celular para não cobrir o produto inteiro */
+  }
+  .galeria-card-item {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  .especificacoes-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .specs-texto { align-items: center; }
+  .divisor-azul { width: 90%; }
+  .specs-imagem { order: -1; margin-bottom: 30px; }
 }
 
 @media (max-width: 768px) {
-    .produto-content {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 100px 0 40px 0 !important; 
-        overflow-x: hidden !important; 
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    .titulo1 {
-        font-size: 2.5rem;
-        color: #FAFCFF !important; 
-    }
-    
-    .texto1 {
-        font-size: 1.4rem;
-        color: #FAFCFF !important; 
-    }
-
-    p {
-        font-size: 1.1rem;
-    }
-
-    .fotoHero {
-        width: 100% !important;
-        max-width: 400px !important;        
-        height: auto !important;
-        border-radius: 20px;
-        margin-top: 20px;
-        position: static !important;
-        align-self: flex-start !important; 
-        margin-left: 0px !important;
-        margin-right: 0 !important;
-        margin-bottom: 0 !important;
-        display: flex;
-        text-align: center !important;
-    }
-
-    .titulo2 {
-        font-family: "Montserrat";
-        margin-bottom: 30px;
-        color: #3C3C3C;
-        font-size: 2rem;
-        text-align: center;
-    }
-
-    .texto2 {
-        font-family: "Poppins";
-        font-size: 1.2rem;
-        padding: 0 20px;  
-        font-weight: 500;
-        color: #3C3C3C;
-        text-align: center;   
-        line-height: 1.4;
-    }
-
-    .galeria-fotos {
-        grid-template-columns: 1fr; 
-        gap: 15px;
-        padding: 15px;
-    }
-
-    .galeria-fotos img:nth-child(1),
-    .galeria-fotos img:nth-child(2),
-    .galeria-fotos img:nth-child(3),
-    .galeria-fotos img:nth-child(4) {
-        width: 100%;     
-        height: auto;    
-        max-width: none;
-        margin-top: 0;   
-    }
-
-    .beneficios-container {
-        grid-template-columns: 1fr;
-        padding: 20px;
-    } 
-
-    .beneficios-container h2 {
-        font-size: 1.8rem;
-    }
-
-    .beneficios-container p {
-        font-size: 1.3rem;
-    }
-
-    .preco {
-        font-size: 2rem;
-    }
-
-    .botao-comprar {
-        width: 100%; 
-        padding: 15px 20px;
-    }
-
-    .foto-compra {
-        width: 100%;
-        max-width: 400px;
-        height: auto;
-        border-radius: 15px;
-        margin-bottom: 30px;
-    }
-
-    .conheca-produto {
-        margin-left: 0; 
-    }
-
-    .conheca-produto,
-    .beneficios-container,
-    .container-produto {
-        padding-right: 20px !important;
-        padding-left: 20px !important;
-        box-sizing: border-box !important;
-    }
-
-    .titulo1,
-    .titulo2,
-    .texto1,
-    .texto2 {
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-        box-sizing: border-box !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-}
-
-@media (min-width: 760px) and (max-width: 1180px) {
-    .produto-content {
-        min-height: auto;
-        padding: 40px 0;
-        align-items: center;
-    }
-
-    .fotoHero {
-        max-width: 70%;
-        align-self: center !important;
-        margin: 20px auto !important;
-    }
-
-    .galeria-fotos {
-        max-width: 700px;
-    }
-
-    .galeria-fotos img:nth-child(1),
-    .galeria-fotos img:nth-child(2),
-    .galeria-fotos img:nth-child(3),
-    .galeria-fotos img:nth-child(4) {
-        height: 16rem;
-    }
-
-    .texto2 {
-        font-size: 1.4rem;
-    }
+  .produto-content {
+    padding: 100px 0 40px 0 !important;
+  }
+  .titulo1 { font-size: 2.5rem; color: #fafcff !important; }
+  .texto1 { font-size: 1.4rem; color: #fafcff !important; }
+  .titulo2 { font-size: 2rem; text-align: center; }
+  .texto2 { font-size: 1.2rem; line-height: 1.4; }
+  .beneficios-container { grid-template-columns: 1fr; padding: 20px; }
+  .beneficios-container h2 { font-size: 1.8rem; }
+  .botao-comprar { width: 100%; padding: 15px 20px; }
 }
