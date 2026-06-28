@@ -42,7 +42,7 @@ const Login = () => {
 
     setCarregando(true);
     try {
-      const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
+      const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.eastus-01.azurewebsites.net/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ email: usuarioInput.trim(), senha: senha })

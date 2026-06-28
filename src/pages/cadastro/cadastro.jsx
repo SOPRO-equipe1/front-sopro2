@@ -81,7 +81,7 @@ const CadastroContent = () => {
     
     setCarregando(true);
     try {
-      const respostaCadastro = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/usuarios/cadastro', {
+      const respostaCadastro = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.eastus-01.azurewebsites.net/api/usuarios/cadastro', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
