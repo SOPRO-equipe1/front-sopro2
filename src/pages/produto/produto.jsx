@@ -18,6 +18,7 @@ import escudoSauderoxo from "../../assets/icons/escudoSaudeRoxo.svg";
 import wifiLaranja from "../../assets/icons/wifiLaranja.svg";
 import bateriaAzul from "../../assets/icons/bateriaAzul.svg";
 import icone360 from "../../assets/icons/icone360.svg"
+import soproGirando from "../../assets/images/produto/soproGirando.gif"
 import background from "../../assets/videos/backgroundProduto.mp4";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -277,7 +278,7 @@ function Produto() {
         transition={{ duration: 0.5 }}
       >
         <div className="compra-card">
-          <img src={fotoCompra} alt="Sopro na mão" className="foto-compra" />
+          <img src={soproGirando} alt="Dispositivo Sopro girando" className="foto-compra" />
           <h2 className="preco">R$ 350,50 </h2>
           <Link to="/compra">
             <button className="botao-comprar btn-suave-global">COMPRAR</button>

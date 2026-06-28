@@ -303,9 +303,24 @@
   transition: box-shadow 0.3s ease, filter 0.3s ease;
 }
 
-.card:hover {
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
-  filter: brightness(1.01);
+.card.verde:hover {
+  box-shadow: 0 0 4px 1.25px rgb(52, 199, 89, 0.5);
+  filter: brightness(1.02);
+}
+
+.card.laranja:hover {
+  box-shadow: 0 0 4px 1.25px rgb(255, 149, 0, 0.5);
+  filter: brightness(1.02);
+}
+
+.card.azul:hover {
+  box-shadow: 0 0 4px 1.25px rgb(0, 122, 255, 0.5);
+  filter: brightness(1.02);
+}
+
+.card.roxo:hover {
+  box-shadow: 0 0 4px 1.25px rgb(175, 82, 222, 0.5);
+  filter: brightness(1.02);
 }
 
 .card .icon {
@@ -315,7 +330,7 @@
 
 .card h3 {
   font-family: "Poppins", sans-serif;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 1.5rem;
   color: #1d252a;
   margin-bottom: 15px;
@@ -323,8 +338,8 @@
 
 .card p {
   font-family: "Poppins", sans-serif;
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 1.05rem;
   color: #444;
   line-height: 1.5;
   text-align: center;
