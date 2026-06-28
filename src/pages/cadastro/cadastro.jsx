@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import './cadastro.css';
 import '../../context/auth/auth-extras.css';
 import logo from '../../assets/icons/logo.png';
+import logoGoogle from '../../assets/icons/logoGoogle.png';
 import imagemCadastro from '../../assets/images/cadastro/imgCadastre-se.png';
 import { motion } from 'framer-motion';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
@@ -12,6 +13,7 @@ const CadastroContent = () => {
   const [carregando, setCarregando] = useState(false);
   const [erroGeral, setErroGeral] = useState('');
 
+  // Estados dos campos
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -81,7 +83,7 @@ const CadastroContent = () => {
     
     setCarregando(true);
     try {
-      const respostaCadastro = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.eastus-01.azurewebsites.net/api/usuarios/cadastro', {
+      const respostaCadastro = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/usuarios/cadastro', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,6 +110,7 @@ const CadastroContent = () => {
     }
   };
 
+  // Processa o credential (ID Token) retornado pelo componente GoogleLogin
   const handleGoogleSuccess = async (credentialResponse) => {
     setCarregando(true);
     setErroGeral('');
