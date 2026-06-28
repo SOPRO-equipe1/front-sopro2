@@ -3,7 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import './cadastro.css';
 import '../../context/auth/auth-extras.css';
 import logo from '../../assets/icons/logo.png';
-import logoGoogle from '../../assets/icons/logoGoogle.png';
 import imagemCadastro from '../../assets/images/cadastro/imgCadastre-se.png';
 import { motion } from 'framer-motion';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
@@ -13,7 +12,6 @@ const CadastroContent = () => {
   const [carregando, setCarregando] = useState(false);
   const [erroGeral, setErroGeral] = useState('');
 
-  
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -110,7 +108,6 @@ const CadastroContent = () => {
     }
   };
 
-  // Processa o credential (ID Token) retornado pelo componente GoogleLogin
   const handleGoogleSuccess = async (credentialResponse) => {
     setCarregando(true);
     setErroGeral('');

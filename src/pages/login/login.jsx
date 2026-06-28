@@ -59,7 +59,7 @@ const Login = () => {
     }
   };
 
-  /* Login com Google via Firebase Auth (popup) — não depende do backend Java/Azure */
+  /* Login com Google via Firebase Auth (popup) — Integrado à API Java */
   const handleGoogleLogin = async () => {
     setErro('');
     setCarregando(true);
@@ -68,16 +68,25 @@ const Login = () => {
       const usuarioGoogle = resultado.user;
       const tokenFirebase = await usuarioGoogle.getIdToken();
 
-      // O photoURL no nível raiz às vezes vem vazio; o providerData do Google é mais confiável
+      // Envia o Token do Firebase para autenticar/registrar no banco MySQL da API Java
+      const respostaAPI = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ token: tokenFirebase })
+      });
+
+      if (!respostaAPI.ok) throw new Error('Falha na validação com o servidor principal.');
+      const dadosSessao = await respostaAPI.json();
+
       const fotoGoogle =
         usuarioGoogle.photoURL ||
         usuarioGoogle.providerData?.find((p) => p.providerId === 'google.com')?.photoURL ||
         null;
 
       await processarSessaoAposLogin(
-        tokenFirebase,
-        usuarioGoogle.email,
-        usuarioGoogle.displayName || usuarioGoogle.email.split('@')[0],
+        dadosSessao.token, // Usa o token JWT fornecido pelo Java
+        dadosSessao.email,
+        dadosSessao.nome || usuarioGoogle.displayName || dadosSessao.email.split('@')[0],
         fotoGoogle
       );
     } catch (err) {
@@ -86,7 +95,7 @@ const Login = () => {
       } else if (err.code === 'auth/unauthorized-domain') {
         setErro('Este domínio não está autorizado no Firebase. Avise o time técnico.');
       } else {
-        setErro('Erro na autenticação com o Google.');
+        setErro(err.message || 'Erro na autenticação com o Google.');
         console.error('Erro no login com Google:', err);
       }
     } finally {
