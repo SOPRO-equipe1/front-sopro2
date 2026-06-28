@@ -138,6 +138,30 @@
 .wrapper-midia {
   width: 100%;
   height: 100%;
+  position: relative;
+}
+
+.indicador-360 {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 5;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+}
+
+.indicador-360 img {
+  width: 40px;
+  height: 40px;
+  opacity: 0.8;
 }
 
 .imagem-galeria-ativa {
@@ -147,61 +171,85 @@
 }
 
 .galeria-cards-linha {
-  display: table;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   width: 100%;
-  table-layout: fixed;
-  border-collapse: separate;
-  border-spacing: 12px 0;
   position: relative;
   z-index: 10; 
-  margin-top: -60px;
-  padding-top: 25px;
+  margin-top: -40px; 
+  padding-top: 0;
+  gap: 8px;
 }
 
 .galeria-card-item {
-  display: table-cell;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 16px;
+  flex: 1;
+  height: 62px; 
+  position: relative;
   cursor: pointer;
-  text-align: left;
-  vertical-align: bottom;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
 }
 
-.galeria-card-item:hover {
+.galeria-card-item::before {
+  display: flex;
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: #ffffff;
+  border: 2px solid #E86B15;
+  border-radius: 34px;
+  z-index: 1;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.galeria-card-item:hover::before {
   background-color: #f8fafc;
-  border-color: #cbd5e1;
-  transform: translateY(-2px); /* Efeito opcional bem premium ao passar o mouse */
+  border-color: #ff6600;
+  transform: translateY(-2px);
 }
 
 .galeria-card-item h4 {
   font-family: "Poppins", sans-serif;
-  font-weight: 700;
-  font-size: 1rem;
-  color: #3c3c3c;
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: -0.5px;
+  color: #1D252A;
   margin: 0;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 3;
+  transition: color 0.2s ease;
 }
 
 .galeria-card-item p {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
-  font-size: 0.85rem;
-  color: #64748b;
-  line-height: 1.4;
-  margin-top: 8px;
+  font-size: 0.90rem;
+  color: #1D252A;
+  margin: 0;
+  position: absolute;
+  bottom: 48px;
+  left: 16px;
+  right: 16px;
+  z-index: 3;
 }
 
-.galeria-card-item.ativo {
-  border-color: #f27420;
-  background-color: #fffaf7;
-  transform: translateY(-20px); 
+.galeria-card-item.ativo::before {
+  top: -120px; 
+  border-color: rgb(255, 125, 0);
   box-shadow: 0 12px 24px rgba(242, 116, 32, 0.15), 0 4px 8px rgba(0, 0, 0, 0.04);
 }
 
-.card-3d-seletor.ativo h4 {
-  color: #f27420;
+.card-3d-seletor.ativo::before {
+  top: -5px;
 }
 
 .beneficios-container {
@@ -436,7 +484,7 @@
   .galeria-cards-linha {
     display: block; 
     border-spacing: 0;
-    margin-top: -20px; /* Reduz a sobreposição no celular para não cobrir o produto inteiro */
+    margin-top: -20px;
   }
   .galeria-card-item {
     display: block;
