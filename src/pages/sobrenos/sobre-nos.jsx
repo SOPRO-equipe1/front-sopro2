@@ -1,6 +1,6 @@
-/*Parte de cima: fotos produtos*/
 import imgSection1SobreNos from "../../assets/images/sobre-nos/imgSection1SobreNos.png";
 import imgSection2SobreNos from "../../assets/images/sobre-nos/imgSection2SobreNos.png";
+import linhaBranca from '../../assets/icons/linhaBranca.svg';
 /*Imagem do grupo*/
 import imgSection3SobreNos from "../../assets/images/sobre-nos/imgSection3SobreNos.png";
 /*Icon section1*/
@@ -47,7 +47,7 @@ function SobreNos() {
       >
         <div className="QuadradoVerde1">
           <h1 className="hV1">Sobre Nós</h1>
-          <hr />
+          <img className="linhaBranca" src={linhaBranca} alt="Linha Decorativa" />
           <p className="pV1">
             Como desenvolvedores e alunos do Instituto PROA, acreditamos que a
             tecnologia deve ser inclusiva. Atuamos para transformar o sopro, um
@@ -141,7 +141,7 @@ function SobreNos() {
       </section>
 
       <section className="ParteEquipe">
-        <h4>Conheça nossa equipe</h4>
+        <h3>Conheça nossa equipe</h3>
         <div className="FotoEquipe">
           <img src={conhecaequipe} alt="Foto da equipe SOPRO" />
         </div>

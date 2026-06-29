@@ -55,20 +55,20 @@ body {
   flex-direction: column;
   justify-content: center; 
   box-sizing: border-box;
+  gap: 25px;
 }
 
 .hV1 {
   color: rgb(255, 255, 255);
-  font-size: clamp(1.2rem, 2.5vw, 2.2rem); 
+  font-size: clamp(32px, 8vw, 60px); 
   text-align: center;
   margin: 0;
 }
 
-hr {
-  width: 40%;
-  height: 1px;
+.linhaBranca {
+  width: 70%;
   background-color: rgb(255, 255, 255);
-  border: none;
+  border-radius: 16px;
   margin: 1vw auto; 
 }
 
@@ -322,14 +322,14 @@ hr {
 
 .CardsMVV h4 {
     font-size: 22px;
-    color: #000000;
+    color: #1d252a;
     margin: 10px 0;
 }
 
 .CardsMVV p {
-    font-size: 14px;
-    font-weight: 600;
-    color: #000;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #1d252a;
     line-height: 1.5;
 }
 
@@ -340,7 +340,7 @@ hr {
     margin: 10px auto 0 auto !important;
 }
 
-.ParteEquipe h4 {
+.ParteEquipe h3 {
     font-size: 250%;
     font-weight: bold;
     text-align: center;
