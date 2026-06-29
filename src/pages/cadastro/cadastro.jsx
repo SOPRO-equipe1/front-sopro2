@@ -6,14 +6,16 @@ import logo from '../../assets/icons/logo.png';
 import logoGoogle from '../../assets/icons/logoGoogle.png';
 import imagemCadastro from '../../assets/images/cadastro/imgCadastre-se.png';
 import { motion } from 'framer-motion';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
+import { auth, googleProvider } from '../../context/auth/firebase.js';
+import { useAuth } from '../../context/auth/authContext.jsx';
 
-const CadastroContent = () => {
+const Cadastro = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [carregando, setCarregando] = useState(false);
   const [erroGeral, setErroGeral] = useState('');
 
-  // Estados dos campos
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -64,10 +66,12 @@ const CadastroContent = () => {
     setErrosCampos(prev => ({ ...prev, [nomeCampo]: mensagemErro }));
   };
 
+  /* Cadastro com e-mail e senha via Firebase Auth */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErroGeral('');
 
+    // Valida todos os campos
     validarCampoAoSair('nome', nome);
     validarCampoAoSair('email', email);
     validarCampoAoSair('senha', senha);
@@ -80,57 +84,71 @@ const CadastroContent = () => {
       setErroGeral('Por favor, corrija os erros nos campos destacados antes de prosseguir.');
       return;
     }
-    
+
     setCarregando(true);
     try {
-      const respostaCadastro = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/usuarios/cadastro', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          nome: nome.trim(),
-          email: email.trim(),
-          senha: senha
-        })
-      });
+      // Cria o usuário no Firebase Authentication
+      const resultado = await createUserWithEmailAndPassword(auth, email.trim(), senha);
 
-      if (!respostaCadastro.ok) {
-        throw new Error('Falha no cadastro. Verifique os dados ou certifique-se de que o e-mail é único.');
-      }
+      // Salva o nome no perfil do Firebase
+      await updateProfile(resultado.user, { displayName: nome.trim() });
 
+      // Gera o token e salva na sessão
+      const token = await resultado.user.getIdToken();
+      localStorage.setItem('@Sopro:token', token);
+      localStorage.setItem('@Sopro:email', resultado.user.email);
       localStorage.setItem('@Sopro:nome', nome.trim());
-      navigate('/login');
+
+      await login(resultado.user.email, nome.trim(), null);
+      navigate('/perfil');
 
     } catch (err) {
-      setErroGeral(err.message || 'Erro ao conectar-se com a API do Azure.');
+      if (err.code === 'auth/email-already-in-use') {
+        setErroGeral('Este e-mail já está cadastrado. Faça login ou use outro e-mail.');
+      } else if (err.code === 'auth/weak-password') {
+        setErroGeral('Senha muito fraca. Use pelo menos 6 caracteres.');
+      } else if (err.code === 'auth/invalid-email') {
+        setErroGeral('E-mail inválido.');
+      } else {
+        setErroGeral('Erro ao criar conta. Tente novamente.');
+        console.error('Erro no cadastro:', err);
+      }
     } finally {
       setCarregando(false);
     }
   };
 
-  // Processa o credential (ID Token) retornado pelo componente GoogleLogin
-  const handleGoogleSuccess = async (credentialResponse) => {
-    setCarregando(true);
+  /* Cadastro/Login com Google via Firebase Auth */
+  const handleGoogleCadastro = async () => {
     setErroGeral('');
+    setCarregando(true);
     try {
-      const res = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/google', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: credentialResponse.credential })
-      });
+      const resultado = await signInWithPopup(auth, googleProvider);
+      const firebaseUser = resultado.user;
+      const token = await firebaseUser.getIdToken();
+      const foto =
+        firebaseUser.photoURL ||
+        firebaseUser.providerData?.find((p) => p.providerId === 'google.com')?.photoURL ||
+        null;
+      const nomeGoogle = firebaseUser.displayName || firebaseUser.email.split('@')[0];
 
-      if (!res.ok) throw new Error('Falha no cadastro/login com o Google.');
+      localStorage.setItem('@Sopro:token', token);
+      localStorage.setItem('@Sopro:email', firebaseUser.email);
+      localStorage.setItem('@Sopro:nome', nomeGoogle);
+      if (foto) localStorage.setItem('@Sopro:foto', foto);
 
-      const dadosAPI = await res.json();
-      localStorage.setItem('@Sopro:token', dadosAPI.token);
-      localStorage.setItem('@Sopro:email', dadosAPI.email);
-      localStorage.setItem('@Sopro:nome', dadosAPI.nome);
-
+      await login(firebaseUser.email, nomeGoogle, foto);
       navigate('/perfil');
+
     } catch (err) {
-      setErroGeral('Erro na autenticação com o Google.');
+      if (err.code === 'auth/popup-closed-by-user') {
+        // usuário cancelou; não exibe erro
+      } else if (err.code === 'auth/unauthorized-domain') {
+        setErroGeral('Este domínio não está autorizado no Firebase. Avise o time técnico.');
+      } else {
+        setErroGeral('Erro na autenticação com o Google.');
+        console.error('Erro no cadastro com Google:', err);
+      }
     } finally {
       setCarregando(false);
     }
@@ -139,7 +157,7 @@ const CadastroContent = () => {
   return (
     <main className="cadastro-page">
       <section className="cadastro-container">
-         <motion.article className="cadastro-form-col" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
+        <motion.article className="cadastro-form-col" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
           <header className="cadastro-header">
             <img src={logo} alt="Sopro Logo" className="cadastro-logo" />
             <h1 className="cadastro-title">Crie sua conta</h1>
@@ -158,12 +176,12 @@ const CadastroContent = () => {
             <input id="email" type="email" className={`cadastro-input ${errosCampos.email ? 'input-erro-visual' : ''}`} placeholder="Insira seu e-mail" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={() => validarCampoAoSair('email', email)} autoComplete="email" disabled={carregando} />
             {errosCampos.email && <span className="feedback-erro-campo">{errosCampos.email}</span>}
 
-            {/* Campo senha */}
+            {/* Campo Senha */}
             <label htmlFor="senha" className="visually-hidden">Senha</label>
             <input id="senha" type="password" className={`cadastro-input ${errosCampos.senha ? 'input-erro-visual' : ''}`} placeholder="Insira sua senha" value={senha} onChange={(e) => setSenha(e.target.value)} onBlur={() => validarCampoAoSair('senha', senha)} autoComplete="new-password" disabled={carregando} />
             {errosCampos.senha && <span className="feedback-erro-campo">{errosCampos.senha}</span>}
 
-            {/* Campo confirmar Senha */}
+            {/* Campo Confirmar Senha */}
             <label htmlFor="confirmarSenha" className="visually-hidden">Confirmar senha</label>
             <input id="confirmarSenha" type="password" className={`cadastro-input ${errosCampos.confirmarSenha ? 'input-erro-visual' : ''}`} placeholder="Confirme sua senha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} onBlur={() => validarCampoAoSair('confirmarSenha', confirmarSenha)} autoComplete="new-password" disabled={carregando} />
             {errosCampos.confirmarSenha && <span className="feedback-erro-campo">{errosCampos.confirmarSenha}</span>}
@@ -174,15 +192,12 @@ const CadastroContent = () => {
           </form>
 
           <p className="login-divider-label">Cadastrar com</p>
-          
+
           <nav className="login-social" aria-label="Cadastro social">
-            <GoogleLogin
-              onSuccess={handleGoogleSuccess}
-              onError={() => setErroGeral('Cadastro com o Google falhou.')}
-              text="signup_with"
-              shape="rectangular"
-              locale="pt-BR"
-            />
+            <button type="button" className="social-btn social-btn--google" onClick={handleGoogleCadastro} disabled={carregando}>
+              <img src={logoGoogle} alt="" aria-hidden="true" />
+              {carregando ? 'Aguarde...' : 'Cadastrar com Google'}
+            </button>
           </nav>
 
           <p className="cadastro-login">
@@ -197,11 +212,5 @@ const CadastroContent = () => {
     </main>
   );
 };
-
-const Cadastro = () => (
-  <GoogleOAuthProvider clientId="668261340880-j3djh4lugbo1kb0hs3if8g9734q1u7kl.apps.googleusercontent.com">
-    <CadastroContent />
-  </GoogleOAuthProvider>
-);
 
 export default Cadastro;

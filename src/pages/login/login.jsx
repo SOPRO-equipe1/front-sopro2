@@ -6,7 +6,7 @@ import logoGoogle from '../../assets/icons/logoGoogle.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../context/auth/authContext.jsx';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, googleProvider } from '../../context/auth/firebase.js';
 
 const Login = () => {
@@ -17,14 +17,20 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const processarSessaoAposLogin = async (token, email, nome, foto = null) => {
-    localStorage.setItem('@Sopro:token', token);
-    localStorage.setItem('@Sopro:email', email);
-    localStorage.setItem('@Sopro:nome', nome);
+  const processarSessaoAposLogin = async (firebaseUser) => {
+    const token = await firebaseUser.getIdToken();
+    const foto =
+      firebaseUser.photoURL ||
+      firebaseUser.providerData?.find((p) => p.providerId === 'google.com')?.photoURL ||
+      null;
+    const nome = firebaseUser.displayName || firebaseUser.email.split('@')[0];
 
-    if (login) {
-      await login(email, nome, foto);
-    }
+    localStorage.setItem('@Sopro:token', token);
+    localStorage.setItem('@Sopro:email', firebaseUser.email);
+    localStorage.setItem('@Sopro:nome', nome);
+    if (foto) localStorage.setItem('@Sopro:foto', foto);
+
+    await login(firebaseUser.email, nome, foto);
 
     const temIntencaoCompra = localStorage.getItem('@Sopro:intencao_compra') === 'true';
     if (temIntencaoCompra) {
@@ -35,51 +41,46 @@ const Login = () => {
     }
   };
 
+  /* Login com e-mail e senha via Firebase Auth */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErro('');
-    if (!usuarioInput.trim() || !senha) { setErro('Preencha todos os campos.'); return; }
+    if (!usuarioInput.trim() || !senha) {
+      setErro('Preencha todos os campos.');
+      return;
+    }
 
     setCarregando(true);
     try {
-      const response = await fetch('https://sopro-backend-a6h6e5a9bydzd2dd.canadacentral-01.azurewebsites.net/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ email: usuarioInput.trim(), senha: senha })
-      });
-
-      if (!response.ok) throw new Error('E-mail ou senha incorretos.');
-      const dados = await response.json();
-
-      await processarSessaoAposLogin(dados.token, dados.email, dados.email.split('@')[0]);
+      const resultado = await signInWithEmailAndPassword(auth, usuarioInput.trim(), senha);
+      await processarSessaoAposLogin(resultado.user);
     } catch (err) {
-      setErro(err.message || 'Erro ao realizar login.');
+      if (
+        err.code === 'auth/user-not-found' ||
+        err.code === 'auth/wrong-password' ||
+        err.code === 'auth/invalid-credential'
+      ) {
+        setErro('E-mail ou senha incorretos.');
+      } else if (err.code === 'auth/invalid-email') {
+        setErro('E-mail inválido.');
+      } else if (err.code === 'auth/too-many-requests') {
+        setErro('Muitas tentativas. Aguarde alguns minutos e tente novamente.');
+      } else {
+        setErro('Erro ao realizar login. Tente novamente.');
+        console.error('Erro no login:', err);
+      }
     } finally {
       setCarregando(false);
     }
   };
 
-  /* Login com Google via Firebase Auth (popup) — não depende do backend Java/Azure */
+  /* Login com Google via Firebase Auth */
   const handleGoogleLogin = async () => {
     setErro('');
     setCarregando(true);
     try {
       const resultado = await signInWithPopup(auth, googleProvider);
-      const usuarioGoogle = resultado.user;
-      const tokenFirebase = await usuarioGoogle.getIdToken();
-
-      // O photoURL no nível raiz às vezes vem vazio; o providerData do Google é mais confiável
-      const fotoGoogle =
-        usuarioGoogle.photoURL ||
-        usuarioGoogle.providerData?.find((p) => p.providerId === 'google.com')?.photoURL ||
-        null;
-
-      await processarSessaoAposLogin(
-        tokenFirebase,
-        usuarioGoogle.email,
-        usuarioGoogle.displayName || usuarioGoogle.email.split('@')[0],
-        fotoGoogle
-      );
+      await processarSessaoAposLogin(resultado.user);
     } catch (err) {
       if (err.code === 'auth/popup-closed-by-user') {
         // usuário cancelou; não exibe erro
@@ -107,10 +108,28 @@ const Login = () => {
             {erro && <p className="login-erro" role="alert">{erro}</p>}
 
             <label htmlFor="usuario" className="visually-hidden">E-mail</label>
-            <input id="usuario" type="text" className="login-input" placeholder="Insira seu e-mail" value={usuarioInput} onChange={(e) => setUsuarioInput(e.target.value)} autoComplete="username" disabled={carregando} />
+            <input
+              id="usuario"
+              type="email"
+              className="login-input"
+              placeholder="Insira seu e-mail"
+              value={usuarioInput}
+              onChange={(e) => setUsuarioInput(e.target.value)}
+              autoComplete="username"
+              disabled={carregando}
+            />
 
             <label htmlFor="senha" className="visually-hidden">Senha</label>
-            <input id="senha" type="password" className="login-input" placeholder="Insira sua senha" value={senha} onChange={(e) => setSenha(e.target.value)} autoComplete="current-password" disabled={carregando} />
+            <input
+              id="senha"
+              type="password"
+              className="login-input"
+              placeholder="Insira sua senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              autoComplete="current-password"
+              disabled={carregando}
+            />
 
             <button type="submit" className="login-btn" disabled={carregando}>
               {carregando ? 'Entrando...' : 'Entrar'}
