@@ -35,6 +35,10 @@ body {
   display: none;
 }
 
+.Img2 {
+  border-radius: 20px;
+}
+
 /* ✅ CORREÇÃO 1b: QuadradoVerde1 deixa de ser absolute */
 .QuadradoVerde1 {
   position: relative;      /* sai do absolute */
