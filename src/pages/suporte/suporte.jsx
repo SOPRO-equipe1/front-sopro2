@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './suporte.css';
 import imgSuporteTecnico from '../../assets/images/suporte/imgSuporteTecnico.png';
+import linhaBranca from '../../assets/icons/linhaBranca.svg';
 import iconSeta from '../../assets/icons/Vector.png'; 
-import video from '../../assets/videos/suportevideo.mp4'
+import video from '../../assets/videos/videoSuporte.mp4'
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -38,6 +39,7 @@ const Suporte = () => {
       <section className="suporte-hero">
         <div className="suporte-inner">
           <h1 className="suporte-sopro">Suporte SOPRO</h1>
+          <img src={linhaBranca} alt="Linha Decorativa" />
           <p>Encontre auxílio e esclareça suas dúvidas</p>
         </div>
       </section>
