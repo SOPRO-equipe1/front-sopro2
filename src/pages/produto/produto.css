@@ -486,42 +486,253 @@
   height: auto;
 }
 
-/* RESPONSIVIDADE E ADAPTAÇÃO MOBILE */
+/* RESPONSIVIDADE MOBILE */
 @media (max-width: 900px) {
+
   .galeria-vertical-container {
     padding: 10px;
+    border-radius: 16px;
   }
+
+
   .galeria-midia-destaque {
-    height: 350px;
+    height: 320px;
+    margin-bottom: 20px;
   }
+
+
+  .indicador-360 {
+    width: 45px;
+    height: 45px;
+    top: 15px;
+    right: 15px;
+  }
+
+
+  .indicador-360 img {
+    width: 30px;
+    height: 30px;
+  }
+
+
+  /* CARDS */
   .galeria-cards-linha {
-    display: block; 
-    border-spacing: 0;
-    margin-top: -20px;
-  }
-  .galeria-card-item {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 0;
     width: 100%;
-    margin-bottom: 12px;
   }
+
+
+  .galeria-card-item {
+    width: 100%;
+    height: 62px;
+    min-height: 62px;
+    position: relative;
+  }
+
+
+  .galeria-card-item::before {
+    top: 0;
+    height: 62px;
+  }
+
+
+  /* CARDS EXPANDÍVEIS */
+  .galeria-card-item.ativo:not(.card-3d-seletor) {
+    height: 170px;
+    min-height: 170px;
+  }
+
+
+  .galeria-card-item.ativo:not(.card-3d-seletor)::before {
+    top: 0;
+    height: 170px;
+    box-shadow: 0 12px 24px rgba(242, 116, 32, 0.15);
+  }
+
+
+  /* VISÃO 360 - NÃO EXPANDE */
+  .card-3d-seletor {
+    height: 62px;
+    min-height: 62px;
+  }
+
+
+  .card-3d-seletor.ativo {
+    height: 62px;
+    min-height: 62px;
+  }
+
+
+  .card-3d-seletor.ativo::before {
+    top: 0;
+    height: 62px;
+    box-shadow: none;
+  }
+
+
+
+  /* TEXTO DOS CARDS */
+  .galeria-card-item h4 {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    padding: 18px 20px;
+    margin: 0;
+    z-index: 3;
+  }
+
+
+  .galeria-card-item p {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    padding: 0 20px 20px;
+    margin: 0;
+    z-index: 3;
+  }
+
+
+
+  /* ESPECIFICAÇÕES */
   .especificacoes-content {
     flex-direction: column;
     text-align: center;
+    gap: 20px;
   }
-  .specs-texto { align-items: center; }
-  .divisor-azul { width: 90%; }
-  .specs-imagem { order: -1; margin-bottom: 30px; }
+
+
+  .specs-texto {
+    align-items: center;
+    width: 100%;
+  }
+
+
+  .titulo-specs {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+
+  .lista-specs {
+    width: 100%;
+  }
+
+
+  .lista-specs li {
+    justify-content: center;
+  }
+
+
+  .specs-imagem {
+    order: -1;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+
+  .specs-imagem img {
+    width: 110%;
+    max-width: none;
+    margin-left: -5%;
+  }
+
+
+  .divisor-azul {
+    width: 90%;
+  }
+
 }
 
+
+
+/* MOBILE PEQUENO */
 @media (max-width: 768px) {
+
   .produto-content {
-    padding: 100px 0 40px 0 !important;
+    min-height: 40vh !important;
+    height: 40vh !important;
+    padding: 20px !important;
+    overflow: hidden;
+    justify-content: flex-start;
   }
-  .titulo1 { font-size: 2.5rem; color: #fafcff !important; }
-  .texto1 { font-size: 1.4rem; color: #fafcff !important; }
-  .titulo2 { font-size: 2rem; text-align: center; }
-  .texto2 { font-size: 1.2rem; line-height: 1.4; }
-  .beneficios-container { grid-template-columns: 1fr; padding: 20px; }
-  .beneficios-container h2 { font-size: 1.8rem; }
-  .botao-comprar { width: 100%; padding: 15px 20px; }
+
+
+  .video-bg-produto {
+    height: 100% !important;
+    width: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+
+  .tituloHero {
+    padding: 0 !important;
+    margin-top: 100px;
+  }
+
+  .titulo1 {
+    font-size: 2.2rem;
+    line-height: 1.1;
+  }
+
+
+  .texto1 {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    max-width: 90%;
+    margin: 15px auto 0;
+  }
+
+  .video-bg-produto {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+
+  .titulo2 {
+    font-size: 2rem;
+  }
+
+
+  .texto2 {
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+
+
+  .beneficios-container {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+
+  .beneficios-container h2 {
+    font-size: 1.8rem;
+  }
+
+
+  .botao-comprar {
+    width: 100%;
+    padding: 15px 20px;
+  }
+
+
+  .galeria-midia-destaque {
+    height: 280px;
+  }
+
+
+  /* mantém visão 360 compacta */
+  .card-3d-seletor,
+  .card-3d-seletor.ativo {
+    height: 62px;
+    min-height: 62px;
+  }
+
 }
