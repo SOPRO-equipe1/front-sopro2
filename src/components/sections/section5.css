@@ -1,136 +1,146 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .section5 {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    margin: 64px 0px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 64px 0px;
 }
 
 .textosSection5 {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    text-align: center;
-    padding: 60px 20px;
-    width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding: 60px 20px;
+  width: 100%;
 }
 
-.textosSection5 h2{
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
-    font-size: 40px;
-    color: #1A252A;
-    margin: 0;
-    letter-spacing: -2px;
+.textosSection5 h2 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #1a252a;
+  margin: 0;
+  letter-spacing: -2px;
 }
 
-.textosSection5 p{
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-size: 20px;
-    color: #1A252A;
-    max-width: 850px;
-    line-height: 1.5;
-    margin: 0 auto 30px;
-    padding: 0;
+.textosSection5 p {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #1a252a;
+  max-width: 850px;
+  line-height: 1.5;
+  margin: 0 auto 30px;
+  padding: 0;
 }
 
 .botoes {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    width: 100%;
-    height: auto;
-    justify-content: center;
-    margin-bottom: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .imgSection5 {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-top: 40px !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    margin-bottom: 0 !important;
-    height: 980px !important;
-    display: block !important;
-    object-fit: cover !important;
-    border-radius: 0px !important;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin-top: 40px;
+  display: block;
+  object-fit: contain;
+  border-radius: 0;
 }
 
 /* Ajuste para celulares */
 @media (max-width: 600px) {
-    .botoes {
-        flex-direction: column;
-        gap: 16px;
-        align-items: center;
-        height: auto;
-    }
+  .botoes {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    height: auto;
+  }
 
-    .contato, .produtos {
-        width: 280px;
-        height: 52px;
-    }
+  .imgSection5 {
+    width: 135%;
+    max-width: none;
+    height: auto;
+    margin-left: -10%;
+    object-fit: contain;
+  }
 
-    .textosSection5 h2 {
-        font-size: 2rem;
-    }
+  .contato,
+  .produtos {
+    width: 280px;
+    height: 52px;
+  }
 
-    .textosSection5 p {
-        font-size: 1.05rem;
-        max-width: 100%;
-    }
+  .textosSection5 h2 {
+    font-size: 2rem;
+  }
+
+  .textosSection5 p {
+    font-size: 1.05rem;
+    max-width: 100%;
+  }
 }
 
 .contato {
-    position: relative;
-    border: none;
-    appearance: none;
-    padding: 10px 28px;
-    font-family: Poppins, sans-serif;
-    font-size: 20px;
-    color: #FFF;
-    background: #e96a16;
-    width: 200px;
-    border-radius: 16px;
-    cursor: pointer;
-    transition: transform 0.2s;
+  position: relative;
+  border: none;
+  appearance: none;
+  padding: 10px 28px;
+  font-family: Poppins, sans-serif;
+  font-size: 20px;
+  color: #fff;
+  background: #e96a16;
+  width: 200px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .contato:hover {
-    filter: brightness(1.06);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  filter: brightness(1.06);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
-.contato:active { filter: brightness(0.9); }
+.contato:active {
+  filter: brightness(0.9);
+}
 
 .produtos {
-    position: relative;
-    padding: 10px 28px;
-    font-family: Poppins, sans-serif;
-    font-size: 20px;
-    font-weight: 600;
-    color: #1D252A;
-    background: #FFF;
-    width: 200px;
-    border-radius: 16px;
-    border: 2px solid #1D252A;
-    height: 50px;
-    cursor: pointer;
-    transition: transform 0.2s;
+  position: relative;
+  padding: 10px 28px;
+  font-family: Poppins, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1d252a;
+  background: #fff;
+  width: 200px;
+  border-radius: 16px;
+  border: 2px solid #1d252a;
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .produtos:hover {
-    filter: brightness(1.06);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  filter: brightness(1.06);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
-.produtos:active { filter: brightness(0.9); }
+.produtos:active {
+  filter: brightness(0.9);
+}
