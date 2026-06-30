@@ -11,7 +11,7 @@ import escudoRoxo from "../../assets/icons/escudoRoxo.svg";
 import porquinhoLaranja from "../../assets/icons/porquinhoLaranja.svg";
 import verificadoAzul from "../../assets/icons/verificadoAzul.svg";
 import fotoCompra from "../../assets/images/produto/fotoCompra.png";
-import fotoTecnica from "../../assets/images/produto/fotoTecnica.png";
+import hardExplodido from "../../assets/images/produto/hardExplodido.png";
 import chipRoxo from "../../assets/icons/chipRoxo.svg";
 import sensorVerde from "../../assets/icons/sensorVerde.svg";
 import escudoSauderoxo from "../../assets/icons/escudoSaudeRoxo.svg";
@@ -343,7 +343,7 @@ function Produto() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <img src={fotoTecnica} alt="Detalhes técnicos do Sopro" />
+            <img src={hardExplodido} alt="Detalhes técnicos do Sopro" />
           </motion.div>
         </div>
       </section>
