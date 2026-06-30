@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react"; // 1. Importado o useRef
 import "./suporte.css";
 import imgSuporteTecnico from "../../assets/images/suporte/imgSuporteTecnico.png";
 import linhaBranca from "../../assets/icons/linhaBranca.svg";
@@ -9,6 +9,18 @@ import { motion } from "framer-motion";
 
 const Suporte = () => {
   const [aberto, setAberto] = useState(null);
+  
+  const videoRef = useRef(null);
+
+  const handlePlayVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      
+      videoRef.current.play().catch((error) => {
+        console.log("O navegador bloqueou o autoplay:", error);
+      });
+    }
+  };
 
   const faqs = [
     {
@@ -55,23 +67,21 @@ const Suporte = () => {
           <h2>Guia de uso</h2>
           <div className="video-wrapper">
             <div className="botoes-guia">
-              <button className="play-btn btn-suave-global">
+              <button onClick={handlePlayVideo} className="play-btn btn-suave-global">
                 Passo a passo
               </button>
               <Link to="/dicionario">
                 <button className="play-btn btn-suave-global">
-                  {" "}
-                  Dicionário de frases{" "}
+                  Dicionário de frases
                 </button>
               </Link>
             </div>
 
             <div className="video-placeholder">
               <video
+                ref={videoRef}
                 muted
                 controls
-                autoPlay
-                muted
                 loop
                 playsInline
                 width="100%"
