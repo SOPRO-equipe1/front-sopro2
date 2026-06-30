@@ -4,11 +4,38 @@ import { motion } from 'framer-motion';
 import './compra.css';
 
 
-import imgCompra1 from "../../assets/images/produto/fotoCompra.png";
-import imgCompra2 from "../../assets/images/produto/section2Produto1.png";
-import imgCompra3 from "../../assets/images/produto/section2Produto2.png";
-import imgCompra4 from "../../assets/images/produto/section2Produto3.png";
-import imgCompra5 from "../../assets/images/produto/section2Produto4.png";
+//Produtos e Cores
+
+//Preta
+import imgProdutoPreta from "../../assets/images/compra/imgPrincipalPreta.png";
+import imgCompra2 from "../../assets/images/compra/imgProdutoPreta1.png";
+import imgCompra3 from "../../assets/images/compra/imgPrincipalPreta2.png";
+import imgCompra4 from "../../assets/images/compra/imgPrincipalPreta3.png";
+import imgCompra5 from "../../assets/images/compra/imgPrincipalPreta4.png";
+
+//Branca
+import imgProdutoBranco from "../../assets/images/compra/imgPrincipalBranca.png";
+
+
+//Vermlha
+import imgProdutoVermelho from "../../assets/images/compra/imgPrincipalVermelha.png";
+
+//Roxo
+import imgProdutoRoxo from "../../assets/images/compra/imgPrincipalRoxo.png"
+
+//Laranja
+import imgProdutoLaranja from "../../assets/images/compra/imgProdutoPrincipalLaranja.png"
+
+//Azul
+import imgProdutoAzul from "../../assets/images/compra/imgProdutoPrincipalAzul.png"
+
+//Rosa
+import imgProdutoRosa from "../../assets/images/compra/imgProdutoPrincipalRosa.png"
+
+//Verde
+import imgProdutoVerde from "../../assets/images/compra/imgProdutoPrincipalVerde.png"
+ 
+
 import iconMasterCard from "../../assets/images/compra/iconMasterCard.svg";
 import iconPix from "../../assets/images/compra/iconPix.svg";
 import iconPayPal from "../../assets/images/compra/iconPayPal.svg";
@@ -17,20 +44,20 @@ import iconVisa from "../../assets/images/compra/iconVisa.svg";
 function Compra() {
   const navigate = useNavigate();
   const [quantidade, setQuantidade] = useState(1);
-  const [imagemPrincipal, setImagemPrincipal] = useState(imgCompra1);
+  const [imagemPrincipal, setImagemPrincipal] = useState(imgProdutoPreta);
   const [corSelecionada, setCorSelecionada] = useState(null);
   const [jaComprou, setJaComprou] = useState(false);
 
   
   const IMAGENS_COR = {
-    Branco:   imgCompra1,
-    Preto:    imgCompra1,
-    Vermelho: imgCompra1,
-    Roxo:     imgCompra1,
-    Laranja:  imgCompra1,
-    Azul:     imgCompra1,
-    Rosa:     imgCompra1,
-    Verde:    imgCompra1,
+    Branco:   imgProdutoBranco,
+    Preto:    imgProdutoPreta,
+    Vermelho: imgProdutoVermelho,
+    Roxo:     imgProdutoRoxo,
+    Laranja:  imgProdutoLaranja,
+    Azul:     imgProdutoAzul,
+    Rosa:     imgProdutoRosa,
+    Verde:    imgProdutoVerde,
   };
 
   const THUMBNAILS = [imgCompra2, imgCompra3, imgCompra4, imgCompra5];
