@@ -109,6 +109,7 @@
   font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: bold;
   margin-bottom: 2px;
+  letter-spacing: -2px;
 }
 
 .video-wrapper {
@@ -162,22 +163,24 @@
 
 .input-group input,
 .input-group textarea {
+    font-family: Poppins;
   width: 100%;
   border-radius: 12px;
   background-color: #f0f4f8;
   border: 1px solid #e0e0e0;
   padding: 16px 20px;
-  font-family: "Roboto", sans-serif;
   font-size: 16px;
   box-sizing: border-box;
 }
 
 .btn-enviar {
-  border-radius: 12px;
+    font-family: Poppins;
+    font-size: 1.1rem;
+  border-radius: 16px;
   background-color: #e86b15;
   padding: 16px;
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
   border: none;
   cursor: pointer;
   transition: background 0.3s;
@@ -193,6 +196,10 @@
   color: #000;
   text-align: center;
   width: 100%;
+}
+
+.faq-section h2 {
+    letter-spacing: -2px;
 }
 
 .faq-grid {
@@ -270,6 +277,17 @@
   color: #333;
   margin: 0;
   text-align: left;
+}
+
+.form-wrapper h2 {
+    line-height: normal;
+    letter-spacing: -2px;
+    padding-bottom: 24px;
+}
+
+.input-group label {
+    font-family: Poppins;
+    font-weight: 600;
 }
 
 /* --- MEDIA QUERIES  --- */
