@@ -30,11 +30,20 @@ import imgProdutoBranco4 from "../../assets/images/compra/imgProdutoBranco4.png"
 import imgProdutoVermelho from "../../assets/images/compra/imgPrincipalVermelha.png";
 
 // - Miniatura
+import imgProdutoVermelho1 from "../../assets/images/compra/imgPrincipalVermelha1.png";
+import imgProdutoVermelho2 from "../../assets/images/compra/imgPrincipalVermelha2.png";
+import imgProdutoVermelho3 from "../../assets/images/compra/imgPrincipalVermelha3.png";
+import imgProdutoVermelho4 from "../../assets/images/compra/imgPrincipalVermelha4.png";
 
-//Roxo
+// roxo
 import imgProdutoRoxo from "../../assets/images/compra/imgPrincipalRoxo.png"
 
+
 // - Miniatura
+import imgProdutoRoxo1 from "../../assets/images/compra/imgPrincipalRoxo1.png"
+import imgProdutoRoxo2 from "../../assets/images/compra/imgPrincipalRoxo2.png"
+import imgProdutoRoxo3 from "../../assets/images/compra/imgPrincipalRoxo3.png"
+import imgProdutoRoxo4 from "../../assets/images/compra/imgPrincipalRoxo4.png"
 
 //Laranja
 import imgProdutoLaranja from "../../assets/images/compra/imgProdutoPrincipalLaranja.png"
@@ -83,11 +92,11 @@ function Compra() {
 
     Vermelho: {
     principal: imgProdutoVermelho,
-    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+    thumbs: [imgProdutoVermelho1, imgProdutoVermelho2, imgProdutoVermelho3, imgProdutoVermelho4], // temporário
   },
   Roxo: {
     principal: imgProdutoRoxo,
-    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+    thumbs: [imgProdutoRoxo1, imgProdutoRoxo2, imgProdutoRoxo3, imgProdutoRoxo4], // temporário
   },
   Laranja: {
     principal: imgProdutoLaranja,
