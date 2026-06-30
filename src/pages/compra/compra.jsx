@@ -7,7 +7,11 @@ import './compra.css';
 //Produtos e Cores
 
 //Preta
+
+// - IMG Principal
 import imgProdutoPreta from "../../assets/images/compra/imgPrincipalPreta.png";
+
+// - Miniatura
 import imgCompra2 from "../../assets/images/compra/imgProdutoPreta1.png";
 import imgCompra3 from "../../assets/images/compra/imgPrincipalPreta2.png";
 import imgCompra4 from "../../assets/images/compra/imgPrincipalPreta3.png";
@@ -16,25 +20,41 @@ import imgCompra5 from "../../assets/images/compra/imgPrincipalPreta4.png";
 //Branca
 import imgProdutoBranco from "../../assets/images/compra/imgPrincipalBranca.png";
 
+// - Miniatura
+import imgProdutoBranco1 from "../../assets/images/compra/imgProdutoBranco1.png"
+import imgProdutoBranco2 from "../../assets/images/compra/imgProdutoBranco2.png";
+import imgProdutoBranco3 from "../../assets/images/compra/imgProdutoBranco3.png";
+import imgProdutoBranco4 from "../../assets/images/compra/imgProdutoBranco4.png";
 
 //Vermlha
 import imgProdutoVermelho from "../../assets/images/compra/imgPrincipalVermelha.png";
 
+// - Miniatura
+
 //Roxo
 import imgProdutoRoxo from "../../assets/images/compra/imgPrincipalRoxo.png"
+
+// - Miniatura
 
 //Laranja
 import imgProdutoLaranja from "../../assets/images/compra/imgProdutoPrincipalLaranja.png"
 
+// - Miniatura
+
 //Azul
 import imgProdutoAzul from "../../assets/images/compra/imgProdutoPrincipalAzul.png"
+
+// - Miniatura
 
 //Rosa
 import imgProdutoRosa from "../../assets/images/compra/imgProdutoPrincipalRosa.png"
 
+// - Miniatura
+
 //Verde
 import imgProdutoVerde from "../../assets/images/compra/imgProdutoPrincipalVerde.png"
  
+// - Miniatura
 
 import iconMasterCard from "../../assets/images/compra/iconMasterCard.svg";
 import iconPix from "../../assets/images/compra/iconPix.svg";
@@ -50,21 +70,54 @@ function Compra() {
 
   
   const IMAGENS_COR = {
-    Branco:   imgProdutoBranco,
-    Preto:    imgProdutoPreta,
-    Vermelho: imgProdutoVermelho,
-    Roxo:     imgProdutoRoxo,
-    Laranja:  imgProdutoLaranja,
-    Azul:     imgProdutoAzul,
-    Rosa:     imgProdutoRosa,
-    Verde:    imgProdutoVerde,
-  };
+
+    Branco: {
+    principal: imgProdutoBranco,
+    thumbs: [imgProdutoBranco1, imgProdutoBranco2, imgProdutoBranco3, imgProdutoBranco4],
+    },
+
+    Preto:   {
+    principal: imgProdutoPreta,
+    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5],
+  },
+
+    Vermelho: {
+    principal: imgProdutoVermelho,
+    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+  },
+  Roxo: {
+    principal: imgProdutoRoxo,
+    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+  },
+  Laranja: {
+    principal: imgProdutoLaranja,
+    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+  },
+  Azul: {
+    principal: imgProdutoAzul,
+    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+  },
+  Rosa: {
+    principal: imgProdutoRosa,
+    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+  },
+  Verde: {
+    principal: imgProdutoVerde,
+    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+  },
+};
 
   const THUMBNAILS = [imgCompra2, imgCompra3, imgCompra4, imgCompra5];
 
+  const [thumbnailsAtuais, setThumbnailsAtuais] = useState([imgCompra2, imgCompra3, imgCompra4, imgCompra5]);
+
+
+
   const selecionarCor = (cor) => {
     setCorSelecionada(cor);
-    setImagemPrincipal(IMAGENS_COR[cor]);
+    setImagemPrincipal(IMAGENS_COR[cor].principal);
+    setThumbnailsAtuais(IMAGENS_COR[cor].thumbs);
+
   };
 
   const aumentar = () => setQuantidade(q => q + 1);
@@ -140,15 +193,15 @@ function Compra() {
           </div>
 
           <div className="Produto2">
-            {THUMBNAILS.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`Vista ${i + 1} do produto`}
-                className={imagemPrincipal === src ? 'thumb-ativa' : ''}
-                onClick={() => { setImagemPrincipal(src); setCorSelecionada(null); }}
-              />
-            ))}
+              {thumbnailsAtuais.map((src, i) => (   // ✅ usa o state que muda com a cor
+                <img
+                  key={i}
+                  src={src}
+                  alt={`Vista ${i + 1} do produto`}
+                  className={imagemPrincipal === src ? 'thumb-ativa' : ''}
+                  onClick={() => { setImagemPrincipal(src); }}
+                />
+              ))}
           </div>
         </motion.div>
 
