@@ -49,17 +49,28 @@ import imgProdutoRoxo4 from "../../assets/images/compra/imgPrincipalRoxo4.png"
 import imgProdutoLaranja from "../../assets/images/compra/imgProdutoPrincipalLaranja.png"
 
 // - Miniatura
+import imgProdutoLaranja1 from "../../assets/images/compra/imgProdutoLaranja1.png"
+import imgProdutoLaranja2 from "../../assets/images/compra/imgProdutoLaranja2.png"
+import imgProdutoLaranja3 from "../../assets/images/compra/imgProdutoLaranja3.png"
+import imgProdutoLaranja4 from "../../assets/images/compra/imgProdutoLaranja4.png"
 
 //Azul
 import imgProdutoAzul from "../../assets/images/compra/imgProdutoPrincipalAzul.png"
 
 // - Miniatura
+import imgProdutoAzul1 from "../../assets/images/compra/imgProdutoAzul1.png"
+import imgProdutoAzul2 from "../../assets/images/compra/imgProdutoAzul2.png"
+import imgProdutoAzul3 from "../../assets/images/compra/imgProdutoAzul3.png"
+import imgProdutoAzul4 from "../../assets/images/compra/imgProdutoAzul4.png"
 
 //Rosa
 import imgProdutoRosa from "../../assets/images/compra/imgProdutoPrincipalRosa.png"
 
 // - Miniatura
-
+import imgProdutoRosa1 from "../../assets/images/compra/imgProdutoRosa1.png"
+import imgProdutoRosa2 from "../../assets/images/compra/imgProdutoRosa2.png"
+import imgProdutoRosa3 from "../../assets/images/compra/imgProdutoRosa3.png"
+import imgProdutoRosa4 from "../../assets/images/compra/imgProdutoRosa4.png"
 //Verde
 import imgProdutoVerde from "../../assets/images/compra/imgProdutoPrincipalVerde.png"
  
@@ -100,15 +111,15 @@ function Compra() {
   },
   Laranja: {
     principal: imgProdutoLaranja,
-    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+    thumbs: [imgProdutoLaranja1, imgProdutoLaranja2, imgProdutoLaranja3, imgProdutoLaranja4], // temporário
   },
   Azul: {
     principal: imgProdutoAzul,
-    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+    thumbs: [imgProdutoAzul1, imgProdutoAzul2, imgProdutoAzul3, imgProdutoAzul4], // temporário
   },
   Rosa: {
     principal: imgProdutoRosa,
-    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+    thumbs: [imgProdutoRosa1, imgProdutoRosa2, imgProdutoRosa3, imgProdutoRosa4], // temporário
   },
   Verde: {
     principal: imgProdutoVerde,
