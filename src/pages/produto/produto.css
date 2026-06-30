@@ -176,7 +176,7 @@
   align-items: flex-end;
   width: 100%;
   position: relative;
-  z-index: 10; 
+  z-index: 1; 
   margin-top: -40px; 
   padding-top: 0;
   gap: 8px;
@@ -646,6 +646,10 @@
     width: 90%;
   }
 
+  [vw] {
+    z-index: 99999 !important;
+  }
+
 }
 
 
@@ -654,8 +658,8 @@
 @media (max-width: 768px) {
 
   .produto-content {
-    min-height: 40vh !important;
-    height: 40vh !important;
+    min-height: 75vh !important;
+    height: 75vh !important;
     padding: 20px !important;
     overflow: hidden;
     justify-content: flex-start;
