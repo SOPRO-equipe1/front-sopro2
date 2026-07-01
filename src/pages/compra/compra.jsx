@@ -75,6 +75,10 @@ import imgProdutoRosa4 from "../../assets/images/compra/imgProdutoRosa4.png"
 import imgProdutoVerde from "../../assets/images/compra/imgProdutoPrincipalVerde.png"
  
 // - Miniatura
+import imgProdutoVerde1 from "../../assets/images/compra/imgProdutoVerde1.png"
+import imgProdutoVerde2 from "../../assets/images/compra/imgProdutoVerde2.png"
+import imgProdutoVerde3 from "../../assets/images/compra/imgProdutoVerde3.png"
+import imgProdutoVerde4 from "../../assets/images/compra/imgProdutoVerde4.png"
 
 import iconMasterCard from "../../assets/images/compra/iconMasterCard.svg";
 import iconPix from "../../assets/images/compra/iconPix.svg";
@@ -123,7 +127,7 @@ function Compra() {
   },
   Verde: {
     principal: imgProdutoVerde,
-    thumbs: [imgCompra2, imgCompra3, imgCompra4, imgCompra5], // temporário
+    thumbs: [imgProdutoVerde1, imgProdutoVerde2, imgProdutoVerde3, imgProdutoVerde4], // temporário
   },
 };
 

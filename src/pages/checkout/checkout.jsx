@@ -9,11 +9,43 @@ import caminhaoAzul from "../../assets/icons/caminhaoAzul.svg";
 import mais from "../../assets/icons/mais.svg";
 import menos from "../../assets/icons/menos.svg";
 import circuloSelecionado from "../../assets/icons/circuloSelecionadoLaranja.svg";
-import imgProduto from "../../assets/images/compra/imgPrincipalPreta.png";
+
+import imgProdutoPreta from "../../assets/images/compra/imgPrincipalPreta.png";
+import imgProdutoBranco from "../../assets/images/compra/imgPrincipalBranca.png";
+import imgProdutoVermelho from "../../assets/images/compra/imgPrincipalVermelha.png";
+import imgProdutoRoxo from "../../assets/images/compra/imgPrincipalRoxo.png";
+import imgProdutoLaranja from "../../assets/images/compra/imgProdutoPrincipalLaranja.png";
+import imgProdutoAzul from "../../assets/images/compra/imgProdutoPrincipalAzul.png";
+import imgProdutoRosa from "../../assets/images/compra/imgProdutoPrincipalRosa.png";
+import imgProdutoVerde from "../../assets/images/compra/imgProdutoPrincipalVerde.png";
+
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from 'framer-motion';
 
+const IMAGENS_PRODUTO = {
+  Preto: imgProdutoPreta,
+  Branco: imgProdutoBranco,
+  Vermelho: imgProdutoVermelho,
+  Roxo: imgProdutoRoxo,
+  Laranja: imgProdutoLaranja,
+  Azul: imgProdutoAzul,
+  Rosa: imgProdutoRosa,
+  Verde: imgProdutoVerde,
+};
+
 const Checkout = () => {
+
+  const [corProduto, setCorProduto] = useState("Preto");
+
+useEffect(() => {
+  const corSalva = localStorage.getItem('@Sopro:ultima_cor');
+  if (corSalva && IMAGENS_PRODUTO[corSalva]) {
+    setCorProduto(corSalva);
+  }
+}, []);
+
+const imgProduto = IMAGENS_PRODUTO[corProduto];
+
   const navigate = useNavigate();
   const [planoSelecionado, setPlanoSelecionado] = useState("dispositivo");
   const [quantidade, setQuantidade] = useState(1);
@@ -418,7 +450,7 @@ const Checkout = () => {
                   <span className="checkout-produto-nome">Dispositivo Sopro</span>
                   <span className="checkout-produto-preco">R$ 350,50</span>
                 </header>
-                <span className="checkout-produto-cor">Cor: Selecionada</span>
+                <span className="checkout-produto-cor">Cor: {corProduto} </span>
                 <div className="checkout-quantidade">
                   <button type="button" onClick={() => setQuantidade(Math.max(1, quantidade - 1))}><img src={menos} alt="Diminuir" /></button>
                   <span>{quantidade}</span>
