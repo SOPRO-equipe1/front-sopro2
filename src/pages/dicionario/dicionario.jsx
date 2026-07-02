@@ -4,12 +4,18 @@ import { motion } from 'framer-motion';
 
 
 // ── Chave da API (OpenRouter) ─────────────────────────────────────────
-// Crie sua chave em https://openrouter.ai e substitua abaixo:
-const API_KEY = 'COLE_SUA_CHAVE_AQUI';
+// A chave NUNCA fica escrita aqui no código — ela vem de uma variável
+// de ambiente, lida de um arquivo .env.local (que fica fora do Git,
+// listado no .gitignore). Veja o arquivo .env.local.example.
+const API_KEY = import.meta.env.VITE_OPENROUTER_KEY || '';
+
+// ── Tabela de códigos das frases (mesma para as 4 categorias) ─────────
+// Sopro curto = "." · Sopro longo = "-"
+const CODIGO_FRASE = ['.', '..', '...', '....', '-', '-.', '.-', '--'];
 
 // ── Duração máxima considerada sopro longo (ms) ───────────────────────
-// Mesmo valor do ESP32: tempoNavegacao = 1000ms
-const DURACAO_LONGO = 1000;
+// Mesmo valor do ESP32: tempoSoproLongo = 700ms
+const DURACAO_LONGO = 700;
 
 // ── Dados das categorias ──────────────────────────────────────────────
 const CATEGORIAS = [
@@ -88,8 +94,8 @@ export default function Dicionario() {
   // Navegação
   const [contagem, setContagem] = useState(0);         // sopros curtos parciais (CONTAGEM:X)
   const [categoriaAtiva, setCategoriaAtiva] = useState(null);
-  const [fraseAtual, setFraseAtual] = useState(null);  // frase sendo navegada (AVANCAR_FRASE)
   const [fraseSelecionada, setFraseSelecionada] = useState(null); // confirmada
+  const [sequenciaFrase, setSequenciaFrase] = useState(''); // código Morse sendo digitado (SEQFRASE:X)
 
   // Barra de intensidade
   const [duracao, setDuracao] = useState(0);           // ms do sopro atual
@@ -100,7 +106,6 @@ export default function Dicionario() {
   const [sugestoes, setSugestoes] = useState([]);
   const [iaCarregando, setIaCarregando] = useState(false);
   const [indiceSelecao, setIndiceSelecao] = useState(-1);
-  const timerConfirmarRef = useRef(null);
 
   // Histórico
   const [historico, setHistorico] = useState([
@@ -112,12 +117,10 @@ export default function Dicionario() {
 
   const portRef = useRef(null);
   const categoriaAtivaRef = useRef(null);
-  const fraseAtualRef = useRef(null);
   const sugestoesRef = useRef([]);
   const indiceSelecaoRef = useRef(-1);
 
   useEffect(() => { categoriaAtivaRef.current = categoriaAtiva; }, [categoriaAtiva]);
-  useEffect(() => { fraseAtualRef.current = fraseAtual; }, [fraseAtual]);
   useEffect(() => { sugestoesRef.current = sugestoes; }, [sugestoes]);
   useEffect(() => { indiceSelecaoRef.current = indiceSelecao; }, [indiceSelecao]);
 
@@ -133,9 +136,7 @@ export default function Dicionario() {
 
   // ── Confirmar frase selecionada ─────────────────────────────────────
   const confirmarFrase = useCallback((frase) => {
-    clearTimeout(timerConfirmarRef.current);
     setFraseSelecionada(frase);
-    setFraseAtual(null);
     falarFrase(frase.texto);
     setHistorico((prev) => [frase, ...prev.slice(0, 3)]);
     setTimeout(() => {
@@ -148,7 +149,7 @@ export default function Dicionario() {
 
   // ── IA ──────────────────────────────────────────────────────────────
   const buscarSugestoesIA = useCallback(async (categoria) => {
-    if (!API_KEY || API_KEY === 'COLE_SUA_CHAVE_AQUI') return;
+    if (!API_KEY) return;
     setIaCarregando(true);
     setSugestoes([]);
     try {
@@ -210,37 +211,40 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
       return;
     }
 
-    // CATEGORIA:X — ESP32 confirmou a categoria após janela de 1200ms
+    // CATEGORIA:X — ESP32 confirmou a categoria após janela de 1500ms
     if (linha.startsWith('CATEGORIA:')) {
       const id = parseInt(linha.split('CATEGORIA:')[1]);
       const cat = CATEGORIAS.find((c) => c.id === id);
       if (cat) {
         setCategoriaAtiva(cat);
         setContagem(0);
-        setFraseAtual(cat.frases[0]); // começa na primeira frase
+        setSequenciaFrase('');
         buscarSugestoesIA(cat.nome);
       }
       return;
     }
 
-    // AVANCAR_FRASE — sopro longo, avança para próxima frase
-    if (linha === 'AVANCAR_FRASE') {
+    // SEQFRASE:X — feedback ao vivo do código Morse sendo digitado (. e -)
+    if (linha.startsWith('SEQFRASE:')) {
+      const seq = linha.split('SEQFRASE:')[1];
+      setSequenciaFrase(seq);
+      return;
+    }
+
+    // FRASE:N — código decodificado no ESP32, seleciona e confirma direto
+    if (linha.startsWith('FRASE:')) {
+      const idx = parseInt(linha.split('FRASE:')[1]);
       const cat = categoriaAtivaRef.current;
+      setSequenciaFrase('');
       if (!cat) return;
+      const frase = cat.frases[idx - 1];
+      if (frase) confirmarFrase(frase);
+      return;
+    }
 
-      setFraseAtual((prev) => {
-        const idx = prev ? cat.frases.findIndex((f) => f.id === prev.id) : -1;
-        const prox = cat.frases[(idx + 1) % cat.frases.length];
-        fraseAtualRef.current = prox;
-        return prox;
-      });
-
-      // 3s de silêncio após AVANCAR_FRASE = confirma
-      clearTimeout(timerConfirmarRef.current);
-      timerConfirmarRef.current = setTimeout(() => {
-        const frase = fraseAtualRef.current;
-        if (frase) confirmarFrase(frase);
-      }, 3000);
+    // FRASE_INVALIDA:X — código não reconhecido, só limpa a sequência
+    if (linha.startsWith('FRASE_INVALIDA')) {
+      setSequenciaFrase('');
       return;
     }
   }, [buscarSugestoesIA, confirmarFrase]);
@@ -258,6 +262,17 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
       setDispositivo(true);
       setStatusSerial('conectado');
       console.log('[SOPRO] porta aberta, aguardando dados...');
+
+      // Alguns ESP32 (CP2102/CH340) usam DTR/RTS pro circuito de
+      // auto-reset. O Web Serial pode deixar essas linhas num estado
+      // que prende o chip no bootloader (sem rodar o sketch). Forçamos
+      // as duas pra "false" pra garantir que ele rode normalmente.
+      try {
+        await port.setSignals({ dataTerminalReady: false, requestToSend: false });
+        console.log('[SOPRO] DTR/RTS ajustados (false/false)');
+      } catch (sigErr) {
+        console.warn('[SOPRO] não foi possível ajustar DTR/RTS:', sigErr);
+      }
 
       const decoder = new TextDecoderStream();
       port.readable.pipeTo(decoder.writable).catch((err) => {
@@ -300,29 +315,54 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
   };
 
   // ── Simulação teclado (desenvolvimento sem hardware) ────────────────
+  // Espelha a máquina de estados do ESP32: enquanto nenhuma categoria
+  // está ativa, Espaço/L contam sopros pra escolher a categoria (1-4).
+  // Depois que a categoria é escolhida, Espaço/L viram os símbolos
+  // "." e "-" do código Morse que seleciona a frase direto.
   useEffect(() => {
     if (!dispositivo) return;
 
     let contagemSim = 0;
+    let sequenciaSim = '';
     let timerCategoria = null;
+    let timerFrase = null;
+
+    const emitirSopro = (curto) => {
+      processarLinha(curto ? 'DURACAO:300' : 'DURACAO:900');
+
+      if (!categoriaAtivaRef.current) {
+        // Nível categoria: só sopros curtos contam (1-4)
+        if (curto) {
+          contagemSim++;
+          processarLinha(`CONTAGEM:${contagemSim}`);
+          clearTimeout(timerCategoria);
+          timerCategoria = setTimeout(() => {
+            processarLinha(`CATEGORIA:${contagemSim}`);
+            contagemSim = 0;
+          }, 1500);
+        }
+      } else {
+        // Nível frase: acumula código Morse (. e -)
+        sequenciaSim += curto ? '.' : '-';
+        processarLinha(`SEQFRASE:${sequenciaSim}`);
+        clearTimeout(timerFrase);
+        timerFrase = setTimeout(() => {
+          const idx = CODIGO_FRASE.indexOf(sequenciaSim) + 1;
+          processarLinha(idx > 0 ? `FRASE:${idx}` : `FRASE_INVALIDA:${sequenciaSim}`);
+          sequenciaSim = '';
+        }, 1500);
+      }
+    };
 
     const handleKey = (e) => {
-      // Espaço = sopro curto (simula DURACAO:300 + CONTAGEM + CATEGORIA)
+      // Espaço = sopro curto (.)
       if (e.code === 'Space') {
         e.preventDefault();
-        contagemSim++;
-        processarLinha('DURACAO:300');
-        processarLinha(`CONTAGEM:${contagemSim}`);
-        clearTimeout(timerCategoria);
-        timerCategoria = setTimeout(() => {
-          processarLinha(`CATEGORIA:${contagemSim}`);
-          contagemSim = 0;
-        }, 1200);
+        emitirSopro(true);
       }
-      // L = sopro longo (simula DURACAO:1200 + AVANCAR_FRASE)
+      // L = sopro longo (-)
       if (e.code === 'KeyL') {
-        processarLinha('DURACAO:1200');
-        processarLinha('AVANCAR_FRASE');
+        emitirSopro(false);
       }
     };
 
@@ -330,16 +370,16 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
     return () => {
       window.removeEventListener('keydown', handleKey);
       clearTimeout(timerCategoria);
+      clearTimeout(timerFrase);
     };
   }, [dispositivo, processarLinha]);
 
   const voltarInicio = () => {
     setCategoriaAtiva(null);
-    setFraseAtual(null);
+    setSequenciaFrase('');
     setContagem(0);
     setSugestoes([]);
     setIndiceSelecao(-1);
-    clearTimeout(timerConfirmarRef.current);
   };
 
   // ── Barra de intensidade ─────────────────────────────────────────────
@@ -382,9 +422,9 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
           <div className="dic-sopro-barra">
             <span className="dic-sopro-texto">
               {barraAtiva
-                ? duracao >= DURACAO_LONGO ? '💨 Sopro longo...' : '💨 Sopro detectado'
+                ? duracao >= DURACAO_LONGO ? '💨 Sopro longo (-)' : '💨 Sopro curto (.)'
                 : categoriaAtiva
-                  ? 'Sopre para navegar frases'
+                  ? 'Sopre o código da frase'
                   : 'Aguardando sopro'}
             </span>
             <div className="dic-sopro-progress">
@@ -402,28 +442,37 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
             )}
           </div>
 
-          {/* Dots — mostram contagem parcial de sopros curtos */}
+          {/* Dots (nível categoria) OU código sendo digitado (nível frase) */}
           <div className="dic-dots-row">
-            <div className="dic-dots">
-              {Array.from({ length: totalDots }).map((_, i) => (
-                <span key={i} className="dic-dot" style={{
-                  backgroundColor: i < contagem ? corAtiva : 'transparent',
-                  borderColor: i < contagem ? corAtiva : '#d1d5db',
-                }} />
-              ))}
-            </div>
-            <span className="dic-dots-label">
-              {categoriaAtiva ? 'Sopre para navegar' : 'Sopre para selecionar'}
-            </span>
+            {!categoriaAtiva ? (
+              <>
+                <div className="dic-dots">
+                  {Array.from({ length: totalDots }).map((_, i) => (
+                    <span key={i} className="dic-dot" style={{
+                      backgroundColor: i < contagem ? corAtiva : 'transparent',
+                      borderColor: i < contagem ? corAtiva : '#d1d5db',
+                    }} />
+                  ))}
+                </div>
+                <span className="dic-dots-label">Sopre para selecionar</span>
+              </>
+            ) : (
+              <>
+                <span className="dic-dots-label" style={{ marginLeft: 0, fontFamily: 'monospace', fontSize: 20, color: corAtiva }}>
+                  {sequenciaFrase || '···'}
+                </span>
+                <span className="dic-dots-label">Código da frase</span>
+              </>
+            )}
           </div>
 
-          {/* Frase sendo navegada (highlight antes de confirmar) */}
-          {fraseAtual && !fraseSelecionada && (
+          {/* Sequência sendo digitada — aguardando pausa pra decodificar */}
+          {categoriaAtiva && sequenciaFrase && !fraseSelecionada && (
             <div className="dic-navegando" style={{ borderColor: corAtiva }}>
-              <span className="dic-navegando-icone">{fraseAtual.icone}</span>
-              <span className="dic-navegando-texto">{fraseAtual.texto}</span>
+              <span className="dic-navegando-icone">📡</span>
+              <span className="dic-navegando-texto">Digitando código: {sequenciaFrase}</span>
               <span className="dic-navegando-tag" style={{ color: corAtiva }}>
-                ⏳ Confirma em 3s...
+                ⏳ Pausa confirma
               </span>
             </div>
           )}
@@ -449,7 +498,7 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
               {CATEGORIAS.map((cat) => (
                 <button key={cat.id} className="dic-categoria-card"
                   style={{ '--cor-cat': cat.cor }}
-                  onClick={() => { setCategoriaAtiva(cat); setFraseAtual(cat.frases[0]); buscarSugestoesIA(cat.nome); }}>
+                  onClick={() => { setCategoriaAtiva(cat); setSequenciaFrase(''); buscarSugestoesIA(cat.nome); }}>
                   <span className="dic-categoria-dot" style={{ borderColor: '#d1d5db' }} />
                   <span className="dic-categoria-icone">{cat.icone}</span>
                   <span className="dic-categoria-nome">{cat.id} - {cat.nome}</span>
@@ -474,8 +523,9 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
                 <button className="dic-voltar" onClick={voltarInicio}>← Voltar</button>
               </header>
 
-              {categoriaAtiva.frases.map((frase) => {
-                const isAtiva = fraseAtual?.id === frase.id;
+              {categoriaAtiva.frases.map((frase, i) => {
+                const codigo = CODIGO_FRASE[i];
+                const isAtiva = sequenciaFrase && codigo.startsWith(sequenciaFrase);
                 return (
                   <button key={frase.id} className={`dic-frase-item ${isAtiva ? 'dic-frase-item--navegando' : ''}`}
                     style={isAtiva ? { borderColor: categoriaAtiva.cor, background: '#f8faff' } : {}}
@@ -483,6 +533,7 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
                     <span className="dic-frase-num">{frase.id} -</span>
                     <span className="dic-frase-icone">{frase.icone}</span>
                     <span className="dic-frase-texto">{frase.texto}</span>
+                    <span className="dic-sugestao-num" style={{ fontSize: 13 }}>{codigo}</span>
                     <span className="dic-frase-dot" style={{
                       backgroundColor: isAtiva ? categoriaAtiva.cor : 'transparent',
                       borderColor: isAtiva ? categoriaAtiva.cor : '#d1d5db',
@@ -546,8 +597,18 @@ Responda APENAS com JSON válido, sem explicação, sem markdown:
             {categoriaAtiva ? (
               <>
                 <p className="dic-card-texto">
-                  Sopre longo para avançar entre as frases. Pare por 3 segundos para confirmar a frase destacada.
+                  Sopre o código da frase (curto = <strong>.</strong> · longo = <strong>−</strong>, segurando um pouco mais). Uma pausa confirma automaticamente.
                 </p>
+                <ul className="dic-nav-lista">
+                  <li><strong>. — frase 1</strong></li>
+                  <li><strong>.. — frase 2</strong></li>
+                  <li><strong>... — frase 3</strong></li>
+                  <li><strong>.... — frase 4</strong></li>
+                  <li><strong>− — frase 5</strong></li>
+                  <li><strong>−. — frase 6</strong></li>
+                  <li><strong>.− — frase 7</strong></li>
+                  <li><strong>−− — frase 8</strong></li>
+                </ul>
               </>
             ) : (
               <>
