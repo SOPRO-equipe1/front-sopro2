@@ -124,6 +124,7 @@ export default function Dicionario() {
   // ── Processar linha serial ──────────────────────────────────────────
   const processarLinha = useCallback((linha) => {
     if (!linha) return;
+    console.log('[SOPRO] linha recebida:', JSON.stringify(linha));
 
     // DURACAO:X — mostra intensidade na barra
     if (linha.startsWith('DURACAO:')) {
@@ -207,16 +208,20 @@ export default function Dicionario() {
       portRef.current = port;
       setDispositivo(true);
       setStatusSerial('conectado');
+      console.log('[SOPRO] porta aberta, aguardando dados...');
 
       const decoder = new TextDecoderStream();
-      port.readable.pipeTo(decoder.writable);
+      const pipePromise = port.readable.pipeTo(decoder.writable).catch((err) => {
+        console.error('[SOPRO] erro no pipeTo (readable->decoder):', err);
+      });
       const reader = decoder.readable.getReader();
       let buffer = '';
 
       while (true) {
         const { value, done } = await reader.read();
-        if (done) break;
+        if (done) { console.log('[SOPRO] leitura encerrada (done=true)'); break; }
         if (!value) continue;
+        console.log('[SOPRO] chunk bruto:', JSON.stringify(value));
         buffer += value;
         const linhas = buffer.split('\n');
         for (let i = 0; i < linhas.length - 1; i++) {
@@ -225,6 +230,7 @@ export default function Dicionario() {
         buffer = linhas[linhas.length - 1];
       }
     } catch (e) {
+      console.error('[SOPRO] erro na conexão serial:', e);
       if (e.name !== 'NotFoundError') {
         setStatusSerial('erro');
         setDispositivo(false);
