@@ -121,6 +121,70 @@ export default function Dicionario() {
   useEffect(() => { sugestoesRef.current = sugestoes; }, [sugestoes]);
   useEffect(() => { indiceSelecaoRef.current = indiceSelecao; }, [indiceSelecao]);
 
+  // ── Helpers (declarados antes de quem os usa) ────────────────────────
+  const falarFrase = useCallback((texto) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(texto);
+      u.lang = 'pt-BR';
+      window.speechSynthesis.speak(u);
+    }
+  }, []);
+
+  // ── Confirmar frase selecionada ─────────────────────────────────────
+  const confirmarFrase = useCallback((frase) => {
+    clearTimeout(timerConfirmarRef.current);
+    setFraseSelecionada(frase);
+    setFraseAtual(null);
+    falarFrase(frase.texto);
+    setHistorico((prev) => [frase, ...prev.slice(0, 3)]);
+    setTimeout(() => {
+      setFraseSelecionada(null);
+      setCategoriaAtiva(null);
+      setSugestoes([]);
+      setIndiceSelecao(-1);
+    }, 3000);
+  }, [falarFrase]);
+
+  // ── IA ──────────────────────────────────────────────────────────────
+  const buscarSugestoesIA = useCallback(async (categoria) => {
+    if (!API_KEY || API_KEY === 'COLE_SUA_CHAVE_AQUI') return;
+    setIaCarregando(true);
+    setSugestoes([]);
+    try {
+      const prompt = `Você é um assistente de comunicação aumentativa para pessoas com paralisia, ELA ou AVC.
+O usuário selecionou a categoria: "${categoria}".
+Gere exatamente 4 frases curtas e úteis dentro dessa categoria, em português brasileiro.
+Cada frase deve ter no máximo 8 palavras.
+Responda APENAS com JSON válido, sem explicação, sem markdown:
+{"sugestoes": ["frase1", "frase2", "frase3", "frase4"]}`;
+
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + API_KEY,
+          'HTTP-Referer': window.location.href,
+          'X-Title': 'SOPRO - Dicionário',
+        },
+        body: JSON.stringify({
+          model: 'openrouter/free',
+          max_tokens: 300,
+          messages: [{ role: 'user', content: prompt }],
+        }),
+      });
+      const data = await response.json();
+      const texto = data.choices?.[0]?.message?.content || '{}';
+      const clean = texto.replace(/```json|```/g, '').trim();
+      const parsed = JSON.parse(clean);
+      setSugestoes(parsed.sugestoes || []);
+    } catch (err) {
+      console.error('Erro IA:', err);
+    } finally {
+      setIaCarregando(false);
+    }
+  }, []);
+
   // ── Processar linha serial ──────────────────────────────────────────
   const processarLinha = useCallback((linha) => {
     if (!linha) return;
@@ -179,22 +243,7 @@ export default function Dicionario() {
       }, 3000);
       return;
     }
-  }, []);
-
-  // ── Confirmar frase selecionada ─────────────────────────────────────
-  const confirmarFrase = (frase) => {
-    clearTimeout(timerConfirmarRef.current);
-    setFraseSelecionada(frase);
-    setFraseAtual(null);
-    falarFrase(frase.texto);
-    setHistorico((prev) => [frase, ...prev.slice(0, 3)]);
-    setTimeout(() => {
-      setFraseSelecionada(null);
-      setCategoriaAtiva(null);
-      setSugestoes([]);
-      setIndiceSelecao(-1);
-    }, 3000);
-  };
+  }, [buscarSugestoesIA, confirmarFrase]);
 
   // ── Web Serial ──────────────────────────────────────────────────────
   const conectarUSB = async () => {
@@ -211,7 +260,7 @@ export default function Dicionario() {
       console.log('[SOPRO] porta aberta, aguardando dados...');
 
       const decoder = new TextDecoderStream();
-      const pipePromise = port.readable.pipeTo(decoder.writable).catch((err) => {
+      port.readable.pipeTo(decoder.writable).catch((err) => {
         console.error('[SOPRO] erro no pipeTo (readable->decoder):', err);
       });
       const reader = decoder.readable.getReader();
@@ -239,7 +288,11 @@ export default function Dicionario() {
   };
 
   const desconectarUSB = async () => {
-    try { if (portRef.current) await portRef.current.close(); } catch (_) {}
+    try {
+      if (portRef.current) await portRef.current.close();
+    } catch {
+      // porta já pode estar fechada — ignora
+    }
     portRef.current = null;
     setDispositivo(false);
     setStatusSerial('desconectado');
@@ -279,55 +332,6 @@ export default function Dicionario() {
       clearTimeout(timerCategoria);
     };
   }, [dispositivo, processarLinha]);
-
-  // ── IA ──────────────────────────────────────────────────────────────
-  const buscarSugestoesIA = async (categoria) => {
-    if (!API_KEY || API_KEY === 'COLE_SUA_CHAVE_AQUI') return;
-    setIaCarregando(true);
-    setSugestoes([]);
-    try {
-      const prompt = `Você é um assistente de comunicação aumentativa para pessoas com paralisia, ELA ou AVC.
-O usuário selecionou a categoria: "${categoria}".
-Gere exatamente 4 frases curtas e úteis dentro dessa categoria, em português brasileiro.
-Cada frase deve ter no máximo 8 palavras.
-Responda APENAS com JSON válido, sem explicação, sem markdown:
-{"sugestoes": ["frase1", "frase2", "frase3", "frase4"]}`;
-
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + API_KEY,
-          'HTTP-Referer': window.location.href,
-          'X-Title': 'SOPRO - Dicionário',
-        },
-        body: JSON.stringify({
-          model: 'openrouter/free',
-          max_tokens: 300,
-          messages: [{ role: 'user', content: prompt }],
-        }),
-      });
-      const data = await response.json();
-      const texto = data.choices?.[0]?.message?.content || '{}';
-      const clean = texto.replace(/```json|```/g, '').trim();
-      const parsed = JSON.parse(clean);
-      setSugestoes(parsed.sugestoes || []);
-    } catch (err) {
-      console.error('Erro IA:', err);
-    } finally {
-      setIaCarregando(false);
-    }
-  };
-
-  // ── Helpers ──────────────────────────────────────────────────────────
-  const falarFrase = (texto) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(texto);
-      u.lang = 'pt-BR';
-      window.speechSynthesis.speak(u);
-    }
-  };
 
   const voltarInicio = () => {
     setCategoriaAtiva(null);
