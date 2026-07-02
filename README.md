@@ -24,27 +24,53 @@
   <summary>Jornada do usuário</summary>
     
 ```mermaid
-graph LR
-    %% Definição de Estilos Avançados
+graph TD
+    %% Definição de Estilos Avançados (Paleta Original Mantida)
     classDef azul fill:#1A53FF,stroke:#FAFCFF,color:#FAFCFF,stroke-width:3px,font-weight:bold;
     classDef roxo fill:#9333EA,stroke:#FAFCFF,color:#FAFCFF,stroke-width:3px,font-weight:bold;
     classDef verde fill:#30BD30,stroke:#1D252A,color:#1D252A,stroke-width:3px,font-weight:bold;
     classDef laranja fill:#F97316,stroke:#1D252A,color:#1D252A,stroke-width:3px,font-weight:bold;
     classDef preto fill:#1D252A,stroke:#FAFCFF,color:#FAFCFF,stroke-width:3px,font-weight:bold;
     classDef branco fill:#FAFCFF,stroke:#1D252A,color:#1D252A,stroke-width:3px,font-weight:bold;
+    classDef cinza fill:#4B5563,stroke:#e5e7eb,color:#fff,stroke-width:2px,font-weight:bold;
 
-    %% Nós com Ícones e Texto
-    LP["🏠 Landing Page"] 
-    PP["📦 Produto"] 
-    PC["🛒 Comprar"] 
-    LC["🔐 Login / Cadastro"] 
-    CH["💳 Checkout"] 
-    CC["✅ Conclusão"]
+    %% Configuração de Links (Linhas) - Mantendo cinza neutro
+    linkStyle default stroke:#64748b,stroke-width:2px,font-family:Arial;
 
-    %% Fluxo com setas estilizadas
-    LP ==> PP ==> PC ==> LC ==> CH ==> CC
+    %% --- CAMADA DE DESCOBERTA ---
+    subgraph Camada_Descoberta ["🔍 1. Descoberta"]
+        LP["🏠 Landing Page / Home"]
+        PP["📦 Página do Produto"]
+    end
 
-    %% Aplicação das Cores
+    %% --- CAMADA DE DECISÃO ---
+    subgraph Camada_Decisao ["🎯 2. Decisão"]
+        PC["🛒 Adicionar ao Carrinho"]
+        LC["🔐 Autenticação <br> (Login / Cadastro)"]
+    end
+
+    %% --- CAMADA DE CONVERSÃO ---
+    subgraph Camada_Conversao ["💳 3. Conversão"]
+        CH["💳 Checkout de Pagamento"]
+        CC["✅ Confirmação de Compra"]
+    end
+
+    %% --- FLUXO E LÓGICA DO SISTEMA ---
+    LP ==> |"Navega até"| PP
+    PP ==> |"Clique em Comprar"| PC
+    
+    %% Validação de Login (Fluxo condicional)
+    PC ==> |"Não autenticado"| LC
+    LC ==> |"Sucesso"| CH
+    
+    PC -.-> |"Já autenticado"| CH
+    
+    CH ==> |"Pagamento Aprovado"| CC
+    
+    %% Fluxo de Abandono/Retorno
+    CH -.-> |"Abandono / Erro"| LC
+
+    %% Aplicação das Classes de Estilo Originais
     class LP azul;
     class PP roxo;
     class PC verde;
@@ -52,15 +78,10 @@ graph LR
     class CH preto;
     class CC branco;
 
-    %% Subgráficos para organização visual (opcional)
-    subgraph Jornada do Cliente
-    LP
-    PP
-    PC
-    LC
-    CH
-    CC
-    end
+    %% Ajustes visuais dos subgráficos (fundo neutro)
+    style Camada_Descoberta fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,stroke-dasharray: 5 5;
+    style Camada_Decisao fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,stroke-dasharray: 5 5;
+    style Camada_Conversao fill:#f8fafc,stroke:#cbd5e1,stroke-width:1px,stroke-dasharray: 5 5;
 ```
 
 </details>
