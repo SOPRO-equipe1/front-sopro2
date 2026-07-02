@@ -21,7 +21,7 @@
 *A experiência de quem utiliza o SOPRO, do primeiro contato à comunicação real.*
 
 <details>
-  <summary>Jornada do usuário</summary>
+  <summary>Jornada do usuário (Veja no pc)</summary>
     
 ```mermaid
 graph TD
